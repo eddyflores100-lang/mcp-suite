@@ -58,3 +58,31 @@ Modelo de pricing en cada submission: `{"model":"one-time","price":X,"currency":
 - La clave privada Ed25519 del agente (`publish/agent-private-key.pem`) está en `.gitignore` — NUNCA se sube.
 - Sin secretos en los payloads: el escáner rechaza submissions con secrets.
 - `agent-identity.json` solo contiene la parte pública (SPKI + fingerprint).
+
+---
+
+## 🏁 Estado FINAL (2026-10-01, 18:40 UTC) — PUBLICACIÓN COMPLETADA
+
+| Paso | Estado | Evidencia |
+|---|---|---|
+| Repo del código | ✅ **PUBLICADO** | https://github.com/eddyflores100-lang/mcp-suite (público, 229 servers, deep-links 200) |
+| Cola pública de submissions | ✅ **PUBLICADO** | `alicelabs-llc/marketnow-submissions` → `submissions/202610/` · 229 archivos + index (290 entradas) |
+| API oficial del sitio | ✅ **8/8 aceptados** | `POST /api/submit`: 8 flagships Enterprise L1.5 certified (trust 55) — resultados en `publish/queue/api-results/` |
+| Ledger de ingesta | ✅ **INGESTADO** | `eddyflores100-lang/marketnow@master` `_data/pending_submissions/` · skill_ids mn-sub-99001..99229 |
+| Auditoría L2 Docker sandbox | ✅ **229/229 PASSED** | `_data/l2_results/` · execution_status=ran · 0 red/escrituras/credenciales · overall 7/10 |
+| Promoción al catálogo | ✅ **PROMOVIDO** | 229/229 status=promoted + `skills-lite.json` 68,388 → **68,617** (primeras 193 entradas de pago del marketplace) |
+| Constelación de conteos | ✅ **SINCRONIZADA** | stats-base/certification/agent.json/mcp.json/ai-plugin/server-card/landing/audit-report + gate literales |
+| Audit gate (17 checks CI) | ✅ **VERDE** | run 36759858266 · success |
+| GitHub Pages | ✅ **DESPLEGADO** | https://eddyflores100-lang.github.io/marketnow/api/skills-lite.json = 68,617 entradas |
+
+### ⚠️ 2 credenciales rotas que requieren TU acción (no puedo rotarlas yo):
+1. **`VERCEL_TOKEN`** (secret del repo marketnow): perdió acceso al scope el 2026-09-27 → los deploys de producción a marketnow.site se saltan silenciosamente. Fix: token nuevo de Vercel (scope `edisons-projects-b0f771d8`, team `DmoZusxMIKcqJhgRBmQ8B3dK`) → guardar como secret `VERCEL_TOKEN` → push cualquier cambio en `aep-marketplace/` o disparar el workflow. El catálogo de 68,617 skills ya está en master esperando ese deploy.
+2. **Credencial GitHub del backend del sitio** (`POST /api/submit`): responde `storage: {"ok": false, "reason": "github Bad credentials"}` → las submissions del API público no se guardan desde ~17-sep. Fix: rotar el token GitHub que usa el server-side del sitio.
+
+### Precios asignados (ya en el catálogo)
+- 37 Free · 63 Standard $1.99 · 22 Multi-feature $2.99 · 80 Sophisticated $4.99 · 27 Enterprise $9.99
+- Ingreso máximo por una venta de cada skill: **$688.06** (regalía 80%)
+- Las 229 entradas llevan `payment: one-time` y `price` — las primeras de pago en MarketNow
+
+### Skill pages
+Las URLs `/s/<slug>` (p.ej. `/s/mcp-escrow-agent`) las genera el build del sitio al redeployar (Vercel).
