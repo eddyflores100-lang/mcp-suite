@@ -1,0 +1,2297 @@
+{
+  "generated_at": "2026-09-30T17:26:15.094Z",
+  "total": 229,
+  "repo": "https://github.com/eddyflores100-lang/mcp-suite",
+  "entries": [
+    {
+      "server": "marketnow-agent-card",
+      "skill_id": "mn-sub-99001",
+      "submission_id": "sub_226007c10a62",
+      "name": "mcp-marketnow-agent-card",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-agent-card",
+      "tools": 5
+    },
+    {
+      "server": "marketnow-search",
+      "skill_id": "mn-sub-99002",
+      "submission_id": "sub_3d97e6a848a3",
+      "name": "mcp-marketnow-search",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-search",
+      "tools": 5
+    },
+    {
+      "server": "marketnow-trust",
+      "skill_id": "mn-sub-99003",
+      "submission_id": "sub_d782aee9affe",
+      "name": "mcp-marketnow-trust",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-trust",
+      "tools": 5
+    },
+    {
+      "server": "marketnow-install-planner",
+      "skill_id": "mn-sub-99004",
+      "submission_id": "sub_5f1270d89952",
+      "name": "mcp-marketnow-install-planner",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-install-planner",
+      "tools": 4
+    },
+    {
+      "server": "marketnow-bundles",
+      "skill_id": "mn-sub-99005",
+      "submission_id": "sub_e25fa0ef3142",
+      "name": "mcp-marketnow-bundles",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-bundles",
+      "tools": 4
+    },
+    {
+      "server": "marketnow-policies",
+      "skill_id": "mn-sub-99006",
+      "submission_id": "sub_476c7a948b1f",
+      "name": "mcp-marketnow-policies",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-policies",
+      "tools": 4
+    },
+    {
+      "server": "marketnow-certification",
+      "skill_id": "mn-sub-99007",
+      "submission_id": "sub_842633a31626",
+      "name": "mcp-marketnow-certification",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-certification",
+      "tools": 4
+    },
+    {
+      "server": "marketnow-diff-monitor",
+      "skill_id": "mn-sub-99008",
+      "submission_id": "sub_4a32a0aa6715",
+      "name": "mcp-marketnow-diff-monitor",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-diff-monitor",
+      "tools": 4
+    },
+    {
+      "server": "marketnow-recommend",
+      "skill_id": "mn-sub-99009",
+      "submission_id": "sub_afe8909a7000",
+      "name": "mcp-marketnow-recommend",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-recommend",
+      "tools": 4
+    },
+    {
+      "server": "marketnow-quickstart",
+      "skill_id": "mn-sub-99010",
+      "submission_id": "sub_b6de934ee151",
+      "name": "mcp-marketnow-quickstart",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-quickstart",
+      "tools": 4
+    },
+    {
+      "server": "ed25519-toolbox",
+      "skill_id": "mn-sub-99011",
+      "submission_id": "sub_be94f91f613a",
+      "name": "mcp-ed25519-toolbox",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-ed25519-toolbox",
+      "tools": 5
+    },
+    {
+      "server": "jcs-canonicalizer",
+      "skill_id": "mn-sub-99012",
+      "submission_id": "sub_7ce4973f664e",
+      "name": "mcp-jcs-canonicalizer",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-jcs-canonicalizer",
+      "tools": 4
+    },
+    {
+      "server": "atc-agent-trust-card",
+      "skill_id": "mn-sub-99013",
+      "submission_id": "sub_425c5385d690",
+      "name": "mcp-atc-agent-trust-card",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-atc-agent-trust-card",
+      "tools": 4
+    },
+    {
+      "server": "uts-trust-adapter",
+      "skill_id": "mn-sub-99014",
+      "submission_id": "sub_d53e3baca81a",
+      "name": "mcp-uts-trust-adapter",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-uts-trust-adapter",
+      "tools": 4
+    },
+    {
+      "server": "verification-pipeline",
+      "skill_id": "mn-sub-99015",
+      "submission_id": "sub_5f0861cf6dc1",
+      "name": "mcp-verification-pipeline",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-verification-pipeline",
+      "tools": 3
+    },
+    {
+      "server": "x402-payments",
+      "skill_id": "mn-sub-99016",
+      "submission_id": "sub_be7d1dd46f50",
+      "name": "mcp-x402-payments",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-x402-payments",
+      "tools": 4
+    },
+    {
+      "server": "ap2-mandates",
+      "skill_id": "mn-sub-99017",
+      "submission_id": "sub_f4afad57bc31",
+      "name": "mcp-ap2-mandates",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-ap2-mandates",
+      "tools": 5
+    },
+    {
+      "server": "a2a-agent-card",
+      "skill_id": "mn-sub-99018",
+      "submission_id": "sub_00605d974b72",
+      "name": "mcp-a2a-agent-card",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-a2a-agent-card",
+      "tools": 4
+    },
+    {
+      "server": "w3c-vc-kit",
+      "skill_id": "mn-sub-99019",
+      "submission_id": "sub_a743ace74f74",
+      "name": "mcp-w3c-vc-kit",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-w3c-vc-kit",
+      "tools": 3
+    },
+    {
+      "server": "trust-gateway",
+      "skill_id": "mn-sub-99020",
+      "submission_id": "sub_5e43126e4b9a",
+      "name": "mcp-suite-trust-gateway",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-trust-gateway",
+      "tools": 4
+    },
+    {
+      "server": "sentinel-lite",
+      "skill_id": "mn-sub-99021",
+      "submission_id": "sub_d7c48b7730cc",
+      "name": "mcp-sentinel-lite",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-sentinel-lite",
+      "tools": 4
+    },
+    {
+      "server": "install-risk",
+      "skill_id": "mn-sub-99022",
+      "submission_id": "sub_a8614a48ff9e",
+      "name": "mcp-install-risk",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-install-risk",
+      "tools": 3
+    },
+    {
+      "server": "runtime-interceptor",
+      "skill_id": "mn-sub-99023",
+      "submission_id": "sub_ea5217619680",
+      "name": "mcp-runtime-interceptor",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-runtime-interceptor",
+      "tools": 4
+    },
+    {
+      "server": "owasp-mcp-matrix",
+      "skill_id": "mn-sub-99024",
+      "submission_id": "sub_446148f8cbc6",
+      "name": "mcp-owasp-mcp-matrix",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-owasp-mcp-matrix",
+      "tools": 3
+    },
+    {
+      "server": "skill-publisher",
+      "skill_id": "mn-sub-99025",
+      "submission_id": "sub_927753779ad7",
+      "name": "mcp-skill-publisher",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-skill-publisher",
+      "tools": 4
+    },
+    {
+      "server": "secrets-audit",
+      "skill_id": "mn-sub-99026",
+      "submission_id": "sub_d5fada60ddaa",
+      "name": "mcp-secrets-audit",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-secrets-audit",
+      "tools": 3
+    },
+    {
+      "server": "mcp-card-registry",
+      "skill_id": "mn-sub-99027",
+      "submission_id": "sub_9a188597b938",
+      "name": "mcp-mcp-card-registry",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-mcp-card-registry",
+      "tools": 4
+    },
+    {
+      "server": "reputation-oracle",
+      "skill_id": "mn-sub-99028",
+      "submission_id": "sub_e4085af9f9f4",
+      "name": "mcp-reputation-oracle",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-reputation-oracle",
+      "tools": 3
+    },
+    {
+      "server": "agent-memory",
+      "skill_id": "mn-sub-99029",
+      "submission_id": "sub_2a2473abf5f6",
+      "name": "mcp-suite-agent-memory",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-memory",
+      "tools": 5
+    },
+    {
+      "server": "agent-memory-graph",
+      "skill_id": "mn-sub-99030",
+      "submission_id": "sub_28adcf5de9db",
+      "name": "mcp-agent-memory-graph",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-memory-graph",
+      "tools": 5
+    },
+    {
+      "server": "agent-episodic-log",
+      "skill_id": "mn-sub-99031",
+      "submission_id": "sub_6b06f3b8da4a",
+      "name": "mcp-agent-episodic-log",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-episodic-log",
+      "tools": 4
+    },
+    {
+      "server": "context-compressor",
+      "skill_id": "mn-sub-99032",
+      "submission_id": "sub_99007d6d8fab",
+      "name": "mcp-context-compressor",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-context-compressor",
+      "tools": 4
+    },
+    {
+      "server": "context-budget",
+      "skill_id": "mn-sub-99033",
+      "submission_id": "sub_1cc8479b5096",
+      "name": "mcp-context-budget",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-context-budget",
+      "tools": 3
+    },
+    {
+      "server": "conversation-summarizer",
+      "skill_id": "mn-sub-99034",
+      "submission_id": "sub_5f4c933dace7",
+      "name": "mcp-conversation-summarizer",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-conversation-summarizer",
+      "tools": 4
+    },
+    {
+      "server": "scratchpad",
+      "skill_id": "mn-sub-99035",
+      "submission_id": "sub_3d2a13c0a605",
+      "name": "mcp-scratchpad",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-scratchpad",
+      "tools": 5
+    },
+    {
+      "server": "working-state-store",
+      "skill_id": "mn-sub-99036",
+      "submission_id": "sub_394a209b9883",
+      "name": "mcp-working-state-store",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-working-state-store",
+      "tools": 4
+    },
+    {
+      "server": "session-recall",
+      "skill_id": "mn-sub-99037",
+      "submission_id": "sub_cc2a01a40486",
+      "name": "mcp-session-recall",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-session-recall",
+      "tools": 4
+    },
+    {
+      "server": "token-counter",
+      "skill_id": "mn-sub-99038",
+      "submission_id": "sub_7c29cdbfd70a",
+      "name": "mcp-token-counter",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-token-counter",
+      "tools": 4
+    },
+    {
+      "server": "context-rot-detector",
+      "skill_id": "mn-sub-99039",
+      "submission_id": "sub_bb6cb66788a2",
+      "name": "mcp-context-rot-detector",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-context-rot-detector",
+      "tools": 4
+    },
+    {
+      "server": "attention-focus",
+      "skill_id": "mn-sub-99040",
+      "submission_id": "sub_7b8490142cbc",
+      "name": "mcp-attention-focus",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-attention-focus",
+      "tools": 3
+    },
+    {
+      "server": "tool-registry",
+      "skill_id": "mn-sub-99041",
+      "submission_id": "sub_3d93efb920fd",
+      "name": "mcp-tool-registry",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tool-registry",
+      "tools": 5
+    },
+    {
+      "server": "tool-router",
+      "skill_id": "mn-sub-99042",
+      "submission_id": "sub_08662011ddd2",
+      "name": "mcp-suite-tool-router",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tool-router",
+      "tools": 4
+    },
+    {
+      "server": "retry-orchestrator",
+      "skill_id": "mn-sub-99043",
+      "submission_id": "sub_51d5a553df44",
+      "name": "mcp-retry-orchestrator",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-retry-orchestrator",
+      "tools": 4
+    },
+    {
+      "server": "circuit-breaker",
+      "skill_id": "mn-sub-99044",
+      "submission_id": "sub_dc071e5a03cb",
+      "name": "mcp-circuit-breaker",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-circuit-breaker",
+      "tools": 5
+    },
+    {
+      "server": "rate-limiter",
+      "skill_id": "mn-sub-99045",
+      "submission_id": "sub_9341c826e82b",
+      "name": "mcp-suite-rate-limiter",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-rate-limiter",
+      "tools": 4
+    },
+    {
+      "server": "timeout-guard",
+      "skill_id": "mn-sub-99046",
+      "submission_id": "sub_8f3016570fd3",
+      "name": "mcp-timeout-guard",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-timeout-guard",
+      "tools": 3
+    },
+    {
+      "server": "fallback-chain",
+      "skill_id": "mn-sub-99047",
+      "submission_id": "sub_56568f67cc4d",
+      "name": "mcp-fallback-chain",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-fallback-chain",
+      "tools": 4
+    },
+    {
+      "server": "queue-mcp",
+      "skill_id": "mn-sub-99048",
+      "submission_id": "sub_8ebe9a619362",
+      "name": "mcp-queue-mcp",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-queue-mcp",
+      "tools": 5
+    },
+    {
+      "server": "batch-runner",
+      "skill_id": "mn-sub-99049",
+      "submission_id": "sub_41265fcbe885",
+      "name": "mcp-batch-runner",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-batch-runner",
+      "tools": 3
+    },
+    {
+      "server": "health-check-hub",
+      "skill_id": "mn-sub-99050",
+      "submission_id": "sub_34d2209d3344",
+      "name": "mcp-health-check-hub",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-health-check-hub",
+      "tools": 4
+    },
+    {
+      "server": "idempotency-guard",
+      "skill_id": "mn-sub-99051",
+      "submission_id": "sub_fffd2436289b",
+      "name": "mcp-idempotency-guard",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-idempotency-guard",
+      "tools": 3
+    },
+    {
+      "server": "webhook-inspector",
+      "skill_id": "mn-sub-99052",
+      "submission_id": "sub_b5160ffaa81f",
+      "name": "mcp-webhook-inspector",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-webhook-inspector",
+      "tools": 4
+    },
+    {
+      "server": "poll-watcher",
+      "skill_id": "mn-sub-99053",
+      "submission_id": "sub_f6632fc13eaf",
+      "name": "mcp-poll-watcher",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-poll-watcher",
+      "tools": 3
+    },
+    {
+      "server": "json-repair",
+      "skill_id": "mn-sub-99054",
+      "submission_id": "sub_aad31cc24e07",
+      "name": "mcp-json-repair",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-json-repair",
+      "tools": 3
+    },
+    {
+      "server": "schema-validator",
+      "skill_id": "mn-sub-99055",
+      "submission_id": "sub_d39ceef37b44",
+      "name": "mcp-suite-schema-validator",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-schema-validator",
+      "tools": 3
+    },
+    {
+      "server": "output-grader",
+      "skill_id": "mn-sub-99056",
+      "submission_id": "sub_64a5a358e750",
+      "name": "mcp-output-grader",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-output-grader",
+      "tools": 3
+    },
+    {
+      "server": "citation-checker",
+      "skill_id": "mn-sub-99057",
+      "submission_id": "sub_1f5481a617b3",
+      "name": "mcp-citation-checker",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-citation-checker",
+      "tools": 4
+    },
+    {
+      "server": "claim-extractor",
+      "skill_id": "mn-sub-99058",
+      "submission_id": "sub_410cc3857ea5",
+      "name": "mcp-claim-extractor",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-claim-extractor",
+      "tools": 3
+    },
+    {
+      "server": "fact-consistency",
+      "skill_id": "mn-sub-99059",
+      "submission_id": "sub_b22b307a4888",
+      "name": "mcp-fact-consistency",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-fact-consistency",
+      "tools": 3
+    },
+    {
+      "server": "self-critic",
+      "skill_id": "mn-sub-99060",
+      "submission_id": "sub_87d2d33fd7c7",
+      "name": "mcp-self-critic",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-self-critic",
+      "tools": 3
+    },
+    {
+      "server": "consensus-voter",
+      "skill_id": "mn-sub-99061",
+      "submission_id": "sub_e59f5132dec0",
+      "name": "mcp-consensus-voter",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-consensus-voter",
+      "tools": 3
+    },
+    {
+      "server": "output-diff",
+      "skill_id": "mn-sub-99062",
+      "submission_id": "sub_3ab1212ae5d7",
+      "name": "mcp-output-diff",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-output-diff",
+      "tools": 3
+    },
+    {
+      "server": "normalize-output",
+      "skill_id": "mn-sub-99063",
+      "submission_id": "sub_92bdecd3ad2c",
+      "name": "mcp-normalize-output",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-normalize-output",
+      "tools": 3
+    },
+    {
+      "server": "text-qa",
+      "skill_id": "mn-sub-99064",
+      "submission_id": "sub_d11935dad2af",
+      "name": "mcp-text-qa",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-text-qa",
+      "tools": 3
+    },
+    {
+      "server": "response-size-guard",
+      "skill_id": "mn-sub-99065",
+      "submission_id": "sub_6480e7726c54",
+      "name": "mcp-response-size-guard",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-response-size-guard",
+      "tools": 3
+    },
+    {
+      "server": "prompt-injection-scanner",
+      "skill_id": "mn-sub-99066",
+      "submission_id": "sub_dc3bf6a5d7a3",
+      "name": "mcp-prompt-injection-scanner",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-prompt-injection-scanner",
+      "tools": 3
+    },
+    {
+      "server": "pii-redactor",
+      "skill_id": "mn-sub-99067",
+      "submission_id": "sub_fd66cb6b83aa",
+      "name": "mcp-pii-redactor",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-pii-redactor",
+      "tools": 3
+    },
+    {
+      "server": "input-sanitizer",
+      "skill_id": "mn-sub-99068",
+      "submission_id": "sub_0ac45463626b",
+      "name": "mcp-input-sanitizer",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-input-sanitizer",
+      "tools": 3
+    },
+    {
+      "server": "permission-gate",
+      "skill_id": "mn-sub-99069",
+      "submission_id": "sub_c6bf82463b0e",
+      "name": "mcp-permission-gate",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-permission-gate",
+      "tools": 4
+    },
+    {
+      "server": "audit-log",
+      "skill_id": "mn-sub-99070",
+      "submission_id": "sub_53312708d4ae",
+      "name": "mcp-suite-audit-log",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-audit-log",
+      "tools": 4
+    },
+    {
+      "server": "sandbox-eval",
+      "skill_id": "mn-sub-99071",
+      "submission_id": "sub_740bd20a86c8",
+      "name": "mcp-sandbox-eval",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-sandbox-eval",
+      "tools": 3
+    },
+    {
+      "server": "file-guard",
+      "skill_id": "mn-sub-99072",
+      "submission_id": "sub_3cbe5f15c1f0",
+      "name": "mcp-file-guard",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-file-guard",
+      "tools": 3
+    },
+    {
+      "server": "tos-checker",
+      "skill_id": "mn-sub-99073",
+      "submission_id": "sub_daba43143115",
+      "name": "mcp-tos-checker",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tos-checker",
+      "tools": 3
+    },
+    {
+      "server": "allowlist-proxy",
+      "skill_id": "mn-sub-99074",
+      "submission_id": "sub_e7a6e02340fb",
+      "name": "mcp-allowlist-proxy",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-allowlist-proxy",
+      "tools": 3
+    },
+    {
+      "server": "consent-manager",
+      "skill_id": "mn-sub-99075",
+      "submission_id": "sub_155216c01768",
+      "name": "mcp-consent-manager",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-consent-manager",
+      "tools": 4
+    },
+    {
+      "server": "threat-modeler",
+      "skill_id": "mn-sub-99076",
+      "submission_id": "sub_46c2bfd7a170",
+      "name": "mcp-threat-modeler",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-threat-modeler",
+      "tools": 3
+    },
+    {
+      "server": "trace-logger",
+      "skill_id": "mn-sub-99077",
+      "submission_id": "sub_92b81d043634",
+      "name": "mcp-trace-logger",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-trace-logger",
+      "tools": 5
+    },
+    {
+      "server": "metrics-collector",
+      "skill_id": "mn-sub-99078",
+      "submission_id": "sub_e4b32917d75a",
+      "name": "mcp-metrics-collector",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-metrics-collector",
+      "tools": 4
+    },
+    {
+      "server": "cost-tracker",
+      "skill_id": "mn-sub-99079",
+      "submission_id": "sub_852e5db2b08e",
+      "name": "mcp-suite-cost-tracker",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-cost-tracker",
+      "tools": 4
+    },
+    {
+      "server": "latency-tracker",
+      "skill_id": "mn-sub-99080",
+      "submission_id": "sub_ad0690ac347b",
+      "name": "mcp-latency-tracker",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-latency-tracker",
+      "tools": 4
+    },
+    {
+      "server": "run-reporter",
+      "skill_id": "mn-sub-99081",
+      "submission_id": "sub_45d63f5d4aa5",
+      "name": "mcp-run-reporter",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-run-reporter",
+      "tools": 4
+    },
+    {
+      "server": "error-triage",
+      "skill_id": "mn-sub-99082",
+      "submission_id": "sub_1930b0132a3d",
+      "name": "mcp-error-triage",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-error-triage",
+      "tools": 3
+    },
+    {
+      "server": "heartbeat-monitor",
+      "skill_id": "mn-sub-99083",
+      "submission_id": "sub_a3f3724a941b",
+      "name": "mcp-heartbeat-monitor",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-heartbeat-monitor",
+      "tools": 3
+    },
+    {
+      "server": "experiment-log",
+      "skill_id": "mn-sub-99084",
+      "submission_id": "sub_60accbf68172",
+      "name": "mcp-experiment-log",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-experiment-log",
+      "tools": 4
+    },
+    {
+      "server": "usage-analytics",
+      "skill_id": "mn-sub-99085",
+      "submission_id": "sub_7af74c5391f0",
+      "name": "mcp-usage-analytics",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-usage-analytics",
+      "tools": 3
+    },
+    {
+      "server": "debug-console",
+      "skill_id": "mn-sub-99086",
+      "submission_id": "sub_2ffbf48d97f0",
+      "name": "mcp-debug-console",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-debug-console",
+      "tools": 3
+    },
+    {
+      "server": "robust-fetcher",
+      "skill_id": "mn-sub-99087",
+      "submission_id": "sub_e4786fca3624",
+      "name": "mcp-robust-fetcher",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-robust-fetcher",
+      "tools": 4
+    },
+    {
+      "server": "html-to-markdown",
+      "skill_id": "mn-sub-99088",
+      "submission_id": "sub_fc7ebe3ae007",
+      "name": "mcp-html-to-markdown",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-html-to-markdown",
+      "tools": 3
+    },
+    {
+      "server": "readability-extract",
+      "skill_id": "mn-sub-99089",
+      "submission_id": "sub_e1fe811d9c69",
+      "name": "mcp-readability-extract",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-readability-extract",
+      "tools": 3
+    },
+    {
+      "server": "table-extractor",
+      "skill_id": "mn-sub-99090",
+      "submission_id": "sub_e0ee68d082f5",
+      "name": "mcp-table-extractor",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-table-extractor",
+      "tools": 4
+    },
+    {
+      "server": "csv-toolkit",
+      "skill_id": "mn-sub-99091",
+      "submission_id": "sub_7f84c43c6a25",
+      "name": "mcp-csv-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-csv-toolkit",
+      "tools": 4
+    },
+    {
+      "server": "json-toolkit",
+      "skill_id": "mn-sub-99092",
+      "submission_id": "sub_177dd5c952b9",
+      "name": "mcp-json-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-json-toolkit",
+      "tools": 4
+    },
+    {
+      "server": "xml-toolkit",
+      "skill_id": "mn-sub-99093",
+      "submission_id": "sub_6a177665c318",
+      "name": "mcp-xml-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-xml-toolkit",
+      "tools": 3
+    },
+    {
+      "server": "yaml-toolkit",
+      "skill_id": "mn-sub-99094",
+      "submission_id": "sub_b46cd3bea93f",
+      "name": "mcp-yaml-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-yaml-toolkit",
+      "tools": 3
+    },
+    {
+      "server": "markdown-toolkit",
+      "skill_id": "mn-sub-99095",
+      "submission_id": "sub_eeb955b79f42",
+      "name": "mcp-markdown-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-markdown-toolkit",
+      "tools": 4
+    },
+    {
+      "server": "pdf-text-extractor",
+      "skill_id": "mn-sub-99096",
+      "submission_id": "sub_750ad7e4fdb4",
+      "name": "mcp-pdf-text-extractor",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-pdf-text-extractor",
+      "tools": 3
+    },
+    {
+      "server": "url-inspector",
+      "skill_id": "mn-sub-99097",
+      "submission_id": "sub_4a71096c4e24",
+      "name": "mcp-url-inspector",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-url-inspector",
+      "tools": 4
+    },
+    {
+      "server": "diff-detector",
+      "skill_id": "mn-sub-99098",
+      "submission_id": "sub_a7e05fea4bb9",
+      "name": "mcp-diff-detector",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-diff-detector",
+      "tools": 3
+    },
+    {
+      "server": "chunker",
+      "skill_id": "mn-sub-99099",
+      "submission_id": "sub_afd6dd377f81",
+      "name": "mcp-chunker",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-chunker",
+      "tools": 3
+    },
+    {
+      "server": "data-anonymizer",
+      "skill_id": "mn-sub-99100",
+      "submission_id": "sub_d6aede30bfa7",
+      "name": "mcp-data-anonymizer",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-data-anonymizer",
+      "tools": 3
+    },
+    {
+      "server": "plan-decompose",
+      "skill_id": "mn-sub-99101",
+      "submission_id": "sub_83df3102c939",
+      "name": "mcp-plan-decompose",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-plan-decompose",
+      "tools": 3
+    },
+    {
+      "server": "task-tracker",
+      "skill_id": "mn-sub-99102",
+      "submission_id": "sub_2cef66826104",
+      "name": "mcp-task-tracker",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-task-tracker",
+      "tools": 5
+    },
+    {
+      "server": "milestone-checker",
+      "skill_id": "mn-sub-99103",
+      "submission_id": "sub_e33a63ea4732",
+      "name": "mcp-milestone-checker",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-milestone-checker",
+      "tools": 4
+    },
+    {
+      "server": "decision-matrix",
+      "skill_id": "mn-sub-99104",
+      "submission_id": "sub_c99f090ab627",
+      "name": "mcp-decision-matrix",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-decision-matrix",
+      "tools": 3
+    },
+    {
+      "server": "hypothesis-tracker",
+      "skill_id": "mn-sub-99105",
+      "submission_id": "sub_3a6fdb43042c",
+      "name": "mcp-hypothesis-tracker",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-hypothesis-tracker",
+      "tools": 4
+    },
+    {
+      "server": "priority-queue",
+      "skill_id": "mn-sub-99106",
+      "submission_id": "sub_4c616e547d6f",
+      "name": "mcp-priority-queue",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-priority-queue",
+      "tools": 4
+    },
+    {
+      "server": "risk-register",
+      "skill_id": "mn-sub-99107",
+      "submission_id": "sub_a759f2fe55a4",
+      "name": "mcp-risk-register",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-risk-register",
+      "tools": 4
+    },
+    {
+      "server": "assumption-auditor",
+      "skill_id": "mn-sub-99108",
+      "submission_id": "sub_9a885c0d812e",
+      "name": "mcp-assumption-auditor",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-assumption-auditor",
+      "tools": 3
+    },
+    {
+      "server": "retro-analyzer",
+      "skill_id": "mn-sub-99109",
+      "submission_id": "sub_0cd013b41cee",
+      "name": "mcp-retro-analyzer",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-retro-analyzer",
+      "tools": 3
+    },
+    {
+      "server": "uncertainty-quantifier",
+      "skill_id": "mn-sub-99110",
+      "submission_id": "sub_204a1b769a96",
+      "name": "mcp-uncertainty-quantifier",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-uncertainty-quantifier",
+      "tools": 3
+    },
+    {
+      "server": "human-approval",
+      "skill_id": "mn-sub-99111",
+      "submission_id": "sub_6db756f052d7",
+      "name": "mcp-human-approval",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-human-approval",
+      "tools": 4
+    },
+    {
+      "server": "feedback-loop",
+      "skill_id": "mn-sub-99112",
+      "submission_id": "sub_524a13f53ed9",
+      "name": "mcp-feedback-loop",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-feedback-loop",
+      "tools": 4
+    },
+    {
+      "server": "report-builder",
+      "skill_id": "mn-sub-99113",
+      "submission_id": "sub_51775c87df62",
+      "name": "mcp-report-builder",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-report-builder",
+      "tools": 4
+    },
+    {
+      "server": "digest-writer",
+      "skill_id": "mn-sub-99114",
+      "submission_id": "sub_80403826fc2e",
+      "name": "mcp-digest-writer",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-digest-writer",
+      "tools": 3
+    },
+    {
+      "server": "locale-helper",
+      "skill_id": "mn-sub-99115",
+      "submission_id": "sub_b8da89acd50c",
+      "name": "mcp-locale-helper",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-locale-helper",
+      "tools": 4
+    },
+    {
+      "server": "tone-adjuster",
+      "skill_id": "mn-sub-99116",
+      "submission_id": "sub_f2718fbd39de",
+      "name": "mcp-tone-adjuster",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tone-adjuster",
+      "tools": 3
+    },
+    {
+      "server": "handoff-notes",
+      "skill_id": "mn-sub-99117",
+      "submission_id": "sub_486b0fa9ff72",
+      "name": "mcp-handoff-notes",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-handoff-notes",
+      "tools": 4
+    },
+    {
+      "server": "meeting-notes",
+      "skill_id": "mn-sub-99118",
+      "submission_id": "sub_49f104bfe7a1",
+      "name": "mcp-meeting-notes",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-meeting-notes",
+      "tools": 3
+    },
+    {
+      "server": "safe-math",
+      "skill_id": "mn-sub-99119",
+      "submission_id": "sub_670635bf0107",
+      "name": "mcp-safe-math",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-safe-math",
+      "tools": 4
+    },
+    {
+      "server": "stats-toolkit",
+      "skill_id": "mn-sub-99120",
+      "submission_id": "sub_da315a9b6623",
+      "name": "mcp-stats-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-stats-toolkit",
+      "tools": 4
+    },
+    {
+      "server": "datetime-toolkit",
+      "skill_id": "mn-sub-99121",
+      "submission_id": "sub_2f6c95e9ad06",
+      "name": "mcp-datetime-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-datetime-toolkit",
+      "tools": 4
+    },
+    {
+      "server": "currency-convert",
+      "skill_id": "mn-sub-99122",
+      "submission_id": "sub_deda26aac1d7",
+      "name": "mcp-currency-convert",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-currency-convert",
+      "tools": 3
+    },
+    {
+      "server": "unit-convert",
+      "skill_id": "mn-sub-99123",
+      "submission_id": "sub_ab7819b0a3b3",
+      "name": "mcp-unit-convert",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-unit-convert",
+      "tools": 3
+    },
+    {
+      "server": "regex-forge",
+      "skill_id": "mn-sub-99124",
+      "submission_id": "sub_917cf5b5a48f",
+      "name": "mcp-regex-forge",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-regex-forge",
+      "tools": 4
+    },
+    {
+      "server": "id-forge",
+      "skill_id": "mn-sub-99125",
+      "submission_id": "sub_7a743229322d",
+      "name": "mcp-id-forge",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-id-forge",
+      "tools": 4
+    },
+    {
+      "server": "hash-toolkit",
+      "skill_id": "mn-sub-99126",
+      "submission_id": "sub_f5a0b2a83e9f",
+      "name": "mcp-hash-toolkit",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-hash-toolkit",
+      "tools": 4
+    },
+    {
+      "server": "agent-org-chart",
+      "skill_id": "mn-sub-99127",
+      "submission_id": "sub_e009424ee225",
+      "name": "mcp-agent-org-chart",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-org-chart",
+      "tools": 8
+    },
+    {
+      "server": "delegation-contracts",
+      "skill_id": "mn-sub-99128",
+      "submission_id": "sub_49d8690e1e2f",
+      "name": "mcp-delegation-contracts",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-delegation-contracts",
+      "tools": 9
+    },
+    {
+      "server": "handoff-protocol",
+      "skill_id": "mn-sub-99129",
+      "submission_id": "sub_098f835e742e",
+      "name": "mcp-handoff-protocol",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-handoff-protocol",
+      "tools": 8
+    },
+    {
+      "server": "blackboard-shared",
+      "skill_id": "mn-sub-99130",
+      "submission_id": "sub_04005366126e",
+      "name": "mcp-blackboard-shared",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-blackboard-shared",
+      "tools": 9
+    },
+    {
+      "server": "deadlock-detector",
+      "skill_id": "mn-sub-99131",
+      "submission_id": "sub_ae728914b237",
+      "name": "mcp-deadlock-detector",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-deadlock-detector",
+      "tools": 7
+    },
+    {
+      "server": "conflict-resolver",
+      "skill_id": "mn-sub-99132",
+      "submission_id": "sub_00aaebc2acba",
+      "name": "mcp-conflict-resolver",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-conflict-resolver",
+      "tools": 8
+    },
+    {
+      "server": "quorum-coordinator",
+      "skill_id": "mn-sub-99133",
+      "submission_id": "sub_06b2718b484b",
+      "name": "mcp-quorum-coordinator",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-quorum-coordinator",
+      "tools": 7
+    },
+    {
+      "server": "agent-supervisor",
+      "skill_id": "mn-sub-99134",
+      "submission_id": "sub_c4ff565edec2",
+      "name": "mcp-agent-supervisor",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-supervisor",
+      "tools": 7
+    },
+    {
+      "server": "goal-contract",
+      "skill_id": "mn-sub-99135",
+      "submission_id": "sub_6b2245b13ac1",
+      "name": "mcp-goal-contract",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-goal-contract",
+      "tools": 8
+    },
+    {
+      "server": "drift-detector",
+      "skill_id": "mn-sub-99136",
+      "submission_id": "sub_b0e47095995b",
+      "name": "mcp-drift-detector",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-drift-detector",
+      "tools": 6
+    },
+    {
+      "server": "commitment-ledger",
+      "skill_id": "mn-sub-99137",
+      "submission_id": "sub_f02c2ff2d882",
+      "name": "mcp-commitment-ledger",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-commitment-ledger",
+      "tools": 7
+    },
+    {
+      "server": "scope-guard",
+      "skill_id": "mn-sub-99138",
+      "submission_id": "sub_1514931927d2",
+      "name": "mcp-scope-guard",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-scope-guard",
+      "tools": 6
+    },
+    {
+      "server": "time-horizon-planner",
+      "skill_id": "mn-sub-99139",
+      "submission_id": "sub_4a213101a6bf",
+      "name": "mcp-time-horizon-planner",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-time-horizon-planner",
+      "tools": 7
+    },
+    {
+      "server": "progress-journal",
+      "skill_id": "mn-sub-99140",
+      "submission_id": "sub_7bbac6cb4395",
+      "name": "mcp-progress-journal",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-progress-journal",
+      "tools": 6
+    },
+    {
+      "server": "mission-checkpoint",
+      "skill_id": "mn-sub-99141",
+      "submission_id": "sub_7b5c9eb15067",
+      "name": "mcp-mission-checkpoint",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-mission-checkpoint",
+      "tools": 7
+    },
+    {
+      "server": "spec-clarifier",
+      "skill_id": "mn-sub-99142",
+      "submission_id": "sub_060da3fb9aab",
+      "name": "mcp-spec-clarifier",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-spec-clarifier",
+      "tools": 6
+    },
+    {
+      "server": "acceptance-criteria",
+      "skill_id": "mn-sub-99143",
+      "submission_id": "sub_e8e0898bd073",
+      "name": "mcp-acceptance-criteria",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-acceptance-criteria",
+      "tools": 6
+    },
+    {
+      "server": "definition-of-done",
+      "skill_id": "mn-sub-99144",
+      "submission_id": "sub_33567cf0f535",
+      "name": "mcp-definition-of-done",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-definition-of-done",
+      "tools": 5
+    },
+    {
+      "server": "spec-diff-impact",
+      "skill_id": "mn-sub-99145",
+      "submission_id": "sub_52778a2973e8",
+      "name": "mcp-spec-diff-impact",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-spec-diff-impact",
+      "tools": 5
+    },
+    {
+      "server": "requirements-matrix",
+      "skill_id": "mn-sub-99146",
+      "submission_id": "sub_ca4a4990e831",
+      "name": "mcp-requirements-matrix",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-requirements-matrix",
+      "tools": 7
+    },
+    {
+      "server": "golden-set",
+      "skill_id": "mn-sub-99147",
+      "submission_id": "sub_c01b026949a5",
+      "name": "mcp-golden-set",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-golden-set",
+      "tools": 7
+    },
+    {
+      "server": "regression-harness",
+      "skill_id": "mn-sub-99148",
+      "submission_id": "sub_537688ae5334",
+      "name": "mcp-regression-harness",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-regression-harness",
+      "tools": 6
+    },
+    {
+      "server": "prompt-ab-test",
+      "skill_id": "mn-sub-99149",
+      "submission_id": "sub_6d265b677ff6",
+      "name": "mcp-prompt-ab-test",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-prompt-ab-test",
+      "tools": 6
+    },
+    {
+      "server": "quality-drift-monitor",
+      "skill_id": "mn-sub-99150",
+      "submission_id": "sub_d20ad159d705",
+      "name": "mcp-quality-drift-monitor",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-quality-drift-monitor",
+      "tools": 6
+    },
+    {
+      "server": "scenario-simulator",
+      "skill_id": "mn-sub-99151",
+      "submission_id": "sub_b2fbf0859a9f",
+      "name": "mcp-scenario-simulator",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-scenario-simulator",
+      "tools": 6
+    },
+    {
+      "server": "failure-tagger",
+      "skill_id": "mn-sub-99152",
+      "submission_id": "sub_2dad343401c8",
+      "name": "mcp-failure-tagger",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-failure-tagger",
+      "tools": 6
+    },
+    {
+      "server": "spend-envelope",
+      "skill_id": "mn-sub-99153",
+      "submission_id": "sub_8c23b089ae0b",
+      "name": "mcp-spend-envelope",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-spend-envelope",
+      "tools": 6
+    },
+    {
+      "server": "task-roi",
+      "skill_id": "mn-sub-99154",
+      "submission_id": "sub_92cd3f716c58",
+      "name": "mcp-task-roi",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-task-roi",
+      "tools": 5
+    },
+    {
+      "server": "token-audit",
+      "skill_id": "mn-sub-99155",
+      "submission_id": "sub_955599739b80",
+      "name": "mcp-token-audit",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-token-audit",
+      "tools": 5
+    },
+    {
+      "server": "model-router-econ",
+      "skill_id": "mn-sub-99156",
+      "submission_id": "sub_240a8959902f",
+      "name": "mcp-model-router-econ",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-model-router-econ",
+      "tools": 5
+    },
+    {
+      "server": "budget-forecast",
+      "skill_id": "mn-sub-99157",
+      "submission_id": "sub_4c054e12fec5",
+      "name": "mcp-budget-forecast",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-budget-forecast",
+      "tools": 5
+    },
+    {
+      "server": "cost-attribution",
+      "skill_id": "mn-sub-99158",
+      "submission_id": "sub_e91e19bce0e9",
+      "name": "mcp-cost-attribution",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-cost-attribution",
+      "tools": 5
+    },
+    {
+      "server": "dom-baseline",
+      "skill_id": "mn-sub-99159",
+      "submission_id": "sub_8eb94f9a47a4",
+      "name": "mcp-dom-baseline",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-dom-baseline",
+      "tools": 5
+    },
+    {
+      "server": "selector-healer",
+      "skill_id": "mn-sub-99160",
+      "submission_id": "sub_e1941f9f56fb",
+      "name": "mcp-selector-healer",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-selector-healer",
+      "tools": 5
+    },
+    {
+      "server": "action-recorder",
+      "skill_id": "mn-sub-99161",
+      "submission_id": "sub_509f13e38040",
+      "name": "mcp-action-recorder",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-action-recorder",
+      "tools": 6
+    },
+    {
+      "server": "checkpoint-undo",
+      "skill_id": "mn-sub-99162",
+      "submission_id": "sub_299706bc0195",
+      "name": "mcp-checkpoint-undo",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-checkpoint-undo",
+      "tools": 6
+    },
+    {
+      "server": "viewport-verifier",
+      "skill_id": "mn-sub-99163",
+      "submission_id": "sub_428880bd0882",
+      "name": "mcp-viewport-verifier",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-viewport-verifier",
+      "tools": 5
+    },
+    {
+      "server": "postmortem-engine",
+      "skill_id": "mn-sub-99164",
+      "submission_id": "sub_0920ae9651b3",
+      "name": "mcp-postmortem-engine",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-postmortem-engine",
+      "tools": 6
+    },
+    {
+      "server": "lesson-library",
+      "skill_id": "mn-sub-99165",
+      "submission_id": "sub_66bdc5baceb5",
+      "name": "mcp-lesson-library",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-lesson-library",
+      "tools": 6
+    },
+    {
+      "server": "mistake-patterns",
+      "skill_id": "mn-sub-99166",
+      "submission_id": "sub_3568b281ecad",
+      "name": "mcp-mistake-patterns",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-mistake-patterns",
+      "tools": 5
+    },
+    {
+      "server": "skill-forge",
+      "skill_id": "mn-sub-99167",
+      "submission_id": "sub_73421c42b0fb",
+      "name": "mcp-skill-forge",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-skill-forge",
+      "tools": 6
+    },
+    {
+      "server": "competency-tracker",
+      "skill_id": "mn-sub-99168",
+      "submission_id": "sub_9495f50bba56",
+      "name": "mcp-competency-tracker",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-competency-tracker",
+      "tools": 5
+    },
+    {
+      "server": "interruption-broker",
+      "skill_id": "mn-sub-99169",
+      "submission_id": "sub_a9e92d2e3c1e",
+      "name": "mcp-interruption-broker",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-interruption-broker",
+      "tools": 5
+    },
+    {
+      "server": "takeover-request",
+      "skill_id": "mn-sub-99170",
+      "submission_id": "sub_8d3f8eac189d",
+      "name": "mcp-takeover-request",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-takeover-request",
+      "tools": 5
+    },
+    {
+      "server": "trust-calibrator",
+      "skill_id": "mn-sub-99171",
+      "submission_id": "sub_4dd797ba959e",
+      "name": "mcp-trust-calibrator",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-trust-calibrator",
+      "tools": 5
+    },
+    {
+      "server": "escalation-policy",
+      "skill_id": "mn-sub-99172",
+      "submission_id": "sub_e6dbec80c0f9",
+      "name": "mcp-escalation-policy",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-escalation-policy",
+      "tools": 6
+    },
+    {
+      "server": "explain-decision",
+      "skill_id": "mn-sub-99173",
+      "submission_id": "sub_c67a88ea2bb8",
+      "name": "mcp-explain-decision",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-explain-decision",
+      "tools": 5
+    },
+    {
+      "server": "fact-staleness",
+      "skill_id": "mn-sub-99174",
+      "submission_id": "sub_474ce9736064",
+      "name": "mcp-fact-staleness",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-fact-staleness",
+      "tools": 6
+    },
+    {
+      "server": "source-timeline",
+      "skill_id": "mn-sub-99175",
+      "submission_id": "sub_c4bffec077fc",
+      "name": "mcp-source-timeline",
+      "price": 2.99,
+      "tier": "Multi-feature",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-source-timeline",
+      "tools": 5
+    },
+    {
+      "server": "deadline-engine",
+      "skill_id": "mn-sub-99176",
+      "submission_id": "sub_9f4091fc341c",
+      "name": "mcp-deadline-engine",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-deadline-engine",
+      "tools": 5
+    },
+    {
+      "server": "temporal-reasoner",
+      "skill_id": "mn-sub-99177",
+      "submission_id": "sub_e1966d214bf6",
+      "name": "mcp-temporal-reasoner",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-temporal-reasoner",
+      "tools": 5
+    },
+    {
+      "server": "policy-as-code",
+      "skill_id": "mn-sub-99178",
+      "submission_id": "sub_8065670f3e98",
+      "name": "mcp-policy-as-code",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-policy-as-code",
+      "tools": 5
+    },
+    {
+      "server": "data-residency-check",
+      "skill_id": "mn-sub-99179",
+      "submission_id": "sub_1f184887e802",
+      "name": "mcp-data-residency-check",
+      "price": 1.99,
+      "tier": "Standard",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-data-residency-check",
+      "tools": 4
+    },
+    {
+      "server": "consent-ledger",
+      "skill_id": "mn-sub-99180",
+      "submission_id": "sub_6f3da9b068bd",
+      "name": "mcp-consent-ledger",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-consent-ledger",
+      "tools": 5
+    },
+    {
+      "server": "compliance-report",
+      "skill_id": "mn-sub-99181",
+      "submission_id": "sub_4f428fb1d54f",
+      "name": "mcp-compliance-report",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-compliance-report",
+      "tools": 5
+    },
+    {
+      "server": "blast-radius-estimator",
+      "skill_id": "mn-sub-99182",
+      "submission_id": "sub_f156a6134ed3",
+      "name": "mcp-blast-radius-estimator",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-blast-radius-estimator",
+      "tools": 6
+    },
+    {
+      "server": "dry-run-executor",
+      "skill_id": "mn-sub-99183",
+      "submission_id": "sub_1a16406a1f92",
+      "name": "mcp-dry-run-executor",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-dry-run-executor",
+      "tools": 5
+    },
+    {
+      "server": "side-effect-ledger",
+      "skill_id": "mn-sub-99184",
+      "submission_id": "sub_3771ba8c3c7e",
+      "name": "mcp-side-effect-ledger",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-side-effect-ledger",
+      "tools": 6
+    },
+    {
+      "server": "reversibility-planner",
+      "skill_id": "mn-sub-99185",
+      "submission_id": "sub_b6c192ca66d8",
+      "name": "mcp-reversibility-planner",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-reversibility-planner",
+      "tools": 5
+    },
+    {
+      "server": "precondition-checker",
+      "skill_id": "mn-sub-99186",
+      "submission_id": "sub_f2e33107e881",
+      "name": "mcp-precondition-checker",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-precondition-checker",
+      "tools": 5
+    },
+    {
+      "server": "action-limiter",
+      "skill_id": "mn-sub-99187",
+      "submission_id": "sub_4d9b688e23c0",
+      "name": "mcp-action-limiter",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-action-limiter",
+      "tools": 5
+    },
+    {
+      "server": "escrow-agent",
+      "skill_id": "mn-sub-99188",
+      "submission_id": "sub_49c7be5c7170",
+      "name": "mcp-escrow-agent",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-escrow-agent",
+      "tools": 9
+    },
+    {
+      "server": "sla-contract-manager",
+      "skill_id": "mn-sub-99189",
+      "submission_id": "sub_2c87e6ceab66",
+      "name": "mcp-sla-contract-manager",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-sla-contract-manager",
+      "tools": 5
+    },
+    {
+      "server": "metering-station",
+      "skill_id": "mn-sub-99190",
+      "submission_id": "sub_96097d38246f",
+      "name": "mcp-metering-station",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-metering-station",
+      "tools": 5
+    },
+    {
+      "server": "quote-negotiator",
+      "skill_id": "mn-sub-99191",
+      "submission_id": "sub_c1320f485700",
+      "name": "mcp-quote-negotiator",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-quote-negotiator",
+      "tools": 6
+    },
+    {
+      "server": "dispute-resolver",
+      "skill_id": "mn-sub-99192",
+      "submission_id": "sub_cf54ca377da2",
+      "name": "mcp-dispute-resolver",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-dispute-resolver",
+      "tools": 6
+    },
+    {
+      "server": "settlement-ledger",
+      "skill_id": "mn-sub-99193",
+      "submission_id": "sub_2dc2387080c2",
+      "name": "mcp-settlement-ledger",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-settlement-ledger",
+      "tools": 5
+    },
+    {
+      "server": "did-resolver",
+      "skill_id": "mn-sub-99194",
+      "submission_id": "sub_de13aa38c9b2",
+      "name": "mcp-did-resolver",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-did-resolver",
+      "tools": 7
+    },
+    {
+      "server": "delegation-chain",
+      "skill_id": "mn-sub-99195",
+      "submission_id": "sub_bd8d6e4b42d9",
+      "name": "mcp-delegation-chain",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-delegation-chain",
+      "tools": 5
+    },
+    {
+      "server": "key-rotation-manager",
+      "skill_id": "mn-sub-99196",
+      "submission_id": "sub_7df00995f3a5",
+      "name": "mcp-key-rotation-manager",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-key-rotation-manager",
+      "tools": 5
+    },
+    {
+      "server": "agent-passport",
+      "skill_id": "mn-sub-99197",
+      "submission_id": "sub_705c574bd812",
+      "name": "mcp-agent-passport",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-passport",
+      "tools": 6
+    },
+    {
+      "server": "scope-minting",
+      "skill_id": "mn-sub-99198",
+      "submission_id": "sub_7f23e408c89b",
+      "name": "mcp-scope-minting",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-scope-minting",
+      "tools": 6
+    },
+    {
+      "server": "prompt-versioner",
+      "skill_id": "mn-sub-99199",
+      "submission_id": "sub_c67d327513fd",
+      "name": "mcp-prompt-versioner",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-prompt-versioner",
+      "tools": 6
+    },
+    {
+      "server": "canary-deployer",
+      "skill_id": "mn-sub-99200",
+      "submission_id": "sub_6c42d007513b",
+      "name": "mcp-canary-deployer",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-canary-deployer",
+      "tools": 5
+    },
+    {
+      "server": "rollback-manager",
+      "skill_id": "mn-sub-99201",
+      "submission_id": "sub_9d25f095eca3",
+      "name": "mcp-rollback-manager",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-rollback-manager",
+      "tools": 5
+    },
+    {
+      "server": "prompt-dependency-graph",
+      "skill_id": "mn-sub-99202",
+      "submission_id": "sub_ea3f4d650f5f",
+      "name": "mcp-prompt-dependency-graph",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-prompt-dependency-graph",
+      "tools": 5
+    },
+    {
+      "server": "change-changelog",
+      "skill_id": "mn-sub-99203",
+      "submission_id": "sub_1cc7476dc124",
+      "name": "mcp-change-changelog",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-change-changelog",
+      "tools": 5
+    },
+    {
+      "server": "env-diff-checker",
+      "skill_id": "mn-sub-99204",
+      "submission_id": "sub_0628dd3c641b",
+      "name": "mcp-env-diff-checker",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-env-diff-checker",
+      "tools": 4
+    },
+    {
+      "server": "transcript-condenser",
+      "skill_id": "mn-sub-99205",
+      "submission_id": "sub_4dc0464426aa",
+      "name": "mcp-transcript-condenser",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-transcript-condenser",
+      "tools": 6
+    },
+    {
+      "server": "av-budget-packer",
+      "skill_id": "mn-sub-99206",
+      "submission_id": "sub_1a6aa59d14a6",
+      "name": "mcp-av-budget-packer",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-av-budget-packer",
+      "tools": 5
+    },
+    {
+      "server": "turn-state-machine",
+      "skill_id": "mn-sub-99207",
+      "submission_id": "sub_351b192fc7c6",
+      "name": "mcp-turn-state-machine",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-turn-state-machine",
+      "tools": 5
+    },
+    {
+      "server": "speech-pacing",
+      "skill_id": "mn-sub-99208",
+      "submission_id": "sub_3637a0500c73",
+      "name": "mcp-speech-pacing",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-speech-pacing",
+      "tools": 5
+    },
+    {
+      "server": "image-batch-tagger",
+      "skill_id": "mn-sub-99209",
+      "submission_id": "sub_1d137f35a11f",
+      "name": "mcp-image-batch-tagger",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-image-batch-tagger",
+      "tools": 5
+    },
+    {
+      "server": "caption-aligner",
+      "skill_id": "mn-sub-99210",
+      "submission_id": "sub_b4f740c27502",
+      "name": "mcp-caption-aligner",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-caption-aligner",
+      "tools": 5
+    },
+    {
+      "server": "tenant-isolator",
+      "skill_id": "mn-sub-99211",
+      "submission_id": "sub_092332ad17df",
+      "name": "mcp-tenant-isolator",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tenant-isolator",
+      "tools": 5
+    },
+    {
+      "server": "tenant-quota-manager",
+      "skill_id": "mn-sub-99212",
+      "submission_id": "sub_1cf40a38074a",
+      "name": "mcp-tenant-quota-manager",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tenant-quota-manager",
+      "tools": 5
+    },
+    {
+      "server": "noisy-neighbor-detector",
+      "skill_id": "mn-sub-99213",
+      "submission_id": "sub_6aa80dde9db7",
+      "name": "mcp-noisy-neighbor-detector",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-noisy-neighbor-detector",
+      "tools": 4
+    },
+    {
+      "server": "tenant-data-tagger",
+      "skill_id": "mn-sub-99214",
+      "submission_id": "sub_c55ea9807931",
+      "name": "mcp-tenant-data-tagger",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tenant-data-tagger",
+      "tools": 5
+    },
+    {
+      "server": "cross-tenant-guard",
+      "skill_id": "mn-sub-99215",
+      "submission_id": "sub_6a5d7cf2edf0",
+      "name": "mcp-cross-tenant-guard",
+      "price": 9.99,
+      "tier": "Enterprise",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-cross-tenant-guard",
+      "tools": 4
+    },
+    {
+      "server": "argument-cartographer",
+      "skill_id": "mn-sub-99216",
+      "submission_id": "sub_a2b21107f759",
+      "name": "mcp-argument-cartographer",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-argument-cartographer",
+      "tools": 5
+    },
+    {
+      "server": "bayesian-updater",
+      "skill_id": "mn-sub-99217",
+      "submission_id": "sub_02aa3412f817",
+      "name": "mcp-bayesian-updater",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-bayesian-updater",
+      "tools": 5
+    },
+    {
+      "server": "counterfactual-lab",
+      "skill_id": "mn-sub-99218",
+      "submission_id": "sub_ccd1073fc7f1",
+      "name": "mcp-counterfactual-lab",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-counterfactual-lab",
+      "tools": 4
+    },
+    {
+      "server": "causal-ladder",
+      "skill_id": "mn-sub-99219",
+      "submission_id": "sub_9d646aa9f9dc",
+      "name": "mcp-causal-ladder",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-causal-ladder",
+      "tools": 4
+    },
+    {
+      "server": "analogy-finder",
+      "skill_id": "mn-sub-99220",
+      "submission_id": "sub_7c7776a3d843",
+      "name": "mcp-analogy-finder",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-analogy-finder",
+      "tools": 4
+    },
+    {
+      "server": "pareto-tradeoff",
+      "skill_id": "mn-sub-99221",
+      "submission_id": "sub_13034d8669d9",
+      "name": "mcp-pareto-tradeoff",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-pareto-tradeoff",
+      "tools": 4
+    },
+    {
+      "server": "occam-razor",
+      "skill_id": "mn-sub-99222",
+      "submission_id": "sub_0ca71d1d1aed",
+      "name": "mcp-occam-razor",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-occam-razor",
+      "tools": 4
+    },
+    {
+      "server": "error-taxonomy",
+      "skill_id": "mn-sub-99223",
+      "submission_id": "sub_b13168b72df2",
+      "name": "mcp-error-taxonomy",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-error-taxonomy",
+      "tools": 5
+    },
+    {
+      "server": "root-cause-tree",
+      "skill_id": "mn-sub-99224",
+      "submission_id": "sub_ed3551a4b928",
+      "name": "mcp-root-cause-tree",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-root-cause-tree",
+      "tools": 5
+    },
+    {
+      "server": "reflection-journal",
+      "skill_id": "mn-sub-99225",
+      "submission_id": "sub_6b1fe1780fe6",
+      "name": "mcp-reflection-journal",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-reflection-journal",
+      "tools": 4
+    },
+    {
+      "server": "prompt-self-rewriter",
+      "skill_id": "mn-sub-99226",
+      "submission_id": "sub_3926d2a18583",
+      "name": "mcp-prompt-self-rewriter",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-prompt-self-rewriter",
+      "tools": 5
+    },
+    {
+      "server": "behavior-diff",
+      "skill_id": "mn-sub-99227",
+      "submission_id": "sub_5e95e916580b",
+      "name": "mcp-behavior-diff",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-behavior-diff",
+      "tools": 4
+    },
+    {
+      "server": "capability-gap-scanner",
+      "skill_id": "mn-sub-99228",
+      "submission_id": "sub_dccb827f2fad",
+      "name": "mcp-capability-gap-scanner",
+      "price": 4.99,
+      "tier": "Sophisticated",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-capability-gap-scanner",
+      "tools": 4
+    },
+    {
+      "server": "growth-plan",
+      "skill_id": "mn-sub-99229",
+      "submission_id": "sub_91badc330891",
+      "name": "mcp-growth-plan",
+      "price": 0,
+      "tier": "Free",
+      "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-growth-plan",
+      "tools": 5
+    }
+  ]
+}
