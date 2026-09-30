@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_z2vjk0cpof80",
+  "skill_id": "mn-sub-90042",
+  "status": "pending",
+  "submitted_at": "2026-09-30T03:50:01.654Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "alicelabs-llc/MARKETNOW/tree/main/servers/mcp-tool-router",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-tool-router",
+    "description": "Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo. Con 100+ tools disponibles el LLM elige mal o llama la incorrecta (dolor #1 reportado por merge.dev sobre MCP). Incluye hea",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T03:50:01.654Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "resiliencia-de-tools"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90042",
+    "name": "mcp-tool-router",
+    "slug": "tool-router-0043",
+    "description": "Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo. Con 100+ tools disponibles el LLM elige mal o llama la incorrecta (dolor #1 reportado por merge.dev sobre MCP). Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 1.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "alicelabs-llc/MARKETNOW/tree/main/servers/mcp-tool-router",
+      "submitted_at": "2026-09-30T03:50:01.654Z"
+    },
+    "install": "git clone alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only tool-router",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

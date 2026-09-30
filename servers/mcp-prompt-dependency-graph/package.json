@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/prompt-dependency-graph",
+  "version": "1.0.0",
+  "description": "Prompt Dependency Graph — Grafo de dependencias entre prompts, tools y datos: cambia X sabiendo exactamente qué se rompe (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-prompt-dependency-graph": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "agent-ci-cd"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

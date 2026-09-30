@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/source-timeline",
+  "version": "1.0.0",
+  "description": "Source Timeline — Línea de tiempo de fuentes: cuándo se supo qué y qué fuente dijo primero cada cosa (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-source-timeline": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "frescura-del-conocimiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

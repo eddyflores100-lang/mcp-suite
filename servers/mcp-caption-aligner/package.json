@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/caption-aligner",
+  "version": "1.0.0",
+  "description": "Caption Aligner — Alinea transcripción y subtítulos por tiempo: cobertura, solapes y huecos detectados antes de confiar en ellos (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-caption-aligner": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multimodal-voz"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

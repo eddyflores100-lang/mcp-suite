@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/key-rotation-manager",
+  "version": "1.0.0",
+  "description": "Key Rotation Manager — Rotación de claves con ventana de gracia: rota sin romper verificaciones en curso y con historial auditable (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-key-rotation-manager": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "identidad-federada"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

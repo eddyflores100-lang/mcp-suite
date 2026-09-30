@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/input-sanitizer",
+  "version": "1.0.0",
+  "description": "Input Sanitizer — Sanea entradas antes de que lleguen a tools: control chars, null bytes, tamaño y forma (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-input-sanitizer": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "seguridad"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

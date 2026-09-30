@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/chunker",
+  "version": "1.0.0",
+  "description": "Chunker — Trocea texto para RAG: chunks por oraciones/superposiciones con presupuesto de tokens (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-chunker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "datos-y-extracci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

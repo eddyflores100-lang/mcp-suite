@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/locale-helper",
+  "version": "1.0.0",
+  "description": "Locale Helper — Glossario y reglas de localización ES/EN/FR: formatos y consistencia terminológica (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-locale-helper": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comunicaci-n-y-humano"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/skill-publisher",
+  "version": "1.0.0",
+  "description": "Skill Publisher — Prepara tu skill para publicar en MarketNow: checklist L1, manifest y readme generados (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-skill-publisher": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-ops"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_xcetnxeivx7f",
+  "skill_id": "mn-sub-90127",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:06.886Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-agent-org-chart",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-agent-org-chart",
+    "description": "Registro vivo del equipo de agentes: roles, capacidades, autonomía y estado. Cuando varios agentes colaboran, nadie sabe quién es quién: se duplican roles, se delega a quien no tiene la capacidad y no",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:06.886Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "multi-agente-y-coordinación"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90127",
+    "name": "mcp-agent-org-chart",
+    "slug": "agent-org-chart-0128",
+    "description": "Registro vivo del equipo de agentes: roles, capacidades, autonomía y estado. Cuando varios agentes colaboran, nadie sabe quién es quién: se duplican roles, se delega a quien no tiene la capacidad y no hay jerarquía de escalamiento. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 2.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-agent-org-chart",
+      "submitted_at": "2026-09-30T05:37:06.886Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only agent-org-chart",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

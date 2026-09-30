@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/behavior-diff",
+  "version": "1.0.0",
+  "description": "Behavior Diff — Diff de conducta: cómo cambió el uso de tools y patrones del agente entre dos períodos, con anomalías señaladas (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-behavior-diff": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "auto-mejora"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

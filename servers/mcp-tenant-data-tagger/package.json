@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/tenant-data-tagger",
+  "version": "1.0.0",
+  "description": "Tenant Data Tagger — Etiqueta cada dato con su inquilino y verifica que lo DERIVADO también la lleva: la etiqueta se propaga o no es confianza (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-tenant-data-tagger": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-tenant"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_48kjmzon0ieg",
+  "skill_id": "mn-sub-90118",
+  "status": "pending",
+  "submitted_at": "2026-09-30T03:49:51.405Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-meeting-notes",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-meeting-notes",
+    "description": "Estructura notas de reunión: decisiones, acciones con dueño y temas aparcados. Las notas de reunión son ríos de prosa: decisiones y acciones se pierden sin estructura. Incluye health_check y persisten",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T03:49:51.405Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "comunicación-y-humano"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90118",
+    "name": "mcp-meeting-notes",
+    "slug": "meeting-notes-0119",
+    "description": "Estructura notas de reunión: decisiones, acciones con dueño y temas aparcados. Las notas de reunión son ríos de prosa: decisiones y acciones se pierden sin estructura. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 1.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-meeting-notes",
+      "submitted_at": "2026-09-30T03:49:51.405Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only meeting-notes",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

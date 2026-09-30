@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/occam-razor",
+  "version": "1.0.0",
+  "description": "Occam Razor — Navaja de Occam cuantificada: hipótesis con entidades, supuestos y ajuste a evidencia — simplicidad que gana solo si empata (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-occam-razor": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "razonamiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

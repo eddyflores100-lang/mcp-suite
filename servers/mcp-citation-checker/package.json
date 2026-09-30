@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/citation-checker",
+  "version": "1.0.0",
+  "description": "Citation Checker — Extrae, formatea y verifica citas y URLs de cualquier texto (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-citation-checker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "calidad-de-salida"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

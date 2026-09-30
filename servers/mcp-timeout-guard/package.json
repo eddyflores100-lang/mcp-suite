@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/timeout-guard",
+  "version": "1.0.0",
+  "description": "Timeout Guard — Deadlines y escalada: ninguna llamada sin reloj (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-timeout-guard": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "resiliencia-de-tools"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/did-resolver",
+  "version": "1.0.0",
+  "description": "DID Resolver — Identidades descentralizadas did:agent: crea, resuelve, firma, verifica y revoca sin registrar nada en tercero (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-did-resolver": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "identidad-federada"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 7
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

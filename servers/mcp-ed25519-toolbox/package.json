@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/ed25519-toolbox",
+  "version": "1.0.0",
+  "description": "Ed25519 Toolbox — Genera claves, firma y verifica mensajes con Ed25519 (RFC 8032) — la base del trust de agentes (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-ed25519-toolbox": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-trust"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

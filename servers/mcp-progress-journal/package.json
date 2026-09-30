@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/progress-journal",
+  "version": "1.0.0",
+  "description": "Progress Journal — Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-progress-journal": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "objetivos-y-largo-plazo"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

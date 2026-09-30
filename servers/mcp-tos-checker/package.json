@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/tos-checker",
+  "version": "1.0.0",
+  "description": "ToS & Robots Checker — Respeta robots.txt y términos: scraping legal antes de raspar (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-tos-checker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "seguridad"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

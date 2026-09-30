@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_wtrxmojvked0",
+  "skill_id": "mn-sub-90181",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:16.081Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-compliance-report",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-compliance-report",
+    "description": "Reportes de cumplimiento por marco (HIPAA/GDPR/SOX-like): evidencia estructurada para el auditor. Cuando llega la auditoría no hay nada que entregar: los controles existieron 'en teoría' pero no hay e",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:16.081Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "cumplimiento"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90181",
+    "name": "mcp-compliance-report",
+    "slug": "compliance-report-0182",
+    "description": "Reportes de cumplimiento por marco (HIPAA/GDPR/SOX-like): evidencia estructurada para el auditor. Cuando llega la auditoría no hay nada que entregar: los controles existieron 'en teoría' pero no hay evidencia estructurada de qué control aplicó cuándo y con qué resultado. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-compliance-report",
+      "submitted_at": "2026-09-30T05:37:16.081Z"
+    },
+    "install": "git clone https://github.com/alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only compliance-report",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

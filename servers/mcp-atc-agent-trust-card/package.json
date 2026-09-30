@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/atc-agent-trust-card",
+  "version": "1.0.0",
+  "description": "ATC · Agent Trust Card — Crea y verifica Agent Trust Cards firmadas (Ed25519 + JCS), el estándar de identidad del marketplace (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-atc-agent-trust-card": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-trust"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

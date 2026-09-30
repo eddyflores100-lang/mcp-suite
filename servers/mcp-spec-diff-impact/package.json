@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/spec-diff-impact",
+  "version": "1.0.0",
+  "description": "Spec Diff Impact — Cambia la spec en mitad de la ejecución y calcula el impacto: qué trabajo se invalida y qué sobrevive (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-spec-diff-impact": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "especificaci-n-y-requisitos"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

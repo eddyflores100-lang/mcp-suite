@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/quality-drift-monitor",
+  "version": "1.0.0",
+  "description": "Quality Drift Monitor — Vigila la tendencia de calidad del agente en el tiempo: detecta empeoramiento gradual antes del cliente (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-quality-drift-monitor": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "evaluaci-n-continua"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/scope-minting",
+  "version": "1.0.0",
+  "description": "Scope Minting — Acuña capacidades de mínimo privilegio como tokens: verbo + recurso + límites, verificables en un paso (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-scope-minting": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "identidad-federada"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/prompt-injection-scanner",
+  "version": "1.0.0",
+  "description": "Prompt Injection Scanner — Detecta inyecciones de prompt en entradas externas antes de que lleguen al modelo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-prompt-injection-scanner": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "seguridad"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

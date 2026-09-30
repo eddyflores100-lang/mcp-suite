@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/turn-state-machine",
+  "version": "1.0.0",
+  "description": "Turn State Machine — Gobierno de turnos para agentes de voz: quién habla, cuándo callar, cómo procesar la interrupción sin perder el hilo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-turn-state-machine": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multimodal-voz"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

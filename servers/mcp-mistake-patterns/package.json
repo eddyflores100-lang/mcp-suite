@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/mistake-patterns",
+  "version": "1.0.0",
+  "description": "Mistake Patterns — Detecta patrones recurrentes de error: la tercera vez que fallas igual ya no es mala suerte (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-mistake-patterns": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "aprendizaje-de-habilidades"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/change-changelog",
+  "version": "1.0.0",
+  "description": "Change Changelog — Changelog humano generado de los cambios del agente: agrupado, con semántica y exportable a Markdown (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-change-changelog": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "agent-ci-cd"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

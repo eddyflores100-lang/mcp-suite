@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/owasp-mcp-matrix",
+  "version": "1.0.0",
+  "description": "OWASP MCP Matrix — Matriz de cumplimiento del OWASP MCP Cheat Sheet: 12 controles, auto-evaluación y reporte (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-owasp-mcp-matrix": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-ops"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

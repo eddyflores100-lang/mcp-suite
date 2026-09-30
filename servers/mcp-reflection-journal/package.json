@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/reflection-journal",
+  "version": "1.0.0",
+  "description": "Reflection Journal — Diario de reflexión del agente: qué funcionó, qué no, qué sorprendió — y las lecciones destiladas al final del período (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-reflection-journal": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "auto-mejora"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

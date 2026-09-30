@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/handoff-notes",
+  "version": "1.0.0",
+  "description": "Handoff Notes — Notas de traspaso entre agentes/turnos: contexto, estado y pendientes en plantilla estandarizada (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-handoff-notes": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comunicaci-n-y-humano"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

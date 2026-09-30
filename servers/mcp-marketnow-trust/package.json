@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/marketnow-trust",
+  "version": "1.0.0",
+  "description": "MarketNow · Trust & Riesgo — Clasificación de confianza del marketplace: safe/caution/risky/dangerous con evidencia (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-marketnow-trust": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

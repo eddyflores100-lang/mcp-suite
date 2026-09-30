@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/pareto-tradeoff",
+  "version": "1.0.0",
+  "description": "Pareto Tradeoff — Frontera de Pareto para decisiones multi-objetivo: qué opciones son dominadas y cuál es el punto de equilibrio (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-pareto-tradeoff": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "razonamiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/drift-detector",
+  "version": "1.0.0",
+  "description": "Drift Detector — Detecta cuándo el trabajo del agente se desvió del objetivo original (score de deriva por decisión) (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-drift-detector": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "objetivos-y-largo-plazo"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

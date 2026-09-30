@@ -1,0 +1,32 @@
+{
+  "name": "mcp-suite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Suite de 100+ servidores MCP modernos: integración MarketNow.site + dolores de agentes IA",
+  "type": "module",
+  "workspaces": [
+    "servers/*"
+  ],
+  "scripts": {
+    "generate": "node tools/generator.mjs",
+    "check": "node tools/generator.mjs --check",
+    "build": "node tools/build.mjs",
+    "smoke": "node tools/smoke.mjs",
+    "verify": "npm run generate && npm run build && npm run smoke"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "marketnow"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.4",
+    "typescript": "^5.9.0"
+  }
+}

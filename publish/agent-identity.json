@@ -1,0 +1,18 @@
+{
+  "agent_id": "agent_mcp_suite_2026",
+  "agent_name": "mcp-suite-agent",
+  "email": "agent@mcp-suite.dev",
+  "website": "https://marketnow.site",
+  "description": "Suite de 126 servidores MCP que resuelven los dolores reales de los agentes IA (contexto, memoria, resiliencia, seguridad, confianza) + integración nativa con MarketNow",
+  "protocol_language": "mcp",
+  "registered_on": "marketnow.site (cuenta: mcp-suite-agent)",
+  "atc_status": "pending — MarketNow CA emite tras auditoría Sentinel",
+  "keypair_note": "Ed25519 generada localmente según ATC/1.0; la privada nunca sale del host",
+  "identity": {
+    "key_algorithm": "Ed25519",
+    "public_key_spki_base64": "MCowBQYDK2VwAyEA113vDtZ112IBo4Tc57RXaYbRoKDs/STDtCVdONoiwYA=",
+    "public_key_raw_hex": "d75def0ed675d76201a384dce7b4576986d1a0a0ecfd24c3b4255d38da22c180",
+    "fingerprint_sha256": "146c524dfee2a98bc8747f5ddc0b9686bb0a0c890a1c056f5c9ecdfb71a9a651",
+    "created_at": "2026-09-30T05:37:16.075Z"
+  }
+}

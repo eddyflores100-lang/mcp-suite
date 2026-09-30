@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/csv-toolkit",
+  "version": "1.0.0",
+  "description": "CSV Toolkit — Parse, filtra y resume CSVs sin Excel: separador auto-detectado (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-csv-toolkit": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "datos-y-extracci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

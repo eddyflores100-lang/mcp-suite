@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_muv1eqwq8n9s",
+  "skill_id": "mn-sub-90133",
+  "status": "pending",
+  "submitted_at": "2026-09-30T03:49:51.405Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-quorum-coordinator",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-quorum-coordinator",
+    "description": "Votaciones distribuidas con quórum, pesos y timeouts: decisiones de equipo sin dictador. En equipos de agentes las decisiones críticas las toma el primero que llega, sin quórum ni pesos: minorías ruid",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T03:49:51.405Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "multi-agente-y-coordinación"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90133",
+    "name": "mcp-quorum-coordinator",
+    "slug": "quorum-coordinator-0134",
+    "description": "Votaciones distribuidas con quórum, pesos y timeouts: decisiones de equipo sin dictador. En equipos de agentes las decisiones críticas las toma el primero que llega, sin quórum ni pesos: minorías ruidosas ganan y no queda rastro de quién votó qué. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 9.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-quorum-coordinator",
+      "submitted_at": "2026-09-30T03:49:51.405Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only quorum-coordinator",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

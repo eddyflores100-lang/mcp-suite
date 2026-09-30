@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/definition-of-done",
+  "version": "1.0.0",
+  "description": "Definition of Done — Checklists de completitud por tipo de entrega: código, análisis, documento, datos (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-definition-of-done": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "especificaci-n-y-requisitos"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

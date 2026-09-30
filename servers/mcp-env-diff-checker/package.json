@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/env-diff-checker",
+  "version": "1.0.0",
+  "description": "Env Diff Checker — Caza el drift de configuración: snapshot de entorno dev vs prod y qué claves divergen antes de desplegar (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-env-diff-checker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "agent-ci-cd"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

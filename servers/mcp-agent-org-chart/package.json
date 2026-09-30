@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/agent-org-chart",
+  "version": "1.0.0",
+  "description": "Agent Org Chart — Registro vivo del equipo de agentes: roles, capacidades, autonomía y estado (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-agent-org-chart": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-agente-y-coordinaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 8
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

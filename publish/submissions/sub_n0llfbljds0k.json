@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_n0llfbljds0k",
+  "skill_id": "mn-sub-90189",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:06.886Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-sla-contract-manager",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-sla-contract-manager",
+    "description": "Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas. El agente contrata un sub-agente 'rápido' sin SLA escrito: cuando empieza a tardar 40 segundos no ha",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:06.886Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "comercio-a2a"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90189",
+    "name": "mcp-sla-contract-manager",
+    "slug": "sla-contract-manager-0190",
+    "description": "Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas. El agente contrata un sub-agente 'rápido' sin SLA escrito: cuando empieza a tardar 40 segundos no hay objetivo, ni ventana de medición, ni forma objetiva de reclamar. La confianza entre agentes sin métricas es humo. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-sla-contract-manager",
+      "submitted_at": "2026-09-30T05:37:06.886Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only sla-contract-manager",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

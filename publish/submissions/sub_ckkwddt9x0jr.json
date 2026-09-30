@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_ckkwddt9x0jr",
+  "skill_id": "mn-sub-90020",
+  "status": "pending",
+  "submitted_at": "2026-09-10T17:03:21.348Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-trust-gateway",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-trust-gateway",
+    "description": "Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad. Cada tool decide confianza por su cuenta: faltan políticas centrales (score mínimo, scopes, deny-list) con decisiones ex",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-10T17:03:21.348Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "marketnow-trust"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90020",
+    "name": "mcp-trust-gateway",
+    "slug": "trust-gateway-0021",
+    "description": "Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad. Cada tool decide confianza por su cuenta: faltan políticas centrales (score mínimo, scopes, deny-list) con decisiones explicables. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 9.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-trust-gateway",
+      "submitted_at": "2026-09-10T17:03:21.348Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only trust-gateway",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

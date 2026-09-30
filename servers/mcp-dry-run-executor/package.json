@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/dry-run-executor",
+  "version": "1.0.0",
+  "description": "Dry-Run Executor — Ensayo el plan ANTES de ejecutarlo: detecta pasos fuera de orden, efectos sin deshacer y dependencias faltantes (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-dry-run-executor": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "pre-vuelo"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

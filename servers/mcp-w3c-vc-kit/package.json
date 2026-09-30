@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/w3c-vc-kit",
+  "version": "1.0.0",
+  "description": "W3C VC Kit — Construye y valida Verifiable Credentials (estructura W3C) para claims de agentes (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-w3c-vc-kit": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-trust"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/goal-contract",
+  "version": "1.0.0",
+  "description": "Goal Contract — Objetivos con criterios de éxito inmutables: el north star que no se reescribe en mitad de la misión (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-goal-contract": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "objetivos-y-largo-plazo"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 8
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

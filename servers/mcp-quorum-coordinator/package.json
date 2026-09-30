@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/quorum-coordinator",
+  "version": "1.0.0",
+  "description": "Quorum Coordinator — Votaciones distribuidas con quórum, pesos y timeouts: decisiones de equipo sin dictador (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-quorum-coordinator": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-agente-y-coordinaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 7
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

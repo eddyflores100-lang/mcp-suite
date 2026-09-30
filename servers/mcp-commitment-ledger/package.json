@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/commitment-ledger",
+  "version": "1.0.0",
+  "description": "Commitment Ledger — Libro mayor de compromisos del agente: promesas con deadline, cumplimiento y reputación (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-commitment-ledger": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "objetivos-y-largo-plazo"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 7
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

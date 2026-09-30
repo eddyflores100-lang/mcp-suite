@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/marketnow-agent-card",
+  "version": "1.0.0",
+  "description": "MarketNow · Agent Card — Lee la tarjeta machine-readable de marketnow.site y descubre sus capabilities MCP/A2A (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-marketnow-agent-card": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

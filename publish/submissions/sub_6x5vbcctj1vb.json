@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_6x5vbcctj1vb",
+  "skill_id": "mn-sub-90143",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:16.081Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-acceptance-criteria",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-acceptance-criteria",
+    "description": "Convierte requests en criterios GIVEN/WHEN/THEN verificables con prioridad y trazabilidad. Los 'definition of done' del agente son difusos: dice 'listo' cuando compiló, no cuando cumple criterios veri",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:16.081Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "especificación-y-requisitos"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90143",
+    "name": "mcp-acceptance-criteria",
+    "slug": "acceptance-criteria-0144",
+    "description": "Convierte requests en criterios GIVEN/WHEN/THEN verificables con prioridad y trazabilidad. Los 'definition of done' del agente son difusos: dice 'listo' cuando compiló, no cuando cumple criterios verificables que el humano podría auditar. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 2.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-acceptance-criteria",
+      "submitted_at": "2026-09-30T05:37:16.081Z"
+    },
+    "install": "git clone https://github.com/alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only acceptance-criteria",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

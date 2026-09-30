@@ -1,0 +1,9 @@
+# ⚠️ NUNCA subir la clave privada del agente
+publish/agent-private-key.pem
+
+# Dependencias
+node_modules/
+
+# Estado local y logs
+*.log
+.DS_Store

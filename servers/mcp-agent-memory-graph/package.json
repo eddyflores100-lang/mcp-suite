@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/agent-memory-graph",
+  "version": "1.0.0",
+  "description": "Agent Memory Graph — Memoria de entidades y relaciones: el grafo de conocimiento del agente (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-agent-memory-graph": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "memoria-y-contexto"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

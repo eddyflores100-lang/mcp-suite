@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/idempotency-guard",
+  "version": "1.0.0",
+  "description": "Idempotency Guard — Claves de idempotencia: la misma operación nunca se ejecuta dos veces (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-idempotency-guard": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "resiliencia-de-tools"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

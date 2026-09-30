@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/fact-staleness",
+  "version": "1.0.0",
+  "description": "Fact Staleness — Validez temporal de hechos: cada dato caduca y el agente debe saber cuándo ya no sirve (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-fact-staleness": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "frescura-del-conocimiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

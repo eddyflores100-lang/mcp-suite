@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/retro-analyzer",
+  "version": "1.0.0",
+  "description": "Retro Analyzer — Retrospectivas: qué salió bien, qué no y acciones concretas (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-retro-analyzer": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cognici-n-y-planificaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

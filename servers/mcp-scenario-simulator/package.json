@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/scenario-simulator",
+  "version": "1.0.0",
+  "description": "Scenario Simulator — Simula escenarios de estrés para el agente: pruébalo contra edge cases antes de producción, sin costo real (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-scenario-simulator": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "evaluaci-n-continua"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

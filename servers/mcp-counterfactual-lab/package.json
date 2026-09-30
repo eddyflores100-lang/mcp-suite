@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/counterfactual-lab",
+  "version": "1.0.0",
+  "description": "Counterfactual Lab — Laboratorio de contrafactuales: cambia UNA variable del pasado y compara mundos con el conjunto mínimo de cambios (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-counterfactual-lab": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "razonamiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

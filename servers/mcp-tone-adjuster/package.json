@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/tone-adjuster",
+  "version": "1.0.0",
+  "description": "Tone Adjuster — Analiza y ajusta el tono del texto del agente: formalidad, cortesía y claridad (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-tone-adjuster": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comunicaci-n-y-humano"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

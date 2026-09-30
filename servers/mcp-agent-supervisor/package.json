@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/agent-supervisor",
+  "version": "1.0.0",
+  "description": "Agent Supervisor — Supervisión de sub-agentes: liveness, presupuesto, rendimiento y decisión de reinicio/escalamiento (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-agent-supervisor": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-agente-y-coordinaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 7
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

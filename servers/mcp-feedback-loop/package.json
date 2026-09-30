@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/feedback-loop",
+  "version": "1.0.0",
+  "description": "Feedback Loop — Recolecta feedback estructurado y detecta sentimiento sin APIs externas (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-feedback-loop": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comunicaci-n-y-humano"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

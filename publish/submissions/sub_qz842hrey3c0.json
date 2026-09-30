@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_qz842hrey3c0",
+  "skill_id": "mn-sub-90186",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:16.081Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-precondition-checker",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-precondition-checker",
+    "description": "Puerta de arranque: todas las precondiciones del plan verificadas con evidencia antes de gastar un solo token. El agente arranca una tarea de 40 pasos y en el 35 descubre que le faltaba una credencial",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:16.081Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "pre-vuelo"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90186",
+    "name": "mcp-precondition-checker",
+    "slug": "precondition-checker-0187",
+    "description": "Puerta de arranque: todas las precondiciones del plan verificadas con evidencia antes de gastar un solo token. El agente arranca una tarea de 40 pasos y en el 35 descubre que le faltaba una credencial que se pide en el paso 1: media hora y un montón de tokens tirados a la basura por no chequear antes. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-precondition-checker",
+      "submitted_at": "2026-09-30T05:37:16.081Z"
+    },
+    "install": "git clone https://github.com/alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only precondition-checker",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

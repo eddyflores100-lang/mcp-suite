@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/threat-modeler",
+  "version": "1.0.0",
+  "description": "Threat Modeler — Modelado de amenazas STRIDE para tus tools y flujos de agente (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-threat-modeler": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "seguridad"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/model-router-econ",
+  "version": "1.0.0",
+  "description": "Model Router Econ — Rutea cada sub-tarea al modelo más barato capaz: stop usando un tanque para mandar un email (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-model-router-econ": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "econom-a-del-agente"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/assumption-auditor",
+  "version": "1.0.0",
+  "description": "Assumption Auditor — Audita supuestos del agente: explícitos, críticos y cómo validarlos (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-assumption-auditor": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cognici-n-y-planificaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

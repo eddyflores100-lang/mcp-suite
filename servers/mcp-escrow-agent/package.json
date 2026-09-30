@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/escrow-agent",
+  "version": "1.0.0",
+  "description": "Escrow Agent — Custodia de intercambios entre agentes: bloqueo → entrega verificada → liberación (o disputa) (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-escrow-agent": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comercio-a2a"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 9
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

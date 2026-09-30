@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/data-anonymizer",
+  "version": "1.0.0",
+  "description": "Data Anonymizer — Anonimiza datasets: pseudonimos estables, emails fake y análisis de riesgo de reidentificación (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-data-anonymizer": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "datos-y-extracci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

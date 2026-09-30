@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/jcs-canonicalizer",
+  "version": "1.0.0",
+  "description": "JCS Canonicalizer — JSON canónico RFC 8785 (JCS): misma firma para el mismo JSON, siempre (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-jcs-canonicalizer": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-trust"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

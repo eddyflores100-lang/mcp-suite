@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/lesson-library",
+  "version": "1.0.0",
+  "description": "Lesson Library — Biblioteca de lecciones recuperables por situación: el agente recuerda lo que ya aprendió (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-lesson-library": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "aprendizaje-de-habilidades"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

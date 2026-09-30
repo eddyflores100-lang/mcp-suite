@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/uts-trust-adapter",
+  "version": "1.0.0",
+  "description": "UTS · Trust Adapter — El USB-C de la confianza: traduce 8 formatos de credencial al Universal Trust Schema (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-uts-trust-adapter": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-trust"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

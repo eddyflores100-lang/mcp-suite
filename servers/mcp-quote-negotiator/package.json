@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/quote-negotiator",
+  "version": "1.0.0",
+  "description": "Quote Negotiator — Protocolo de oferta y contraoferta con precio de reserva, BATNA y concesiones decrecientes (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-quote-negotiator": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comercio-a2a"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

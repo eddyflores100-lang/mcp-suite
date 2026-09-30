@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/blackboard-shared",
+  "version": "1.0.0",
+  "description": "Blackboard Shared — Pizarra compartida con locks con TTL para coordinar agentes sin duplicar trabajo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-blackboard-shared": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-agente-y-coordinaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 9
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

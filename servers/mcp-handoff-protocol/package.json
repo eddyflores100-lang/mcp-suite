@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/handoff-protocol",
+  "version": "1.0.0",
+  "description": "Handoff Protocol — Transferencias estructuradas entre agentes con checklist de comprensión y score de calidad (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-handoff-protocol": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-agente-y-coordinaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 8
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

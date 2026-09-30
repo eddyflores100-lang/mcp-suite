@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/poll-watcher",
+  "version": "1.0.0",
+  "description": "Poll Watcher — Vigila cambios de cualquier URL: detecta diffs entre visitas (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-poll-watcher": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "resiliencia-de-tools"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

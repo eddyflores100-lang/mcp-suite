@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/risk-register",
+  "version": "1.0.0",
+  "description": "Risk Register — Registro de riesgos: probabilidad × impacto con mitigaciones y dueños (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-risk-register": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cognici-n-y-planificaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

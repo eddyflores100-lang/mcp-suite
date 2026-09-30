@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/regression-harness",
+  "version": "1.0.0",
+  "description": "Regression Harness — Regresión de comportamiento del agente: compara respuestas actuales vs históricas tras cualquier cambio (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-regression-harness": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "evaluaci-n-continua"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

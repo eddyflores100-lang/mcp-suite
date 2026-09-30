@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_sspypmt15xqd",
+  "skill_id": "mn-sub-90101",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:16.081Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-plan-decompose",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-plan-decompose",
+    "description": "Descompone objetivos en planes ejecutables: pasos, dependencias y estimaciones. El agente ataca objetivos gigantes sin descomponer: pasos desordenados, sin dependencias ni criterios de salida. Incluye",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:16.081Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "cognición-y-planificación"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90101",
+    "name": "mcp-plan-decompose",
+    "slug": "plan-decompose-0102",
+    "description": "Descompone objetivos en planes ejecutables: pasos, dependencias y estimaciones. El agente ataca objetivos gigantes sin descomponer: pasos desordenados, sin dependencias ni criterios de salida. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 1.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-plan-decompose",
+      "submitted_at": "2026-09-30T05:37:16.081Z"
+    },
+    "install": "git clone https://github.com/alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only plan-decompose",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/deadline-engine",
+  "version": "1.0.0",
+  "description": "Deadline Engine — Deadlines con prioridad dinámica: el antídoto contra la procrastinación estructural del agente (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-deadline-engine": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "frescura-del-conocimiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

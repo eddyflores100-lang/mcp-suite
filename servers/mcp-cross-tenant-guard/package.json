@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/cross-tenant-guard",
+  "version": "1.0.0",
+  "description": "Cross-Tenant Guard — Guardián de flujos entre inquilinos: ninguna transferencia de datos cruza tenants sin política explícita que lo permita (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-cross-tenant-guard": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-tenant"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

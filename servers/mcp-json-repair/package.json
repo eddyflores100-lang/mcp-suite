@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/json-repair",
+  "version": "1.0.0",
+  "description": "JSON Repair — Repara JSON roto de LLMs: comillas, comas, truncados y fences (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-json-repair": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "calidad-de-salida"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/stats-toolkit",
+  "version": "1.0.0",
+  "description": "Stats Toolkit — Estadística descriptiva exacta: media, mediana, desviación, cuartiles y correlación (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-stats-toolkit": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "utilidades"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

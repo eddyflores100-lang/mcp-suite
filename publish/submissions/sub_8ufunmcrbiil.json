@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_8ufunmcrbiil",
+  "skill_id": "mn-sub-90140",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:06.886Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-progress-journal",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-progress-journal",
+    "description": "Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó. Tras horas de trabajo el agente no puede responder '¿qué has hecho?': los intentos fallidos no se registr",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:06.886Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "objetivos-y-largo-plazo"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90140",
+    "name": "mcp-progress-journal",
+    "slug": "progress-journal-0141",
+    "description": "Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó. Tras horas de trabajo el agente no puede responder '¿qué has hecho?': los intentos fallidos no se registran y el contexto se comprime perdiendo el rastro de lo ya intentado. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 0,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-progress-journal",
+      "submitted_at": "2026-09-30T05:37:06.886Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only progress-journal",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/token-audit",
+  "version": "1.0.0",
+  "description": "Token Audit — Auditoría de a dónde van los tokens: qué consumió el contexto, la retrieval y las tools (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-token-audit": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "econom-a-del-agente"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

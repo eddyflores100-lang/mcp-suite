@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/settlement-ledger",
+  "version": "1.0.0",
+  "description": "Settlement Ledger — Libro de liquidaciones entre agentes: pagos registrados, conciliación contra factura y saldos por contraparte (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-settlement-ledger": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comercio-a2a"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

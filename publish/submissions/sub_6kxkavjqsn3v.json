@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_6kxkavjqsn3v",
+  "skill_id": "mn-sub-90162",
+  "status": "pending",
+  "submitted_at": "2026-09-30T03:50:01.654Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "alicelabs-llc/MARKETNOW/tree/main/servers/mcp-checkpoint-undo",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-checkpoint-undo",
+    "description": "Checkpoints antes de acciones destructivas + rollback: el botón de 'deshacer' para agentes. El agente borra una fila, envía un email o confirma un pago por error y no hay Ctrl+Z: el daño es irreversib",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T03:50:01.654Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "computer-use"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90162",
+    "name": "mcp-checkpoint-undo",
+    "slug": "checkpoint-undo-0163",
+    "description": "Checkpoints antes de acciones destructivas + rollback: el botón de 'deshacer' para agentes. El agente borra una fila, envía un email o confirma un pago por error y no hay Ctrl+Z: el daño es irreversible porque ninguna acción destructiva fue precedida de checkpoint. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "alicelabs-llc/MARKETNOW/tree/main/servers/mcp-checkpoint-undo",
+      "submitted_at": "2026-09-30T03:50:01.654Z"
+    },
+    "install": "git clone alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only checkpoint-undo",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

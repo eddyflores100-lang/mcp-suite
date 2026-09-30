@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/allowlist-proxy",
+  "version": "1.0.0",
+  "description": "Allowlist Proxy Guard — Valida URLs contra allowlist y bloquea SSRF antes de cualquier fetch (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-allowlist-proxy": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "seguridad"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

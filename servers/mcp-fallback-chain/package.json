@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/fallback-chain",
+  "version": "1.0.0",
+  "description": "Fallback Chain — Cadenas de respaldo: si A falla prueba B, luego C — con registro (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-fallback-chain": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "resiliencia-de-tools"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

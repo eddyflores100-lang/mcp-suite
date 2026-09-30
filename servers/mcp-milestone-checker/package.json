@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/milestone-checker",
+  "version": "1.0.0",
+  "description": "Milestone Checker — Hitos con checkpoints de calidad: mide progreso real contra el plan (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-milestone-checker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cognici-n-y-planificaci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

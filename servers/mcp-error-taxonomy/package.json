@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/error-taxonomy",
+  "version": "1.0.0",
+  "description": "Error Taxonomy — Agrupa los errores del agente en familias con firma común: el error 47 y el 3 son el MISMO error, ahora lo verás (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-error-taxonomy": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "auto-mejora"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

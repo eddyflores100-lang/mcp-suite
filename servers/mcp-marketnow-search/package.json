@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/marketnow-search",
+  "version": "1.0.0",
+  "description": "MarketNow · Skill Search — Busca entre los 66.496 skills MCP del catálogo de MarketNow con índice local + modo en vivo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-marketnow-search": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

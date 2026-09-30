@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/cost-attribution",
+  "version": "1.0.0",
+  "description": "Cost Attribution — Atribuye cada dólar a cliente/proyecto/agente: el gasto deja de ser un agujero negro global (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-cost-attribution": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "econom-a-del-agente"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

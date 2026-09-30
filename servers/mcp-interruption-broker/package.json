@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/interruption-broker",
+  "version": "1.0.0",
+  "description": "Interruption Broker — Gestiona interrupciones del humano: pausa limpia, preserva estado y replanifica al reanudar (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-interruption-broker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "humano-en-el-bucle"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

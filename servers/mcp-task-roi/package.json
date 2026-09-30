@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/task-roi",
+  "version": "1.0.0",
+  "description": "Task ROI — ROI por tarea: valor generado vs costo en tokens/dinero/tiempo — qué trabajo vale la pena (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-task-roi": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "econom-a-del-agente"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

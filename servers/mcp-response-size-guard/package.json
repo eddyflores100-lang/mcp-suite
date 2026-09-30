@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/response-size-guard",
+  "version": "1.0.0",
+  "description": "Response Size Guard — Guardián del tamaño de respuesta: nada revienta el contexto del cliente (issue #58 de MCP) (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-response-size-guard": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "calidad-de-salida"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

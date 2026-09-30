@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/prompt-versioner",
+  "version": "1.0.0",
+  "description": "Prompt Versioner — Control de versiones para prompts y system prompts: commits con diff, semántica y puntero de despliegue (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-prompt-versioner": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "agent-ci-cd"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_fon6wjmjvz63",
+  "skill_id": "mn-sub-90215",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:06.886Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-cross-tenant-guard",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-cross-tenant-guard",
+    "description": "Guardián de flujos entre inquilinos: ninguna transferencia de datos cruza tenants sin política explícita que lo permita. El agente 'optimiza' combinando datos de dos clientes para responder mejor a un",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:06.886Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "multi-tenant"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90215",
+    "name": "mcp-cross-tenant-guard",
+    "slug": "cross-tenant-guard-0216",
+    "description": "Guardián de flujos entre inquilinos: ninguna transferencia de datos cruza tenants sin política explícita que lo permita. El agente 'optimiza' combinando datos de dos clientes para responder mejor a un tercero: nadie le dijo que ese flujo cruzado estaba prohibido, porque el prohibido no estaba escrito en ninguna parte. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 9.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-cross-tenant-guard",
+      "submitted_at": "2026-09-30T05:37:06.886Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only cross-tenant-guard",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

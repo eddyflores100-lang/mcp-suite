@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/time-horizon-planner",
+  "version": "1.0.0",
+  "description": "Time Horizon Planner — Planificación por horizontes (hoy / semana / mes) con recalendización explícita (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-time-horizon-planner": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "objetivos-y-largo-plazo"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 7
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

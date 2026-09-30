@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/pdf-text-extractor",
+  "version": "1.0.0",
+  "description": "PDF Text Extractor — Extrae texto de PDFs localmente: streams zlib + operadores Tj/TJ, sin dependencias (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-pdf-text-extractor": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "datos-y-extracci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

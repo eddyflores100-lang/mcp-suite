@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/schema-validator",
+  "version": "1.0.0",
+  "description": "Schema Validator — Valida cualquier JSON contra un JSON Schema (subconjunto potente): tipos, requeridos, anidados (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-schema-validator": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "calidad-de-salida"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

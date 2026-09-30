@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/budget-forecast",
+  "version": "1.0.0",
+  "description": "Budget Forecast — Proyección de gasto futuro basada en histórico: sabe cuánto costará el mes antes de gastarlo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-budget-forecast": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "econom-a-del-agente"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

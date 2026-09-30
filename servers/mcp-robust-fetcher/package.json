@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/robust-fetcher",
+  "version": "1.0.0",
+  "description": "Robust Fetcher — Fetch HTTP resiliente: timeouts, reintentos, headers y respuestas truncadas seguras (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-robust-fetcher": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "datos-y-extracci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

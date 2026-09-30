@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/data-residency-check",
+  "version": "1.0.0",
+  "description": "Data Residency Check — Verifica a dónde van los datos: restricciones de residencia geográfica y transferencias válidas (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-data-residency-check": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cumplimiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

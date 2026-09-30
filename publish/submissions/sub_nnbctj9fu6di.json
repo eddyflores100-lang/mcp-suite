@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_nnbctj9fu6di",
+  "skill_id": "mn-sub-90144",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:06.886Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-definition-of-done",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-definition-of-done",
+    "description": "Checklists de completitud por tipo de entrega: código, análisis, documento, datos. 'Ya está' significa cosas distintas para el agente y el humano: faltan tests, falta documentar, quedan TODOs. Sin che",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:06.886Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "especificación-y-requisitos"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90144",
+    "name": "mcp-definition-of-done",
+    "slug": "definition-of-done-0145",
+    "description": "Checklists de completitud por tipo de entrega: código, análisis, documento, datos. 'Ya está' significa cosas distintas para el agente y el humano: faltan tests, falta documentar, quedan TODOs. Sin checklist, el 90% se declara hecho al 70%. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 0,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-definition-of-done",
+      "submitted_at": "2026-09-30T05:37:06.886Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only definition-of-done",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

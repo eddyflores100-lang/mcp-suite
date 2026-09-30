@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_ugq4io898u00",
+  "skill_id": "mn-sub-90001",
+  "status": "pending",
+  "submitted_at": "2026-09-10T17:03:21.348Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-marketnow-agent-card",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-marketnow-agent-card",
+    "description": "Lee la tarjeta machine-readable de marketnow.site y descubre sus capabilities MCP/A2A. Los agentes no saben qué servicios ofrece un sitio ni cómo interactuar con él: falta descubrimiento estandarizado",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-10T17:03:21.348Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "marketnow"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90001",
+    "name": "mcp-marketnow-agent-card",
+    "slug": "marketnow-agent-card-0002",
+    "description": "Lee la tarjeta machine-readable de marketnow.site y descubre sus capabilities MCP/A2A. Los agentes no saben qué servicios ofrece un sitio ni cómo interactuar con él: falta descubrimiento estandarizado de capabilities. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-marketnow-agent-card",
+      "submitted_at": "2026-09-10T17:03:21.348Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only marketnow-agent-card",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

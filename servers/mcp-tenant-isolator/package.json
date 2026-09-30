@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/tenant-isolator",
+  "version": "1.0.0",
+  "description": "Tenant Isolator — Aislamiento de contexto por inquilino: cada sesión ligada a su tenant y todo acceso cruzado denegado con evidencia (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-tenant-isolator": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multi-tenant"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

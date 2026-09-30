@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/output-diff",
+  "version": "1.0.0",
+  "description": "Output Diff — Diffs de JSON y texto: qué cambió entre dos versiones de una salida (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-output-diff": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "calidad-de-salida"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

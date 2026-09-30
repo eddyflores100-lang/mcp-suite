@@ -1,0 +1,105 @@
+{
+  "attempts": [
+    {
+      "channel": "A",
+      "status": "closed",
+      "http": 405,
+      "at": "2026-09-10T17:04:49.086Z"
+    },
+    {
+      "channel": "B",
+      "status": "verified-endpoint-alive",
+      "at": "2026-09-10T17:05:02.332Z"
+    },
+    {
+      "channel": "C",
+      "status": "urls-generated",
+      "count": 126,
+      "at": "2026-09-10T17:05:02.333Z"
+    },
+    {
+      "channel": "A",
+      "status": "closed",
+      "http": 422,
+      "at": "2026-09-30T03:50:03.524Z"
+    },
+    {
+      "channel": "B",
+      "status": "verified-endpoint-alive",
+      "at": "2026-09-30T03:50:05.319Z"
+    },
+    {
+      "channel": "C",
+      "status": "urls-generated",
+      "count": 181,
+      "at": "2026-09-30T03:50:05.320Z"
+    },
+    {
+      "channel": "A",
+      "status": "closed",
+      "http": 422,
+      "at": "2026-09-30T05:37:18.047Z"
+    },
+    {
+      "channel": "B",
+      "status": "verified-endpoint-alive",
+      "at": "2026-09-30T05:37:19.782Z"
+    },
+    {
+      "channel": "C",
+      "status": "urls-generated",
+      "count": 229,
+      "at": "2026-09-30T05:37:19.784Z"
+    }
+  ],
+  "log": [
+    "[2026-09-10T17:04:48.722Z] == CANAL A: POST /api/submit-skill (API oficial marketnow-mcp) ==",
+    "[2026-09-10T17:04:49.086Z] Sondeo: HTTP 405 → {\"error\":\"method_not_allowed\",\"allowed\":[\"GET\"]}",
+    "[2026-09-10T17:04:49.086Z] → Canal A CERRADO en el despliegue vivo (405 = solo GET). Documentado. Los 126 payloads quedan listos en publish/submissions/ para cuando AliceLabs active el endpoint.",
+    "[2026-09-10T17:04:49.086Z] == CANAL B: verificación de descubribilidad (/api/mcp search_skills) ==",
+    "[2026-09-10T17:04:53.280Z]   búsqueda \"mcp-marketnow-trust\": aún no listada (esperado: requiere revisión humana 24-48h)",
+    "[2026-09-10T17:04:55.670Z]   búsqueda \"mcp-ed25519-toolbox\": aún no listada (esperado: requiere revisión humana 24-48h)",
+    "[2026-09-10T17:04:57.747Z]   búsqueda \"mcp-agent-memory\": aún no listada (esperado: requiere revisión humana 24-48h)",
+    "[2026-09-10T17:05:00.280Z]   búsqueda \"mcp-sentinel-lite\": aún no listada (esperado: requiere revisión humana 24-48h)",
+    "[2026-09-10T17:05:02.332Z]   búsqueda \"community submitted\": aún no listada (esperado: requiere revisión humana 24-48h)",
+    "[2026-09-10T17:05:02.332Z] → Canal B operativo: el MCP oficial responde. La indexación final depende de la revisión humana del equipo MarketNow.",
+    "[2026-09-10T17:05:02.332Z] == CANAL C: issues GitHub pre-codificados (alicelabs-llc/MARKETNOW) ==",
+    "[2026-09-10T17:05:02.332Z] Issues disponibles: 126. Se abrirán: 126.",
+    "[2026-09-10T17:05:02.333Z] URLs escritas en /home/z/my-project/mcp-suite/publish/open-issues-urls.txt",
+    "[2026-09-10T17:05:02.333Z] → Requiere sesión GitHub activa en el navegador. Usa: browser-automation o abre manualmente cada URL y pulsa 'Submit new issue'.",
+    "[2026-09-10T17:05:02.333Z]   Alternativa 1-línea (con gh CLI):",
+    "[2026-09-10T17:05:02.333Z]   gh auth login && npx -y marketnow-mcp  # luego marketnow_submit_skill cuando AliceLabs active el POST",
+    "[2026-09-30T03:50:01.721Z] == CANAL A: POST /api/submit-skill (API oficial marketnow-mcp) ==",
+    "[2026-09-30T03:50:03.524Z] Sondeo: HTTP 422 → {\"ok\":false,\"verdict\":\"rejected\",\"pricing\":null,\"reasons\":[{\"check\":\"SCHEMA\",\"severity\":\"high\",\"field\":\"name\",\"reason\":\"required string (min 2 chars)\"},{\"check\":\"SCHEMA\",\"severity\":\"high\",\"field\":\"ver",
+    "[2026-09-30T03:50:03.524Z] → Canal A CERRADO en el despliegue vivo (405 = solo GET). Documentado. Los 126 payloads quedan listos en publish/submissions/ para cuando AliceLabs active el endpoint.",
+    "[2026-09-30T03:50:03.524Z] == CANAL B: verificación de descubribilidad (/api/mcp search_skills) ==",
+    "[2026-09-30T03:50:03.957Z]   búsqueda \"mcp-marketnow-trust\": ENCONTRADA en catálogo",
+    "[2026-09-30T03:50:04.302Z]   búsqueda \"mcp-ed25519-toolbox\": ENCONTRADA en catálogo",
+    "[2026-09-30T03:50:04.695Z]   búsqueda \"mcp-agent-memory\": ENCONTRADA en catálogo",
+    "[2026-09-30T03:50:05.015Z]   búsqueda \"mcp-sentinel-lite\": ENCONTRADA en catálogo",
+    "[2026-09-30T03:50:05.319Z]   búsqueda \"community submitted\": ENCONTRADA en catálogo",
+    "[2026-09-30T03:50:05.319Z] → Canal B operativo: el MCP oficial responde. La indexación final depende de la revisión humana del equipo MarketNow.",
+    "[2026-09-30T03:50:05.319Z] == CANAL C: issues GitHub pre-codificados (alicelabs-llc/MARKETNOW) ==",
+    "[2026-09-30T03:50:05.319Z] Issues disponibles: 181. Se abrirán: 181.",
+    "[2026-09-30T03:50:05.320Z] URLs escritas en /home/z/my-project/mcp-suite/publish/open-issues-urls.txt",
+    "[2026-09-30T03:50:05.320Z] → Requiere sesión GitHub activa en el navegador. Usa: browser-automation o abre manualmente cada URL y pulsa 'Submit new issue'.",
+    "[2026-09-30T03:50:05.320Z]   Alternativa 1-línea (con gh CLI):",
+    "[2026-09-30T03:50:05.320Z]   gh auth login && npx -y marketnow-mcp  # luego marketnow_submit_skill cuando AliceLabs active el POST",
+    "[2026-09-30T05:37:16.139Z] == CANAL A: POST /api/submit-skill (API oficial marketnow-mcp) ==",
+    "[2026-09-30T05:37:18.047Z] Sondeo: HTTP 422 → {\"ok\":false,\"verdict\":\"rejected\",\"pricing\":null,\"reasons\":[{\"check\":\"SCHEMA\",\"severity\":\"high\",\"field\":\"name\",\"reason\":\"required string (min 2 chars)\"},{\"check\":\"SCHEMA\",\"severity\":\"high\",\"field\":\"ver",
+    "[2026-09-30T05:37:18.047Z] → Canal A CERRADO en el despliegue vivo (405 = solo GET). Documentado. Los 126 payloads quedan listos en publish/submissions/ para cuando AliceLabs active el endpoint.",
+    "[2026-09-30T05:37:18.047Z] == CANAL B: verificación de descubribilidad (/api/mcp search_skills) ==",
+    "[2026-09-30T05:37:18.487Z]   búsqueda \"mcp-marketnow-trust\": ENCONTRADA en catálogo",
+    "[2026-09-30T05:37:18.804Z]   búsqueda \"mcp-ed25519-toolbox\": ENCONTRADA en catálogo",
+    "[2026-09-30T05:37:19.125Z]   búsqueda \"mcp-agent-memory\": ENCONTRADA en catálogo",
+    "[2026-09-30T05:37:19.450Z]   búsqueda \"mcp-sentinel-lite\": ENCONTRADA en catálogo",
+    "[2026-09-30T05:37:19.782Z]   búsqueda \"community submitted\": ENCONTRADA en catálogo",
+    "[2026-09-30T05:37:19.782Z] → Canal B operativo: el MCP oficial responde. La indexación final depende de la revisión humana del equipo MarketNow.",
+    "[2026-09-30T05:37:19.782Z] == CANAL C: issues GitHub pre-codificados (alicelabs-llc/MARKETNOW) ==",
+    "[2026-09-30T05:37:19.782Z] Issues disponibles: 229. Se abrirán: 229.",
+    "[2026-09-30T05:37:19.784Z] URLs escritas en /home/z/my-project/mcp-suite/publish/open-issues-urls.txt",
+    "[2026-09-30T05:37:19.784Z] → Requiere sesión GitHub activa en el navegador. Usa: browser-automation o abre manualmente cada URL y pulsa 'Submit new issue'.",
+    "[2026-09-30T05:37:19.784Z]   Alternativa 1-línea (con gh CLI):",
+    "[2026-09-30T05:37:19.784Z]   gh auth login && npx -y marketnow-mcp  # luego marketnow_submit_skill cuando AliceLabs active el POST"
+  ]
+}

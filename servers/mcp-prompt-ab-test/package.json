@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/prompt-ab-test",
+  "version": "1.0.0",
+  "description": "Prompt A/B Test — Experimentos A/B de prompts con métricas objetivas: deja de afinar prompts por intuición (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-prompt-ab-test": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "evaluaci-n-continua"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

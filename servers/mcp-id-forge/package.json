@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/id-forge",
+  "version": "1.0.0",
+  "description": "ID Forge — Genera identificadores: UUIDv4, ULID, nanoid y slugs — ordenables y colisionables a propósito (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-id-forge": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "utilidades"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

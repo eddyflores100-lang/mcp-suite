@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/html-to-markdown",
+  "version": "1.0.0",
+  "description": "HTML to Markdown — Convierte HTML a Markdown limpio: sin scripts, sin estilos, enlaces intactos (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-html-to-markdown": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "datos-y-extracci-n"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

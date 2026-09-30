@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_zh5q1hsreo30",
+  "skill_id": "mn-sub-90069",
+  "status": "pending",
+  "submitted_at": "2026-09-30T03:50:01.654Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "alicelabs-llc/MARKETNOW/tree/main/servers/mcp-permission-gate",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-permission-gate",
+    "description": "Puerta de permisos: operaciones sensibles requieren aprobación explícita. Las tools ejecutan acciones sensibles (borrar, pagar, publicar) sin puerta de aprobación: human-in-the-loop ausente. Incluye h",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T03:50:01.654Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "seguridad"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90069",
+    "name": "mcp-permission-gate",
+    "slug": "permission-gate-0070",
+    "description": "Puerta de permisos: operaciones sensibles requieren aprobación explícita. Las tools ejecutan acciones sensibles (borrar, pagar, publicar) sin puerta de aprobación: human-in-the-loop ausente. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 1.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "alicelabs-llc/MARKETNOW/tree/main/servers/mcp-permission-gate",
+      "submitted_at": "2026-09-30T03:50:01.654Z"
+    },
+    "install": "git clone alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only permission-gate",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/bayesian-updater",
+  "version": "1.0.0",
+  "description": "Bayesian Updater — Cree con números: hipótesis con prior, evidencias con verosimilitud y posteriores que se actualizan con traza explicada (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-bayesian-updater": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "razonamiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

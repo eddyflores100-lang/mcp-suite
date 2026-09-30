@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/trust-calibrator",
+  "version": "1.0.0",
+  "description": "Trust Calibrator — Calibra la confianza humano→agente por dominio: dónde te dejan solo y dónde exigen revisión (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-trust-calibrator": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "humano-en-el-bucle"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

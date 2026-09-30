@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/mission-checkpoint",
+  "version": "1.0.0",
+  "description": "Mission Checkpoint — Checkpoints verificables de misiones largas: pausa, reanuda y recupera sin repetir trabajo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-mission-checkpoint": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "objetivos-y-largo-plazo"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 7
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

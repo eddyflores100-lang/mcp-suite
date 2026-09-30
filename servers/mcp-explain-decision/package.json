@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/explain-decision",
+  "version": "1.0.0",
+  "description": "Explain Decision — Explica decisiones post-hoc con evidencia: qué sabía, qué opciones descartó y por qué eligió (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-explain-decision": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "humano-en-el-bucle"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

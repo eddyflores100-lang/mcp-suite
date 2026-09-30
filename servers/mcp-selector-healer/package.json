@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/selector-healer",
+  "version": "1.0.0",
+  "description": "Selector Healer — Repara selectores rotos por similitud: encuentra el elemento renombrado sin reescribir el flujo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-selector-healer": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "computer-use"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

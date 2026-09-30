@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/policy-as-code",
+  "version": "1.0.0",
+  "description": "Policy As Code — Políticas ejecutables para agentes regulados: cada acción se valida contra reglas, no contra intuición (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-policy-as-code": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cumplimiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

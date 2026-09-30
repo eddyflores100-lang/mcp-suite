@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/consent-ledger",
+  "version": "1.0.0",
+  "description": "Consent Ledger — Libro mayor de consentimientos con propósito: cada uso de datos personales amparado por un consentimiento vivo (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-consent-ledger": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "cumplimiento"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

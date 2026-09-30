@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/transcript-condenser",
+  "version": "1.0.0",
+  "description": "Transcript Condenser — Condensa transcripciones de voz interminables: conserva decisiones, acciones y compromisos; tira la paja (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-transcript-condenser": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multimodal-voz"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

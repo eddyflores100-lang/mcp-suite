@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/competency-tracker",
+  "version": "1.0.0",
+  "description": "Competency Tracker — Matriz de competencias del agente: en qué es fiable, en qué necesita supervisión humana (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-competency-tracker": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "aprendizaje-de-habilidades"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

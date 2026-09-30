@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/sentinel-lite",
+  "version": "1.0.0",
+  "description": "Sentinel Lite — Escáner estático de skills/paquetes con las reglas de estilo Sentinel L1: 10 checks reproducibles (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-sentinel-lite": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-ops"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

@@ -1,0 +1,2303 @@
+{
+  "generated_at": "2026-09-30T05:37:16.081Z",
+  "strategy": "Tiers oficiales de MarketNow (og= del bundle del sitio): Free $0 / Standard $1.99 / Multi-feature $2.99 / Sophisticated $4.99 / Enterprise $9.99. Comisión 20% MarketNow / 80% vendedor.",
+  "distribution": {
+    "Sophisticated": 80,
+    "Enterprise": 27,
+    "Standard": 63,
+    "Multi-feature": 22,
+    "Free": 37
+  },
+  "skills": [
+    {
+      "id": "marketnow-agent-card",
+      "name": "MarketNow · Agent Card",
+      "category": "MarketNow",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "marketnow-search",
+      "name": "MarketNow · Skill Search",
+      "category": "MarketNow",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "marketnow-trust",
+      "name": "MarketNow · Trust & Riesgo",
+      "category": "MarketNow",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "marketnow-install-planner",
+      "name": "MarketNow · Install Planner",
+      "category": "MarketNow",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "marketnow-bundles",
+      "name": "MarketNow · Bundles",
+      "category": "MarketNow",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "marketnow-policies",
+      "name": "MarketNow · Policies",
+      "category": "MarketNow",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "marketnow-certification",
+      "name": "MarketNow · Certification",
+      "category": "MarketNow",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "marketnow-diff-monitor",
+      "name": "MarketNow · Diff Monitor",
+      "category": "MarketNow",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "marketnow-recommend",
+      "name": "MarketNow · Recommender",
+      "category": "MarketNow",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "marketnow-quickstart",
+      "name": "MarketNow · Quickstart",
+      "category": "MarketNow",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "ed25519-toolbox",
+      "name": "Ed25519 Toolbox",
+      "category": "MarketNow Trust",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "jcs-canonicalizer",
+      "name": "JCS Canonicalizer",
+      "category": "MarketNow Trust",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "atc-agent-trust-card",
+      "name": "ATC · Agent Trust Card",
+      "category": "MarketNow Trust",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "uts-trust-adapter",
+      "name": "UTS · Trust Adapter",
+      "category": "MarketNow Trust",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "verification-pipeline",
+      "name": "Trust Verification Pipeline",
+      "category": "MarketNow Trust",
+      "tools": 2,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "x402-payments",
+      "name": "x402 Payments",
+      "category": "MarketNow Trust",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "ap2-mandates",
+      "name": "AP2 Mandates",
+      "category": "MarketNow Trust",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "a2a-agent-card",
+      "name": "A2A Agent Card",
+      "category": "MarketNow Trust",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "w3c-vc-kit",
+      "name": "W3C VC Kit",
+      "category": "MarketNow Trust",
+      "tools": 2,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "trust-gateway",
+      "name": "Trust Gateway",
+      "category": "MarketNow Trust",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "sentinel-lite",
+      "name": "Sentinel Lite",
+      "category": "MarketNow Ops",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "install-risk",
+      "name": "Install Risk",
+      "category": "MarketNow Ops",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "runtime-interceptor",
+      "name": "Runtime Interceptor",
+      "category": "MarketNow Ops",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "owasp-mcp-matrix",
+      "name": "OWASP MCP Matrix",
+      "category": "MarketNow Ops",
+      "tools": 2,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "skill-publisher",
+      "name": "Skill Publisher",
+      "category": "MarketNow Ops",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "secrets-audit",
+      "name": "Secrets Audit",
+      "category": "MarketNow Ops",
+      "tools": 2,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "mcp-card-registry",
+      "name": "MCP Card Registry",
+      "category": "MarketNow Ops",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "reputation-oracle",
+      "name": "Reputation Oracle",
+      "category": "MarketNow Ops",
+      "tools": 2,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "agent-memory",
+      "name": "Agent Memory",
+      "category": "Memoria y Contexto",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "agent-memory-graph",
+      "name": "Agent Memory Graph",
+      "category": "Memoria y Contexto",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "agent-episodic-log",
+      "name": "Agent Episodic Log",
+      "category": "Memoria y Contexto",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "context-compressor",
+      "name": "Context Compressor",
+      "category": "Memoria y Contexto",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "context-budget",
+      "name": "Context Budget",
+      "category": "Memoria y Contexto",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "conversation-summarizer",
+      "name": "Conversation Summarizer",
+      "category": "Memoria y Contexto",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "scratchpad",
+      "name": "Scratchpad",
+      "category": "Memoria y Contexto",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "working-state-store",
+      "name": "Working State Store",
+      "category": "Memoria y Contexto",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "session-recall",
+      "name": "Session Recall",
+      "category": "Memoria y Contexto",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "token-counter",
+      "name": "Token Counter",
+      "category": "Memoria y Contexto",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "context-rot-detector",
+      "name": "Context Rot Detector",
+      "category": "Memoria y Contexto",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "attention-focus",
+      "name": "Attention Focus",
+      "category": "Memoria y Contexto",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "tool-registry",
+      "name": "Tool Registry",
+      "category": "Resiliencia de Tools",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "tool-router",
+      "name": "Tool Router",
+      "category": "Resiliencia de Tools",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "retry-orchestrator",
+      "name": "Retry Orchestrator",
+      "category": "Resiliencia de Tools",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "circuit-breaker",
+      "name": "Circuit Breaker",
+      "category": "Resiliencia de Tools",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "rate-limiter",
+      "name": "Rate Limiter",
+      "category": "Resiliencia de Tools",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "timeout-guard",
+      "name": "Timeout Guard",
+      "category": "Resiliencia de Tools",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "fallback-chain",
+      "name": "Fallback Chain",
+      "category": "Resiliencia de Tools",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "queue-mcp",
+      "name": "Job Queue",
+      "category": "Resiliencia de Tools",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "batch-runner",
+      "name": "Batch Runner",
+      "category": "Resiliencia de Tools",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "health-check-hub",
+      "name": "Health Check Hub",
+      "category": "Resiliencia de Tools",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "idempotency-guard",
+      "name": "Idempotency Guard",
+      "category": "Resiliencia de Tools",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "webhook-inspector",
+      "name": "Webhook Inspector",
+      "category": "Resiliencia de Tools",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "poll-watcher",
+      "name": "Poll Watcher",
+      "category": "Resiliencia de Tools",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "json-repair",
+      "name": "JSON Repair",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "schema-validator",
+      "name": "Schema Validator",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "output-grader",
+      "name": "Output Grader",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "citation-checker",
+      "name": "Citation Checker",
+      "category": "Calidad de Salida",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "claim-extractor",
+      "name": "Claim Extractor",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "fact-consistency",
+      "name": "Fact Consistency",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "self-critic",
+      "name": "Self Critic",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "consensus-voter",
+      "name": "Consensus Voter",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "output-diff",
+      "name": "Output Diff",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "normalize-output",
+      "name": "Normalize Output",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "text-qa",
+      "name": "Text QA",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "response-size-guard",
+      "name": "Response Size Guard",
+      "category": "Calidad de Salida",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "prompt-injection-scanner",
+      "name": "Prompt Injection Scanner",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "pii-redactor",
+      "name": "PII Redactor",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "input-sanitizer",
+      "name": "Input Sanitizer",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "permission-gate",
+      "name": "Permission Gate",
+      "category": "Seguridad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "audit-log",
+      "name": "Audit Log",
+      "category": "Seguridad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "sandbox-eval",
+      "name": "Sandbox Eval",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "file-guard",
+      "name": "File Guard",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "tos-checker",
+      "name": "ToS & Robots Checker",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "allowlist-proxy",
+      "name": "Allowlist Proxy Guard",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "consent-manager",
+      "name": "Consent Manager",
+      "category": "Seguridad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "threat-modeler",
+      "name": "Threat Modeler",
+      "category": "Seguridad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "trace-logger",
+      "name": "Trace Logger",
+      "category": "Observabilidad",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "metrics-collector",
+      "name": "Metrics Collector",
+      "category": "Observabilidad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "cost-tracker",
+      "name": "Cost Tracker",
+      "category": "Observabilidad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "latency-tracker",
+      "name": "Latency Tracker",
+      "category": "Observabilidad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "run-reporter",
+      "name": "Run Reporter",
+      "category": "Observabilidad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "error-triage",
+      "name": "Error Triage",
+      "category": "Observabilidad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "heartbeat-monitor",
+      "name": "Heartbeat Monitor",
+      "category": "Observabilidad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "experiment-log",
+      "name": "Experiment Log",
+      "category": "Observabilidad",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "usage-analytics",
+      "name": "Usage Analytics",
+      "category": "Observabilidad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "debug-console",
+      "name": "Debug Console",
+      "category": "Observabilidad",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "robust-fetcher",
+      "name": "Robust Fetcher",
+      "category": "Datos y Extracción",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "html-to-markdown",
+      "name": "HTML to Markdown",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "readability-extract",
+      "name": "Readability Extract",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "table-extractor",
+      "name": "Table Extractor",
+      "category": "Datos y Extracción",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "csv-toolkit",
+      "name": "CSV Toolkit",
+      "category": "Datos y Extracción",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "json-toolkit",
+      "name": "JSON Toolkit",
+      "category": "Datos y Extracción",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "xml-toolkit",
+      "name": "XML Toolkit",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "yaml-toolkit",
+      "name": "YAML Toolkit",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "markdown-toolkit",
+      "name": "Markdown Toolkit",
+      "category": "Datos y Extracción",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "pdf-text-extractor",
+      "name": "PDF Text Extractor",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "url-inspector",
+      "name": "URL Inspector",
+      "category": "Datos y Extracción",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "diff-detector",
+      "name": "Diff Detector",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "chunker",
+      "name": "Chunker",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "data-anonymizer",
+      "name": "Data Anonymizer",
+      "category": "Datos y Extracción",
+      "tools": 2,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "plan-decompose",
+      "name": "Plan Decompose",
+      "category": "Cognición y Planificación",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "task-tracker",
+      "name": "Task Tracker",
+      "category": "Cognición y Planificación",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "milestone-checker",
+      "name": "Milestone Checker",
+      "category": "Cognición y Planificación",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "decision-matrix",
+      "name": "Decision Matrix",
+      "category": "Cognición y Planificación",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "hypothesis-tracker",
+      "name": "Hypothesis Tracker",
+      "category": "Cognición y Planificación",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "priority-queue",
+      "name": "Priority Queue",
+      "category": "Cognición y Planificación",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "risk-register",
+      "name": "Risk Register",
+      "category": "Cognición y Planificación",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "assumption-auditor",
+      "name": "Assumption Auditor",
+      "category": "Cognición y Planificación",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "retro-analyzer",
+      "name": "Retro Analyzer",
+      "category": "Cognición y Planificación",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "uncertainty-quantifier",
+      "name": "Uncertainty Quantifier",
+      "category": "Cognición y Planificación",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "human-approval",
+      "name": "Human Approval",
+      "category": "Comunicación y Humano",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "feedback-loop",
+      "name": "Feedback Loop",
+      "category": "Comunicación y Humano",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "report-builder",
+      "name": "Report Builder",
+      "category": "Comunicación y Humano",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "digest-writer",
+      "name": "Digest Writer",
+      "category": "Comunicación y Humano",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "locale-helper",
+      "name": "Locale Helper",
+      "category": "Comunicación y Humano",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "tone-adjuster",
+      "name": "Tone Adjuster",
+      "category": "Comunicación y Humano",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "handoff-notes",
+      "name": "Handoff Notes",
+      "category": "Comunicación y Humano",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "meeting-notes",
+      "name": "Meeting Notes",
+      "category": "Comunicación y Humano",
+      "tools": 2,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (2 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "safe-math",
+      "name": "Safe Math",
+      "category": "Utilidades",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "stats-toolkit",
+      "name": "Stats Toolkit",
+      "category": "Utilidades",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "datetime-toolkit",
+      "name": "Datetime Toolkit",
+      "category": "Utilidades",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "currency-convert",
+      "name": "Currency Convert",
+      "category": "Utilidades",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "unit-convert",
+      "name": "Unit Convert",
+      "category": "Utilidades",
+      "tools": 2,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "regex-forge",
+      "name": "Regex Forge",
+      "category": "Utilidades",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "id-forge",
+      "name": "ID Forge",
+      "category": "Utilidades",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "hash-toolkit",
+      "name": "Hash Toolkit",
+      "category": "Utilidades",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "agent-org-chart",
+      "name": "Agent Org Chart",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 7,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "7 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "delegation-contracts",
+      "name": "Delegation Contracts",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 8,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+    },
+    {
+      "id": "handoff-protocol",
+      "name": "Handoff Protocol",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 7,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (7 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "blackboard-shared",
+      "name": "Blackboard Shared",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 8,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+    },
+    {
+      "id": "deadlock-detector",
+      "name": "Deadlock Detector",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 6,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (6 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "conflict-resolver",
+      "name": "Conflict Resolver",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 7,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (7 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "quorum-coordinator",
+      "name": "Quorum Coordinator",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 6,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+    },
+    {
+      "id": "agent-supervisor",
+      "name": "Agent Supervisor",
+      "category": "Multi-Agente y Coordinación",
+      "tools": 6,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (6 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "goal-contract",
+      "name": "Goal Contract",
+      "category": "Objetivos y Largo Plazo",
+      "tools": 7,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+    },
+    {
+      "id": "drift-detector",
+      "name": "Drift Detector",
+      "category": "Objetivos y Largo Plazo",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "commitment-ledger",
+      "name": "Commitment Ledger",
+      "category": "Objetivos y Largo Plazo",
+      "tools": 6,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "6 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "scope-guard",
+      "name": "Scope Guard",
+      "category": "Objetivos y Largo Plazo",
+      "tools": 5,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "time-horizon-planner",
+      "name": "Time Horizon Planner",
+      "category": "Objetivos y Largo Plazo",
+      "tools": 6,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "6 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "progress-journal",
+      "name": "Progress Journal",
+      "category": "Objetivos y Largo Plazo",
+      "tools": 5,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "mission-checkpoint",
+      "name": "Mission Checkpoint",
+      "category": "Objetivos y Largo Plazo",
+      "tools": 6,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (6 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "spec-clarifier",
+      "name": "Spec Clarifier",
+      "category": "Especificación y Requisitos",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "acceptance-criteria",
+      "name": "Acceptance Criteria",
+      "category": "Especificación y Requisitos",
+      "tools": 5,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "definition-of-done",
+      "name": "Definition of Done",
+      "category": "Especificación y Requisitos",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "spec-diff-impact",
+      "name": "Spec Diff Impact",
+      "category": "Especificación y Requisitos",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "requirements-matrix",
+      "name": "Requirements Matrix",
+      "category": "Especificación y Requisitos",
+      "tools": 6,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "6 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "golden-set",
+      "name": "Golden Set",
+      "category": "Evaluación Continua",
+      "tools": 6,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (6 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "regression-harness",
+      "name": "Regression Harness",
+      "category": "Evaluación Continua",
+      "tools": 5,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+    },
+    {
+      "id": "prompt-ab-test",
+      "name": "Prompt A/B Test",
+      "category": "Evaluación Continua",
+      "tools": 5,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "quality-drift-monitor",
+      "name": "Quality Drift Monitor",
+      "category": "Evaluación Continua",
+      "tools": 5,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "scenario-simulator",
+      "name": "Scenario Simulator",
+      "category": "Evaluación Continua",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "failure-tagger",
+      "name": "Failure Tagger",
+      "category": "Evaluación Continua",
+      "tools": 5,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "spend-envelope",
+      "name": "Spend Envelope",
+      "category": "Economía del Agente",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "task-roi",
+      "name": "Task ROI",
+      "category": "Economía del Agente",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "token-audit",
+      "name": "Token Audit",
+      "category": "Economía del Agente",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "model-router-econ",
+      "name": "Model Router Econ",
+      "category": "Economía del Agente",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "budget-forecast",
+      "name": "Budget Forecast",
+      "category": "Economía del Agente",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "cost-attribution",
+      "name": "Cost Attribution",
+      "category": "Economía del Agente",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "dom-baseline",
+      "name": "DOM Baseline",
+      "category": "Computer Use",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "selector-healer",
+      "name": "Selector Healer",
+      "category": "Computer Use",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "action-recorder",
+      "name": "Action Recorder",
+      "category": "Computer Use",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "checkpoint-undo",
+      "name": "Checkpoint Undo",
+      "category": "Computer Use",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "viewport-verifier",
+      "name": "Viewport Verifier",
+      "category": "Computer Use",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "postmortem-engine",
+      "name": "Postmortem Engine",
+      "category": "Aprendizaje de Habilidades",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "lesson-library",
+      "name": "Lesson Library",
+      "category": "Aprendizaje de Habilidades",
+      "tools": 5,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "mistake-patterns",
+      "name": "Mistake Patterns",
+      "category": "Aprendizaje de Habilidades",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "skill-forge",
+      "name": "Skill Forge",
+      "category": "Aprendizaje de Habilidades",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "competency-tracker",
+      "name": "Competency Tracker",
+      "category": "Aprendizaje de Habilidades",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "interruption-broker",
+      "name": "Interruption Broker",
+      "category": "Humano en el Bucle",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "takeover-request",
+      "name": "Takeover Request",
+      "category": "Humano en el Bucle",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "trust-calibrator",
+      "name": "Trust Calibrator",
+      "category": "Humano en el Bucle",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "escalation-policy",
+      "name": "Escalation Policy",
+      "category": "Humano en el Bucle",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "explain-decision",
+      "name": "Explain Decision",
+      "category": "Humano en el Bucle",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "fact-staleness",
+      "name": "Fact Staleness",
+      "category": "Frescura del Conocimiento",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "source-timeline",
+      "name": "Source Timeline",
+      "category": "Frescura del Conocimiento",
+      "tools": 4,
+      "tier": "Multi-feature",
+      "price": 2.99,
+      "you_keep": 2.39,
+      "rationale": "4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+    },
+    {
+      "id": "deadline-engine",
+      "name": "Deadline Engine",
+      "category": "Frescura del Conocimiento",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "temporal-reasoner",
+      "name": "Temporal Reasoner",
+      "category": "Frescura del Conocimiento",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "policy-as-code",
+      "name": "Policy As Code",
+      "category": "Cumplimiento",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+    },
+    {
+      "id": "data-residency-check",
+      "name": "Data Residency Check",
+      "category": "Cumplimiento",
+      "tools": 3,
+      "tier": "Standard",
+      "price": 1.99,
+      "you_keep": 1.59,
+      "rationale": "Integración de dominio único (3 tools) — precio estándar del marketplace"
+    },
+    {
+      "id": "consent-ledger",
+      "name": "Consent Ledger",
+      "category": "Cumplimiento",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "compliance-report",
+      "name": "Compliance Report",
+      "category": "Cumplimiento",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "blast-radius-estimator",
+      "name": "Blast Radius Estimator",
+      "category": "Pre-Vuelo",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "dry-run-executor",
+      "name": "Dry-Run Executor",
+      "category": "Pre-Vuelo",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "side-effect-ledger",
+      "name": "Side-Effect Ledger",
+      "category": "Pre-Vuelo",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "reversibility-planner",
+      "name": "Reversibility Planner",
+      "category": "Pre-Vuelo",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "precondition-checker",
+      "name": "Precondition Checker",
+      "category": "Pre-Vuelo",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "action-limiter",
+      "name": "Action Limiter",
+      "category": "Pre-Vuelo",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "escrow-agent",
+      "name": "Escrow Agent",
+      "category": "Comercio A2A",
+      "tools": 8,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "sla-contract-manager",
+      "name": "SLA Contract Manager",
+      "category": "Comercio A2A",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "metering-station",
+      "name": "Metering Station",
+      "category": "Comercio A2A",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "quote-negotiator",
+      "name": "Quote Negotiator",
+      "category": "Comercio A2A",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "dispute-resolver",
+      "name": "Dispute Resolver",
+      "category": "Comercio A2A",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "settlement-ledger",
+      "name": "Settlement Ledger",
+      "category": "Comercio A2A",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "did-resolver",
+      "name": "DID Resolver",
+      "category": "Identidad Federada",
+      "tools": 6,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "delegation-chain",
+      "name": "Delegation Chain",
+      "category": "Identidad Federada",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "key-rotation-manager",
+      "name": "Key Rotation Manager",
+      "category": "Identidad Federada",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "agent-passport",
+      "name": "Agent Passport",
+      "category": "Identidad Federada",
+      "tools": 5,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "scope-minting",
+      "name": "Scope Minting",
+      "category": "Identidad Federada",
+      "tools": 5,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "prompt-versioner",
+      "name": "Prompt Versioner",
+      "category": "Agent CI/CD",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "canary-deployer",
+      "name": "Canary Deployer",
+      "category": "Agent CI/CD",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "rollback-manager",
+      "name": "Rollback Manager",
+      "category": "Agent CI/CD",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "prompt-dependency-graph",
+      "name": "Prompt Dependency Graph",
+      "category": "Agent CI/CD",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "change-changelog",
+      "name": "Change Changelog",
+      "category": "Agent CI/CD",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "env-diff-checker",
+      "name": "Env Diff Checker",
+      "category": "Agent CI/CD",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "transcript-condenser",
+      "name": "Transcript Condenser",
+      "category": "Multimodal & Voz",
+      "tools": 5,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "av-budget-packer",
+      "name": "AV Budget Packer",
+      "category": "Multimodal & Voz",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "turn-state-machine",
+      "name": "Turn State Machine",
+      "category": "Multimodal & Voz",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "speech-pacing",
+      "name": "Speech Pacing",
+      "category": "Multimodal & Voz",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "image-batch-tagger",
+      "name": "Image Batch Tagger",
+      "category": "Multimodal & Voz",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "caption-aligner",
+      "name": "Caption Aligner",
+      "category": "Multimodal & Voz",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "tenant-isolator",
+      "name": "Tenant Isolator",
+      "category": "Multi-Tenant",
+      "tools": 4,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "tenant-quota-manager",
+      "name": "Tenant Quota Manager",
+      "category": "Multi-Tenant",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "noisy-neighbor-detector",
+      "name": "Noisy Neighbor Detector",
+      "category": "Multi-Tenant",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "tenant-data-tagger",
+      "name": "Tenant Data Tagger",
+      "category": "Multi-Tenant",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "cross-tenant-guard",
+      "name": "Cross-Tenant Guard",
+      "category": "Multi-Tenant",
+      "tools": 3,
+      "tier": "Enterprise",
+      "price": 9.99,
+      "you_keep": 7.99,
+      "rationale": "Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+    },
+    {
+      "id": "argument-cartographer",
+      "name": "Argument Cartographer",
+      "category": "Razonamiento",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "bayesian-updater",
+      "name": "Bayesian Updater",
+      "category": "Razonamiento",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "counterfactual-lab",
+      "name": "Counterfactual Lab",
+      "category": "Razonamiento",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "causal-ladder",
+      "name": "Causal Ladder",
+      "category": "Razonamiento",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "analogy-finder",
+      "name": "Analogy Finder",
+      "category": "Razonamiento",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "pareto-tradeoff",
+      "name": "Pareto Tradeoff",
+      "category": "Razonamiento",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "occam-razor",
+      "name": "Occam Razor",
+      "category": "Razonamiento",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "error-taxonomy",
+      "name": "Error Taxonomy",
+      "category": "Auto-Mejora",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "root-cause-tree",
+      "name": "Root Cause Tree",
+      "category": "Auto-Mejora",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "reflection-journal",
+      "name": "Reflection Journal",
+      "category": "Auto-Mejora",
+      "tools": 3,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    },
+    {
+      "id": "prompt-self-rewriter",
+      "name": "Prompt Self-Rewriter",
+      "category": "Auto-Mejora",
+      "tools": 4,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "behavior-diff",
+      "name": "Behavior Diff",
+      "category": "Auto-Mejora",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "capability-gap-scanner",
+      "name": "Capability Gap Scanner",
+      "category": "Auto-Mejora",
+      "tools": 3,
+      "tier": "Sophisticated",
+      "price": 4.99,
+      "you_keep": 3.99,
+      "rationale": "Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+    },
+    {
+      "id": "growth-plan",
+      "name": "Growth Plan",
+      "category": "Auto-Mejora",
+      "tools": 4,
+      "tier": "Free",
+      "price": 0,
+      "you_keep": 0,
+      "rationale": "Utilidad simple de alta rotación — imán freemium que arrastra tráfico al resto del catálogo"
+    }
+  ]
+}

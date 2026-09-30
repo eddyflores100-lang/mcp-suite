@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/retry-orchestrator",
+  "version": "1.0.0",
+  "description": "Retry Orchestrator — Política de reintentos con backoff exponencial y jitter: calcula cuándo y si reintentar (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-retry-orchestrator": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "resiliencia-de-tools"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

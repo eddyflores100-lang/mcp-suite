@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_jeqbsaarjwfb",
+  "skill_id": "mn-sub-90220",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:37:06.886Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-analogy-finder",
+    "full_name": "mcp-suite-agent/mcp-suite",
+    "owner": "mcp-suite-agent",
+    "name": "mcp-analogy-finder",
+    "description": "Analogías ESTRUCTURALES: mapea relaciones entre dominios (no palabras sueltas) y delimita qué se transfiere y qué no. El agente razona por analogía superficial: 'esto es como Netflix' porque ambas cos",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:37:06.886Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "razonamiento"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90220",
+    "name": "mcp-analogy-finder",
+    "slug": "analogy-finder-0221",
+    "description": "Analogías ESTRUCTURALES: mapea relaciones entre dominios (no palabras sueltas) y delimita qué se transfiere y qué no. El agente razona por analogía superficial: 'esto es como Netflix' porque ambas cosas tienen suscripciones, y transfiere conclusiones de un dominio a otro sin comprobar que las RELACIONES se corresponden. La analogía falsa es la falacia más productiva que existe. Incluye health_chec",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/mcp-suite-agent/mcp-suite/tree/main/servers/mcp-analogy-finder",
+      "submitted_at": "2026-09-30T05:37:06.886Z"
+    },
+    "install": "git clone https://github.com/mcp-suite-agent/mcp-suite && node mcp-suite/install.mjs --client claude --only analogy-finder",
+    "author": "mcp-suite-agent",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

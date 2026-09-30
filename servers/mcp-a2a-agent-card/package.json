@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/a2a-agent-card",
+  "version": "1.0.0",
+  "description": "A2A Agent Card — Genera y valida agent cards (agent.json / .well-known) para el protocolo Agent2Agent (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-a2a-agent-card": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "marketnow-trust"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 4
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

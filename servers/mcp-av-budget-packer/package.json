@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/av-budget-packer",
+  "version": "1.0.0",
+  "description": "AV Budget Packer — Mochila de contexto multimodal: qué audios, imágenes y videos caben en el presupuesto con prioridad declarada (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-av-budget-packer": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "multimodal-voz"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

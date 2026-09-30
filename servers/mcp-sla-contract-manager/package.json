@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/sla-contract-manager",
+  "version": "1.0.0",
+  "description": "SLA Contract Manager — Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-sla-contract-manager": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "comercio-a2a"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 5
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

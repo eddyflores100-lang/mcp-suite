@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/postmortem-engine",
+  "version": "1.0.0",
+  "description": "Postmortem Engine — Postmortems estructurados que se convierten en lecciones: convierte cada fallo en activo permanente (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-postmortem-engine": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "aprendizaje-de-habilidades"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 6
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

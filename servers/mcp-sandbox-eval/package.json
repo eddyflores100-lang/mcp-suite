@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/sandbox-eval",
+  "version": "1.0.0",
+  "description": "Sandbox Eval — Evaluación matemática/lógica segura: nunca eval() sobre input del usuario (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-sandbox-eval": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "seguridad"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

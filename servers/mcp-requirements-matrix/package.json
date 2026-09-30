@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/requirements-matrix",
+  "version": "1.0.0",
+  "description": "Requirements Matrix — Trazabilidad requisito → tarea → evidencia: nada se pierde entre lo pedido y lo entregado (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-requirements-matrix": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "especificaci-n-y-requisitos"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 7
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}

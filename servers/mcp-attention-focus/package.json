@@ -1,0 +1,28 @@
+{
+  "name": "@mcp-suite/attention-focus",
+  "version": "1.0.0",
+  "description": "Attention Focus — Prioriza qué merece atención: ranking de secciones del contexto por relevancia (MCP server stdio)",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-attention-focus": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "memoria-y-contexto"
+  ],
+  "license": "MIT",
+  "mcp": {
+    "transport": "stdio",
+    "tools": 3
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^4.0.0"
+  }
+}
