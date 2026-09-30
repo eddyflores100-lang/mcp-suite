@@ -52,7 +52,7 @@ El archivo `mcp-suite-repo.bundle` contiene el repositorio completo
 
 ```bash
 # Clonar desde el bundle en cualquier máquina:
-git clone mcp-suite-repo.bundle mcp-suite
+git clone -b main mcp-suite-repo.bundle mcp-suite
 cd mcp-suite
 git remote set-url origin https://github.com/tu-usuario/mcp-suite.git
 git push -u origin main
