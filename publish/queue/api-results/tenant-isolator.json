@@ -1,0 +1,28 @@
+{
+ "http": 201,
+ "ok": true,
+ "submission_id": "mn-sub-260930-0c3620",
+ "verdict": "accepted",
+ "status": "accepted (scan passed) — STORAGE FAILED",
+ "trust_score_100": 55,
+ "pricing": {
+  "model": "one-time",
+  "price": 9.99,
+  "currency": "USD",
+  "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+ },
+ "dry_run": false,
+ "reasons": {
+  "blockers": [],
+  "warnings": []
+ },
+ "storage": {
+  "ok": false,
+  "reason": "github Bad credentials"
+ },
+ "next_steps": [
+  "Passed Sentinel L1.5 (scan + claims verified) — stored in the public queue.",
+  "Pending L2 review + catalog merge.",
+  "Track: GET /api/submissions or https://github.com/alicelabs-llc/marketnow-submissions"
+ ]
+}

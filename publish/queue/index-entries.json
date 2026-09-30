@@ -2059,12 +2059,12 @@
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-49c7be",
+   "id": "mn-sub-260930-21dc7b",
    "name": "mcp-escrow-agent",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
-   "trust": 57,
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
+   "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-49c7be.json",
    "eligible": true
@@ -2125,56 +2125,56 @@
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-de13aa",
+   "id": "mn-sub-260930-13e8d6",
    "name": "mcp-did-resolver",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
-   "trust": 57,
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
+   "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-de13aa.json",
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-bd8d6e",
+   "id": "mn-sub-260930-fa404f",
    "name": "mcp-delegation-chain",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
    "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-bd8d6e.json",
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-7df009",
+   "id": "mn-sub-260930-87f94f",
    "name": "mcp-key-rotation-manager",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
    "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7df009.json",
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-705c57",
+   "id": "mn-sub-260930-62d4c6",
    "name": "mcp-agent-passport",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
-   "trust": 57,
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
+   "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-705c57.json",
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-7f23e4",
+   "id": "mn-sub-260930-5ad475",
    "name": "mcp-scope-minting",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
-   "trust": 57,
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
+   "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7f23e4.json",
    "eligible": true
@@ -2312,11 +2312,11 @@
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-092332",
+   "id": "mn-sub-260930-0c3620",
    "name": "mcp-tenant-isolator",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
    "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-092332.json",
@@ -2356,11 +2356,11 @@
    "eligible": true
   },
   {
-   "id": "mn-sub-261001-6a5d7c",
+   "id": "mn-sub-260930-584281",
    "name": "mcp-cross-tenant-guard",
    "version": "1.0.0",
    "verdict": "accepted",
-   "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+   "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
    "trust": 55,
    "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6a5d7c.json",

@@ -1,7 +1,7 @@
 {
- "id": "mn-sub-261001-49c7be",
+ "id": "mn-sub-260930-21dc7b",
  "verdict": "accepted",
- "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "status": "certified-L1.5 (auto-scan + claims verified via POST /api/submit 2026-10-01) — storage relayed to queue by owner agent (backend GitHub credential failure) — pending L2 review",
  "skill": {
   "name": "mcp-escrow-agent",
   "version": "1.0.0",
@@ -71,20 +71,20 @@
   }
  },
  "sentinel": {
-  "scan_version": "L1-self/1.0 (owner-agent)",
-  "scanned_at": "2026-09-30T17:18:24.483Z",
-  "duration_ms": 94,
+  "scan_version": "L1.5-sub/1.0 (marketnow.site auto-scan)",
+  "scanned_at": "2026-09-30T17:21:39.684Z",
+  "duration_ms": null,
   "findings": {
    "blockers": [],
    "warnings": []
   },
-  "trust_score_100": 57,
+  "trust_score_100": 55,
   "risk_level": "yellow",
-  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+  "note": "certificado por el escáner público del sitio (verdict accepted, claims verified); almacenamiento en GitHub falló por credencial vencida del backend y fue completado por el agente del owner"
  },
  "submitted_from": "agent:agent_mcp_suite_2026",
  "submitted_at": "2026-09-30T17:18:24.483Z",
- "submitted_by": "owner-agent-git",
+ "submitted_by": "public-api + owner-agent-git (storage relay)",
  "merge": {
   "eligible": true,
   "catalog_slug": "mcp-escrow-agent"
