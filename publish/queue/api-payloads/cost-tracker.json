@@ -1,5 +1,5 @@
 {
- "name": "mcp-cost-tracker",
+ "name": "mcp-suite-cost-tracker",
  "version": "1.0.0",
  "description": "Sigue el gasto por llamada y modelo: presupuestos con alertas Dolor que resuelve: El coste de tokens es invisible hasta la factura: sin tracking por tarea no se puede optimizar nada. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
  "author": "AliceLabs",

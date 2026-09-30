@@ -66,7 +66,7 @@
  },
  "sentinel": {
   "scan_version": "L1-self/1.0 (owner-agent)",
-  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "scanned_at": "2026-09-30T17:18:24.483Z",
   "duration_ms": 94,
   "findings": {
    "blockers": [],
@@ -77,11 +77,11 @@
   "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
  },
  "submitted_from": "agent:agent_mcp_suite_2026",
- "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_at": "2026-09-30T17:18:24.483Z",
  "submitted_by": "owner-agent-git",
  "merge": {
   "eligible": true,
-  "catalog_slug": "data-anonymizer"
+  "catalog_slug": "mcp-data-anonymizer"
  },
  "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
 }

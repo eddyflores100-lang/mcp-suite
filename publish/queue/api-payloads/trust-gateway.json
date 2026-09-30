@@ -1,5 +1,5 @@
 {
- "name": "mcp-trust-gateway",
+ "name": "mcp-suite-trust-gateway",
  "version": "1.0.0",
  "description": "Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad Dolor que resuelve: Cada tool decide confianza por su cuenta: faltan políticas centrales (score mínimo, scopes, deny-list) con decisiones explicables. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
  "author": "AliceLabs",

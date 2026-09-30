@@ -1,5 +1,5 @@
 {
- "name": "mcp-schema-validator",
+ "name": "mcp-suite-schema-validator",
  "version": "1.0.0",
  "description": "Valida cualquier JSON contra un JSON Schema (subconjunto potente): tipos, requeridos, anidados Dolor que resuelve: La salida estructurada de un LLM se acepta sin validar: los campos faltantes explotan río abajo. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
  "author": "AliceLabs",

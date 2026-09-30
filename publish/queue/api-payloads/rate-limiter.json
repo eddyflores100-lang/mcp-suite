@@ -1,5 +1,5 @@
 {
- "name": "mcp-rate-limiter",
+ "name": "mcp-suite-rate-limiter",
  "version": "1.0.0",
  "description": "Límite de llamadas por ventana deslizante: respeta cuotas de APIs Dolor que resuelve: Las APIs te tiran 429 y bannean: el agente necesita respetar rate limits por servicio sin pensarlo. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
  "author": "AliceLabs",

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-30T17:14:16.119Z",
+ "generated_at": "2026-09-30T17:18:24.483Z",
  "repo": "https://github.com/eddyflores100-lang/mcp-suite",
  "total": 229,
  "files": [
@@ -8,1603 +8,1832 @@
    "queue_id": "mn-sub-261001-226007",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-marketnow-agent-card"
   },
   {
    "id": "marketnow-search",
    "queue_id": "mn-sub-261001-3d97e6",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-marketnow-search"
   },
   {
    "id": "marketnow-trust",
    "queue_id": "mn-sub-261001-d782ae",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-marketnow-trust"
   },
   {
    "id": "marketnow-install-planner",
    "queue_id": "mn-sub-261001-5f1270",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-marketnow-install-planner"
   },
   {
    "id": "marketnow-bundles",
    "queue_id": "mn-sub-261001-e25fa0",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-marketnow-bundles"
   },
   {
    "id": "marketnow-policies",
    "queue_id": "mn-sub-261001-476c7a",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-marketnow-policies"
   },
   {
    "id": "marketnow-certification",
    "queue_id": "mn-sub-261001-842633",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-marketnow-certification"
   },
   {
    "id": "marketnow-diff-monitor",
    "queue_id": "mn-sub-261001-4a32a0",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-marketnow-diff-monitor"
   },
   {
    "id": "marketnow-recommend",
    "queue_id": "mn-sub-261001-afe890",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-marketnow-recommend"
   },
   {
    "id": "marketnow-quickstart",
    "queue_id": "mn-sub-261001-b6de93",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-marketnow-quickstart"
   },
   {
    "id": "ed25519-toolbox",
    "queue_id": "mn-sub-261001-be94f9",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-ed25519-toolbox"
   },
   {
    "id": "jcs-canonicalizer",
    "queue_id": "mn-sub-261001-7ce497",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-jcs-canonicalizer"
   },
   {
    "id": "atc-agent-trust-card",
    "queue_id": "mn-sub-261001-425c53",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-atc-agent-trust-card"
   },
   {
    "id": "uts-trust-adapter",
    "queue_id": "mn-sub-261001-d53e3b",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-uts-trust-adapter"
   },
   {
    "id": "verification-pipeline",
    "queue_id": "mn-sub-261001-5f0861",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-verification-pipeline"
   },
   {
    "id": "x402-payments",
    "queue_id": "mn-sub-261001-be7d1d",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-x402-payments"
   },
   {
    "id": "ap2-mandates",
    "queue_id": "mn-sub-261001-f4afad",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-ap2-mandates"
   },
   {
    "id": "a2a-agent-card",
    "queue_id": "mn-sub-261001-00605d",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-a2a-agent-card"
   },
   {
    "id": "w3c-vc-kit",
    "queue_id": "mn-sub-261001-a743ac",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-w3c-vc-kit"
   },
   {
    "id": "trust-gateway",
    "queue_id": "mn-sub-261001-5e4312",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-suite-trust-gateway"
   },
   {
    "id": "sentinel-lite",
    "queue_id": "mn-sub-261001-d7c48b",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-sentinel-lite"
   },
   {
    "id": "install-risk",
    "queue_id": "mn-sub-261001-a8614a",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-install-risk"
   },
   {
    "id": "runtime-interceptor",
    "queue_id": "mn-sub-261001-ea5217",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-runtime-interceptor"
   },
   {
    "id": "owasp-mcp-matrix",
    "queue_id": "mn-sub-261001-446148",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-owasp-mcp-matrix"
   },
   {
    "id": "skill-publisher",
    "queue_id": "mn-sub-261001-927753",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-skill-publisher"
   },
   {
    "id": "secrets-audit",
    "queue_id": "mn-sub-261001-d5fada",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-secrets-audit"
   },
   {
    "id": "mcp-card-registry",
    "queue_id": "mn-sub-261001-9a1885",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-mcp-card-registry"
   },
   {
    "id": "reputation-oracle",
    "queue_id": "mn-sub-261001-e4085a",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-reputation-oracle"
   },
   {
    "id": "agent-memory",
    "queue_id": "mn-sub-261001-2a2473",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-suite-agent-memory"
   },
   {
    "id": "agent-memory-graph",
    "queue_id": "mn-sub-261001-28adcf",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-agent-memory-graph"
   },
   {
    "id": "agent-episodic-log",
    "queue_id": "mn-sub-261001-6b06f3",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-agent-episodic-log"
   },
   {
    "id": "context-compressor",
    "queue_id": "mn-sub-261001-99007d",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-context-compressor"
   },
   {
    "id": "context-budget",
    "queue_id": "mn-sub-261001-1cc847",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-context-budget"
   },
   {
    "id": "conversation-summarizer",
    "queue_id": "mn-sub-261001-5f4c93",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-conversation-summarizer"
   },
   {
    "id": "scratchpad",
    "queue_id": "mn-sub-261001-3d2a13",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-scratchpad"
   },
   {
    "id": "working-state-store",
    "queue_id": "mn-sub-261001-394a20",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-working-state-store"
   },
   {
    "id": "session-recall",
    "queue_id": "mn-sub-261001-cc2a01",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-session-recall"
   },
   {
    "id": "token-counter",
    "queue_id": "mn-sub-261001-7c29cd",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-token-counter"
   },
   {
    "id": "context-rot-detector",
    "queue_id": "mn-sub-261001-bb6cb6",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-context-rot-detector"
   },
   {
    "id": "attention-focus",
    "queue_id": "mn-sub-261001-7b8490",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-attention-focus"
   },
   {
    "id": "tool-registry",
    "queue_id": "mn-sub-261001-3d93ef",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-tool-registry"
   },
   {
    "id": "tool-router",
    "queue_id": "mn-sub-261001-086620",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-suite-tool-router"
   },
   {
    "id": "retry-orchestrator",
    "queue_id": "mn-sub-261001-51d5a5",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-retry-orchestrator"
   },
   {
    "id": "circuit-breaker",
    "queue_id": "mn-sub-261001-dc071e",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-circuit-breaker"
   },
   {
    "id": "rate-limiter",
    "queue_id": "mn-sub-261001-9341c8",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-suite-rate-limiter"
   },
   {
    "id": "timeout-guard",
    "queue_id": "mn-sub-261001-8f3016",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-timeout-guard"
   },
   {
    "id": "fallback-chain",
    "queue_id": "mn-sub-261001-56568f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-fallback-chain"
   },
   {
    "id": "queue-mcp",
    "queue_id": "mn-sub-261001-8ebe9a",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-queue-mcp"
   },
   {
    "id": "batch-runner",
    "queue_id": "mn-sub-261001-41265f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-batch-runner"
   },
   {
    "id": "health-check-hub",
    "queue_id": "mn-sub-261001-34d220",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-health-check-hub"
   },
   {
    "id": "idempotency-guard",
    "queue_id": "mn-sub-261001-fffd24",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-idempotency-guard"
   },
   {
    "id": "webhook-inspector",
    "queue_id": "mn-sub-261001-b5160f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-webhook-inspector"
   },
   {
    "id": "poll-watcher",
    "queue_id": "mn-sub-261001-f6632f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-poll-watcher"
   },
   {
    "id": "json-repair",
    "queue_id": "mn-sub-261001-aad31c",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-json-repair"
   },
   {
    "id": "schema-validator",
    "queue_id": "mn-sub-261001-d39cee",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-suite-schema-validator"
   },
   {
    "id": "output-grader",
    "queue_id": "mn-sub-261001-64a5a3",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-output-grader"
   },
   {
    "id": "citation-checker",
    "queue_id": "mn-sub-261001-1f5481",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-citation-checker"
   },
   {
    "id": "claim-extractor",
    "queue_id": "mn-sub-261001-410cc3",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-claim-extractor"
   },
   {
    "id": "fact-consistency",
    "queue_id": "mn-sub-261001-b22b30",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-fact-consistency"
   },
   {
    "id": "self-critic",
    "queue_id": "mn-sub-261001-87d2d3",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-self-critic"
   },
   {
    "id": "consensus-voter",
    "queue_id": "mn-sub-261001-e59f51",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-consensus-voter"
   },
   {
    "id": "output-diff",
    "queue_id": "mn-sub-261001-3ab121",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-output-diff"
   },
   {
    "id": "normalize-output",
    "queue_id": "mn-sub-261001-92bdec",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-normalize-output"
   },
   {
    "id": "text-qa",
    "queue_id": "mn-sub-261001-d11935",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-text-qa"
   },
   {
    "id": "response-size-guard",
    "queue_id": "mn-sub-261001-6480e7",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-response-size-guard"
   },
   {
    "id": "prompt-injection-scanner",
    "queue_id": "mn-sub-261001-dc3bf6",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-prompt-injection-scanner"
   },
   {
    "id": "pii-redactor",
    "queue_id": "mn-sub-261001-fd66cb",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-pii-redactor"
   },
   {
    "id": "input-sanitizer",
    "queue_id": "mn-sub-261001-0ac454",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-input-sanitizer"
   },
   {
    "id": "permission-gate",
    "queue_id": "mn-sub-261001-c6bf82",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-permission-gate"
   },
   {
    "id": "audit-log",
    "queue_id": "mn-sub-261001-533127",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-suite-audit-log"
   },
   {
    "id": "sandbox-eval",
    "queue_id": "mn-sub-261001-740bd2",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-sandbox-eval"
   },
   {
    "id": "file-guard",
    "queue_id": "mn-sub-261001-3cbe5f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-file-guard"
   },
   {
    "id": "tos-checker",
    "queue_id": "mn-sub-261001-daba43",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-tos-checker"
   },
   {
    "id": "allowlist-proxy",
    "queue_id": "mn-sub-261001-e7a6e0",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-allowlist-proxy"
   },
   {
    "id": "consent-manager",
    "queue_id": "mn-sub-261001-155216",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-consent-manager"
   },
   {
    "id": "threat-modeler",
    "queue_id": "mn-sub-261001-46c2bf",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-threat-modeler"
   },
   {
    "id": "trace-logger",
    "queue_id": "mn-sub-261001-92b81d",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-trace-logger"
   },
   {
    "id": "metrics-collector",
    "queue_id": "mn-sub-261001-e4b329",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-metrics-collector"
   },
   {
    "id": "cost-tracker",
    "queue_id": "mn-sub-261001-852e5d",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-suite-cost-tracker"
   },
   {
    "id": "latency-tracker",
    "queue_id": "mn-sub-261001-ad0690",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-latency-tracker"
   },
   {
    "id": "run-reporter",
    "queue_id": "mn-sub-261001-45d63f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-run-reporter"
   },
   {
    "id": "error-triage",
    "queue_id": "mn-sub-261001-1930b0",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-error-triage"
   },
   {
    "id": "heartbeat-monitor",
    "queue_id": "mn-sub-261001-a3f372",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-heartbeat-monitor"
   },
   {
    "id": "experiment-log",
    "queue_id": "mn-sub-261001-60accb",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-experiment-log"
   },
   {
    "id": "usage-analytics",
    "queue_id": "mn-sub-261001-7af74c",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-usage-analytics"
   },
   {
    "id": "debug-console",
    "queue_id": "mn-sub-261001-2ffbf4",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-debug-console"
   },
   {
    "id": "robust-fetcher",
    "queue_id": "mn-sub-261001-e4786f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-robust-fetcher"
   },
   {
    "id": "html-to-markdown",
    "queue_id": "mn-sub-261001-fc7ebe",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-html-to-markdown"
   },
   {
    "id": "readability-extract",
    "queue_id": "mn-sub-261001-e1fe81",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-readability-extract"
   },
   {
    "id": "table-extractor",
    "queue_id": "mn-sub-261001-e0ee68",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-table-extractor"
   },
   {
    "id": "csv-toolkit",
    "queue_id": "mn-sub-261001-7f84c4",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-csv-toolkit"
   },
   {
    "id": "json-toolkit",
    "queue_id": "mn-sub-261001-177dd5",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-json-toolkit"
   },
   {
    "id": "xml-toolkit",
    "queue_id": "mn-sub-261001-6a1776",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-xml-toolkit"
   },
   {
    "id": "yaml-toolkit",
    "queue_id": "mn-sub-261001-b46cd3",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-yaml-toolkit"
   },
   {
    "id": "markdown-toolkit",
    "queue_id": "mn-sub-261001-eeb955",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-markdown-toolkit"
   },
   {
    "id": "pdf-text-extractor",
    "queue_id": "mn-sub-261001-750ad7",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-pdf-text-extractor"
   },
   {
    "id": "url-inspector",
    "queue_id": "mn-sub-261001-4a7109",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-url-inspector"
   },
   {
    "id": "diff-detector",
    "queue_id": "mn-sub-261001-a7e05f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-diff-detector"
   },
   {
    "id": "chunker",
    "queue_id": "mn-sub-261001-afd6dd",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-chunker"
   },
   {
    "id": "data-anonymizer",
    "queue_id": "mn-sub-261001-d6aede",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-data-anonymizer"
   },
   {
    "id": "plan-decompose",
    "queue_id": "mn-sub-261001-83df31",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-plan-decompose"
   },
   {
    "id": "task-tracker",
    "queue_id": "mn-sub-261001-2cef66",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-task-tracker"
   },
   {
    "id": "milestone-checker",
    "queue_id": "mn-sub-261001-e33a63",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-milestone-checker"
   },
   {
    "id": "decision-matrix",
    "queue_id": "mn-sub-261001-c99f09",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-decision-matrix"
   },
   {
    "id": "hypothesis-tracker",
    "queue_id": "mn-sub-261001-3a6fdb",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-hypothesis-tracker"
   },
   {
    "id": "priority-queue",
    "queue_id": "mn-sub-261001-4c616e",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-priority-queue"
   },
   {
    "id": "risk-register",
    "queue_id": "mn-sub-261001-a759f2",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-risk-register"
   },
   {
    "id": "assumption-auditor",
    "queue_id": "mn-sub-261001-9a885c",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-assumption-auditor"
   },
   {
    "id": "retro-analyzer",
    "queue_id": "mn-sub-261001-0cd013",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-retro-analyzer"
   },
   {
    "id": "uncertainty-quantifier",
    "queue_id": "mn-sub-261001-204a1b",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-uncertainty-quantifier"
   },
   {
    "id": "human-approval",
    "queue_id": "mn-sub-261001-6db756",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-human-approval"
   },
   {
    "id": "feedback-loop",
    "queue_id": "mn-sub-261001-524a13",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-feedback-loop"
   },
   {
    "id": "report-builder",
    "queue_id": "mn-sub-261001-51775c",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-report-builder"
   },
   {
    "id": "digest-writer",
    "queue_id": "mn-sub-261001-804038",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-digest-writer"
   },
   {
    "id": "locale-helper",
    "queue_id": "mn-sub-261001-b8da89",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-locale-helper"
   },
   {
    "id": "tone-adjuster",
    "queue_id": "mn-sub-261001-f2718f",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-tone-adjuster"
   },
   {
    "id": "handoff-notes",
    "queue_id": "mn-sub-261001-486b0f",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-handoff-notes"
   },
   {
    "id": "meeting-notes",
    "queue_id": "mn-sub-261001-49f104",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-meeting-notes"
   },
   {
    "id": "safe-math",
    "queue_id": "mn-sub-261001-670635",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-safe-math"
   },
   {
    "id": "stats-toolkit",
    "queue_id": "mn-sub-261001-da315a",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-stats-toolkit"
   },
   {
    "id": "datetime-toolkit",
    "queue_id": "mn-sub-261001-2f6c95",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-datetime-toolkit"
   },
   {
    "id": "currency-convert",
    "queue_id": "mn-sub-261001-deda26",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-currency-convert"
   },
   {
    "id": "unit-convert",
    "queue_id": "mn-sub-261001-ab7819",
    "price": 0,
    "tier": "Free",
-   "tools": 3
+   "tools": 3,
+   "name": "mcp-unit-convert"
   },
   {
    "id": "regex-forge",
    "queue_id": "mn-sub-261001-917cf5",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-regex-forge"
   },
   {
    "id": "id-forge",
    "queue_id": "mn-sub-261001-7a7432",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-id-forge"
   },
   {
    "id": "hash-toolkit",
    "queue_id": "mn-sub-261001-f5a0b2",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-hash-toolkit"
   },
   {
    "id": "agent-org-chart",
    "queue_id": "mn-sub-261001-e00942",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 8
+   "tools": 8,
+   "name": "mcp-agent-org-chart"
   },
   {
    "id": "delegation-contracts",
    "queue_id": "mn-sub-261001-49d869",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 9
+   "tools": 9,
+   "name": "mcp-delegation-contracts"
   },
   {
    "id": "handoff-protocol",
    "queue_id": "mn-sub-261001-098f83",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 8
+   "tools": 8,
+   "name": "mcp-handoff-protocol"
   },
   {
    "id": "blackboard-shared",
    "queue_id": "mn-sub-261001-040053",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 9
+   "tools": 9,
+   "name": "mcp-blackboard-shared"
   },
   {
    "id": "deadlock-detector",
    "queue_id": "mn-sub-261001-ae7289",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-deadlock-detector"
   },
   {
    "id": "conflict-resolver",
    "queue_id": "mn-sub-261001-00aaeb",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 8
+   "tools": 8,
+   "name": "mcp-conflict-resolver"
   },
   {
    "id": "quorum-coordinator",
    "queue_id": "mn-sub-261001-06b271",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-quorum-coordinator"
   },
   {
    "id": "agent-supervisor",
    "queue_id": "mn-sub-261001-c4ff56",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-agent-supervisor"
   },
   {
    "id": "goal-contract",
    "queue_id": "mn-sub-261001-6b2245",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 8
+   "tools": 8,
+   "name": "mcp-goal-contract"
   },
   {
    "id": "drift-detector",
    "queue_id": "mn-sub-261001-b0e470",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-drift-detector"
   },
   {
    "id": "commitment-ledger",
    "queue_id": "mn-sub-261001-f02c2f",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-commitment-ledger"
   },
   {
    "id": "scope-guard",
    "queue_id": "mn-sub-261001-151493",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-scope-guard"
   },
   {
    "id": "time-horizon-planner",
    "queue_id": "mn-sub-261001-4a2131",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-time-horizon-planner"
   },
   {
    "id": "progress-journal",
    "queue_id": "mn-sub-261001-7bbac6",
    "price": 0,
    "tier": "Free",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-progress-journal"
   },
   {
    "id": "mission-checkpoint",
    "queue_id": "mn-sub-261001-7b5c9e",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-mission-checkpoint"
   },
   {
    "id": "spec-clarifier",
    "queue_id": "mn-sub-261001-060da3",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-spec-clarifier"
   },
   {
    "id": "acceptance-criteria",
    "queue_id": "mn-sub-261001-e8e089",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-acceptance-criteria"
   },
   {
    "id": "definition-of-done",
    "queue_id": "mn-sub-261001-33567c",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-definition-of-done"
   },
   {
    "id": "spec-diff-impact",
    "queue_id": "mn-sub-261001-52778a",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-spec-diff-impact"
   },
   {
    "id": "requirements-matrix",
    "queue_id": "mn-sub-261001-ca4a49",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-requirements-matrix"
   },
   {
    "id": "golden-set",
    "queue_id": "mn-sub-261001-c01b02",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-golden-set"
   },
   {
    "id": "regression-harness",
    "queue_id": "mn-sub-261001-537688",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-regression-harness"
   },
   {
    "id": "prompt-ab-test",
    "queue_id": "mn-sub-261001-6d265b",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-prompt-ab-test"
   },
   {
    "id": "quality-drift-monitor",
    "queue_id": "mn-sub-261001-d20ad1",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-quality-drift-monitor"
   },
   {
    "id": "scenario-simulator",
    "queue_id": "mn-sub-261001-b2fbf0",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-scenario-simulator"
   },
   {
    "id": "failure-tagger",
    "queue_id": "mn-sub-261001-2dad34",
    "price": 0,
    "tier": "Free",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-failure-tagger"
   },
   {
    "id": "spend-envelope",
    "queue_id": "mn-sub-261001-8c23b0",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-spend-envelope"
   },
   {
    "id": "task-roi",
    "queue_id": "mn-sub-261001-92cd3f",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-task-roi"
   },
   {
    "id": "token-audit",
    "queue_id": "mn-sub-261001-955599",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-token-audit"
   },
   {
    "id": "model-router-econ",
    "queue_id": "mn-sub-261001-240a89",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-model-router-econ"
   },
   {
    "id": "budget-forecast",
    "queue_id": "mn-sub-261001-4c054e",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-budget-forecast"
   },
   {
    "id": "cost-attribution",
    "queue_id": "mn-sub-261001-e91e19",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-cost-attribution"
   },
   {
    "id": "dom-baseline",
    "queue_id": "mn-sub-261001-8eb94f",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-dom-baseline"
   },
   {
    "id": "selector-healer",
    "queue_id": "mn-sub-261001-e1941f",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-selector-healer"
   },
   {
    "id": "action-recorder",
    "queue_id": "mn-sub-261001-509f13",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-action-recorder"
   },
   {
    "id": "checkpoint-undo",
    "queue_id": "mn-sub-261001-299706",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-checkpoint-undo"
   },
   {
    "id": "viewport-verifier",
    "queue_id": "mn-sub-261001-428880",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-viewport-verifier"
   },
   {
    "id": "postmortem-engine",
    "queue_id": "mn-sub-261001-0920ae",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-postmortem-engine"
   },
   {
    "id": "lesson-library",
    "queue_id": "mn-sub-261001-66bdc5",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-lesson-library"
   },
   {
    "id": "mistake-patterns",
    "queue_id": "mn-sub-261001-3568b2",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-mistake-patterns"
   },
   {
    "id": "skill-forge",
    "queue_id": "mn-sub-261001-73421c",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-skill-forge"
   },
   {
    "id": "competency-tracker",
    "queue_id": "mn-sub-261001-9495f5",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-competency-tracker"
   },
   {
    "id": "interruption-broker",
    "queue_id": "mn-sub-261001-a9e92d",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-interruption-broker"
   },
   {
    "id": "takeover-request",
    "queue_id": "mn-sub-261001-8d3f8e",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-takeover-request"
   },
   {
    "id": "trust-calibrator",
    "queue_id": "mn-sub-261001-4dd797",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-trust-calibrator"
   },
   {
    "id": "escalation-policy",
    "queue_id": "mn-sub-261001-e6dbec",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-escalation-policy"
   },
   {
    "id": "explain-decision",
    "queue_id": "mn-sub-261001-c67a88",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-explain-decision"
   },
   {
    "id": "fact-staleness",
    "queue_id": "mn-sub-261001-474ce9",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-fact-staleness"
   },
   {
    "id": "source-timeline",
    "queue_id": "mn-sub-261001-c4bffe",
    "price": 2.99,
    "tier": "Multi-feature",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-source-timeline"
   },
   {
    "id": "deadline-engine",
    "queue_id": "mn-sub-261001-9f4091",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-deadline-engine"
   },
   {
    "id": "temporal-reasoner",
    "queue_id": "mn-sub-261001-e1966d",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-temporal-reasoner"
   },
   {
    "id": "policy-as-code",
    "queue_id": "mn-sub-261001-806567",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-policy-as-code"
   },
   {
    "id": "data-residency-check",
    "queue_id": "mn-sub-261001-1f1848",
    "price": 1.99,
    "tier": "Standard",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-data-residency-check"
   },
   {
    "id": "consent-ledger",
    "queue_id": "mn-sub-261001-6f3da9",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-consent-ledger"
   },
   {
    "id": "compliance-report",
    "queue_id": "mn-sub-261001-4f428f",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-compliance-report"
   },
   {
    "id": "blast-radius-estimator",
    "queue_id": "mn-sub-261001-f156a6",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-blast-radius-estimator"
   },
   {
    "id": "dry-run-executor",
    "queue_id": "mn-sub-261001-1a1640",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-dry-run-executor"
   },
   {
    "id": "side-effect-ledger",
    "queue_id": "mn-sub-261001-3771ba",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-side-effect-ledger"
   },
   {
    "id": "reversibility-planner",
    "queue_id": "mn-sub-261001-b6c192",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-reversibility-planner"
   },
   {
    "id": "precondition-checker",
    "queue_id": "mn-sub-261001-f2e331",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-precondition-checker"
   },
   {
    "id": "action-limiter",
    "queue_id": "mn-sub-261001-4d9b68",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-action-limiter"
   },
   {
    "id": "escrow-agent",
    "queue_id": "mn-sub-261001-49c7be",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 9
+   "tools": 9,
+   "name": "mcp-escrow-agent"
   },
   {
    "id": "sla-contract-manager",
    "queue_id": "mn-sub-261001-2c87e6",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-sla-contract-manager"
   },
   {
    "id": "metering-station",
    "queue_id": "mn-sub-261001-96097d",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-metering-station"
   },
   {
    "id": "quote-negotiator",
    "queue_id": "mn-sub-261001-c1320f",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-quote-negotiator"
   },
   {
    "id": "dispute-resolver",
    "queue_id": "mn-sub-261001-cf54ca",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-dispute-resolver"
   },
   {
    "id": "settlement-ledger",
    "queue_id": "mn-sub-261001-2dc238",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-settlement-ledger"
   },
   {
    "id": "did-resolver",
    "queue_id": "mn-sub-261001-de13aa",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 7
+   "tools": 7,
+   "name": "mcp-did-resolver"
   },
   {
    "id": "delegation-chain",
    "queue_id": "mn-sub-261001-bd8d6e",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-delegation-chain"
   },
   {
    "id": "key-rotation-manager",
    "queue_id": "mn-sub-261001-7df009",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-key-rotation-manager"
   },
   {
    "id": "agent-passport",
    "queue_id": "mn-sub-261001-705c57",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-agent-passport"
   },
   {
    "id": "scope-minting",
    "queue_id": "mn-sub-261001-7f23e4",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-scope-minting"
   },
   {
    "id": "prompt-versioner",
    "queue_id": "mn-sub-261001-c67d32",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-prompt-versioner"
   },
   {
    "id": "canary-deployer",
    "queue_id": "mn-sub-261001-6c42d0",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-canary-deployer"
   },
   {
    "id": "rollback-manager",
    "queue_id": "mn-sub-261001-9d25f0",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-rollback-manager"
   },
   {
    "id": "prompt-dependency-graph",
    "queue_id": "mn-sub-261001-ea3f4d",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-prompt-dependency-graph"
   },
   {
    "id": "change-changelog",
    "queue_id": "mn-sub-261001-1cc747",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-change-changelog"
   },
   {
    "id": "env-diff-checker",
    "queue_id": "mn-sub-261001-0628dd",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-env-diff-checker"
   },
   {
    "id": "transcript-condenser",
    "queue_id": "mn-sub-261001-4dc046",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 6
+   "tools": 6,
+   "name": "mcp-transcript-condenser"
   },
   {
    "id": "av-budget-packer",
    "queue_id": "mn-sub-261001-1a6aa5",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-av-budget-packer"
   },
   {
    "id": "turn-state-machine",
    "queue_id": "mn-sub-261001-351b19",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-turn-state-machine"
   },
   {
    "id": "speech-pacing",
    "queue_id": "mn-sub-261001-3637a0",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-speech-pacing"
   },
   {
    "id": "image-batch-tagger",
    "queue_id": "mn-sub-261001-1d137f",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-image-batch-tagger"
   },
   {
    "id": "caption-aligner",
    "queue_id": "mn-sub-261001-b4f740",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-caption-aligner"
   },
   {
    "id": "tenant-isolator",
    "queue_id": "mn-sub-261001-092332",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-tenant-isolator"
   },
   {
    "id": "tenant-quota-manager",
    "queue_id": "mn-sub-261001-1cf40a",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-tenant-quota-manager"
   },
   {
    "id": "noisy-neighbor-detector",
    "queue_id": "mn-sub-261001-6aa80d",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-noisy-neighbor-detector"
   },
   {
    "id": "tenant-data-tagger",
    "queue_id": "mn-sub-261001-c55ea9",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-tenant-data-tagger"
   },
   {
    "id": "cross-tenant-guard",
    "queue_id": "mn-sub-261001-6a5d7c",
    "price": 9.99,
    "tier": "Enterprise",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-cross-tenant-guard"
   },
   {
    "id": "argument-cartographer",
    "queue_id": "mn-sub-261001-a2b211",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-argument-cartographer"
   },
   {
    "id": "bayesian-updater",
    "queue_id": "mn-sub-261001-02aa34",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-bayesian-updater"
   },
   {
    "id": "counterfactual-lab",
    "queue_id": "mn-sub-261001-ccd107",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-counterfactual-lab"
   },
   {
    "id": "causal-ladder",
    "queue_id": "mn-sub-261001-9d646a",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-causal-ladder"
   },
   {
    "id": "analogy-finder",
    "queue_id": "mn-sub-261001-7c7776",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-analogy-finder"
   },
   {
    "id": "pareto-tradeoff",
    "queue_id": "mn-sub-261001-13034d",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-pareto-tradeoff"
   },
   {
    "id": "occam-razor",
    "queue_id": "mn-sub-261001-0ca71d",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-occam-razor"
   },
   {
    "id": "error-taxonomy",
    "queue_id": "mn-sub-261001-b13168",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-error-taxonomy"
   },
   {
    "id": "root-cause-tree",
    "queue_id": "mn-sub-261001-ed3551",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-root-cause-tree"
   },
   {
    "id": "reflection-journal",
    "queue_id": "mn-sub-261001-6b1fe1",
    "price": 0,
    "tier": "Free",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-reflection-journal"
   },
   {
    "id": "prompt-self-rewriter",
    "queue_id": "mn-sub-261001-3926d2",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-prompt-self-rewriter"
   },
   {
    "id": "behavior-diff",
    "queue_id": "mn-sub-261001-5e95e9",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-behavior-diff"
   },
   {
    "id": "capability-gap-scanner",
    "queue_id": "mn-sub-261001-dccb82",
    "price": 4.99,
    "tier": "Sophisticated",
-   "tools": 4
+   "tools": 4,
+   "name": "mcp-capability-gap-scanner"
   },
   {
    "id": "growth-plan",
    "queue_id": "mn-sub-261001-91badc",
    "price": 0,
    "tier": "Free",
-   "tools": 5
+   "tools": 5,
+   "name": "mcp-growth-plan"
   }
  ],
  "warnings": []

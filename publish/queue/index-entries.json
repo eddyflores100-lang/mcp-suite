@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-30T17:14:16.119Z",
+ "updated_at": "2026-09-30T17:18:24.483Z",
  "entries": [
   {
    "id": "mn-sub-261001-226007",
@@ -8,7 +8,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-226007.json",
    "eligible": true
   },
@@ -19,7 +19,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 52,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3d97e6.json",
    "eligible": true
   },
@@ -30,7 +30,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d782ae.json",
    "eligible": true
   },
@@ -41,7 +41,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-5f1270.json",
    "eligible": true
   },
@@ -52,7 +52,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e25fa0.json",
    "eligible": true
   },
@@ -63,7 +63,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-476c7a.json",
    "eligible": true
   },
@@ -74,7 +74,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-842633.json",
    "eligible": true
   },
@@ -85,7 +85,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 52,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4a32a0.json",
    "eligible": true
   },
@@ -96,7 +96,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-afe890.json",
    "eligible": true
   },
@@ -107,7 +107,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b6de93.json",
    "eligible": true
   },
@@ -118,7 +118,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-be94f9.json",
    "eligible": true
   },
@@ -129,7 +129,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7ce497.json",
    "eligible": true
   },
@@ -140,7 +140,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-425c53.json",
    "eligible": true
   },
@@ -151,7 +151,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d53e3b.json",
    "eligible": true
   },
@@ -162,7 +162,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-5f0861.json",
    "eligible": true
   },
@@ -173,7 +173,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 52,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-be7d1d.json",
    "eligible": true
   },
@@ -184,7 +184,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-f4afad.json",
    "eligible": true
   },
@@ -195,7 +195,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-00605d.json",
    "eligible": true
   },
@@ -206,18 +206,18 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-a743ac.json",
    "eligible": true
   },
   {
    "id": "mn-sub-261001-5e4312",
-   "name": "mcp-trust-gateway",
+   "name": "mcp-suite-trust-gateway",
    "version": "1.0.0",
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-5e4312.json",
    "eligible": true
   },
@@ -228,7 +228,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d7c48b.json",
    "eligible": true
   },
@@ -239,7 +239,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-a8614a.json",
    "eligible": true
   },
@@ -250,7 +250,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ea5217.json",
    "eligible": true
   },
@@ -261,7 +261,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-446148.json",
    "eligible": true
   },
@@ -272,7 +272,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-927753.json",
    "eligible": true
   },
@@ -283,7 +283,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d5fada.json",
    "eligible": true
   },
@@ -294,7 +294,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-9a1885.json",
    "eligible": true
   },
@@ -305,18 +305,18 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e4085a.json",
    "eligible": true
   },
   {
    "id": "mn-sub-261001-2a2473",
-   "name": "mcp-agent-memory",
+   "name": "mcp-suite-agent-memory",
    "version": "1.0.0",
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-2a2473.json",
    "eligible": true
   },
@@ -327,7 +327,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-28adcf.json",
    "eligible": true
   },
@@ -338,7 +338,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6b06f3.json",
    "eligible": true
   },
@@ -349,7 +349,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-99007d.json",
    "eligible": true
   },
@@ -360,7 +360,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1cc847.json",
    "eligible": true
   },
@@ -371,7 +371,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-5f4c93.json",
    "eligible": true
   },
@@ -382,7 +382,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3d2a13.json",
    "eligible": true
   },
@@ -393,7 +393,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-394a20.json",
    "eligible": true
   },
@@ -404,7 +404,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-cc2a01.json",
    "eligible": true
   },
@@ -415,7 +415,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7c29cd.json",
    "eligible": true
   },
@@ -426,7 +426,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-bb6cb6.json",
    "eligible": true
   },
@@ -437,7 +437,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7b8490.json",
    "eligible": true
   },
@@ -448,18 +448,18 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3d93ef.json",
    "eligible": true
   },
   {
    "id": "mn-sub-261001-086620",
-   "name": "mcp-tool-router",
+   "name": "mcp-suite-tool-router",
    "version": "1.0.0",
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-086620.json",
    "eligible": true
   },
@@ -470,7 +470,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-51d5a5.json",
    "eligible": true
   },
@@ -481,18 +481,18 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-dc071e.json",
    "eligible": true
   },
   {
    "id": "mn-sub-261001-9341c8",
-   "name": "mcp-rate-limiter",
+   "name": "mcp-suite-rate-limiter",
    "version": "1.0.0",
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-9341c8.json",
    "eligible": true
   },
@@ -503,7 +503,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-8f3016.json",
    "eligible": true
   },
@@ -514,7 +514,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-56568f.json",
    "eligible": true
   },
@@ -525,7 +525,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-8ebe9a.json",
    "eligible": true
   },
@@ -536,7 +536,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-41265f.json",
    "eligible": true
   },
@@ -547,7 +547,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 52,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-34d220.json",
    "eligible": true
   },
@@ -558,7 +558,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-fffd24.json",
    "eligible": true
   },
@@ -569,7 +569,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b5160f.json",
    "eligible": true
   },
@@ -580,7 +580,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 52,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-f6632f.json",
    "eligible": true
   },
@@ -591,18 +591,18 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-aad31c.json",
    "eligible": true
   },
   {
    "id": "mn-sub-261001-d39cee",
-   "name": "mcp-schema-validator",
+   "name": "mcp-suite-schema-validator",
    "version": "1.0.0",
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d39cee.json",
    "eligible": true
   },
@@ -613,7 +613,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-64a5a3.json",
    "eligible": true
   },
@@ -624,7 +624,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1f5481.json",
    "eligible": true
   },
@@ -635,7 +635,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-410cc3.json",
    "eligible": true
   },
@@ -646,7 +646,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b22b30.json",
    "eligible": true
   },
@@ -657,7 +657,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-87d2d3.json",
    "eligible": true
   },
@@ -668,7 +668,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e59f51.json",
    "eligible": true
   },
@@ -679,7 +679,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3ab121.json",
    "eligible": true
   },
@@ -690,7 +690,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-92bdec.json",
    "eligible": true
   },
@@ -701,7 +701,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d11935.json",
    "eligible": true
   },
@@ -712,7 +712,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6480e7.json",
    "eligible": true
   },
@@ -723,7 +723,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-dc3bf6.json",
    "eligible": true
   },
@@ -734,7 +734,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-fd66cb.json",
    "eligible": true
   },
@@ -745,7 +745,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-0ac454.json",
    "eligible": true
   },
@@ -756,18 +756,18 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c6bf82.json",
    "eligible": true
   },
   {
    "id": "mn-sub-261001-533127",
-   "name": "mcp-audit-log",
+   "name": "mcp-suite-audit-log",
    "version": "1.0.0",
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-533127.json",
    "eligible": true
   },
@@ -778,7 +778,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-740bd2.json",
    "eligible": true
   },
@@ -789,7 +789,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3cbe5f.json",
    "eligible": true
   },
@@ -800,7 +800,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-daba43.json",
    "eligible": true
   },
@@ -811,7 +811,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e7a6e0.json",
    "eligible": true
   },
@@ -822,7 +822,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-155216.json",
    "eligible": true
   },
@@ -833,7 +833,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-46c2bf.json",
    "eligible": true
   },
@@ -844,7 +844,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-92b81d.json",
    "eligible": true
   },
@@ -855,18 +855,18 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e4b329.json",
    "eligible": true
   },
   {
    "id": "mn-sub-261001-852e5d",
-   "name": "mcp-cost-tracker",
+   "name": "mcp-suite-cost-tracker",
    "version": "1.0.0",
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-852e5d.json",
    "eligible": true
   },
@@ -877,7 +877,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ad0690.json",
    "eligible": true
   },
@@ -888,7 +888,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-45d63f.json",
    "eligible": true
   },
@@ -899,7 +899,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1930b0.json",
    "eligible": true
   },
@@ -910,7 +910,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-a3f372.json",
    "eligible": true
   },
@@ -921,7 +921,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-60accb.json",
    "eligible": true
   },
@@ -932,7 +932,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7af74c.json",
    "eligible": true
   },
@@ -943,7 +943,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-2ffbf4.json",
    "eligible": true
   },
@@ -954,7 +954,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e4786f.json",
    "eligible": true
   },
@@ -965,7 +965,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-fc7ebe.json",
    "eligible": true
   },
@@ -976,7 +976,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e1fe81.json",
    "eligible": true
   },
@@ -987,7 +987,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e0ee68.json",
    "eligible": true
   },
@@ -998,7 +998,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7f84c4.json",
    "eligible": true
   },
@@ -1009,7 +1009,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-177dd5.json",
    "eligible": true
   },
@@ -1020,7 +1020,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6a1776.json",
    "eligible": true
   },
@@ -1031,7 +1031,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b46cd3.json",
    "eligible": true
   },
@@ -1042,7 +1042,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-eeb955.json",
    "eligible": true
   },
@@ -1053,7 +1053,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-750ad7.json",
    "eligible": true
   },
@@ -1064,7 +1064,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 50,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4a7109.json",
    "eligible": true
   },
@@ -1075,7 +1075,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-a7e05f.json",
    "eligible": true
   },
@@ -1086,7 +1086,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-afd6dd.json",
    "eligible": true
   },
@@ -1097,7 +1097,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d6aede.json",
    "eligible": true
   },
@@ -1108,7 +1108,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-83df31.json",
    "eligible": true
   },
@@ -1119,7 +1119,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-2cef66.json",
    "eligible": true
   },
@@ -1130,7 +1130,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e33a63.json",
    "eligible": true
   },
@@ -1141,7 +1141,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c99f09.json",
    "eligible": true
   },
@@ -1152,7 +1152,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3a6fdb.json",
    "eligible": true
   },
@@ -1163,7 +1163,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4c616e.json",
    "eligible": true
   },
@@ -1174,7 +1174,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-a759f2.json",
    "eligible": true
   },
@@ -1185,7 +1185,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-9a885c.json",
    "eligible": true
   },
@@ -1196,7 +1196,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-0cd013.json",
    "eligible": true
   },
@@ -1207,7 +1207,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-204a1b.json",
    "eligible": true
   },
@@ -1218,7 +1218,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6db756.json",
    "eligible": true
   },
@@ -1229,7 +1229,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-524a13.json",
    "eligible": true
   },
@@ -1240,7 +1240,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-51775c.json",
    "eligible": true
   },
@@ -1251,7 +1251,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-804038.json",
    "eligible": true
   },
@@ -1262,7 +1262,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b8da89.json",
    "eligible": true
   },
@@ -1273,7 +1273,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-f2718f.json",
    "eligible": true
   },
@@ -1284,7 +1284,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-486b0f.json",
    "eligible": true
   },
@@ -1295,7 +1295,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-49f104.json",
    "eligible": true
   },
@@ -1306,7 +1306,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-670635.json",
    "eligible": true
   },
@@ -1317,7 +1317,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-da315a.json",
    "eligible": true
   },
@@ -1328,7 +1328,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-2f6c95.json",
    "eligible": true
   },
@@ -1339,7 +1339,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 52,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-deda26.json",
    "eligible": true
   },
@@ -1350,7 +1350,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ab7819.json",
    "eligible": true
   },
@@ -1361,7 +1361,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-917cf5.json",
    "eligible": true
   },
@@ -1372,7 +1372,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7a7432.json",
    "eligible": true
   },
@@ -1383,7 +1383,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-f5a0b2.json",
    "eligible": true
   },
@@ -1394,7 +1394,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e00942.json",
    "eligible": true
   },
@@ -1405,7 +1405,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-49d869.json",
    "eligible": true
   },
@@ -1416,7 +1416,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-098f83.json",
    "eligible": true
   },
@@ -1427,7 +1427,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-040053.json",
    "eligible": true
   },
@@ -1438,7 +1438,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ae7289.json",
    "eligible": true
   },
@@ -1449,7 +1449,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-00aaeb.json",
    "eligible": true
   },
@@ -1460,7 +1460,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-06b271.json",
    "eligible": true
   },
@@ -1471,7 +1471,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c4ff56.json",
    "eligible": true
   },
@@ -1482,7 +1482,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6b2245.json",
    "eligible": true
   },
@@ -1493,7 +1493,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b0e470.json",
    "eligible": true
   },
@@ -1504,7 +1504,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-f02c2f.json",
    "eligible": true
   },
@@ -1515,7 +1515,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-151493.json",
    "eligible": true
   },
@@ -1526,7 +1526,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4a2131.json",
    "eligible": true
   },
@@ -1537,7 +1537,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7bbac6.json",
    "eligible": true
   },
@@ -1548,7 +1548,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7b5c9e.json",
    "eligible": true
   },
@@ -1559,7 +1559,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-060da3.json",
    "eligible": true
   },
@@ -1570,7 +1570,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e8e089.json",
    "eligible": true
   },
@@ -1581,7 +1581,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-33567c.json",
    "eligible": true
   },
@@ -1592,7 +1592,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-52778a.json",
    "eligible": true
   },
@@ -1603,7 +1603,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ca4a49.json",
    "eligible": true
   },
@@ -1614,7 +1614,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c01b02.json",
    "eligible": true
   },
@@ -1625,7 +1625,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-537688.json",
    "eligible": true
   },
@@ -1636,7 +1636,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6d265b.json",
    "eligible": true
   },
@@ -1647,7 +1647,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-d20ad1.json",
    "eligible": true
   },
@@ -1658,7 +1658,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b2fbf0.json",
    "eligible": true
   },
@@ -1669,7 +1669,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-2dad34.json",
    "eligible": true
   },
@@ -1680,7 +1680,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-8c23b0.json",
    "eligible": true
   },
@@ -1691,7 +1691,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-92cd3f.json",
    "eligible": true
   },
@@ -1702,7 +1702,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-955599.json",
    "eligible": true
   },
@@ -1713,7 +1713,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-240a89.json",
    "eligible": true
   },
@@ -1724,7 +1724,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4c054e.json",
    "eligible": true
   },
@@ -1735,7 +1735,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e91e19.json",
    "eligible": true
   },
@@ -1746,7 +1746,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-8eb94f.json",
    "eligible": true
   },
@@ -1757,7 +1757,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e1941f.json",
    "eligible": true
   },
@@ -1768,7 +1768,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-509f13.json",
    "eligible": true
   },
@@ -1779,7 +1779,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-299706.json",
    "eligible": true
   },
@@ -1790,7 +1790,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-428880.json",
    "eligible": true
   },
@@ -1801,7 +1801,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-0920ae.json",
    "eligible": true
   },
@@ -1812,7 +1812,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-66bdc5.json",
    "eligible": true
   },
@@ -1823,7 +1823,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3568b2.json",
    "eligible": true
   },
@@ -1834,7 +1834,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-73421c.json",
    "eligible": true
   },
@@ -1845,7 +1845,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-9495f5.json",
    "eligible": true
   },
@@ -1856,7 +1856,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-a9e92d.json",
    "eligible": true
   },
@@ -1867,7 +1867,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-8d3f8e.json",
    "eligible": true
   },
@@ -1878,7 +1878,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4dd797.json",
    "eligible": true
   },
@@ -1889,7 +1889,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e6dbec.json",
    "eligible": true
   },
@@ -1900,7 +1900,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c67a88.json",
    "eligible": true
   },
@@ -1911,7 +1911,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-474ce9.json",
    "eligible": true
   },
@@ -1922,7 +1922,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c4bffe.json",
    "eligible": true
   },
@@ -1933,7 +1933,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-9f4091.json",
    "eligible": true
   },
@@ -1944,7 +1944,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 53,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-e1966d.json",
    "eligible": true
   },
@@ -1955,7 +1955,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-806567.json",
    "eligible": true
   },
@@ -1966,7 +1966,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1f1848.json",
    "eligible": true
   },
@@ -1977,7 +1977,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6f3da9.json",
    "eligible": true
   },
@@ -1988,7 +1988,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4f428f.json",
    "eligible": true
   },
@@ -1999,7 +1999,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-f156a6.json",
    "eligible": true
   },
@@ -2010,7 +2010,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1a1640.json",
    "eligible": true
   },
@@ -2021,7 +2021,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3771ba.json",
    "eligible": true
   },
@@ -2032,7 +2032,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b6c192.json",
    "eligible": true
   },
@@ -2043,7 +2043,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-f2e331.json",
    "eligible": true
   },
@@ -2054,7 +2054,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4d9b68.json",
    "eligible": true
   },
@@ -2065,7 +2065,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-49c7be.json",
    "eligible": true
   },
@@ -2076,7 +2076,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-2c87e6.json",
    "eligible": true
   },
@@ -2087,7 +2087,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-96097d.json",
    "eligible": true
   },
@@ -2098,7 +2098,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c1320f.json",
    "eligible": true
   },
@@ -2109,7 +2109,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-cf54ca.json",
    "eligible": true
   },
@@ -2120,7 +2120,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-2dc238.json",
    "eligible": true
   },
@@ -2131,7 +2131,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-de13aa.json",
    "eligible": true
   },
@@ -2142,7 +2142,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-bd8d6e.json",
    "eligible": true
   },
@@ -2153,7 +2153,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7df009.json",
    "eligible": true
   },
@@ -2164,7 +2164,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-705c57.json",
    "eligible": true
   },
@@ -2175,7 +2175,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7f23e4.json",
    "eligible": true
   },
@@ -2186,7 +2186,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c67d32.json",
    "eligible": true
   },
@@ -2197,7 +2197,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6c42d0.json",
    "eligible": true
   },
@@ -2208,7 +2208,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-9d25f0.json",
    "eligible": true
   },
@@ -2219,7 +2219,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ea3f4d.json",
    "eligible": true
   },
@@ -2230,7 +2230,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1cc747.json",
    "eligible": true
   },
@@ -2241,7 +2241,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-0628dd.json",
    "eligible": true
   },
@@ -2252,7 +2252,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 57,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-4dc046.json",
    "eligible": true
   },
@@ -2263,7 +2263,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1a6aa5.json",
    "eligible": true
   },
@@ -2274,7 +2274,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-351b19.json",
    "eligible": true
   },
@@ -2285,7 +2285,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3637a0.json",
    "eligible": true
   },
@@ -2296,7 +2296,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1d137f.json",
    "eligible": true
   },
@@ -2307,7 +2307,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b4f740.json",
    "eligible": true
   },
@@ -2318,7 +2318,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-092332.json",
    "eligible": true
   },
@@ -2329,7 +2329,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-1cf40a.json",
    "eligible": true
   },
@@ -2340,7 +2340,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6aa80d.json",
    "eligible": true
   },
@@ -2351,7 +2351,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-c55ea9.json",
    "eligible": true
   },
@@ -2362,7 +2362,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6a5d7c.json",
    "eligible": true
   },
@@ -2373,7 +2373,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-a2b211.json",
    "eligible": true
   },
@@ -2384,7 +2384,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-02aa34.json",
    "eligible": true
   },
@@ -2395,7 +2395,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ccd107.json",
    "eligible": true
   },
@@ -2406,7 +2406,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-9d646a.json",
    "eligible": true
   },
@@ -2417,7 +2417,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-7c7776.json",
    "eligible": true
   },
@@ -2428,7 +2428,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-13034d.json",
    "eligible": true
   },
@@ -2439,7 +2439,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-0ca71d.json",
    "eligible": true
   },
@@ -2450,7 +2450,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-b13168.json",
    "eligible": true
   },
@@ -2461,7 +2461,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-ed3551.json",
    "eligible": true
   },
@@ -2472,7 +2472,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-6b1fe1.json",
    "eligible": true
   },
@@ -2483,7 +2483,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-3926d2.json",
    "eligible": true
   },
@@ -2494,7 +2494,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-5e95e9.json",
    "eligible": true
   },
@@ -2505,7 +2505,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-dccb82.json",
    "eligible": true
   },
@@ -2516,7 +2516,7 @@
    "verdict": "accepted",
    "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
    "trust": 55,
-   "submitted_at": "2026-09-30T17:14:16.119Z",
+   "submitted_at": "2026-09-30T17:18:24.483Z",
    "path": "submissions/202610/mn-sub-261001-91badc.json",
    "eligible": true
   }

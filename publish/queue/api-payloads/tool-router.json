@@ -1,5 +1,5 @@
 {
- "name": "mcp-tool-router",
+ "name": "mcp-suite-tool-router",
  "version": "1.0.0",
  "description": "Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo Dolor que resuelve: Con 100+ tools disponibles el LLM elige mal o llama la incorrecta (dolor #1 reportado por merge.dev sobre MCP). Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
  "author": "AliceLabs",

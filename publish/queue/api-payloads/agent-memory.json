@@ -1,5 +1,5 @@
 {
- "name": "mcp-agent-memory",
+ "name": "mcp-suite-agent-memory",
  "version": "1.0.0",
  "description": "Memoria KV persistente entre sesiones con TTL y namespaces Dolor que resuelve: Los agentes amnésicos olvidan todo al cerrar la sesión: cada conversación empieza de cero. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
  "author": "AliceLabs",

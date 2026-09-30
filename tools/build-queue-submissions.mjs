@@ -117,6 +117,24 @@ const catalog = readJson(join(ROOT, "catalog.json"));
 const pricing = readJson(join(ROOT, "publish", "pricing-plan.json"));
 const priceById = new Map(pricing.skills.map((s) => [s.id, s]));
 
+// DEDUP en vivo (2026-10-01): 7 nombres colisionan con el catálogo de 68.388 → namespace
+const RENAME = {
+  "trust-gateway": "mcp-suite-trust-gateway",
+  "agent-memory": "mcp-suite-agent-memory",
+  "tool-router": "mcp-suite-tool-router",
+  "rate-limiter": "mcp-suite-rate-limiter",
+  "schema-validator": "mcp-suite-schema-validator",
+  "audit-log": "mcp-suite-audit-log",
+  "cost-tracker": "mcp-suite-cost-tracker",
+};
+// nombres del catálogo vivo para verificación final (opcional, si existe el snapshot)
+let liveNames = null, liveSlugs = null;
+try {
+  const snap = JSON.parse(readFileSync("/tmp/catalog_names.json", "utf8"));
+  liveNames = new Set(snap.names.map((s) => s.toLowerCase()));
+  liveSlugs = new Set(snap.slugs.map((s) => s.toLowerCase()));
+} catch {}
+
 mkdirSync(SUBS_DIR, { recursive: true });
 mkdirSync(API_DIR, { recursive: true });
 
@@ -143,6 +161,13 @@ for (const srv of catalog.servers) {
 
   const toolNames = srv.tools.map((t) => t.name);
   const siteCat = CATEGORY_MAP[srv.category] || "Developer Tools";
+  // nombre de marketplace: dir, salvo colisión de DEDUP → namespace mcp-suite-
+  let displayName = RENAME[srv.id] || dirName;
+  if (liveNames && liveNames.has(displayName.toLowerCase())) {
+    displayName = `mcp-suite-${srv.id}`;
+  }
+  let catalogSlug = displayName;
+  if (liveSlugs && liveSlugs.has(catalogSlug.toLowerCase())) catalogSlug = `${displayName}-mn`;
   const tags = [
     "mcp",
     "model-context-protocol",
@@ -181,7 +206,7 @@ for (const srv of catalog.servers) {
   const systemPrompt = `Tienes acceso al servidor MCP ${dirName} (${toolNames.join(", ")}). ${srv.tagline}. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/${srv.id}/.`;
 
   const skill = {
-    name: dirName,
+    name: displayName,
     version,
     description,
     author: "AliceLabs",
@@ -250,7 +275,7 @@ for (const srv of catalog.servers) {
     submitted_from: "agent:agent_mcp_suite_2026",
     submitted_at: NOW,
     submitted_by: "owner-agent-git",
-    merge: { eligible: true, catalog_slug: srv.id },
+    merge: { eligible: true, catalog_slug: catalogSlug },
     record_enriched: "full payload stored for L2 review (files/doc/capabilities)",
   };
 
@@ -258,7 +283,7 @@ for (const srv of catalog.servers) {
   writeFileSync(join(API_DIR, `${srv.id}.json`), JSON.stringify(skill, null, 1));
   indexEntries.push({
     id,
-    name: dirName,
+    name: displayName,
     version,
     verdict: "accepted",
     status: queueFile.status,
@@ -267,7 +292,7 @@ for (const srv of catalog.servers) {
     path: `submissions/202610/${id}.json`,
     eligible: true,
   });
-  manifest.files.push({ id: srv.id, queue_id: id, price, tier, tools: toolNames.length + 1 });
+  manifest.files.push({ id: srv.id, queue_id: id, price, tier, tools: toolNames.length + 1, name: displayName });
   n++;
 }
 

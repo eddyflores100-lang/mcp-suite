@@ -1,5 +1,5 @@
 {
- "name": "mcp-audit-log",
+ "name": "mcp-suite-audit-log",
  "version": "1.0.0",
  "description": "Bitácora inmutable con cadena de hash: cada acción del agente es auditable Dolor que resuelve: Sin bitácora inmutable no hay forma de reconstruir qué hizo el agente (ni defenderse en disputas): estilo public audit log de MarketNow. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
  "author": "AliceLabs",
