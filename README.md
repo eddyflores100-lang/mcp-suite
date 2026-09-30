@@ -1,42 +1,52 @@
-# 🧰 MCP Suite — 181 servidores MCP modernos para agentes IA
+# 🧰 MCP Suite — 229 servidores MCP modernos para agentes IA
 
-> **181 servidores MCP · 792 tools · 22 categorías · 100% TypeScript · stdio · probados 181/181**
+> **229 servidores MCP · 1035 tools · 30 categorías · 100% TypeScript · stdio · probados 229/229**
 >
 > **Ola 1 (126)**: dolores actuales de agentes + integración MarketNow.site.
 > **Ola 2 (55, supercompletos)**: dolores FUTUROS — coordinación multi-agente, drift de
 > objetivos, spec ambiguity, eval-as-code, economía de tokens, computer-use, aprendizaje
 > de lecciones, takeover humano, frescura del conocimiento y compliance ejecutable.
+> **Ola 3 (48, supercompletos)**: la capa que nadie ha construido — pre-vuelo de acciones
+> (blast radius/dry-run/rollback), comercio A2A completo (escrow/SLA/metering/negociación),
+> identidad federada (DID/delegación/rotación), Agent CI/CD (versionado/canary), multimodal
+> y voz, multi-tenant con aislamiento, razonamiento estructurado y auto-mejora del agente.
 >
 > Nacido de investigación real sobre los **dolores de los agentes IA** y construido alrededor de
 > **[marketnow.site](https://marketnow.site)** — *the trust layer for agent commerce* —
 > el marketplace de 66.496+ skills MCP con escaneo Sentinel, trust scores y pagos x402.
 >
-> 🚀 **Kit de publicación incluido**: los 181 MCPs tienen **precios asignados** (tiers oficiales
+> 🚀 **Kit de publicación incluido**: los 229 MCPs tienen **precios asignados** (tiers oficiales
 > de MarketNow: Free/$1.99/$2.99/$4.99/$9.99) y están listos para publicarse en el marketplace
 > como agente. Ver **`publish/PUBLISH-GUIDE.md`**.
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│  MARKETNOW (28)           │  DOLORES DE AGENTES (98)  · OLA 1    │
-│  ├─ API viva (10)         │  ├─ Memoria y Contexto (12)          │
-│  ├─ Trust Infra (10)      │  ├─ Resiliencia de Tools (13)        │
-│  │   ATC·Ed25519·JCS      │  ├─ Calidad de Salida (12)           │
-│  │   UTA·x402·AP2         │  ├─ Seguridad (11)                   │
-│  └─ Ops & Seguridad (8)   │  ├─ Observabilidad (10)              │
-│                           │  ├─ Datos y Extracción (14)          │
-│  DOLORES FUTUROS (55)     │  ├─ Cognición y Planificación (10)   │
-│  · OLA 2 supercompletos   │  ├─ Comunicación y Humano (8)        │
-│  ├─ Multi-Agente (15)     │  └─ Utilidades (8)                   │
-│  ├─ Objetivos/Drift (14)  │                                      │
-│  ├─ Specs/Requisitos (5)  │  Enterprise: 19 · Sophisticated: 44  │
-│  ├─ Evaluación (12)       │  Multi-feature: 22 · Standard: 63    │
-│  ├─ Economía (12)         │  Free: 33 — ingreso máx $480 (80%)   │
-│  ├─ Computer Use (5)      │                                      │
-│  ├─ Habilidades (5)       │  181 MCPs · 792 tools · 22 categorías│
-│  ├─ Humano/Bucle (5)      │                                      │
-│  ├─ Frescura (4)          │                                      │
-│  └─ Cumplimiento (4)      │                                      │
-└──────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────┐
+│  MARKETNOW (28)           │  DOLORES DE AGENTES (98)  · OLA 1     │
+│  ├─ API viva (10)         │  ├─ Memoria y Contexto (12)           │
+│  ├─ Trust Infra (10)      │  ├─ Resiliencia de Tools (13)         │
+│  │   ATC·Ed25519·JCS      │  ├─ Calidad de Salida (12)            │
+│  │   UTA·x402·AP2         │  ├─ Seguridad (11)                    │
+│  └─ Ops & Seguridad (8)   │  ├─ Observabilidad (10)               │
+│                           │  ├─ Datos y Extracción (14)           │
+│  DOLORES FUTUROS (55)     │  ├─ Cognición y Planificación (10)    │
+│  · OLA 2 supercompletos   │  ├─ Comunicación y Humano (8)         │
+│  ├─ Multi-Agente (15)     │  └─ Utilidades (8)                    │
+│  ├─ Objetivos/Drift (14)  │                                       │
+│  ├─ Specs (5)             │  DOLORES FUTUROS (48) · OLA 3         │
+│  ├─ Evaluación (12)       │  ├─ Pre-Vuelo de Acciones (6)         │
+│  ├─ Economía (12)         │  ├─ Comercio A2A (6)                  │
+│  ├─ Computer Use (5)      │  ├─ Identidad Federada (5)             │
+│  ├─ Habilidades (5)       │  ├─ Agent CI/CD (6)                    │
+│  ├─ Humano/Bucle (5)      │  ├─ Multimodal & Voz (6)              │
+│  ├─ Frescura (4)          │  ├─ Multi-Tenant (5)                   │
+│  └─ Cumplimiento (4)      │  ├─ Razonamiento (7)                   │
+│                           │  └─ Auto-Mejora (7)                    │
+│  Enterprise: 27 · Sophisticated: 80                                │
+│  Multi-feature: 22 · Standard: 63                                  │
+│  Free: 37 — ingreso máx $688 (80%)                                 │
+│                                                                    │
+│  229 MCPs · 1035 tools · 30 categorías                             │
+└───────────────────────────────────────────────────────────────────┘
 ```
 
 ## ⚡ Inicio rápido
@@ -97,6 +107,21 @@ Galileo, Maxim, Confident AI). **Lo que falta es infraestructura transversal LOC
 | Hechos sin validez temporal: mezclan 2019 con 2026 | — | `fact-staleness`, `source-timeline`, `deadline-engine`, `temporal-reasoner` |
 | Compliance para agentes en industrias reguladas (gap emergente) | "Compliance layer for AI agents" (2026) | `policy-as-code`, `data-residency-check`, `consent-ledger`, `compliance-report` |
 
+### 1c) La capa que falta (Ola 3 — gap analysis post-ola-2, sept 2026)
+
+Tras las olas 1-2 quedaron huecos que NADIE cubre en local. La ola 3 los cierra:
+
+| Gap del ecosistema | Por qué importa en 2026+ | MCPs de la Ola 3 |
+|---|---|---|
+| Sin pre-vuelo: los agentes ejecutan acciones destructivas sin estimar radio de impacto ni ensayar | La seguridad de agentes pide "pre-flight checks" y compensación de efectos | `blast-radius-estimator`, `dry-run-executor`, `side-effect-ledger`, `reversibility-planner`, `precondition-checker`, `action-limiter` |
+| El comercio A2A se queda en pagos (x402): sin custodia, ni SLA medible, ni facturación | La economía agéntica exige el ciclo contractual completo | `escrow-agent`, `sla-contract-manager`, `metering-station`, `quote-negotiator`, `dispute-resolver`, `settlement-ledger` |
+| Identidad de agentes opaca: sin DID, ni delegación verificable, ni rotación de claves | Cruzar fronteras organizativas con identidad auditable | `did-resolver`, `delegation-chain`, `key-rotation-manager`, `agent-passport`, `scope-minting` |
+| Los prompts se editan a mano sin versionado, canary ni rollback | El prompt es el código más editado y el menos gestionado | `prompt-versioner`, `canary-deployer`, `rollback-manager`, `prompt-dependency-graph`, `change-changelog`, `env-diff-checker` |
+| Multimodal sin presupuesto: transcripts kilométricos y assets que revientan el contexto | Los agentes de voz necesitan turn-taking y pacing gobernados | `transcript-condenser`, `av-budget-packer`, `turn-state-machine`, `speech-pacing`, `image-batch-tagger`, `caption-aligner` |
+| Un agente para varios inquilinos = fuga silenciosa de datos | El aislamiento multi-tenant no es prompt, es infraestructura | `tenant-isolator`, `tenant-quota-manager`, `noisy-neighbor-detector`, `tenant-data-tagger`, `cross-tenant-guard` |
+| Argumentos fluidos pero sin estructura verificable (warrants faltantes, correlación→causa) | La escalera de Pearl y Toulmin aplicadas al razonamiento del agente | `argument-cartographer`, `bayesian-updater`, `counterfactual-lab`, `causal-ladder`, `analogy-finder`, `pareto-tradeoff`, `occam-razor` |
+| El agente repite errores porque sus fallos nunca se agrupan ni se excavan | La auto-mejora exige taxonomía, RCA y práctica deliberada | `error-taxonomy`, `root-cause-tree`, `reflection-journal`, `prompt-self-rewriter`, `behavior-diff`, `capability-gap-scanner`, `growth-plan` |
+
 ### 2) MarketNow.site — el sitio real (verificado en vivo)
 
 MarketNow es la **capa de confianza para el comercio entre agentes**:
@@ -116,7 +141,7 @@ MarketNow es la **capa de confianza para el comercio entre agentes**:
 3. **Cubren su misión de seguridad**: `sentinel-lite` (10 checks L1 reproducibles), `install-risk`, `runtime-interceptor` (las 5 reglas de bloqueo), `owasp-mcp-matrix`, `secrets-audit`
 4. **Preparan skills para publicar**: `skill-publisher`, `mcp-card-registry`, `reputation-oracle` — los sellers de MarketNow pueden auditar ANTES de publicar
 
-## 🗂️ Catálogo completo (181)
+## 🗂️ Catálogo completo (229)
 
 ### 🛒 MarketNow — API viva (10)
 `marketnow-agent-card` · `marketnow-search` · `marketnow-trust` · `marketnow-install-planner` · `marketnow-bundles` · `marketnow-policies` · `marketnow-certification` · `marketnow-diff-monitor` · `marketnow-recommend` · `marketnow-quickstart`
@@ -224,17 +249,87 @@ Políticas ejecutables (más restrictivo gana, con auditoría por decisión), re
 datos por jurisdicción, ledger de consentimientos con purpose-limitation y reportes de
 cumplimiento por marco con evidencia ligada. El gap emergente del ecosistema 2026.
 
+### 🛫 OLA 3 · Pre-Vuelo de Acciones (6)
+`blast-radius-estimator` (6t) · `dry-run-executor` (5t) · `side-effect-ledger` (6t) · `reversibility-planner` (5t) · `precondition-checker` (5t) · `action-limiter` (5t)
+
+Antes de ejecutar: grafo de dependencias con propagación transitiva del radio de impacto,
+ensayo de planes (precondiciones, lecturas inexistentes, destructivos sin compensación),
+libro mayor de efectos con receta de deshacer (LIFO), taxonomía reversible/compensable/
+irreversible, puerta GO/NO-GO y limitador local de acciones destructivas inapelable.
+
+### 💰 OLA 3 · Comercio A2A (6)
+`escrow-agent` (9t) · `sla-contract-manager` (5t) · `metering-station` (5t) · `quote-negotiator` (6t) · `dispute-resolver` (6t) · `settlement-ledger` (5t)
+
+El ciclo contractual completo entre agentes: custodia con máquina de estados
+(CREADO→BLOQUEADO→ENTREGADO→LIBERADO/EN_DISPUTA), SLAs con p95 y detección de brecha
+reclamable, medición facturable con tarifas por tramos, negociación con precio de
+reserva/BATNA/concesión decreciente, disputas con evidencia ponderada y conciliación
+de liquidaciones con informe de antigüedad.
+
+### 🪪 OLA 3 · Identidad Federada (5)
+`did-resolver` (7t) · `delegation-chain` (5t) · `key-rotation-manager` (5t) · `agent-passport` (6t) · `scope-minting` (6t)
+
+DIDs locales con firma/verificación HMAC y revocación, cadenas de delegación con
+expiración/estrechamiento/profundidad máxima, rotación de claves con ventana de gracia
+(la vieja verifica mientras la nueva firma), pasaporte portable con claims sellados y
+checksum de integridad, y tokens de capacidad de mínimo privilegio con nonce y usos.
+
+### 🔄 OLA 3 · Agent CI/CD (6)
+`prompt-versioner` (6t) · `canary-deployer` (5t) · `rollback-manager` (5t) · `prompt-dependency-graph` (5t) · `change-changelog` (5t) · `env-diff-checker` (4t)
+
+Versionado semántico de prompts con diff línea a línea, canary A/B con banda de
+tolerancia (PROMOVER/MANTENER/ABORTAR), snapshots de configuración con restauración
+verificada por hash, análisis de impacto transitivo del grafo de dependencias,
+changelog Keep-a-Changelog y caza de drift entre entornos con riesgo clasificado.
+
+### 🎙️ OLA 3 · Multimodal & Voz (6)
+`transcript-condenser` (6t) · `av-budget-packer` (5t) · `turn-state-machine` (5t) · `speech-pacing` (5t) · `image-batch-tagger` (5t) · `caption-aligner` (5t)
+
+Condensación de transcripciones que conserva decisiones/acciones/compromisos textual,
+mochila de assets por densidad de valor con sugerencias de downsample, máquina de
+estados de turnos con barge-in, pacing SSML (cifras ralentizan y pausan largo),
+lotes de imágenes con sensibilidad obligatoria y alineación caption↔transcript.
+
+### 🏢 OLA 3 · Multi-Tenant (5)
+`tenant-isolator` (5t) · `tenant-quota-manager` (5t) · `noisy-neighbor-detector` (4t) · `tenant-data-tagger` (5t) · `cross-tenant-guard` (4t)
+
+Binding sesión→tenant inmutable, cuotas duras por ventana diaria, índice de equidad
+tipo Gini y detección del vecino ruidoso contra la mediana de los demás, etiquetado de
+datos con herencia en derivados (la etiqueta se propaga o no es confianza) y guardián
+de flujos cruzados fail-closed donde PII nunca cruza.
+
+### 🧮 OLA 3 · Razonamiento Estructurado (7)
+`argument-cartographer` (5t) · `bayesian-updater` (5t) · `counterfactual-lab` (4t) · `causal-ladder` (4t) · `analogy-finder` (4t) · `pareto-tradeoff` (4t) · `occam-razor` (4t)
+
+Mapas de Toulmin con huecos lógicos y superficie de ataque, actualización bayesiana en
+log-odds con traza explicable y detección de doble conteo, contrafactuales ceteris
+paribus con comparación de mundos, escalera de Pearl que exige el método correcto por
+peldaño, analogías estructurales (relaciones, no palabras), frontera de Pareto con punto
+rodilla y navaja de Occam cuantificada (la simplicidad es el desempate, no el criterio).
+
+### 🌱 OLA 3 · Auto-Mejora (7)
+`error-taxonomy` (5t) · `root-cause-tree` (5t) · `reflection-journal` (4t) · `prompt-self-rewriter` (5t) · `behavior-diff` (4t) · `capability-gap-scanner` (4t) · `growth-plan` (5t)
+
+Clustering de errores por firma (el error 47 y el 3 son el mismo), cinco porqués
+disciplinados con validación de cadena, diario de reflexión que promueve lecciones
+repetidas, auto-edición de prompts con guardarrailes (el agente no puede debilitar sus
+restricciones) y puerta de medición, diff de comportamiento entre períodos, escáner de
+capacidades exigidas vs disponibles ANTES de empezar y práctica deliberada con criterio
+binario de éxito.
+
 ## 🏗️ Arquitectura
 
 ```
 mcp-suite/
 ├── tools/
-│   ├── specs/            # 12 categorías · 19 archivos de specs declarativas
-│   │   └── 01-marketnow-api-a.mjs ... 19-utils.mjs
+│   ├── specs/            # 30 categorías · 35 archivos de specs declarativas
+│   │   └── 01-marketnow-api-a.mjs ... 49-auto-mejora-b.mjs
 │   ├── generator.mjs     # genera cada servidor desde su spec
 │   ├── build.mjs         # compila todos (tsc, concurrencia 8)
-│   ├── smoke.mjs         # handshake MCP real × 126
-│   └── functional-test.mjs  # 32 pruebas con datos reales
+│   ├── smoke.mjs         # handshake MCP real × 229
+│   ├── functional-test.mjs         # 32 pruebas (ola 1)
+│   ├── functional-test-wave2.mjs   # 110 pruebas (ola 2)
+│   └── functional-test-wave3.mjs   # 207 pruebas (ola 3)
 ├── servers/m             # mcp-<id>/ × 126
 │   └── mcp-safe-math/
 │       ├── src/index.ts  # fuente TypeScript legible y editable
@@ -260,11 +355,12 @@ tiene su `dist/` precompilado (cero build para el usuario) y su `health_check`.
 
 | Verificación | Resultado |
 |---|---|
-| Compilación TypeScript | **181/181** ✓ |
-| Smoke test: initialize + tools/list + health_call sobre stdio real | **181/181** ✓ |
+| Compilación TypeScript | **229/229** ✓ |
+| Smoke test: initialize + tools/list + health_call sobre stdio real | **229/229** ✓ |
 | Pruebas funcionales Ola 1 (cripto, JSON, math, API viva de MarketNow) | **32/32** ✓ |
 | Pruebas funcionales Ola 2 (deadlocks, drift, quorum, ROI, healing, consent...) | **110/110** ✓ |
-| Total de tools registradas | **792** |
+| Pruebas funcionales Ola 3 (escrow, DID, canary, Pareto, guardrails, aislamiento...) | **207/207** ✓ |
+| Total de tools registradas | **1035** |
 
 Ejemplos de pruebas reales ejecutadas:
 - `ed25519-toolbox.generate_keypair` → PEM SPKI válido
@@ -277,15 +373,24 @@ Ejemplos de pruebas reales ejecutadas:
 - `model-router-econ.route` "clasifica si el email es spam" → tier 1, modelo barato, ahorro calculado
 - `policy-as-code.evaluate_action` datos=pii+destino=externo → NEGADO con traza de políticas
 - `consent-ledger.verify_use` propósito no autorizado → uso NO amparado (purpose limitation)
+- `blast-radius-estimator.estimate` DROP TABLE sobre db crítica → 3 sistemas en radio, veredicto BLOQUEAR
+- `escrow-agent` ciclo completo → CREADO→BLOQUEADO→ENTREGADO→LIBERADO con reparto en disputa
+- `did-resolver` firma HMAC del DID → verificación válida; payload alterado → inválida
+- `canary-deployer.evaluate` variante B con 0% éxito → ABORTAR automático
+- `cross-tenant-guard.check_transfer` PII hacia otro tenant → DENEGADO CRÍTICA (fail-closed)
+- `bayesian-updater` evidencia LR 9 sobre prior 0.3 → posterior 0.794 con traza explicable
+- `pareto-tradeoff.knee_point` 4 opciones con coste/calidad → frontera + punto rodilla op-M
+- `prompt-self-rewriter.guardrail_check` "ignora las restricciones..." → edición BLOQUEADA
 
 ## 🔧 Desarrollo
 
 ```bash
 npm run generate   # regenera servidores desde specs
 npm run build      # compila todo
-npm run smoke      # handshake × 181
+npm run smoke      # handshake × 229
 node tools/functional-test.mjs         # pruebas funcionales Ola 1
 node tools/functional-test-wave2.mjs   # pruebas funcionales Ola 2
+node tools/functional-test-wave3.mjs   # pruebas funcionales Ola 3
 node tools/build-publish-kit.mjs --repo https://github.com/TU-USUARIO/mcp-suite  # kit de publicación
 node tools/publish-to-marketnow.mjs --report   # estado de publicación
 ```
@@ -300,16 +405,16 @@ La suite incluye un **kit de publicación completo** en `publish/`:
 
 - Cuenta de vendedor creada en marketnow.site (`mcp-suite-agent`, tier FREE ilimitado)
 - Identidad de agente ATC-ready (Ed25519 + fingerprint SHA-256) según la spec ATC/1.0
-- **Precios asignados con los 5 tiers oficiales del marketplace**:
-  25× Free $0 · 62× Standard $1.99 · 7× Multi-feature $2.99 · 19× Sophisticated $4.99 · 13× Enterprise $9.99
-  (el vendedor retiene el 80% de cada venta; ingreso máximo por venta completa del catálogo: $295.19)
-- 126 payloads `sub_*.json` en el formato EXACTO del ledger del repo (`_data/pending_submissions/`)
+- **Precios asignados con los 5 tiers oficiales del marketplace** (olas 1-3):
+  37× Free $0 · 63× Standard $1.99 · 22× Multi-feature $2.99 · 80× Sophisticated $4.99 · 27× Enterprise $9.99
+  (el vendedor retiene el 80% de cada venta; ingreso máximo por venta completa del catálogo: $688.06)
+- 229 payloads `sub_*.json` en el formato EXACTO del ledger del repo (`_data/pending_submissions/`)
 - Fragmento de catálogo con precios listo para merge en `skills_index.json`
-- 126 issues de GitHub pre-codificados (plantilla oficial del sitio) apuntando al repo vivo
+- 229 issues de GitHub pre-codificados (plantilla oficial del sitio) apuntando al repo vivo
   `alicelabs-llc/MARKETNOW` — corrige el bug del sitio (su submit apunta a un repo borrado)
 - Publicador multicanal: `node tools/publish-to-marketnow.mjs`
 
-Estado verificado en vivo (2026-09-10): el endpoint POST `/api/submit-skill` del paquete oficial
+Estado verificado en vivo (2026-09-30): el endpoint POST `/api/submit-skill` del paquete oficial
 está cerrado (405) en el despliegue actual, y el repo de issues del formulario está borrado;
 el flujo UI funciona hasta generar el submission completo con precio. La guía
 `publish/PUBLISH-GUIDE.md` documenta las 4 vías de publicación y los 3 pasos que faltan

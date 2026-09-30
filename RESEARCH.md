@@ -217,3 +217,65 @@ qué dolores de agentes están emergiendo para 2026-2027 y qué falta por constr
 Distribución final sobre 181: Free 33 · Standard 63 · Multi-feature 22 ·
 Sophisticated 44 · Enterprise 19. Ingreso máximo por venta de catálogo completo:
 $480.42 (80% vendedor). Rationale por servidor en `publish/pricing-plan.json`.
+
+## 11. Metodología de la Ola 3 (sept 2026)
+
+Gap analysis sistemático sobre el inventario de los 181 MCPs existentes (olas 1-2)
+frente al territorio conocido de dolores de agentes. El motor de búsqueda general
+estaba degradado durante la sesión (resultados irrelevantes/SEO), así que la ola 3 se
+diseñó sobre: (a) el inventario completo de 181 servidores categorizado por dolor
+cubierto, y (b) la base de investigación sólida de las olas 1-2 con fuentes 2025-2026.
+Cada categoría nueva responde a la pregunta: "¿qué dolad NO tiene ningún MCP de los
+181 y ninguna oferta local del ecosistema?".
+
+## 12. Los 8 gaps cerrados por la Ola 3 (48 MCPs)
+
+1. **Pre-Vuelo de Acciones** — la literatura de agent safety pide pre-flight checks
+   y compensación de efectos; nada local existía. Radio de impacto por propagación
+   transitiva de dependencias, ensayo de planes antes de ejecutar, libro mayor de
+   efectos con recetas de deshacer, taxonomía reversible/compensable/irreversible,
+   puertas GO/NO-GO y limitador local de acciones destructivas.
+2. **Comercio A2A** — los pagos (x402) existen; el CICLO contractual no: custodia con
+   máquina de estados y disputas, SLA medible con p95 y brechas reclamables, metering
+   con tarifas por tramos, negociación con reserva/BATNA, resolución de disputas con
+   evidencia ponderada y conciliación de liquidaciones.
+3. **Identidad Federada** — DID local con firma/verificación/revocación, delegación de
+   capacidades con expiración-estrechamiento-profundidad, rotación de claves con
+   ventana de gracia, pasaporte portable con claims sellados y checksum, tokens de
+   mínimo privilegio con nonce y límite de usos.
+4. **Agent CI/CD** — el prompt es el código más editado y el menos gestionado:
+   versionado semántico con diff, canary A/B con decisión estadística, rollback
+   verificado por hash, grafo de dependencias con impacto transitivo, changelog
+   Keep-a-Changelog y caza de drift entre entornos.
+5. **Multimodal & Voz** — condensación de transcripciones que conserva lo accionable,
+   mochila de assets audiovisuales por densidad de valor, máquina de estados de
+   turn-taking con barge-in, pacing SSML adaptativo, metadatos obligatorios para lotes
+   de imágenes y alineación caption↔transcript con deriva.
+6. **Multi-Tenant** — aislamiento real (binding inmutable sesión→tenant), cuotas duras
+   por ventana, detección de vecino ruidoso contra la mediana de los demás, etiquetado
+   de datos con herencia en derivados y guardián de flujos cruzados fail-closed (PII
+   jamás cruza).
+7. **Razonamiento Estructurado** — Toulmin con detección de warrants faltantes,
+   actualización bayesiana en log-odds con traza, contrafactuales ceteris paribus,
+   escalera de causalidad de Pearl exigiendo el método por peldaño, analogías
+   estructurales (relaciones, no palabras), frontera de Pareto con punto rodilla y
+   navaja de Occam cuantificada.
+8. **Auto-Mejora** — clustering de errores por firma, cinco porqués con validación de
+   cadena, diario de reflexión con promoción de lecciones repetidas, auto-edición de
+   prompts con guardarrailes (el agente no puede debilitar sus restricciones), diff de
+   comportamiento, escáner de capacidades exigidas-vs-disponibles y práctica deliberada.
+
+## 13. Calidad y pricing de la Ola 3
+
+- Compilación 229/229 · smoke 229/229 (handshake JSON-RPC real) · funcionales 349/349
+  (32 ola 1 + 110 ola 2 + **207 ola 3**, nuevas: escrow completo, firma/verificación DID,
+  canary con ABORTAR estadístico, guardrail que bloquea auto-debilitamiento, PII
+  fail-closed, Pareto con knee, Bayes con traza, revocación de delegación).
+- Bugs corregidos durante el desarrollo: regex con `/` sin escapar dentro de literal,
+  `\b` vs inflexiones españolas ("restricciones", "correlación", "causará"),
+  `new Set(any)` infiere `Set<unknown>` en TS (iteración sobre elementos tipados
+  requiere genérico explícito), shorthand inexistente en returns.
+- Pricing ola 3: +27 Enterprise (identidad federada, escrow, aislamiento), +35
+  Sophisticated (pre-vuelo, CI/CD, razonamiento), +4 Free (imanes) → distribución
+  final 229: 37 Free / 63 Standard / 22 Multi-feature / 80 Sophisticated / 27
+  Enterprise, ingreso máximo $688.06 (retención 80%).
