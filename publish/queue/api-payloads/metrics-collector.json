@@ -1,0 +1,63 @@
+{
+ "name": "mcp-metrics-collector",
+ "version": "1.0.0",
+ "description": "Contadores, medidores e histogramas: las métricas del agente en local Dolor que resuelve: Sin métricas no hay forma de saber qué tools se usan ni cuánto tardan: tuning a ciegas. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Monitoring",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "observability",
+  "tracing",
+  "monitoring"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only metrics-collector",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-metrics-collector",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "incr",
+   "observe",
+   "snapshot",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only metrics-collector",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-metrics-collector\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-metrics-collector/dist/index.js\"]}}}. Tools disponibles: incr, observe, snapshot y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/metrics-collector/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-metrics-collector (incr, observe, snapshot). Contadores, medidores e histogramas: las métricas del agente en local. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/metrics-collector/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/metrics-collector\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Metrics Collector — Contadores, medidores e histogramas: las métricas del agente en local (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-metrics-collector\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"observabilidad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Metrics Collector\n\n> Contadores, medidores e histogramas: las métricas del agente en local\n\n**Categoría:** Observabilidad · **ID:** `mcp-metrics-collector`\n\n**Dolor de agente que resuelve:** Sin métricas no hay forma de saber qué tools se usan ni cuánto tardan: tuning a ciegas.\n\n> Estado persistente en `~/.mcp-suite/metrics-collector/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `incr`\nIncrementa un contador (ej: llamadas a tool X, errores de tipo Y).\n\n**Parámetros:**\n  - `metrica` (string, requerido): Nombre del contador\n  - `delta` (number, opcional): Incremento\n  - `etiquetas` (any, opcional): Etiquetas {tool, servidor...}\n\n### `observe`\nObserva un valor (duración ms, tamaño bytes): guarda las últimas mediciones y calcula estadísticas.\n\n**Parámetros:**\n  - `metrica` (string, requerido): Nombre\n  - `valor` (number, requerido): Valor observado\n\n### `snapshot`\nSnapshot de todas las métricas: contadores y estadísticas de mediciones (media, p50, p95, máx).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"metrics-collector\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-metrics-collector/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Metrics Collector\n * Contadores, medidores e histogramas: las métricas del agente en local\n *\n * Dolor que resuelve: Sin métricas no hay forma de saber qué tools se usan ni cuánto tardan: tuning a ciegas.\n * Categoría: Observabilidad | Generado por mcp-suite | id: metrics-collector\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/metrics-collector/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"metrics-collector\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"metrics-collector\", version: \"1.0.0\" });\n\nserver.tool(\n  \"incr\",\n  \"Incrementa un contador (ej: llamadas a tool X, errores de tipo Y).\",\n  {\n  metrica: z.string().describe(\"Nombre del contador\"),\n  delta: z.number().describe(\"Incremento\").default(1),\n  etiquetas: z.any().describe(\"Etiquetas {tool, servidor...}\").optional(),\n  },\n  async (args: any) => {\n    const { metrica, delta, etiquetas } = args as any;\n    const st = store.load();\nst.contadores = st.contadores || {};\nst.contadores[metrica] = (st.contadores[metrica] || 0) + (delta ?? 1);\nstore.save(st);\nreturn ok({ metrica, valor: st.contadores[metrica] });\n  }\n);\n\nserver.tool(\n  \"observe\",\n  \"Observa un valor (duración ms, tamaño bytes): guarda las últimas mediciones y calcula estadísticas.\",\n  {\n  metrica: z.string().describe(\"Nombre\"),\n  valor: z.number().describe(\"Valor observado\"),\n  },\n  async (args: any) => {\n    const { metrica, valor } = args as any;\n    const st = store.load();\nst.mediciones = st.mediciones || {};\nst.mediciones[metrica] = (st.mediciones[metrica] || []).concat(valor).slice(-200);\nstore.save(st);\nreturn ok({ metrica, ultima: valor });\n  }\n);\n\nserver.tool(\n  \"snapshot\",\n  \"Snapshot de todas las métricas: contadores y estadísticas de mediciones (media, p50, p95, máx).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst stats = (vals: number[]) => {\n  if (!vals.length) return null;\n  const sorted = [...vals].sort((a, b) => a - b);\n  const pct = (p: number) => sorted[Math.min(sorted.length - 1, Math.floor((p / 100) * sorted.length))];\n  return { n: vals.length, media: Math.round(vals.reduce((a, b) => a + b, 0) / vals.length), p50: pct(50), p95: pct(95), max: sorted[sorted.length - 1] };\n};\nreturn ok({ contadores: st.contadores || {}, mediciones: Object.fromEntries(__ents(st.mediciones || {}).map(([k, v]: [string, any]) => [k, stats(v)])) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor metrics-collector está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"metrics-collector\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[metrics-collector] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

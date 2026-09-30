@@ -1,0 +1,63 @@
+{
+ "name": "mcp-json-toolkit",
+ "version": "1.0.0",
+ "description": "jsonpath, merge profundo, diff y validación: la navaja suiza del JSON Dolor que resuelve: Manipular JSON anidado a mano es propenso a errores: query, merge y diff estructurados faltan. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "data",
+  "parsing",
+  "etl"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only json-toolkit",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-json-toolkit",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "query",
+   "merge",
+   "validate",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only json-toolkit",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-json-toolkit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-json-toolkit/dist/index.js\"]}}}. Tools disponibles: query, merge, validate y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/json-toolkit/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-json-toolkit (query, merge, validate). jsonpath, merge profundo, diff y validación: la navaja suiza del JSON. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/json-toolkit/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/json-toolkit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"JSON Toolkit — jsonpath, merge profundo, diff y validación: la navaja suiza del JSON (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-json-toolkit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# JSON Toolkit\n\n> jsonpath, merge profundo, diff y validación: la navaja suiza del JSON\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-json-toolkit`\n\n**Dolor de agente que resuelve:** Manipular JSON anidado a mano es propenso a errores: query, merge y diff estructurados faltan.\n\n## Tools (4 incl. health_check)\n\n### `query`\nConsulta JSON con jsonpath simplificado: $.a.b, $[0].name, $.items[*].id y filtros [?(@.x>5)].\n\n**Parámetros:**\n  - `data` (any, requerido): JSON a consultar\n  - `path` (string, requerido): Ruta estilo jsonpath ($.a.b[0].c)\n\n### `merge`\nMerge profundo de 2+ JSONs: objetos se combinan recursivamente, arrays y escalares se reemplazan (o concatenan con flag).\n\n**Parámetros:**\n  - `objetos` (array, requerido): Lista de JSONs a fusionar (en orden)\n  - `concatenar_arrays` (boolean, opcional): Concatenar arrays en vez de reemplazar\n\n### `validate`\nValida estructura y tipos de un JSON: tipado inferido del valor, campos null, arrays mixtos y profundidad.\n\n**Parámetros:**\n  - `data` (any, requerido): JSON a inspeccionar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"json-toolkit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-json-toolkit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: JSON Toolkit\n * jsonpath, merge profundo, diff y validación: la navaja suiza del JSON\n *\n * Dolor que resuelve: Manipular JSON anidado a mano es propenso a errores: query, merge y diff estructurados faltan.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: json-toolkit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"json-toolkit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"query\",\n  \"Consulta JSON con jsonpath simplificado: $.a.b, $[0].name, $.items[*].id y filtros [?(@.x>5)].\",\n  {\n  data: z.any().describe(\"JSON a consultar\"),\n  path: z.string().describe(\"Ruta estilo jsonpath ($.a.b[0].c)\"),\n  },\n  async (args: any) => {\n    const { data, path } = args as any;\n    let p = String(path).trim().replace(/^\\$\\.?/, \"\");\nlet actual: any = data;\nif (p === \"\" || p === \"$\") return ok({ valor: actual });\nconst partes = p.match(/([^[.]+)|(\\[[^\\]]+\\])|\\./g) || [];\nfor (const raw of partes) {\n  const seg = raw.replace(/^\\./, \"\");\n  if (seg.startsWith(\"[\")) {\n    const dentro = seg.slice(1, -1);\n    if (dentro === \"*\") continue;\n    if (dentro.startsWith(\"?(\")) {\n      const cond = dentro.slice(2, -2);\n      const m = cond.match(/([\\w.]+)\\s*(==|!=|>=|<=|>|<)\\s*(.+)/);\n      if (!m) return fail(\"filtro no soportado: \" + cond);\n      const [, izq, op, der] = m;\n      const valorDer = Number.isFinite(Number(der)) && !/\"|'/.test(der) ? Number(der) : der.replace(/['\"]/g, \"\");\n      actual = (Array.isArray(actual) ? actual : []).filter((item: any) => {\n        const campo = izq.split(\".\").reduce((o: any, k) => o?.[k], item);\n        switch (op) { case \"==\": return campo == valorDer; case \"!=\": return campo != valorDer; case \">\": return Number(campo) > Number(valorDer); case \"<\": return Number(campo) < Number(valorDer); case \">=\": return Number(campo) >= Number(valorDer); case \"<=\": return Number(campo) <= Number(valorDer); default: return false; }\n      });\n    } else actual = actual?.[Number(dentro.replace(/['\"]/g, \"\"))];\n  } else if (seg) {\n    if (seg.includes(\"[\")) { const m = seg.match(/^([^.\\[]+)\\[([^\\]]+)\\]$/); if (m) { actual = actual?.[m[1]]; const idx = m[2]; actual = idx === \"*\" ? actual : actual?.[Number(idx)]; } else actual = actual?.[seg]; }\n    else actual = actual?.[seg];\n  }\n  if (actual === undefined) break;\n}\nreturn ok({ path, encontrado: actual !== undefined, valor: actual === undefined ? null : actual });\n  }\n);\n\nserver.tool(\n  \"merge\",\n  \"Merge profundo de 2+ JSONs: objetos se combinan recursivamente, arrays y escalares se reemplazan (o concatenan con flag).\",\n  {\n  objetos: z.array(z.any()).describe(\"Lista de JSONs a fusionar (en orden)\"),\n  concatenar_arrays: z.boolean().describe(\"Concatenar arrays en vez de reemplazar\").default(false),\n  },\n  async (args: any) => {\n    const { objetos, concatenar_arrays } = args as any;\n    function deepMerge(a: any, b: any, concat: boolean): any {\n  if (Array.isArray(a) && Array.isArray(b)) return concat ? [...a, ...b] : b;\n  if (a && b && typeof a === \"object\" && typeof b === \"object\" && !Array.isArray(a) && !Array.isArray(b)) {\n    const out: any = { ...a };\n    for (const [k, v] of __ents(b)) out[k] = k in out ? deepMerge(out[k], v, concat) : v;\n    return out;\n  }\n  return b === undefined ? a : b;\n}\nconst lista = Array.isArray(objetos) ? objetos : [];\nif (!lista.length) return fail(\"sin objetos\");\nlet acc = lista[0];\nfor (let i = 1; i < lista.length; i++) acc = deepMerge(acc, lista[i], concatenar_arrays === true);\nreturn ok({ fusionado: acc, objetos_combinados: lista.length });\n  }\n);\n\nserver.tool(\n  \"validate\",\n  \"Valida estructura y tipos de un JSON: tipado inferido del valor, campos null, arrays mixtos y profundidad.\",\n  {\n  data: z.any().describe(\"JSON a inspeccionar\"),\n  },\n  async (args: any) => {\n    const { data } = args as any;\n    function perfil(o: any, ruta: string, prof: number, out: any[]) {\n  if (prof > 12) { out.push({ ruta, tipo: \"profundidad-excesiva\" }); return; }\n  if (o === null) { out.push({ ruta, tipo: \"null\" }); return; }\n  if (Array.isArray(o)) { out.push({ ruta, tipo: \"array\", largo: o.length }); if (o.length && o.length <= 100) perfil(o[0], ruta + \"[0]\", prof + 1, out); return; }\n  if (typeof o === \"object\") { for (const [k, v] of __ents(o)) perfil(v, ruta + \".\" + k, prof + 1, out); return; }\n  out.push({ ruta, tipo: typeof o, ejemplo: String(o).slice(0, 40) });\n}\nconst perfil_out: any[] = [];\nperfil(data, \"$\", 0, perfil_out);\nconst llaves_null = perfil_out.filter((p) => p.tipo === \"null\").length;\nconst arrays_vacios = perfil_out.filter((p) => p.tipo === \"array\" && p.largo === 0).length;\nreturn ok({ campos: perfil_out.length, con_null: llaves_null, arrays_vacios, perfil: perfil_out.slice(0, 80), es_valido: true });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor json-toolkit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"json-toolkit\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[json-toolkit] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

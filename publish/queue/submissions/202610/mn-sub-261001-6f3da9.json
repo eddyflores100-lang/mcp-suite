@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-6f3da9",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-consent-ledger",
+  "version": "1.0.0",
+  "description": "Libro mayor de consentimientos con propósito: cada uso de datos personales amparado por un consentimiento vivo Dolor que resuelve: El agente usa datos personales sin saber si el titular consintió ese uso: no hay ledger de consentimientos con propósito, vigencia y alcance, así que el 'sí dijo que sí' es imaginario. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "compliance",
+   "gdpr",
+   "policy"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only consent-ledger",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-consent-ledger",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "record_consent",
+    "verify_use",
+    "revoke",
+    "consent_audit",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only consent-ledger",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-consent-ledger\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-consent-ledger/dist/index.js\"]}}}. Tools disponibles: record_consent, verify_use, revoke, consent_audit y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/consent-ledger/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-consent-ledger (record_consent, verify_use, revoke, consent_audit). Libro mayor de consentimientos con propósito: cada uso de datos personales amparado por un consentimiento vivo. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/consent-ledger/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/consent-ledger\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Consent Ledger — Libro mayor de consentimientos con propósito: cada uso de datos personales amparado por un consentimiento vivo (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-consent-ledger\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cumplimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Consent Ledger\n\n> Libro mayor de consentimientos con propósito: cada uso de datos personales amparado por un consentimiento vivo\n\n**Categoría:** Cumplimiento · **ID:** `mcp-consent-ledger`\n\n**Dolor de agente que resuelve:** El agente usa datos personales sin saber si el titular consintió ese uso: no hay ledger de consentimientos con propósito, vigencia y alcance, así que el 'sí dijo que sí' es imaginario.\n\n> Estado persistente en `~/.mcp-suite/consent-ledger/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `record_consent`\nRegistra un consentimiento: titular, propósitos autorizados, vigencia y base legal.\n\n**Parámetros:**\n  - `titular` (string, requerido): Identificador del titular (anonimizado)\n  - `propositos` (array, requerido): Propósitos autorizados (analitica, soporte, marketing...)\n  - `vigencia_meses` (number, opcional): Vigencia del consentimiento\n  - `base_legal` (string, opcional): Base legal (consentimiento, contrato...)\n\n### `verify_use`\nVerifica que un uso de datos concreto está amparado: titular + propósito dentro de la vigencia.\n\n**Parámetros:**\n  - `titular` (string, requerido): Titular de los datos\n  - `proposito` (string, requerido): Propósito del uso previsto\n\n### `revoke`\nRevoca el consentimiento de un titular (total o de un propósito concreto).\n\n**Parámetros:**\n  - `titular` (string, requerido): Titular\n  - `proposito` (string, opcional): Solo revocar este propósito (vacío = todo)\n\n### `consent_audit`\nAuditoría de usos: cada uso de datos con su consentimiento amparador y usos fuera de amparo.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"consent-ledger\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-consent-ledger/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/consent-ledger/. Consentimientos {titular, propósitos, vigencia, estado}; cada uso de datos verifica propósito + vigencia, y todo queda auditado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Consent Ledger\n * Libro mayor de consentimientos con propósito: cada uso de datos personales amparado por un consentimiento vivo\n *\n * Dolor que resuelve: El agente usa datos personales sin saber si el titular consintió ese uso: no hay ledger de consentimientos con propósito, vigencia y alcance, así que el 'sí dijo que sí' es imaginario.\n * Categoría: Cumplimiento | Generado por mcp-suite | id: consent-ledger\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/consent-ledger/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"consent-ledger\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"consent-ledger\", version: \"1.0.0\" });\n\nserver.tool(\n  \"record_consent\",\n  \"Registra un consentimiento: titular, propósitos autorizados, vigencia y base legal.\",\n  {\n  titular: z.string().describe(\"Identificador del titular (anonimizado)\"),\n  propositos: z.array(z.any()).describe(\"Propósitos autorizados (analitica, soporte, marketing...)\"),\n  vigencia_meses: z.number().describe(\"Vigencia del consentimiento\").default(12),\n  base_legal: z.string().describe(\"Base legal (consentimiento, contrato...)\").default(\"consentimiento\"),\n  },\n  async (args: any) => {\n    const { titular, propositos, vigencia_meses, base_legal } = args as any;\n    const st = store.load();\nst.consentimientos = st.consentimientos || [];\nconst c = {\n  id: \"cs_\" + Date.now().toString(36),\n  titular, propositos: (propositos || []).map(String), base_legal,\n  vigente_hasta: new Date(Date.now() + (vigencia_meses ?? 12) * 2592000000).toISOString(),\n  revocado: null, creado: new Date().toISOString(),\n};\nst.consentimientos.push(c);\nstore.save(st);\nreturn ok({ consentimiento_id: c.id, titular, propositos: c.propositos.length, vigente_hasta: c.vigente_hasta.slice(0, 10) });\n  }\n);\n\nserver.tool(\n  \"verify_use\",\n  \"Verifica que un uso de datos concreto está amparado: titular + propósito dentro de la vigencia.\",\n  {\n  titular: z.string().describe(\"Titular de los datos\"),\n  proposito: z.string().describe(\"Propósito del uso previsto\"),\n  },\n  async (args: any) => {\n    const { titular, proposito } = args as any;\n    const st = store.load();\nconst cs = (st.consentimientos || []).filter(c => c.titular === titular);\nif (!cs.length) return ok({ amparado: false, razon: \"sin consentimiento registrado para este titular\", accion: \"NO uses los datos: solicita consentimiento o anonimiza\" });\nconst ahora = Date.now();\nconst activos = cs.filter(c => !c.revocado && new Date(c.vigente_hasta).getTime() > ahora);\nif (!activos.length) return ok({ amparado: false, razon: \"consentimientos vencidos o revocados\", accion: \"NO uses los datos\" });\nconst conProposito = activos.find(c => c.propositos.some(p => p.toLowerCase() === String(proposito).toLowerCase()));\nif (!conProposito) return ok({\n  amparado: false,\n  razon: \"consentimiento activo pero SIN el propósito '\" + proposito + \"' (autorizados: \" + activos[0].propositos.join(\", \") + \")\",\n  accion: \"NO amplíes propósito sin nuevo consentimiento (purpose limitation)\",\n});\nst.usos = st.usos || [];\nst.usos.push({ titular, proposito, consentimiento: conProposito.id, amparado: true, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ amparado: true, consentimiento: conProposito.id, vigente_hasta: conProposito.vigente_hasta.slice(0, 10), nota: \"uso legítimo registrado en auditoría\" });\n  }\n);\n\nserver.tool(\n  \"revoke\",\n  \"Revoca el consentimiento de un titular (total o de un propósito concreto).\",\n  {\n  titular: z.string().describe(\"Titular\"),\n  proposito: z.string().describe(\"Solo revocar este propósito (vacío = todo)\").optional(),\n  },\n  async (args: any) => {\n    const { titular, proposito } = args as any;\n    const st = store.load();\nconst cs = (st.consentimientos || []).filter(c => c.titular === titular);\nif (!cs.length) return fail(\"sin consentimientos para este titular\");\nlet afectados = 0;\nfor (const c of cs) {\n  if (!proposito) { c.revocado = { total: true, ts: new Date().toISOString() }; afectados++; }\n  else {\n    c.revocado = c.revocado || { propositos: [] };\n    c.revocado.propositos = [...new Set([...(c.revocado.propositos || []), proposito])];\n    c.propositos = c.propositos.filter(p => p !== proposito);\n    afectados++;\n  }\n}\nstore.save(st);\nreturn ok({ titular, revocado: true, afectados, obligacion: \"todo uso posterior de este dato en el alcance revocado queda PROHIBIDO desde ya\" });\n  }\n);\n\nserver.tool(\n  \"consent_audit\",\n  \"Auditoría de usos: cada uso de datos con su consentimiento amparador y usos fuera de amparo.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst usos = st.usos || [];\nconst cs = st.consentimientos || [];\nconst revocados = cs.filter(c => c.revocado).length;\nreturn ok({\n  consentimientos: cs.length, revocados,\n  usos_registrados: usos.length,\n  usos_amparados: usos.filter(u => u.amparado).length,\n  titulares_cubiertos: new Set(cs.map(c => c.titular)).size,\n  vencen_en_30_dias: cs.filter(c => !c.revocado && new Date(c.vigente_hasta).getTime() - Date.now() < 30 * 86400000).map(c => ({ titular: c.titular, hasta: c.vigente_hasta.slice(0, 10) })),\n  accion: \"contacta a los titulares con consentimiento por vencer si el uso sigue siendo necesario\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor consent-ledger está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"consent-ledger\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[consent-ledger] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "consent-ledger"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

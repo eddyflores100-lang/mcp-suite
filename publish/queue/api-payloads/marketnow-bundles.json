@@ -1,0 +1,63 @@
+{
+ "name": "mcp-marketnow-bundles",
+ "version": "1.0.0",
+ "description": "Explora bundles con descuento del marketplace y recomienda según necesidades Dolor que resuelve: Las skills sueltas se encarecen; el agente no conoce los bundles disponibles ni su ahorro real. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "marketnow",
+  "skill-marketplace",
+  "trust-layer"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-bundles",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-bundles",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": true,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "list_bundles",
+   "bundle_details",
+   "recommend_bundle",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-bundles",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-marketnow-bundles\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-marketnow-bundles/dist/index.js\"]}}}. Tools disponibles: list_bundles, bundle_details, recommend_bundle y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/marketnow-bundles/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-marketnow-bundles (list_bundles, bundle_details, recommend_bundle). Explora bundles con descuento del marketplace y recomienda según necesidades. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/marketnow-bundles/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/marketnow-bundles\",\n  \"version\": \"1.0.0\",\n  \"description\": \"MarketNow · Bundles — Explora bundles con descuento del marketplace y recomienda según necesidades (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-marketnow-bundles\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# MarketNow · Bundles\n\n> Explora bundles con descuento del marketplace y recomienda según necesidades\n\n**Categoría:** MarketNow · **ID:** `mcp-marketnow-bundles`\n\n**Dolor de agente que resuelve:** Las skills sueltas se encarecen; el agente no conoce los bundles disponibles ni su ahorro real.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (4 incl. health_check)\n\n### `list_bundles`\nDescarga en vivo la lista de bundles con descuento de MarketNow (GET /api/bundles.json): nombre, skills incluidas y precio.\n\n### `bundle_details`\nDetalle de un bundle específico por nombre o id: skills incluidas, precio bundle vs suma individual y ahorro calculado.\n\n**Parámetros:**\n  - `identificador` (string, requerido): Nombre o id del bundle\n\n### `recommend_bundle`\nDado un caso de uso (texto), recomienda el bundle más alineado del catálogo en vivo (matching por nombre/desc/skills).\n\n**Parámetros:**\n  - `caso_uso` (string, requerido): Qué necesitas resolver (ej: scraping de web + postgres)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"marketnow-bundles\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-marketnow-bundles/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: MarketNow · Bundles\n * Explora bundles con descuento del marketplace y recomienda según necesidades\n *\n * Dolor que resuelve: Las skills sueltas se encarecen; el agente no conoce los bundles disponibles ni su ahorro real.\n * Categoría: MarketNow | Generado por mcp-suite | id: marketnow-bundles\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/marketnow-bundles\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"marketnow-bundles\", version: \"1.0.0\" });\n\nserver.tool(\n  \"list_bundles\",\n  \"Descarga en vivo la lista de bundles con descuento de MarketNow (GET /api/bundles.json): nombre, skills incluidas y precio.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/bundles.json\");\nif (!r.json) return fail(\"respuesta no-JSON (HTTP \" + r.status + \")\");\nconst bundles = Array.isArray(r.json) ? r.json : (r.json.bundles || []);\nreturn ok({ total: bundles.length, bundles: bundles.slice(0, 15) });\n  }\n);\n\nserver.tool(\n  \"bundle_details\",\n  \"Detalle de un bundle específico por nombre o id: skills incluidas, precio bundle vs suma individual y ahorro calculado.\",\n  {\n  identificador: z.string().describe(\"Nombre o id del bundle\"),\n  },\n  async (args: any) => {\n    const { identificador } = args as any;\n    const r = await fetchSmart(\"https://marketnow.site/api/bundles.json\");\nif (!r.json) return fail(\"sin datos\");\nconst bundles = Array.isArray(r.json) ? r.json : (r.json.bundles || []);\nconst key = identificador.toLowerCase();\nconst b = bundles.find(x => String(x.id || \"\").toLowerCase() === key || String(x.name || \"\").toLowerCase().includes(key));\nif (!b) return fail(\"bundle no encontrado\");\nreturn ok(b);\n  }\n);\n\nserver.tool(\n  \"recommend_bundle\",\n  \"Dado un caso de uso (texto), recomienda el bundle más alineado del catálogo en vivo (matching por nombre/desc/skills).\",\n  {\n  caso_uso: z.string().describe(\"Qué necesitas resolver (ej: scraping de web + postgres)\"),\n  },\n  async (args: any) => {\n    const { caso_uso } = args as any;\n    const r = await fetchSmart(\"https://marketnow.site/api/bundles.json\");\nif (!r.json) return fail(\"sin datos\");\nconst bundles = Array.isArray(r.json) ? r.json : (r.json.bundles || []);\nconst words = caso_uso.toLowerCase().split(/\\s+/).filter(w => w.length > 2);\nconst scored = bundles.map(b => {\n  const texto = JSON.stringify(b).toLowerCase();\n  const score = words.reduce((acc, w) => acc + (texto.includes(w) ? 1 : 0), 0);\n  return { bundle: b.name || b.id, score, precio: b.price };\n}).sort((a, b) => b.score - a.score);\nreturn ok({ recomendado: scored[0] || null, alternativas: scored.slice(1, 4), criterio: \"coincidencia de palabras del caso de uso\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor marketnow-bundles está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"marketnow-bundles\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[marketnow-bundles] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

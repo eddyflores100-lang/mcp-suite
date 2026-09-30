@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-1a6aa5",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-av-budget-packer",
+  "version": "1.0.0",
+  "description": "Mochila de contexto multimodal: qué audios, imágenes y videos caben en el presupuesto con prioridad declarada Dolor que resuelve: El agente multimodal mete 6 imágenes y 3 audios 'porque caben' y revienta el contexto a los 4 turnos: no existe la disciplina de presupuestar assets por prioridad como se presupuestan tokens. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Communication",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "multimodal",
+   "voice",
+   "turn-taking"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only av-budget-packer",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-av-budget-packer",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_asset",
+    "pack",
+    "suggest_downsample",
+    "pack_report",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only av-budget-packer",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-av-budget-packer\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-av-budget-packer/dist/index.js\"]}}}. Tools disponibles: register_asset, pack, suggest_downsample, pack_report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/av-budget-packer/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-av-budget-packer (register_asset, pack, suggest_downsample, pack_report). Mochila de contexto multimodal: qué audios, imágenes y videos caben en el presupuesto con prioridad declarada. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/av-budget-packer/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/av-budget-packer\",\n  \"version\": \"1.0.0\",\n  \"description\": \"AV Budget Packer — Mochila de contexto multimodal: qué audios, imágenes y videos caben en el presupuesto con prioridad declarada (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-av-budget-packer\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"multimodal-voz\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# AV Budget Packer\n\n> Mochila de contexto multimodal: qué audios, imágenes y videos caben en el presupuesto con prioridad declarada\n\n**Categoría:** Multimodal & Voz · **ID:** `mcp-av-budget-packer`\n\n**Dolor de agente que resuelve:** El agente multimodal mete 6 imágenes y 3 audios 'porque caben' y revienta el contexto a los 4 turnos: no existe la disciplina de presupuestar assets por prioridad como se presupuestan tokens.\n\n> Estado persistente en `~/.mcp-suite/av-budget-packer/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `register_asset`\nRegistra un asset multimodal con coste estimado en tokens y prioridad.\n\n**Parámetros:**\n  - `asset` (string, requerido): Identificador del asset\n  - `tipo` (enum, requerido): Tipo\n  - `tokens_estimados` (number, requerido): Coste en tokens (imagen ~ (ancho*alto)/750, audio ~ 25 por segundo)\n  - `prioridad` (number, requerido): Prioridad 1 (imprescindible) a 10 (prescindible)\n  - `valor` (string, opcional): Qué aporta este asset a la tarea\n\n### `pack`\nResuelve la mochila: qué assets entran en el presupuesto de tokens, por densidad de valor.\n\n**Parámetros:**\n  - `presupuesto_tokens` (number, requerido): Tokens disponibles para assets\n  - `filtrar` (array, opcional): Restrictir a ciertos ids de asset\n\n### `suggest_downsample`\nPara los assets que no cupieron: cuánto reducirlos para que entren (o por qué no merece la pena).\n\n**Parámetros:**\n  - `asset` (string, requerido): Asset a reducir\n  - `presupuesto_tokens` (number, requerido): Tokens disponibles para él\n\n### `pack_report`\nInforme de coste acumulado de assets por tarea y detección de pesos repetidos.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"av-budget-packer\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-av-budget-packer/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/av-budget-packer/. Registro de assets con coste en tokens estimado (por resolución/duración); el packer resuelve la mochila por prioridad×densidad de valor y sugiere downsampleo del resto.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: AV Budget Packer\n * Mochila de contexto multimodal: qué audios, imágenes y videos caben en el presupuesto con prioridad declarada\n *\n * Dolor que resuelve: El agente multimodal mete 6 imágenes y 3 audios 'porque caben' y revienta el contexto a los 4 turnos: no existe la disciplina de presupuestar assets por prioridad como se presupuestan tokens.\n * Categoría: Multimodal & Voz | Generado por mcp-suite | id: av-budget-packer\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/av-budget-packer/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"av-budget-packer\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"av-budget-packer\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_asset\",\n  \"Registra un asset multimodal con coste estimado en tokens y prioridad.\",\n  {\n  asset: z.string().describe(\"Identificador del asset\"),\n  tipo: z.enum([\"imagen\",\"audio\",\"video\",\"documento\"]).describe(\"Tipo\"),\n  tokens_estimados: z.number().describe(\"Coste en tokens (imagen ~ (ancho*alto)/750, audio ~ 25 por segundo)\"),\n  prioridad: z.number().describe(\"Prioridad 1 (imprescindible) a 10 (prescindible)\"),\n  valor: z.string().describe(\"Qué aporta este asset a la tarea\").optional(),\n  },\n  async (args: any) => {\n    const { asset, tipo, tokens_estimados, prioridad, valor } = args as any;\n    const st = store.load();\nst.assets = st.assets || {};\nif (st.assets[asset]) return fail(\"asset ya registrado: \" + asset);\nif (tokens_estimados <= 0) return fail(\"tokens_estimados debe ser positivo\");\nif (prioridad < 1 || prioridad > 10) return fail(\"prioridad de 1 a 10\");\nst.assets[asset] = { asset, tipo, tokens: tokens_estimados, prioridad, valor: valor || \"\", densidad: Number(((11 - prioridad) * 1000 / tokens_estimados).toFixed(3)), usado_en: [], creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ asset, tipo, tokens: tokens_estimados, prioridad, densidad_valor_por_token: st.assets[asset].densidad });\n  }\n);\n\nserver.tool(\n  \"pack\",\n  \"Resuelve la mochila: qué assets entran en el presupuesto de tokens, por densidad de valor.\",\n  {\n  presupuesto_tokens: z.number().describe(\"Tokens disponibles para assets\"),\n  filtrar: z.array(z.any()).describe(\"Restrictir a ciertos ids de asset\").optional(),\n  },\n  async (args: any) => {\n    const { presupuesto_tokens, filtrar } = args as any;\n    const st = store.load();\nlet candidatos = __vals(st.assets || {});\nif (filtrar && filtrar.length) candidatos = candidatos.filter(a => filtrar.includes(a.asset));\nif (!candidatos.length) return fail(\"sin assets registrados\");\nconst ordenados = candidatos.slice().sort((a, b) => b.densidad - a.densidad);\nconst dentro = [], fuera = [];\nlet restante = presupuesto_tokens;\nordenados.forEach(a => {\n  if (a.tokens <= restante) { dentro.push(a); restante -= a.tokens; }\n  else fuera.push(a);\n});\nconst criticoFuera = fuera.filter(a => a.prioridad <= 3);\nreturn ok({ presupuesto: presupuesto_tokens, usados: presupuesto_tokens - restante, libres: restante, dentro: dentro.map(a => ({ asset: a.asset, tipo: a.tipo, tokens: a.tokens, prioridad: a.prioridad })), fuera: fuera.map(a => ({ asset: a.asset, tipo: a.tipo, tokens: a.tokens, prioridad: a.prioridad, razon: a.tokens > presupuesto_tokens ? \"NO CABE NUNCA: demasiado grande, redúcelo en origen\" : \"cabe con presupuesto mayor o recortando otro\" })), alertas: criticoFuera.length ? criticoFuera.map(a => \"CRÍTICO fuera: \" + a.asset + \" (prioridad \" + a.prioridad + \"): sube el presupuesto o baja assets de prioridad 8-10\") : [], utilizacion: Number(((presupuesto_tokens - restante) / presupuesto_tokens * 100).toFixed(0)) + \"%\" });\n  }\n);\n\nserver.tool(\n  \"suggest_downsample\",\n  \"Para los assets que no cupieron: cuánto reducirlos para que entren (o por qué no merece la pena).\",\n  {\n  asset: z.string().describe(\"Asset a reducir\"),\n  presupuesto_tokens: z.number().describe(\"Tokens disponibles para él\"),\n  },\n  async (args: any) => {\n    const { asset, presupuesto_tokens } = args as any;\n    const st = store.load();\nconst a = (st.assets || {})[asset];\nif (!a) return fail(\"asset no registrado: \" + asset);\nconst ratio = Number((presupuesto_tokens / a.tokens).toFixed(2));\nif (ratio >= 1) return ok({ asset, cabe_ya: true, mensaje: \"cabe tal cual: \" + a.tokens + \" tokens < presupuesto \" + presupuesto_tokens });\nif (ratio < 0.15) return ok({ asset, cabe_ya: false, ratio, recomendacion: \"requerirías reducir al \" + Number((ratio * 100).toFixed(0)) + \"%: la pérdida de información es inaceptable, descártalo o pide el asset de nuevo en origen\" });\nconst ajustes = {\n  imagen: ratio < 0.5 ? \"recorta a la región de interés + baja resolución a ~\" + Math.round(512 * ratio * 2) + \"px: los detalles se pierden pero la escena sobrevive\" : \"baja resolución a ~\" + Math.round(1024 * ratio) + \"px o recorta bordes\",\n  audio: \"transcribe en su lugar (texto ~75% más barato) o recorta al segmento relevante ~\" + Number((ratio * 100).toFixed(0)) + \"% de duración\",\n  video: \"extrae keyframes (\" + Math.max(2, Math.round(8 * ratio)) + \" frames) + transcripción del audio\",\n  documento: \"extrae solo las secciones relevantes (~\" + Number((ratio * 100).toFixed(0)) + \"% del documento)\"\n};\nreturn ok({ asset, tipo: a.tipo, tokens_actuales: a.tokens, presupuesto: presupuesto_tokens, ratio_posible: ratio, ajuste_sugerido: ajustes[a.tipo], aviso_prioridad: a.prioridad <= 3 ? \"es prioridad \" + a.prioridad + \": MERECE el downsample\" : \"prioridad \" + a.prioridad + \": descártalo antes que degradar los críticos\" });\n  }\n);\n\nserver.tool(\n  \"pack_report\",\n  \"Informe de coste acumulado de assets por tarea y detección de pesos repetidos.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst assets = __vals(st.assets || {});\nif (!assets.length) return ok({ assets: 0, mensaje: \"sin assets\" });\nconst porTipo = {};\nassets.forEach(a => { porTipo[a.tipo] = porTipo[a.tipo] || { tipo: a.tipo, count: 0, tokens: 0 }; porTipo[a.tipo].count++; porTipo[a.tipo].tokens += a.tokens; });\nconst gigantes = assets.filter(a => a.tokens > 4000);\nreturn ok({ assets: assets.length, tokens_totales: assets.reduce((a, x) => a + x.tokens, 0), por_tipo: __vals(porTipo), mas_caros: assets.slice().sort((a, b) => b.tokens - a.tokens).slice(0, 5).map(a => ({ asset: a.asset, tipo: a.tipo, tokens: a.tokens, prioridad: a.prioridad })), gigantes: gigantes.map(g => g.asset + \" (\" + g.tokens + \" tokens)\"), recomendacion: gigantes.length ? \"los assets de +4000 tokens devoran presupuestos típicos (8k-16k): recortarlos en origen es la mayor palanca de ahorro\" : \"tamaños razonables\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor av-budget-packer está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"av-budget-packer\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[av-budget-packer] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "av-budget-packer"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

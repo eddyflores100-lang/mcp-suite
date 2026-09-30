@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-00605d",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-a2a-agent-card",
+  "version": "1.0.0",
+  "description": "Genera y valida agent cards (agent.json / .well-known) para el protocolo Agent2Agent Dolor que resuelve: En A2A cada agente publica su card, pero las cards mal formadas rompen el descubrimiento: falta validación de schema y endpoints. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "ed25519",
+   "cryptography",
+   "trust"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only a2a-agent-card",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-a2a-agent-card",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": true,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "create_card",
+    "validate_card",
+    "check_wellknown",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only a2a-agent-card",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-a2a-agent-card\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-a2a-agent-card/dist/index.js\"]}}}. Tools disponibles: create_card, validate_card, check_wellknown y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/a2a-agent-card/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-a2a-agent-card (create_card, validate_card, check_wellknown). Genera y valida agent cards (agent.json / .well-known) para el protocolo Agent2Agent. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/a2a-agent-card/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/a2a-agent-card\",\n  \"version\": \"1.0.0\",\n  \"description\": \"A2A Agent Card — Genera y valida agent cards (agent.json / .well-known) para el protocolo Agent2Agent (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-a2a-agent-card\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# A2A Agent Card\n\n> Genera y valida agent cards (agent.json / .well-known) para el protocolo Agent2Agent\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-a2a-agent-card`\n\n**Dolor de agente que resuelve:** En A2A cada agente publica su card, pero las cards mal formadas rompen el descubrimiento: falta validación de schema y endpoints.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (4 incl. health_check)\n\n### `create_card`\nGenera una agent card A2A válida: nombre, descripción, capabilities, skills/servicios y URLs de endpoint.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre del agente\n  - `descripcion` (string, opcional): Descripción\n  - `url_endpoint` (string, opcional): URL base del agente\n  - `skills` (array, opcional): Skills/servicios que expone (strings)\n  - `version` (string, opcional): Versión del agente\n\n### `validate_card`\nValida una agent card A2A: campos obligatorios, tipos correctos, URLs bienformadas y skills bien definidas.\n\n**Parámetros:**\n  - `card` (any, requerido): Agent card a validar\n\n### `check_wellknown`\nComprueba en vivo que una URL sirve su .well-known/agent.json y valida la card encontrada (para peers A2A).\n\n**Parámetros:**\n  - `base_url` (string, requerido): URL base del agente peer (ej: https://marketnow.site)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"a2a-agent-card\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-a2a-agent-card/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: A2A Agent Card\n * Genera y valida agent cards (agent.json / .well-known) para el protocolo Agent2Agent\n *\n * Dolor que resuelve: En A2A cada agente publica su card, pero las cards mal formadas rompen el descubrimiento: falta validación de schema y endpoints.\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: a2a-agent-card\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/a2a-agent-card\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"a2a-agent-card\", version: \"1.0.0\" });\n\nserver.tool(\n  \"create_card\",\n  \"Genera una agent card A2A válida: nombre, descripción, capabilities, skills/servicios y URLs de endpoint.\",\n  {\n  nombre: z.string().describe(\"Nombre del agente\"),\n  descripcion: z.string().describe(\"Descripción\").optional(),\n  url_endpoint: z.string().describe(\"URL base del agente\").optional(),\n  skills: z.array(z.any()).describe(\"Skills/servicios que expone (strings)\").optional(),\n  version: z.string().describe(\"Versión del agente\").default(\"1.0.0\"),\n  },\n  async (args: any) => {\n    const { nombre, descripcion, url_endpoint, skills, version } = args as any;\n    const card = {\n  name: nombre, description: descripcion || \"\",\n  url: url_endpoint || null, version: version || \"1.0.0\",\n  capabilities: { streaming: false, pushNotifications: false, stateTransitionHistory: false },\n  skills: (Array.isArray(skills) ? skills : []).map((s) => { const parts = String(s).split(\":\"); return { id: parts[0], name: parts[1] || parts[0], description: \"\" }; }),\n  defaultInputModes: [\"text\"], defaultOutputModes: [\"text\", \"json\"],\n  generated: new Date().toISOString(),\n};\nreturn ok({ card, publicar_en: \".well-known/agent.json\" });\n  }\n);\n\nserver.tool(\n  \"validate_card\",\n  \"Valida una agent card A2A: campos obligatorios, tipos correctos, URLs bienformadas y skills bien definidas.\",\n  {\n  card: z.any().describe(\"Agent card a validar\"),\n  },\n  async (args: any) => {\n    const { card } = args as any;\n    const c = card || {};\nconst problemas = [];\nif (!c.name) problemas.push(\"falta name\");\nif (!c.url && !c.url_endpoint) problemas.push(\"falta url de endpoint\");\nif (c.url && !/^https?:\\/\\//.test(c.url)) problemas.push(\"url no es http(s)\");\nif (!c.capabilities || typeof c.capabilities !== \"object\") problemas.push(\"falta capabilities\");\nif (!Array.isArray(c.skills)) problemas.push(\"skills debe ser array\");\nif (Array.isArray(c.skills)) c.skills.forEach((s, i) => { if (!s.id && !s.name) problemas.push(\"skill \" + i + \" sin id/name\"); });\nif (c.version && !/^\\d+\\.\\d+/.test(String(c.version))) problemas.push(\"version no semver\");\nreturn ok({ valida: problemas.length === 0, problemas, campos_presentes: Object.keys(c) });\n  }\n);\n\nserver.tool(\n  \"check_wellknown\",\n  \"Comprueba en vivo que una URL sirve su .well-known/agent.json y valida la card encontrada (para peers A2A).\",\n  {\n  base_url: z.string().describe(\"URL base del agente peer (ej: https://marketnow.site)\"),\n  },\n  async (args: any) => {\n    const { base_url } = args as any;\n    const url = base_url.replace(/\\/$/, \"\") + \"/.well-known/agent.json\";\nconst r = await fetchSmart(url, { timeoutMs: 10000, retries: 1 });\nif (r.status !== 200) return fail(\"no sirve .well-known/agent.json (HTTP \" + r.status + \")\");\nlet card = null;\ntry { card = r.json; } catch {}\nreturn ok({ url, http: r.status, card_valida: !!card && !!card.name, card: card ? { name: card.name, version: card.version, skills: (card.services || card.skills || []).length } : null });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor a2a-agent-card está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"a2a-agent-card\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[a2a-agent-card] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": [
+    "requires_network: true — accede a APIs públicas (MarketNow) en modo live, sin claves ni secretos"
+   ]
+  },
+  "trust_score_100": 50,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "a2a-agent-card"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

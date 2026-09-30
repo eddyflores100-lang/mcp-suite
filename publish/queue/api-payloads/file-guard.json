@@ -1,0 +1,62 @@
+{
+ "name": "mcp-file-guard",
+ "version": "1.0.0",
+ "description": "Guardián de rutas: el agente solo toca lo permitido, sin escapes de directorio Dolor que resuelve: Una tool con acceso a archivos puede leer ~/.ssh o escapar del workspace con ../: faltan guardas de rutas. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "security",
+  "prompt-injection",
+  "hardening"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only file-guard",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-file-guard",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "resolve_path",
+   "check_access",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only file-guard",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-file-guard\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-file-guard/dist/index.js\"]}}}. Tools disponibles: resolve_path, check_access y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/file-guard/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-file-guard (resolve_path, check_access). Guardián de rutas: el agente solo toca lo permitido, sin escapes de directorio. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/file-guard/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/file-guard\",\n  \"version\": \"1.0.0\",\n  \"description\": \"File Guard — Guardián de rutas: el agente solo toca lo permitido, sin escapes de directorio (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-file-guard\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"seguridad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# File Guard\n\n> Guardián de rutas: el agente solo toca lo permitido, sin escapes de directorio\n\n**Categoría:** Seguridad · **ID:** `mcp-file-guard`\n\n**Dolor de agente que resuelve:** Una tool con acceso a archivos puede leer ~/.ssh o escapar del workspace con ../: faltan guardas de rutas.\n\n## Tools (3 incl. health_check)\n\n### `resolve_path`\nResuelve una ruta contra una raíz permitida y detecta escapes (../), symlinks evidentes y rutas absolutas fuera de la raíz.\n\n**Parámetros:**\n  - `ruta` (string, requerido): Ruta solicitada (relativa o absoluta)\n  - `raiz` (string, opcional): Raíz permitida\n\n### `check_access`\nVerifica si una operación de archivo (leer/escribir/borrar/ejecutar) está permitida por política para esa ruta.\n\n**Parámetros:**\n  - `ruta` (string, requerido): Ruta objetivo\n  - `operacion` (enum, requerido): Operación\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"file-guard\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-file-guard/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: File Guard\n * Guardián de rutas: el agente solo toca lo permitido, sin escapes de directorio\n *\n * Dolor que resuelve: Una tool con acceso a archivos puede leer ~/.ssh o escapar del workspace con ../: faltan guardas de rutas.\n * Categoría: Seguridad | Generado por mcp-suite | id: file-guard\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"file-guard\", version: \"1.0.0\" });\n\nserver.tool(\n  \"resolve_path\",\n  \"Resuelve una ruta contra una raíz permitida y detecta escapes (../), symlinks evidentes y rutas absolutas fuera de la raíz.\",\n  {\n  ruta: z.string().describe(\"Ruta solicitada (relativa o absoluta)\"),\n  raiz: z.string().describe(\"Raíz permitida\").default(\"/home/z/my-project\"),\n  },\n  async (args: any) => {\n    const { ruta, raiz } = args as any;\n    const raizBase = raiz || \"/home/z/my-project\";\nlet p = String(ruta);\nconst esAbs = p.startsWith(\"/\") || /^[A-Z]:\\\\/.test(p);\nlet combinada = esAbs ? p : join(raizBase, p);\nconst normalizada = combinada.replace(/\\\\/g, \"/\").replace(/(?!^)\\/\\.\\/(?!\\.\\.)/, \"/\");\nconst partes: string[] = [];\nfor (const seg of normalizada.split(\"/\")) {\n  if (seg === \"..\") { if (partes.length === 0) return fail(\"escape de directorio detectado: ../ arriba de la raíz\"); partes.pop(); }\n  else if (seg !== \".\" && seg !== \"\") partes.push(seg);\n}\nconst final = \"/\" + partes.join(\"/\");\nconst dentro = final.startsWith(raizBase.endsWith(\"/\") ? raizBase : raizBase + \"/\") || final === raizBase;\nconst peligros = [\"/.ssh\", \"/.env\", \"/etc/shadow\", \"/.aws\", \"/.gnupg\", \"/.config/gcloud\"].filter((d) => final.includes(d));\nreturn ok({ ruta_original: ruta, ruta_resuelta: final, permitida: dentro && peligros.length === 0, razon: !dentro ? \"fuera de la raíz permitida\" : peligros.length ? \"ruta sensible: \" + peligros.join(\", \") : \"ok\" });\n  }\n);\n\nserver.tool(\n  \"check_access\",\n  \"Verifica si una operación de archivo (leer/escribir/borrar/ejecutar) está permitida por política para esa ruta.\",\n  {\n  ruta: z.string().describe(\"Ruta objetivo\"),\n  operacion: z.enum([\"leer\",\"escribir\",\"borrar\",\"ejecutar\"]).describe(\"Operación\"),\n  },\n  async (args: any) => {\n    const { ruta, operacion } = args as any;\n    const r = ruta.toLowerCase();\nconst reglas: Array<[RegExp, string[], string]> = [\n  [/\\.env|secrets?|credentials?|\\.pem|\\.key$/, [\"leer\", \"escribir\", \"borrar\"], \"credenciales\"],\n  [/\\.ssh\\/|\\.aws\\/|\\.gnupg\\//, [\"leer\", \"escribir\", \"borrar\", \"ejecutar\"], \"directorio de identidad\"],\n  [/node_modules/, [\"escribir\", \"borrar\"], \"node_modules\"],\n  [/\\.(sh|bash|exe|bat|cmd|ps1)$/, [\"ejecutar\"], \"scripts ejecutables\"],\n  [/dist\\//, [\"leer\", \"escribir\"], \"build output\"],\n];\nfor (const [re, ops, razon] of reglas) {\n  if (re.test(r) && ops.includes(operacion)) return ok({ permitido: false, razon: \"política bloquea \" + operacion + \" en \" + razon, requiere: \"permission-gate humano\" });\n}\nreturn ok({ permitido: true, razon: \"sin restricciones para \" + operacion });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor file-guard está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"file-guard\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[file-guard] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

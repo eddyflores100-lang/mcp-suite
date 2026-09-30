@@ -1,0 +1,62 @@
+{
+ "name": "mcp-unit-convert",
+ "version": "1.0.0",
+ "description": "Conversiones de unidades exactas: longitud, masa, volumen, temperatura, datos Dolor que resuelve: '~2 libras' del LLM no sirve para recetas ni ingeniería: conversiones exactas con factores estándar. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Productivity",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "utilities",
+  "toolkit",
+  "productivity"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only unit-convert",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-unit-convert",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "convert",
+   "list_units",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only unit-convert",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-unit-convert\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-unit-convert/dist/index.js\"]}}}. Tools disponibles: convert, list_units y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/unit-convert/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-unit-convert (convert, list_units). Conversiones de unidades exactas: longitud, masa, volumen, temperatura, datos. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/unit-convert/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/unit-convert\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Unit Convert — Conversiones de unidades exactas: longitud, masa, volumen, temperatura, datos (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-unit-convert\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"utilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Unit Convert\n\n> Conversiones de unidades exactas: longitud, masa, volumen, temperatura, datos\n\n**Categoría:** Utilidades · **ID:** `mcp-unit-convert`\n\n**Dolor de agente que resuelve:** '~2 libras' del LLM no sirve para recetas ni ingeniería: conversiones exactas con factores estándar.\n\n## Tools (3 incl. health_check)\n\n### `convert`\nConvierte entre unidades de 7 familias: longitud, masa, volumen, temperatura, área, velocidad y datos (SI e imperiales).\n\n**Parámetros:**\n  - `valor` (number, requerido): Valor\n  - `de` (string, requerido): Unidad origen\n  - `a` (string, requerido): Unidad destino\n\n### `list_units`\nLista todas las unidades soportadas por familia.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"unit-convert\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-unit-convert/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Unit Convert\n * Conversiones de unidades exactas: longitud, masa, volumen, temperatura, datos\n *\n * Dolor que resuelve: '~2 libras' del LLM no sirve para recetas ni ingeniería: conversiones exactas con factores estándar.\n * Categoría: Utilidades | Generado por mcp-suite | id: unit-convert\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"unit-convert\", version: \"1.0.0\" });\n\nserver.tool(\n  \"convert\",\n  \"Convierte entre unidades de 7 familias: longitud, masa, volumen, temperatura, área, velocidad y datos (SI e imperiales).\",\n  {\n  valor: z.number().describe(\"Valor\"),\n  de: z.string().describe(\"Unidad origen\"),\n  a: z.string().describe(\"Unidad destino\"),\n  },\n  async (args: any) => {\n    const { valor, de, a } = args as any;\n    const factores: any = {\n  longitud: { m: 1, km: 1000, cm: 0.01, mm: 0.001, mi: 1609.344, yd: 0.9144, ft: 0.3048, in: 0.0254, nmi: 1852 },\n  masa: { kg: 1, g: 0.001, mg: 0.000001, t: 1000, lb: 0.45359237, oz: 0.0283495, st: 6.35029 },\n  volumen: { l: 1, ml: 0.001, m3: 1000, gal: 3.78541, qt: 0.946353, pt: 0.473176, cup: 0.236588, floz: 0.0295735 },\n  area: { \"m2\": 1, \"km2\": 1e6, \"cm2\": 0.0001, ha: 10000, acre: 4046.86, \"ft2\": 0.092903, \"mi2\": 2589988 },\n  velocidad: { \"m/s\": 1, \"km/h\": 0.277778, mph: 0.44704, kn: 0.514444, \"ft/s\": 0.3048 },\n  datos: { B: 1, KB: 1024, MB: 1048576, GB: 1073741824, TB: 1.0995116e12, KiB: 1024, MiB: 1048576, GiB: 1073741824 },\n  tiempo: { s: 1, min: 60, h: 3600, d: 86400, sem: 604800, ms: 0.001 },\n};\nconst temp: any = { c: \"celsius\", f: \"fahrenheit\", k: \"kelvin\", celsius: \"celsius\", fahrenheit: \"fahrenheit\", kelvin: \"kelvin\" };\nconst norm = (u: string) => u.toLowerCase().trim();\nconst deN = norm(de); const aN = norm(a);\nif (temp[deN] && temp[aN]) {\n  let celsius: number;\n  if (temp[deN] === \"celsius\") celsius = valor;\n  else if (temp[deN] === \"fahrenheit\") celsius = (valor - 32) * 5 / 9;\n  else celsius = valor - 273.15;\n  let out: number;\n  if (temp[aN] === \"celsius\") out = celsius;\n  else if (temp[aN] === \"fahrenheit\") out = celsius * 9 / 5 + 32;\n  else out = celsius + 273.15;\n  return ok({ valor, de, a, resultado: Math.round(out * 100) / 100, familia: \"temperatura\" });\n}\nfor (const [familia, tabla] of __ents(factores)) {\n  if (tabla[deN] !== undefined && tabla[aN] !== undefined) {\n    const resultado = valor * tabla[deN] / tabla[aN];\n    return ok({ valor, de, a, resultado: Math.round(resultado * 1e8) / 1e8, familia });\n  }\n}\nreturn fail(\"unidades no soportadas o de familias distintas. Familias: \" + Object.keys(factores).join(\", \") + \" + temperatura (c/f/k)\");\n  }\n);\n\nserver.tool(\n  \"list_units\",\n  \"Lista todas las unidades soportadas por familia.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const familias: any = {\n  longitud: [\"m\", \"km\", \"cm\", \"mm\", \"mi\", \"yd\", \"ft\", \"in\", \"nmi\"],\n  masa: [\"kg\", \"g\", \"mg\", \"t\", \"lb\", \"oz\", \"st\"],\n  volumen: [\"l\", \"ml\", \"m3\", \"gal\", \"qt\", \"pt\", \"cup\", \"floz\"],\n  area: [\"m2\", \"km2\", \"cm2\", \"ha\", \"acre\", \"ft2\", \"mi2\"],\n  velocidad: [\"m/s\", \"km/h\", \"mph\", \"kn\", \"ft/s\"],\n  datos: [\"B\", \"KB\", \"MB\", \"GB\", \"TB\", \"KiB\", \"MiB\", \"GiB\"],\n  tiempo: [\"s\", \"min\", \"h\", \"d\", \"sem\", \"ms\"],\n  temperatura: [\"c\", \"f\", \"k\"],\n};\nreturn ok({ familias });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor unit-convert está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"unit-convert\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[unit-convert] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-6a1776",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-xml-toolkit",
+  "version": "1.0.0",
+  "description": "Parse XML/RSS a JSON plano y busca tags con atributos Dolor que resuelve: RSS y sitemaps siguen siendo XML: sin parser, el agente pierde feeds enteros de información. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "data",
+   "parsing",
+   "etl"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only xml-toolkit",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-xml-toolkit",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "to_json",
+    "find_tags",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only xml-toolkit",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-xml-toolkit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-xml-toolkit/dist/index.js\"]}}}. Tools disponibles: to_json, find_tags y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/xml-toolkit/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-xml-toolkit (to_json, find_tags). Parse XML/RSS a JSON plano y busca tags con atributos. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/xml-toolkit/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/xml-toolkit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"XML Toolkit — Parse XML/RSS a JSON plano y busca tags con atributos (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-xml-toolkit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# XML Toolkit\n\n> Parse XML/RSS a JSON plano y busca tags con atributos\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-xml-toolkit`\n\n**Dolor de agente que resuelve:** RSS y sitemaps siguen siendo XML: sin parser, el agente pierde feeds enteros de información.\n\n## Tools (3 incl. health_check)\n\n### `to_json`\nConvierte XML a JSON anidado: elementos con atributos (@attr), texto (#text) e hijos repetidos como arrays.\n\n**Parámetros:**\n  - `xml` (string, requerido): XML a convertir\n\n### `find_tags`\nEncuentra todas las ocurrencias de un tag (ej: item, loc, entry) con sus atributos y texto interno.\n\n**Parámetros:**\n  - `xml` (string, requerido): XML\n  - `tag` (string, requerido): Tag a buscar (ej: item)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"xml-toolkit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-xml-toolkit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: XML Toolkit\n * Parse XML/RSS a JSON plano y busca tags con atributos\n *\n * Dolor que resuelve: RSS y sitemaps siguen siendo XML: sin parser, el agente pierde feeds enteros de información.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: xml-toolkit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"xml-toolkit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"to_json\",\n  \"Convierte XML a JSON anidado: elementos con atributos (@attr), texto (#text) e hijos repetidos como arrays.\",\n  {\n  xml: z.string().describe(\"XML a convertir\"),\n  },\n  async (args: any) => {\n    const { xml } = args as any;\n    function decode(s: string) { return s.replace(/&amp;/g, \"&\").replace(/&lt;/g, \"<\").replace(/&gt;/g, \">\").replace(/&quot;/g, '\"').replace(/&apos;/g, \"'\"); }\nfunction parseHasta(xml: string, cierreTag: string, posRef: { i: number }): any {\n  const nodo: any = {};\n  let texto = \"\";\n  while (posRef.i < xml.length) {\n    const lt = xml.indexOf(\"<\", posRef.i);\n    if (lt === -1) { texto += xml.slice(posRef.i); posRef.i = xml.length; break; }\n    texto += xml.slice(posRef.i, lt);\n    posRef.i = lt;\n    if (xml.startsWith(\"</\" + cierreTag, posRef.i)) { posRef.i = xml.indexOf(\">\", posRef.i) + 1; break; }\n    const gt = xml.indexOf(\">\", posRef.i);\n    if (gt === -1) { posRef.i = xml.length; break; }\n    const tagStr = xml.slice(posRef.i, gt + 1);\n    const m = tagStr.match(/^<([\\w:.-]+)((?:\\s+[\\w:.-]+=\"[^\"]*\")*)\\s*(\\/?)>$/);\n    if (!m) { posRef.i = gt + 1; continue; }\n    const nombre = m[1];\n    const selfClose = m[3] === \"/\";\n    const attrs: any = {};\n    for (const a of (m[2] || \"\").match(/[\\w:.-]+=\"[^\"]*\"/g) || []) { const [k, v] = a.split(\"=\"); attrs[\"@\" + k] = v.slice(1, -1); }\n    posRef.i = gt + 1;\n    const hijo: any = selfClose ? attrs : parseHasta(xml, nombre, posRef);\n    if (!selfClose) for (const [k, v] of __ents(attrs)) hijo[k] = v;\n    if (nodo[nombre] !== undefined) { if (!Array.isArray(nodo[nombre])) nodo[nombre] = [nodo[nombre]]; nodo[nombre].push(hijo); }\n    else nodo[nombre] = hijo;\n  }\n  const t = texto.trim();\n  if (t && Object.keys(nodo).length === 0) return { \"#text\": decode(t) };\n  if (t) nodo[\"#text\"] = decode(t);\n  return nodo;\n}\ntry {\n  const limpio = String(xml).replace(/<\\?[\\s\\S]*?\\?>/g, \"\").replace(/<!--[\\s\\S]*?-->/g, \"\").replace(/<!DOCTYPE[\\s\\S]*?>/gi, \"\").trim();\n  const posRef = { i: 0 };\n  const raiz: any = {};\n  while (posRef.i < limpio.length) {\n    const lt = limpio.indexOf(\"<\", posRef.i);\n    if (lt === -1) break;\n    const gt = limpio.indexOf(\">\", lt);\n    if (gt === -1) break;\n    const m = limpio.slice(lt, gt + 1).match(/^<([\\w:.-]+)((?:\\s+[\\w:.-]+=\"[^\"]*\")*)\\s*(\\/?)>$/);\n    posRef.i = gt + 1;\n    if (!m) continue;\n    const nombre = m[1];\n    const selfClose = m[3] === \"/\";\n    const attrs: any = {};\n    for (const a of (m[2] || \"\").match(/[\\w:.-]+=\"[^\"]*\"/g) || []) { const [k, v] = a.split(\"=\"); attrs[\"@\" + k] = v.slice(1, -1); }\n    const hijo: any = selfClose ? attrs : parseHasta(limpio, nombre, posRef);\n    if (!selfClose) for (const [k, v] of __ents(attrs)) hijo[k] = v;\n    if (raiz[nombre] !== undefined) { if (!Array.isArray(raiz[nombre])) raiz[nombre] = [raiz[nombre]]; raiz[nombre].push(hijo); }\n    else raiz[nombre] = hijo;\n  }\n  return ok({ json: raiz, raiz: Object.keys(raiz)[0] || null });\n} catch (e: any) { return fail(\"XML no parseable: \" + e.message); }\n  }\n);\n\nserver.tool(\n  \"find_tags\",\n  \"Encuentra todas las ocurrencias de un tag (ej: item, loc, entry) con sus atributos y texto interno.\",\n  {\n  xml: z.string().describe(\"XML\"),\n  tag: z.string().describe(\"Tag a buscar (ej: item)\"),\n  },\n  async (args: any) => {\n    const { xml, tag } = args as any;\n    const re = new RegExp(\"<\" + tag + \"((?:\\\\s+[^>]*?)?)>([\\\\s\\\\S]*?)<\\/\" + tag + \">|<\" + tag + \"([^>]*?)/>\", \"gi\");\nconst encontrados: any[] = [];\nlet m;\nwhile ((m = re.exec(String(xml))) !== null) {\n  const attrs: any = {};\n  const attrStr = m[1] || m[3] || \"\";\n  const pares = attrStr.match(/[\\w:.-]+=\"[^\"]*\"/g) || [];\n  for (const p of pares) { const [k, v] = p.split(\"=\"); attrs[k] = v.slice(1, -1); }\n  const inner = (m[2] || \"\").replace(/<[^>]+>/g, \" \").replace(/\\s+/g, \" \").trim();\n  encontrados.push({ attrs, texto: inner.slice(0, 300) });\n}\nreturn ok({ tag, total: encontrados.length, encontrados: encontrados.slice(0, 100) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor xml-toolkit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"xml-toolkit\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[xml-toolkit] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "xml-toolkit"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

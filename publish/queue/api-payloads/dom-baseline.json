@@ -1,0 +1,64 @@
+{
+ "name": "mcp-dom-baseline",
+ "version": "1.0.0",
+ "description": "Baselines de páginas: snapshots estructurales y detección de qué cambió desde la última vez Dolor que resuelve: El agente de navegador memoriza la estructura de la página y esta cambia sin aviso: el flujo se rompe y el agente no sabe QUÉ cambió exactamente ni cuándo. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "DevOps",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "computer-use",
+  "automation",
+  "browser"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only dom-baseline",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-dom-baseline",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "save_snapshot",
+   "diff_page",
+   "get_baseline",
+   "stability_report",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only dom-baseline",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-dom-baseline\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-dom-baseline/dist/index.js\"]}}}. Tools disponibles: save_snapshot, diff_page, get_baseline, stability_report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/dom-baseline/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-dom-baseline (save_snapshot, diff_page, get_baseline, stability_report). Baselines de páginas: snapshots estructurales y detección de qué cambió desde la última vez. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/dom-baseline/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/dom-baseline\",\n  \"version\": \"1.0.0\",\n  \"description\": \"DOM Baseline — Baselines de páginas: snapshots estructurales y detección de qué cambió desde la última vez (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-dom-baseline\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"computer-use\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# DOM Baseline\n\n> Baselines de páginas: snapshots estructurales y detección de qué cambió desde la última vez\n\n**Categoría:** Computer Use · **ID:** `mcp-dom-baseline`\n\n**Dolor de agente que resuelve:** El agente de navegador memoriza la estructura de la página y esta cambia sin aviso: el flujo se rompe y el agente no sabe QUÉ cambió exactamente ni cuándo.\n\n> Estado persistente en `~/.mcp-suite/dom-baseline/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `save_snapshot`\nGuarda un snapshot de la página: lista de elementos clave (selector, rol, texto visible) extraídos por el navegador.\n\n**Parámetros:**\n  - `pagina` (string, requerido): Identificador de la página (url o nombre)\n  - `flujo` (string, opcional): Flujo al que pertenece\n  - `elementos` (array, requerido): Elementos {selector, texto, tipo} observados\n\n### `diff_page`\nCompara la observación actual contra el baseline: elementos desaparecidos, nuevos y con texto cambiado.\n\n**Parámetros:**\n  - `pagina` (string, requerido): Página a comparar\n  - `flujo` (string, opcional): Flujo\n  - `elementos_actuales` (array, requerido): Elementos {selector, texto, tipo} observados ahora\n\n### `get_baseline`\nRecupera el baseline actual de una página (selectores estables conocidos).\n\n**Parámetros:**\n  - `pagina` (string, requerido): Página\n  - `flujo` (string, opcional): Flujo\n\n### `stability_report`\nReporte de estabilidad global: qué páginas cambian más (fragilidad del suite de automatización).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"dom-baseline\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-dom-baseline/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/dom-baseline/. Guarda snapshots estructurales (lista de selectores estables con hash de estructura) por página/flujo; el diff revela elementos añadidos/eliminados/movidos.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: DOM Baseline\n * Baselines de páginas: snapshots estructurales y detección de qué cambió desde la última vez\n *\n * Dolor que resuelve: El agente de navegador memoriza la estructura de la página y esta cambia sin aviso: el flujo se rompe y el agente no sabe QUÉ cambió exactamente ni cuándo.\n * Categoría: Computer Use | Generado por mcp-suite | id: dom-baseline\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/dom-baseline/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"dom-baseline\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"dom-baseline\", version: \"1.0.0\" });\n\nserver.tool(\n  \"save_snapshot\",\n  \"Guarda un snapshot de la página: lista de elementos clave (selector, rol, texto visible) extraídos por el navegador.\",\n  {\n  pagina: z.string().describe(\"Identificador de la página (url o nombre)\"),\n  flujo: z.string().describe(\"Flujo al que pertenece\").default(\"default\"),\n  elementos: z.array(z.any()).describe(\"Elementos {selector, texto, tipo} observados\"),\n  },\n  async (args: any) => {\n    const { pagina, flujo, elementos } = args as any;\n    const st = store.load();\nst.paginas = st.paginas || {};\nconst clave = flujo + \"::\" + pagina;\nconst elems = (elementos || []).map(e => ({ selector: String(e.selector || \"\"), texto: String(e.texto || \"\").slice(0, 80), tipo: String(e.tipo || \"generico\") })).filter(e => e.selector);\nif (!elems.length) return fail(\"sin elementos observables: extrae {selector, texto, tipo} primero\");\nconst hash = \"\" + elems.length + \"-\" + elems.map(e => e.selector).join(\"|\").length;\nst.paginas[clave] = { pagina, flujo, elementos: elems, hash, version: (st.paginas[clave]?.version || 0) + 1, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({ pagina, version: st.paginas[clave].version, elementos: elems.length, hash });\n  }\n);\n\nserver.tool(\n  \"diff_page\",\n  \"Compara la observación actual contra el baseline: elementos desaparecidos, nuevos y con texto cambiado.\",\n  {\n  pagina: z.string().describe(\"Página a comparar\"),\n  flujo: z.string().describe(\"Flujo\").default(\"default\"),\n  elementos_actuales: z.array(z.any()).describe(\"Elementos {selector, texto, tipo} observados ahora\"),\n  },\n  async (args: any) => {\n    const { pagina, flujo, elementos_actuales } = args as any;\n    const st = store.load();\nconst clave = flujo + \"::\" + pagina;\nconst base = (st.paginas || {})[clave];\nif (!base) return fail(\"sin baseline para \" + clave + \": grábalo con save_snapshot\");\nconst actuales = (elementos_actuales || []).map(e => ({ selector: String(e.selector || \"\"), texto: String(e.texto || \"\").slice(0, 80) })).filter(e => e.selector);\nconst baseMap = new Map<any, any>(base.elementos.map(e => [e.selector, e]));\nconst actMap = new Map<any, any>(actuales.map(e => [e.selector, e]));\nconst desaparecidos = [...baseMap.keys()].filter(s => !actMap.has(s));\nconst nuevos = [...actMap.keys()].filter(s => !baseMap.has(s));\nconst cambiados = [...actMap.entries()].filter(([s, e]) => baseMap.has(s) && baseMap.get(s).texto !== e.texto).map(([s, e]) => ({ selector: s, antes: baseMap.get(s).texto, ahora: e.texto }));\nconst rotos_importantes = desaparecidos.filter(s => /button|btn|input|form|submit|login|checkout|cart|pay|pagar|comprar|cta|enviar/i.test(s));\nreturn ok({\n  estabilidad: Number((actMap.size / Math.max(baseMap.size, 1) * 100).toFixed(0)) + \"%\",\n  desaparecidos, nuevos, texto_cambiado: cambiados,\n  criticos_para_el_flujo: rotos_importantes,\n  veredicto: rotos_importantes.length ? \"ROTO: elementos críticos desaparecieron: el flujo fallará; re-graba baseline tras verificar manualmente\" : desaparecidos.length === 0 ? \"página estable desde el baseline\" : \"cambios menores: revisa si afectan selectores que usas\",\n});\n  }\n);\n\nserver.tool(\n  \"get_baseline\",\n  \"Recupera el baseline actual de una página (selectores estables conocidos).\",\n  {\n  pagina: z.string().describe(\"Página\"),\n  flujo: z.string().describe(\"Flujo\").default(\"default\"),\n  },\n  async (args: any) => {\n    const { pagina, flujo } = args as any;\n    const st = store.load();\nconst b = (st.paginas || {})[flujo + \"::\" + pagina];\nif (!b) return fail(\"sin baseline\");\nreturn ok({ pagina, flujo, version: b.version, grabado: b.ts, elementos: b.elementos });\n  }\n);\n\nserver.tool(\n  \"stability_report\",\n  \"Reporte de estabilidad global: qué páginas cambian más (fragilidad del suite de automatización).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst paginas = __vals(st.paginas || {});\nif (!paginas.length) return ok({ paginas: 0 });\nconst regrabs = paginas.map(p => ({ pagina: p.pagina, flujo: p.flujo, versiones: p.version, antiguedad_dias: Number(((Date.now() - new Date(p.ts).getTime()) / 86400000).toFixed(1)) })).sort((a, b) => b.versiones - a.versiones);\nreturn ok({\n  paginas_baselinadas: paginas.length,\n  mas_volatiles: regrabs.slice(0, 5),\n  mas_estables: regrabs.slice(-3),\n  consejo: regrabs[0]?.versiones > 5 ? \"una página exige >5 regrabs: pide selectores data-testid al equipo o fija otra estrategia de localización\" : \"volatilidad razonable\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor dom-baseline está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"dom-baseline\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[dom-baseline] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

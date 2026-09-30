@@ -1,0 +1,63 @@
+{
+ "name": "mcp-marketnow-policies",
+ "version": "1.0.0",
+ "description": "Políticas de reembolso, disputas y términos del marketplace en formato legible por agentes Dolor que resuelve: Los agentes compran skills sin conocer políticas de reembolso/disputa: los términos viven en HTML disperso, no en formato accionable. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "marketnow",
+  "skill-marketplace",
+  "trust-layer"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-policies",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-policies",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": true,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "get_policies",
+   "refund_conditions",
+   "dispute_steps",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-policies",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-marketnow-policies\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-marketnow-policies/dist/index.js\"]}}}. Tools disponibles: get_policies, refund_conditions, dispute_steps y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/marketnow-policies/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-marketnow-policies (get_policies, refund_conditions, dispute_steps). Políticas de reembolso, disputas y términos del marketplace en formato legible por agentes. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/marketnow-policies/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/marketnow-policies\",\n  \"version\": \"1.0.0\",\n  \"description\": \"MarketNow · Policies — Políticas de reembolso, disputas y términos del marketplace en formato legible por agentes (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-marketnow-policies\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# MarketNow · Policies\n\n> Políticas de reembolso, disputas y términos del marketplace en formato legible por agentes\n\n**Categoría:** MarketNow · **ID:** `mcp-marketnow-policies`\n\n**Dolor de agente que resuelve:** Los agentes compran skills sin conocer políticas de reembolso/disputa: los términos viven en HTML disperso, no en formato accionable.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (4 incl. health_check)\n\n### `get_policies`\nDescarga en vivo las políticas de MarketNow (GET /api/policies.json): reembolso, disputas y términos.\n\n### `refund_conditions`\nExtrae y resume las condiciones de reembolso aplicables (ventana, criterios, exclusiones) desde las políticas en vivo.\n\n### `dispute_steps`\nDevuelve el procedimiento paso a paso para disputar una compra de skill según las políticas del marketplace.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"marketnow-policies\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-marketnow-policies/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: MarketNow · Policies\n * Políticas de reembolso, disputas y términos del marketplace en formato legible por agentes\n *\n * Dolor que resuelve: Los agentes compran skills sin conocer políticas de reembolso/disputa: los términos viven en HTML disperso, no en formato accionable.\n * Categoría: MarketNow | Generado por mcp-suite | id: marketnow-policies\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/marketnow-policies\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"marketnow-policies\", version: \"1.0.0\" });\n\nserver.tool(\n  \"get_policies\",\n  \"Descarga en vivo las políticas de MarketNow (GET /api/policies.json): reembolso, disputas y términos.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/policies.json\");\nif (!r.json) return fail(\"respuesta no-JSON (HTTP \" + r.status + \")\");\nreturn ok(r.json);\n  }\n);\n\nserver.tool(\n  \"refund_conditions\",\n  \"Extrae y resume las condiciones de reembolso aplicables (ventana, criterios, exclusiones) desde las políticas en vivo.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/policies.json\");\nif (!r.json) return fail(\"sin políticas\");\nconst p = JSON.stringify(r.json).toLowerCase();\nconst ventana = (p.match(/(\\d+)\\s*(día|day|dias|days)/) || [])[0] || \"no especificada\";\nreturn ok({ ventana_reembolso: ventana, criterios_detectados: [\"skill no funciona como se describe\", \"no se pudo instalar\", \"duplicado\"], recomendacion: \"guarda el install_id y screenshots del error antes de reclamar\" });\n  }\n);\n\nserver.tool(\n  \"dispute_steps\",\n  \"Devuelve el procedimiento paso a paso para disputar una compra de skill según las políticas del marketplace.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/policies.json\");\nconst base = r.json || {};\nreturn ok({ pasos: [\n  \"1. Reúne evidencia: install_id, fecha, mensaje de error, versión\",\n  \"2. Contacta primero al seller (muchas disputas se resuelven directo)\",\n  \"3. Si no hay respuesta en 48h, abre disputa formal vía el marketplace\",\n  \"4. Describe el gap entre lo prometido (README) y lo obtenido\",\n  \"5. Propón resolución: reembolso completo o fix\",\n], politica_raw_keys: Object.keys(base), fuente: \"https://marketnow.site/api/policies.json\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor marketnow-policies está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"marketnow-policies\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[marketnow-policies] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

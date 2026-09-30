@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-474ce9",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-fact-staleness",
+  "version": "1.0.0",
+  "description": "Validez temporal de hechos: cada dato caduca y el agente debe saber cuándo ya no sirve Dolor que resuelve: El agente trata todos los hechos como eternos: cita un dato de 2023 como vigente, mezcla precios antiguos con actuales y no sabe qué parte de su conocimiento ya venció. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "freshness",
+   "staleness",
+   "knowledge-cutoff"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only fact-staleness",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-fact-staleness",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_fact",
+    "check_freshness",
+    "refresh_fact",
+    "assert_usable",
+    "staleness_report",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only fact-staleness",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-fact-staleness\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-fact-staleness/dist/index.js\"]}}}. Tools disponibles: register_fact, check_freshness, refresh_fact, assert_usable, staleness_report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/fact-staleness/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-fact-staleness (register_fact, check_freshness, refresh_fact, assert_usable, staleness_report). Validez temporal de hechos: cada dato caduca y el agente debe saber cuándo ya no sirve. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/fact-staleness/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/fact-staleness\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Fact Staleness — Validez temporal de hechos: cada dato caduca y el agente debe saber cuándo ya no sirve (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-fact-staleness\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"frescura-del-conocimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Fact Staleness\n\n> Validez temporal de hechos: cada dato caduca y el agente debe saber cuándo ya no sirve\n\n**Categoría:** Frescura del Conocimiento · **ID:** `mcp-fact-staleness`\n\n**Dolor de agente que resuelve:** El agente trata todos los hechos como eternos: cita un dato de 2023 como vigente, mezcla precios antiguos con actuales y no sabe qué parte de su conocimiento ya venció.\n\n> Estado persistente en `~/.mcp-suite/fact-staleness/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `register_fact`\nRegistra un hecho con su fuente, fecha de observación y clase (que determina su vida media).\n\n**Parámetros:**\n  - `hecho` (string, requerido): El hecho en una frase\n  - `valor` (string, requerido): Valor/dato concreto\n  - `clase` (enum, requerido): Clase de hecho\n  - `fuente` (string, requerido): De dónde se obtuvo\n  - `observado` (string, opcional): Fecha ISO en que se observó\n\n### `check_freshness`\nEvalúa la frescura de los hechos registrados: frescos, a punto de caducar y ya vencidos.\n\n### `refresh_fact`\nRe-verifica un hecho: nuevo valor + fuente + fecha, dejando auditoría del cambio.\n\n**Parámetros:**\n  - `id` (string, requerido): ID del hecho\n  - `nuevo_valor` (string, requerido): Valor re-verificado\n  - `fuente` (string, requerido): Fuente de la verificación\n  - `sin_cambio` (boolean, opcional): true si se confirmó igual\n\n### `assert_usable`\nAntes de usar un hecho en una respuesta: ¿sigue siendo utilizable o hay que re-verificarlo?\n\n**Parámetros:**\n  - `id` (string, requerido): ID del hecho\n\n### `staleness_report`\nReporte por clase de hecho: qué clases de conocimiento se mantienen al día y cuáles no.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"fact-staleness\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-fact-staleness/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/fact-staleness/. Hechos con vida-media por clase (precio 7d, métrica 30d, hecho estructural ∞); calcula frescura, vencidos y exige re-verificación.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Fact Staleness\n * Validez temporal de hechos: cada dato caduca y el agente debe saber cuándo ya no sirve\n *\n * Dolor que resuelve: El agente trata todos los hechos como eternos: cita un dato de 2023 como vigente, mezcla precios antiguos con actuales y no sabe qué parte de su conocimiento ya venció.\n * Categoría: Frescura del Conocimiento | Generado por mcp-suite | id: fact-staleness\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/fact-staleness/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"fact-staleness\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"fact-staleness\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_fact\",\n  \"Registra un hecho con su fuente, fecha de observación y clase (que determina su vida media).\",\n  {\n  hecho: z.string().describe(\"El hecho en una frase\"),\n  valor: z.string().describe(\"Valor/dato concreto\"),\n  clase: z.enum([\"precio\",\"metrica\",\"inventario\",\"noticia\",\"regla_negocio\",\"hecho_estructural\",\"dato_persona\"]).describe(\"Clase de hecho\"),\n  fuente: z.string().describe(\"De dónde se obtuvo\"),\n  observado: z.string().describe(\"Fecha ISO en que se observó\").optional(),\n  },\n  async (args: any) => {\n    const { hecho, valor, clase, fuente, observado } = args as any;\n    const st = store.load();\nst.hechos = st.hechos || [];\nconst VIDA_MEDIA_DIAS = { precio: 7, metrica: 30, inventario: 1, noticia: 14, regla_negocio: 180, hecho_estructural: 3650, dato_persona: 365 };\nconst obs = observado || new Date().toISOString();\nif (isNaN(new Date(obs).getTime())) return fail(\"observado no es fecha ISO\");\nst.hechos.push({ id: \"ft_\" + Date.now().toString(36), hecho, valor, clase, fuente, observado: obs, vida_media_dias: VIDA_MEDIA_DIAS[clase], verificaciones: 0, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id: st.hechos[st.hechos.length - 1].id, hecho: hecho.slice(0, 70), clase, vida_media_dias: VIDA_MEDIA_DIAS[clase], caduca_aprox: new Date(new Date(obs).getTime() + VIDA_MEDIA_DIAS[clase] * 86400000).toISOString().slice(0, 10) });\n  }\n);\n\nserver.tool(\n  \"check_freshness\",\n  \"Evalúa la frescura de los hechos registrados: frescos, a punto de caducar y ya vencidos.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst hechos = st.hechos || [];\nif (!hechos.length) return ok({ hechos: 0, sugerencia: \"registra hechos con register_fact\" });\nconst ahora = Date.now();\nconst evaluados = hechos.map(f => {\n  const edadDias = (ahora - new Date(f.observado).getTime()) / 86400000;\n  const ratio = edadDias / f.vida_media_dias;\n  const estado = ratio > 1 ? \"VENCIDO\" : ratio > 0.7 ? \"A_PUNTO\" : \"fresco\";\n  return { id: f.id, hecho: f.hecho.slice(0, 70), clase: f.clase, edad_dias: Number(edadDias.toFixed(1)), vida_media: f.vida_media_dias, estado };\n});\nreturn ok({\n  hechos: evaluados.length,\n  frescos: evaluados.filter(e => e.estado === \"fresco\").length,\n  a_punto: evaluados.filter(e => e.estado === \"A_PUNTO\").length,\n  vencidos: evaluados.filter(e => e.estado === \"VENCIDO\").length,\n  vencidos_detalle: evaluados.filter(e => e.estado === \"VENCIDO\").slice(0, 10),\n  regla: \"un hecho VENCIDO no puede usarse en una respuesta sin re-verificarlo (refresh_fact) o marcarlo como desactualizado\",\n});\n  }\n);\n\nserver.tool(\n  \"refresh_fact\",\n  \"Re-verifica un hecho: nuevo valor + fuente + fecha, dejando auditoría del cambio.\",\n  {\n  id: z.string().describe(\"ID del hecho\"),\n  nuevo_valor: z.string().describe(\"Valor re-verificado\"),\n  fuente: z.string().describe(\"Fuente de la verificación\"),\n  sin_cambio: z.boolean().describe(\"true si se confirmó igual\").default(false),\n  },\n  async (args: any) => {\n    const { id, nuevo_valor, fuente, sin_cambio } = args as any;\n    const st = store.load();\nconst f = (st.hechos || []).find(x => x.id === id);\nif (!f) return fail(\"hecho no encontrado\");\nf.historial = f.historial || [];\nf.historial.push({ valor: f.valor, observado: f.observado, ts: new Date().toISOString() });\nif (!sin_cambio) f.valor = nuevo_valor;\nf.observado = new Date().toISOString();\nif (fuente) f.fuente = fuente;\nf.verificaciones++;\nstore.save(st);\nreturn ok({ hecho: f.hecho.slice(0, 70), verificado: true, valor_actual: f.valor, cambios_previos: f.historial.length });\n  }\n);\n\nserver.tool(\n  \"assert_usable\",\n  \"Antes de usar un hecho en una respuesta: ¿sigue siendo utilizable o hay que re-verificarlo?\",\n  {\n  id: z.string().describe(\"ID del hecho\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst f = (st.hechos || []).find(x => x.id === id);\nif (!f) return fail(\"hecho no encontrado\");\nconst edadDias = (Date.now() - new Date(f.observado).getTime()) / 86400000;\nconst ratio = edadDias / f.vida_media_dias;\nif (ratio > 1) return ok({ utilizable: false, accion: \"RE-VERIFICAR antes de citar: venció hace \" + Number((ratio - 1) * f.vida_media_dias).toFixed(1) + \" días (vida media \" + f.vida_media_dias + \"d)\", valor_actual: f.valor });\nif (ratio > 0.7) return ok({ utilizable: \"condicional\", accion: \"cítaalo con fecha ('según \" + f.fuente + \", \" + f.observado.slice(0, 10) + \"') y re-verifica si es decisión crítica\", valor_actual: f.valor });\nreturn ok({ utilizable: true, accion: \"puedes usarlo; aún así cita la fecha de observación\", valor_actual: f.valor, observado: f.observado.slice(0, 10) });\n  }\n);\n\nserver.tool(\n  \"staleness_report\",\n  \"Reporte por clase de hecho: qué clases de conocimiento se mantienen al día y cuáles no.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst hechos = st.hechos || [];\nif (!hechos.length) return ok({ hechos: 0 });\nconst porClase = {};\nfor (const f of hechos) {\n  porClase[f.clase] = porClase[f.clase] || { total: 0, vencidos: 0, verificaciones: 0 };\n  porClase[f.clase].total++;\n  if ((Date.now() - new Date(f.observado).getTime()) / 86400000 > f.vida_media_dias) porClase[f.clase].vencidos++;\n  porClase[f.clase].verificaciones += f.verificaciones;\n}\nreturn ok({\n  clases: Object.keys(porClase).length,\n  por_clase: __ents(porClase).map(([k, v]: [string, any]) => ({ clase: k, hechos: v.total, vencidos: v.vencidos, pct: v.total ? v.vencidos / v.total : 0 })).sort((a, b) => b.pct - a.pct),\n  clase_mas_descuidada: __ents(porClase).map(([k, v]: [string, any]) => ({ k, r: v.total ? v.vencidos / v.total : 0 })).sort((a, b) => b.r - a.r)[0].k,\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor fact-staleness está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"fact-staleness\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[fact-staleness] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "fact-staleness"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

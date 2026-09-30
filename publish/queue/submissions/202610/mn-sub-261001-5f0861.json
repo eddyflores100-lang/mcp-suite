@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-5f0861",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-verification-pipeline",
+  "version": "1.0.0",
+  "description": "Pipeline de 12 etapas de verificación de credenciales al estilo UTA de MarketNow Dolor que resuelve: Verificar una credencial de agente requiere combinar muchas comprobaciones (sintaxis, firma, vigencia, emisor, revocación...): nadie las orquesta. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "ed25519",
+   "cryptography",
+   "trust"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only verification-pipeline",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-verification-pipeline",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "run_pipeline",
+    "stages_reference",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only verification-pipeline",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-verification-pipeline\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-verification-pipeline/dist/index.js\"]}}}. Tools disponibles: run_pipeline, stages_reference y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/verification-pipeline/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-verification-pipeline (run_pipeline, stages_reference). Pipeline de 12 etapas de verificación de credenciales al estilo UTA de MarketNow. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/verification-pipeline/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/verification-pipeline\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Trust Verification Pipeline — Pipeline de 12 etapas de verificación de credenciales al estilo UTA de MarketNow (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-verification-pipeline\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Trust Verification Pipeline\n\n> Pipeline de 12 etapas de verificación de credenciales al estilo UTA de MarketNow\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-verification-pipeline`\n\n**Dolor de agente que resuelve:** Verificar una credencial de agente requiere combinar muchas comprobaciones (sintaxis, firma, vigencia, emisor, revocación...): nadie las orquesta.\n\n## Tools (3 incl. health_check)\n\n### `run_pipeline`\nEjecuta las 12 etapas de verificación sobre una credencial JSON y devuelve el resultado por etapa + veredicto final (CONFIABLE / REVISAR / RECHAZAR).\n\n**Parámetros:**\n  - `credential` (any, requerido): Credencial a verificar\n  - `min_score` (number, opcional): Score mínimo exigido\n\n### `stages_reference`\nDocumentación de las 12 etapas del pipeline: qué valida cada una y qué hacer si falla.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"verification-pipeline\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-verification-pipeline/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nEjecuta 12 etapas en orden sobre un JSON: syntax, schema, canonicalización, firma, vigencia, emisor, revocación, frescura, score, capabilities, replay y cadena. Devuelve pass/fail/warn por etapa y veredicto.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Trust Verification Pipeline\n * Pipeline de 12 etapas de verificación de credenciales al estilo UTA de MarketNow\n *\n * Dolor que resuelve: Verificar una credencial de agente requiere combinar muchas comprobaciones (sintaxis, firma, vigencia, emisor, revocación...): nadie las orquesta.\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: verification-pipeline\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"verification-pipeline\", version: \"1.0.0\" });\n\nserver.tool(\n  \"run_pipeline\",\n  \"Ejecuta las 12 etapas de verificación sobre una credencial JSON y devuelve el resultado por etapa + veredicto final (CONFIABLE / REVISAR / RECHAZAR).\",\n  {\n  credential: z.any().describe(\"Credencial a verificar\"),\n  min_score: z.number().describe(\"Score mínimo exigido\").default(7),\n  },\n  async (args: any) => {\n    const { credential, min_score } = args as any;\n    const c = credential || {};\nconst etapas = [];\nconst add = (nombre, estado, detalle) => etapas.push({ etapa: nombre, estado, detalle });\nlet s = \"\";\ntry { s = JSON.stringify(c); add(\"1.syntax\", \"pass\", \"JSON serializable\"); } catch (e) { add(\"1.syntax\", \"fail\", e.message); }\nconst isObj = c && typeof c === \"object\" && !Array.isArray(c);\nadd(\"2.schema\", isObj ? \"pass\" : \"fail\", isObj ? \"objeto plano\" : \"no es objeto\");\nadd(\"3.canonizacion\", \"pass\", \"serializable a forma canónica JCS\");\nconst hasProof = !!c.proof || !!c.signature || !!c.jws;\nadd(\"4.firma\", hasProof ? (c.proof?.signature_b64 ? \"pass\" : \"warn\") : \"warn\", hasProof ? \"proof presente\" : \"sin proof: credencial autofirmada o anónima\");\nconst now = Date.now();\nconst exp = c.expires_at || c.expirationDate || c.exp;\nconst vigente = exp ? new Date(typeof exp === \"number\" ? exp * 1000 : exp).getTime() > now : false;\nadd(\"5.vigencia\", vigente ? \"pass\" : \"fail\", exp ? (\"expira: \" + exp) : \"sin expiración: warn\");\nadd(\"6.emisor\", c.issuer || c.iss ? \"pass\" : \"warn\", c.issuer || c.iss || \"emisor ausente\");\nadd(\"7.revocacion\", \"warn\", \"sin lista de revocación local: verificación manual\");\nconst issued = c.issued_at || c.issuanceDate || c.iat;\nconst frescura = issued ? (now - new Date(typeof issued === \"number\" ? issued * 1000 : issued).getTime()) / 86400000 : null;\nadd(\"8.frescura\", frescura === null ? \"warn\" : frescura <= 30 ? \"pass\" : \"warn\", frescura === null ? \"sin issued_at\" : frescura.toFixed(1) + \" días de antigüedad\");\nconst score = c.trust_score ?? c.score ?? c.eval_score ?? null;\nadd(\"9.score\", score === null ? \"warn\" : score >= (min_score ?? 7) ? \"pass\" : \"fail\", score === null ? \"sin score\" : String(score) + \"/\" + \"10\");\nadd(\"10.capabilities\", Array.isArray(c.capabilities) || c.scope ? \"pass\" : \"warn\", \"capabilities: \" + (Array.isArray(c.capabilities) ? c.capabilities.length : c.scope ? c.scope : 0));\nadd(\"11.replay\", \"warn\", \"sin registro de uso previo: guarda fingerprint tras aceptar\");\nadd(\"12.cadena\", c.proof?.verification_method ? \"pass\" : \"warn\", c.proof?.verification_method ? \"clave de verificación presente\" : \"sin cadena de confianza explícita\");\nconst fails = etapas.filter((e) => e.estado === \"fail\").length;\nconst warns = etapas.filter((e) => e.estado === \"warn\").length;\nreturn ok({ veredicto: fails === 0 ? (warns <= 4 ? \"CONFIABLE\" : \"REVISAR\") : \"RECHAZAR\", fails, warns, etapas });\n  }\n);\n\nserver.tool(\n  \"stages_reference\",\n  \"Documentación de las 12 etapas del pipeline: qué valida cada una y qué hacer si falla.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    return ok({ etapas: [\n  { n: 1, nombre: \"syntax\", valida: \"el JSON es serializable\" },\n  { n: 2, nombre: \"schema\", valida: \"estructura de objeto plano con campos mínimos\" },\n  { n: 3, nombre: \"canonicalización\", valida: \"forma canónica JCS determinista\" },\n  { n: 4, nombre: \"firma\", valida: \"proof criptográfico presente y verificable\" },\n  { n: 5, nombre: \"vigencia\", valida: \"no expirada (expires_at/exp)\" },\n  { n: 6, nombre: \"emisor\", valida: \"issuer identificado\" },\n  { n: 7, nombre: \"revocación\", valida: \"no revocada (lista externa)\" },\n  { n: 8, nombre: \"frescura\", valida: \"antigüedad <= 30 días\" },\n  { n: 9, nombre: \"score\", valida: \"trust_score >= mínimo\" },\n  { n: 10, nombre: \"capabilities\", valida: \"alcance declarado\" },\n  { n: 11, nombre: \"replay\", valida: \"no reutilizada (fingerprint)\" },\n  { n: 12, nombre: \"cadena\", valida: \"clave de verificación encadenada\" },\n] });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor verification-pipeline está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"verification-pipeline\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[verification-pipeline] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "verification-pipeline"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

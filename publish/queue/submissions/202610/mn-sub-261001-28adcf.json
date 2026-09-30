@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-28adcf",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-agent-memory-graph",
+  "version": "1.0.0",
+  "description": "Memoria de entidades y relaciones: el grafo de conocimiento del agente Dolor que resuelve: La memoria plana pierde las RELACIONES (quién trabaja con quién, qué depende de qué): los agentes necesitan memoria estructural. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "memory",
+   "context",
+   "retrieval"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only agent-memory-graph",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-memory-graph",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_entity",
+    "link",
+    "neighbors",
+    "query_path",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only agent-memory-graph",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-agent-memory-graph\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-agent-memory-graph/dist/index.js\"]}}}. Tools disponibles: add_entity, link, neighbors, query_path y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/agent-memory-graph/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-agent-memory-graph (add_entity, link, neighbors, query_path). Memoria de entidades y relaciones: el grafo de conocimiento del agente. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/agent-memory-graph/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/agent-memory-graph\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Agent Memory Graph — Memoria de entidades y relaciones: el grafo de conocimiento del agente (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-agent-memory-graph\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Agent Memory Graph\n\n> Memoria de entidades y relaciones: el grafo de conocimiento del agente\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-agent-memory-graph`\n\n**Dolor de agente que resuelve:** La memoria plana pierde las RELACIONES (quién trabaja con quién, qué depende de qué): los agentes necesitan memoria estructural.\n\n> Estado persistente en `~/.mcp-suite/agent-memory-graph/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `add_entity`\nAñade una entidad al grafo de memoria (persona, proyecto, concepto, herramienta...).\n\n**Parámetros:**\n  - `id` (string, requerido): Identificador único\n  - `tipo` (string, requerido): Tipo (persona/proyecto/concepto)\n  - `props` (any, opcional): Propiedades adicionales\n\n### `link`\nCrea una relación dirigida entre dos entidades (ej: alice -> trabaja_en -> proyecto-x).\n\n**Parámetros:**\n  - `desde` (string, requerido): Entidad origen\n  - `hacia` (string, requerido): Entidad destino\n  - `relacion` (string, requerido): Nombre de la relación\n\n### `neighbors`\nDevuelve vecinos de una entidad: relaciones entrantes y salientes con nombres.\n\n**Parámetros:**\n  - `entidad` (string, requerido): Entidad a consultar\n\n### `query_path`\nEncuentra caminos de hasta 2 saltos entre dos entidades (quién conecta con quién).\n\n**Parámetros:**\n  - `origen` (string, requerido): Entidad origen\n  - `destino` (string, requerido): Entidad destino\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"agent-memory-graph\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-agent-memory-graph/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nGrafo dirigido etiquetado persistente: nodos {id, tipo, props} y aristas {desde, hacia, relación}. Consulta de vecinos y caminos de longitud 2.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Agent Memory Graph\n * Memoria de entidades y relaciones: el grafo de conocimiento del agente\n *\n * Dolor que resuelve: La memoria plana pierde las RELACIONES (quién trabaja con quién, qué depende de qué): los agentes necesitan memoria estructural.\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: agent-memory-graph\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/agent-memory-graph/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"agent-memory-graph\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"agent-memory-graph\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_entity\",\n  \"Añade una entidad al grafo de memoria (persona, proyecto, concepto, herramienta...).\",\n  {\n  id: z.string().describe(\"Identificador único\"),\n  tipo: z.string().describe(\"Tipo (persona/proyecto/concepto)\"),\n  props: z.any().describe(\"Propiedades adicionales\").optional(),\n  },\n  async (args: any) => {\n    const { id, tipo, props } = args as any;\n    const st = store.load();\nst.entidades = st.entidades || {};\nst.entidades[id] = { tipo, props: props || {}, creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ entidad: id, tipo, total_entidades: Object.keys(st.entidades).length });\n  }\n);\n\nserver.tool(\n  \"link\",\n  \"Crea una relación dirigida entre dos entidades (ej: alice -> trabaja_en -> proyecto-x).\",\n  {\n  desde: z.string().describe(\"Entidad origen\"),\n  hacia: z.string().describe(\"Entidad destino\"),\n  relacion: z.string().describe(\"Nombre de la relación\"),\n  },\n  async (args: any) => {\n    const { desde, hacia, relacion } = args as any;\n    const st = store.load();\nst.aristas = st.aristas || [];\nif (!st.entidades?.[desde]) return fail(\"entidad origen no existe: add_entity primero\");\nif (!st.entidades?.[hacia]) return fail(\"entidad destino no existe: add_entity primero\");\nst.aristas.push({ desde, hacia, relacion, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ arista: desde + \" -\" + relacion + \"-> \" + hacia, total_aristas: st.aristas.length });\n  }\n);\n\nserver.tool(\n  \"neighbors\",\n  \"Devuelve vecinos de una entidad: relaciones entrantes y salientes con nombres.\",\n  {\n  entidad: z.string().describe(\"Entidad a consultar\"),\n  },\n  async (args: any) => {\n    const { entidad } = args as any;\n    const st = store.load();\nconst salientes = (st.aristas || []).filter((a: any) => a.desde === entidad).map((a: any) => ({ relacion: a.relacion, destino: a.hacia }));\nconst entrantes = (st.aristas || []).filter((a: any) => a.hacia === entidad).map((a: any) => ({ origen: a.desde, relacion: a.relacion }));\nreturn ok({ entidad, tipo: st.entidades?.[entidad]?.tipo, salientes, entrantes });\n  }\n);\n\nserver.tool(\n  \"query_path\",\n  \"Encuentra caminos de hasta 2 saltos entre dos entidades (quién conecta con quién).\",\n  {\n  origen: z.string().describe(\"Entidad origen\"),\n  destino: z.string().describe(\"Entidad destino\"),\n  },\n  async (args: any) => {\n    const { origen, destino } = args as any;\n    const st = store.load();\nconst aristas: any[] = st.aristas || [];\nconst caminos: any[] = [];\nfor (const a of aristas.filter((a) => a.desde === origen && a.hacia === destino)) caminos.push({ camino: [origen, destino], via: a.relacion });\nfor (const a1 of aristas.filter((a) => a.desde === origen)) {\n  for (const a2 of aristas.filter((a) => a.desde === a1.hacia && a.hacia === destino)) {\n    caminos.push({ camino: [origen, a1.hacia, destino], via: a1.relacion + \" -> \" + a2.relacion });\n  }\n}\nreturn ok({ origen, destino, caminos, conectados: caminos.length > 0 });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor agent-memory-graph está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"agent-memory-graph\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[agent-memory-graph] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "agent-memory-graph"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

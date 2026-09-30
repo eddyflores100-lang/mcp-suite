@@ -1,0 +1,62 @@
+{
+ "name": "mcp-text-qa",
+ "version": "1.0.0",
+ "description": "QA de texto: palabras duplicadas, placeholders, encoding roto y espaciado Dolor que resuelve: Salidas con errores tipográficos obvios (palabras duplicadas, caracteres mojibake, doble espacio) erosionan la confianza. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Developer Tools",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "quality",
+  "validation",
+  "hallucination"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only text-qa",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-text-qa",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "check",
+   "fix_common",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only text-qa",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-text-qa\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-text-qa/dist/index.js\"]}}}. Tools disponibles: check, fix_common y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/text-qa/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-text-qa (check, fix_common). QA de texto: palabras duplicadas, placeholders, encoding roto y espaciado. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/text-qa/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/text-qa\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Text QA — QA de texto: palabras duplicadas, placeholders, encoding roto y espaciado (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-text-qa\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Text QA\n\n> QA de texto: palabras duplicadas, placeholders, encoding roto y espaciado\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-text-qa`\n\n**Dolor de agente que resuelve:** Salidas con errores tipográficos obvios (palabras duplicadas, caracteres mojibake, doble espacio) erosionan la confianza.\n\n## Tools (3 incl. health_check)\n\n### `check`\nEjecuta 10+ reglas de QA tipográfico: duplicadas, mojibake, doble espacio, espacios antes de puntuación, minúscula tras punto, lorem, URLs rotas.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a revisar\n\n### `fix_common`\nCorrige automáticamente los problemas tipográficos seguros: duplicadas, dobles espacios, espacios antes de puntuación, trailing spaces.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a corregir\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"text-qa\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-text-qa/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Text QA\n * QA de texto: palabras duplicadas, placeholders, encoding roto y espaciado\n *\n * Dolor que resuelve: Salidas con errores tipográficos obvios (palabras duplicadas, caracteres mojibake, doble espacio) erosionan la confianza.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: text-qa\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"text-qa\", version: \"1.0.0\" });\n\nserver.tool(\n  \"check\",\n  \"Ejecuta 10+ reglas de QA tipográfico: duplicadas, mojibake, doble espacio, espacios antes de puntuación, minúscula tras punto, lorem, URLs rotas.\",\n  {\n  texto: z.string().describe(\"Texto a revisar\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const issues: any[] = [];\nconst dup = texto.match(/\\b(\\w+)\\s+\\1\\b/gi);\nif (dup) issues.push({ tipo: \"palabra-duplicada\", ejemplos: dup.slice(0, 5) });\nif (/[\\ufffd\\u00c3\\u00e2\\u20ac]/.test(texto)) issues.push({ tipo: \"encoding-roto (mojibake)\", ejemplos: (texto.match(/[\\ufffd\\u00c3.\\u00e2\\u20ac]{2,}/g) || []).slice(0, 5) });\nif (/ {2,}/.test(texto)) issues.push({ tipo: \"doble-espacio\", ocurrencias: (texto.match(/ {2,}/g) || []).length });\nif (/\\s+[,;:.!?]/.test(texto)) issues.push({ tipo: \"espacio-antes-de-puntuación\", ocurrencias: (texto.match(/\\s+[,;:.!?]/g) || []).length });\nif (/[a-z]\\.[A-Z]/.test(texto.replace(/\\b\\w\\./g, \"\"))) issues.push({ tipo: \"posible-falta-de-espacio-tras-punto\" });\nif (/lorem ipsum/i.test(texto)) issues.push({ tipo: \"lorem-ipsum\" });\nif (/\\bTODO\\b|\\bFIXME\\b|TBD/i.test(texto)) issues.push({ tipo: \"marcas-de-trabajo-inconcluso\" });\nif (/[)!.,;:]{2,}/.test(texto)) issues.push({ tipo: \"puntuación-repetida\", ejemplos: (texto.match(/[)!.,;:]{2,}/g) || []).slice(0, 3) });\nif (/\\s\\n/.test(texto)) issues.push({ tipo: \"espacios-al-final-de-línea\", ocurrencias: (texto.match(/\\s\\n/g) || []).length });\nif (textoo_mayus(texto)) issues.push({ tipo: \"GRIETAS-en-mayúsculas (shouting)\", ejemplos: (texto.match(/\\b[A-ZÁÉÍÓÚÑ]{5,}\\b/g) || []).slice(0, 5) });\nfunction textoo_mayus(t: string): boolean { return (t.match(/\\b[A-ZÁÉÍÓÚÑ]{5,}\\b/g) || []).length > 2; }\nreturn ok({ limpio: issues.length === 0, issues: issues.map((i) => ({ tipo: i.tipo, ...i })) });\n  }\n);\n\nserver.tool(\n  \"fix_common\",\n  \"Corrige automáticamente los problemas tipográficos seguros: duplicadas, dobles espacios, espacios antes de puntuación, trailing spaces.\",\n  {\n  texto: z.string().describe(\"Texto a corregir\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    let t = texto;\nlet cambios = 0;\nconst antes = t;\nt = t.replace(/\\b(\\w+)\\s+\\1\\b/gi, \"$1\"); if (t !== antes) cambios++;\nconst a2 = t; t = t.replace(/ {2,}/g, \" \"); if (t !== a2) cambios++;\nconst a3 = t; t = t.replace(/\\s+([,;:.!?])/g, \"$1\"); if (t !== a3) cambios++;\nconst a4 = t; t = t.replace(/[ \\t]+\\n/g, \"\\n\"); if (t !== a4) cambios++;\nconst a5 = t; t = t.replace(/[)!.,;:]{2,}/g, (m) => m[0]); if (t !== a5) cambios++;\nreturn ok({ cambios_aplicados: cambios, texto_corregido: t });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor text-qa está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"text-qa\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[text-qa] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

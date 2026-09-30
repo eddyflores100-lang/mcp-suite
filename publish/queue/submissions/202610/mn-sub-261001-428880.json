@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-428880",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-viewport-verifier",
+  "version": "1.0.0",
+  "description": "Verifica el estado visible esperado tras cada acción: el navegador dice lo que realmente se ve Dolor que resuelve: El agente asume que su acción funcionó porque no hubo error: pero el toast se cerró, el modal tapaba el botón, o el spinner seguía girando. Sin verificar el estado visible, el flujo 'avanza' roto. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "computer-use",
+   "automation",
+   "browser"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only viewport-verifier",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-viewport-verifier",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "declare_expectation",
+    "verify_viewport",
+    "assert_page_ready",
+    "observed_report",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only viewport-verifier",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-viewport-verifier\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-viewport-verifier/dist/index.js\"]}}}. Tools disponibles: declare_expectation, verify_viewport, assert_page_ready, observed_report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/viewport-verifier/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-viewport-verifier (declare_expectation, verify_viewport, assert_page_ready, observed_report). Verifica el estado visible esperado tras cada acción: el navegador dice lo que realmente se ve. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/viewport-verifier/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/viewport-verifier\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Viewport Verifier — Verifica el estado visible esperado tras cada acción: el navegador dice lo que realmente se ve (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-viewport-verifier\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"computer-use\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Viewport Verifier\n\n> Verifica el estado visible esperado tras cada acción: el navegador dice lo que realmente se ve\n\n**Categoría:** Computer Use · **ID:** `mcp-viewport-verifier`\n\n**Dolor de agente que resuelve:** El agente asume que su acción funcionó porque no hubo error: pero el toast se cerró, el modal tapaba el botón, o el spinner seguía girando. Sin verificar el estado visible, el flujo 'avanza' roto.\n\n## Tools (5 incl. health_check)\n\n### `declare_expectation`\nDeclara la expectativa de estado visible tras una acción (para verificarla inmediatamente).\n\n**Parámetros:**\n  - `tras_accion` (string, requerido): Acción realizada\n  - `debe_aparecer` (array, opcional): Elementos/textos que deben ser visibles\n  - `debe_desaparecer` (array, opcional): Lo que ya no debe verse\n  - `debe_contener_texto` (string, opcional): Texto que debe existir en la página\n\n### `verify_viewport`\nVerifica la expectativa contra lo observado (texto visible y elementos detectados) y explica discrepancias.\n\n**Parámetros:**\n  - `expectativa` (any, requerido): Expectativa declarada (objeto de declare_expectation)\n  - `texto_visible` (string, requerido): Texto visible actual del viewport\n  - `elementos_detectados` (array, opcional): Selectores/textos de elementos visibles\n\n### `assert_page_ready`\nComprueba señales de página lista vs página ocupada (spinners, overlays, disabled) contra el texto/estado actual.\n\n**Parámetros:**\n  - `texto_o_estado` (string, requerido): Texto visible o snapshot de atributos del viewport\n\n### `observed_report`\nCompara lo que el agente CREE que pasó vs lo observado: convierte suposiciones en evidencia.\n\n**Parámetros:**\n  - `suposicion` (string, requerido): Lo que el agente cree que logró\n  - `observado` (string, requerido): Lo que realmente se ve en pantalla\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"viewport-verifier\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-viewport-verifier/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nSin persistencia. Expectativas declaradas (qué debe ser visible/ausente/contenido) y verificación contra la observación del viewport con explicación de discrepancias.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Viewport Verifier\n * Verifica el estado visible esperado tras cada acción: el navegador dice lo que realmente se ve\n *\n * Dolor que resuelve: El agente asume que su acción funcionó porque no hubo error: pero el toast se cerró, el modal tapaba el botón, o el spinner seguía girando. Sin verificar el estado visible, el flujo 'avanza' roto.\n * Categoría: Computer Use | Generado por mcp-suite | id: viewport-verifier\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"viewport-verifier\", version: \"1.0.0\" });\n\nserver.tool(\n  \"declare_expectation\",\n  \"Declara la expectativa de estado visible tras una acción (para verificarla inmediatamente).\",\n  {\n  tras_accion: z.string().describe(\"Acción realizada\"),\n  debe_aparecer: z.array(z.any()).describe(\"Elementos/textos que deben ser visibles\").default([]),\n  debe_desaparecer: z.array(z.any()).describe(\"Lo que ya no debe verse\").default([]),\n  debe_contener_texto: z.string().describe(\"Texto que debe existir en la página\").optional(),\n  },\n  async (args: any) => {\n    const { tras_accion, debe_aparecer, debe_desaparecer, debe_contener_texto } = args as any;\n    const exp = { tras_accion, debe_aparecer: debe_aparecer || [], debe_desaparecer: debe_desaparecer || [], debe_contener_texto: debe_contener_texto || null };\nif (!exp.debe_aparecer.length && !exp.debe_desaparecer.length && !exp.debe_contener_texto) return fail(\"expectativa vacía: declara al menos una condición observable\");\nreturn ok({ expectativa: exp, siguiente: \"observa el viewport y verifica con verify_viewport\" });\n  }\n);\n\nserver.tool(\n  \"verify_viewport\",\n  \"Verifica la expectativa contra lo observado (texto visible y elementos detectados) y explica discrepancias.\",\n  {\n  expectativa: z.any().describe(\"Expectativa declarada (objeto de declare_expectation)\"),\n  texto_visible: z.string().describe(\"Texto visible actual del viewport\"),\n  elementos_detectados: z.array(z.any()).describe(\"Selectores/textos de elementos visibles\").default([]),\n  },\n  async (args: any) => {\n    const { expectativa, texto_visible, elementos_detectados } = args as any;\n    if (!expectativa || typeof expectativa !== \"object\") return fail(\"expectativa inválida\");\nconst vis = String(texto_visible || \"\");\nconst elems = (elementos_detectados || []).map(String);\nconst visiblesTodos = elems.concat([vis]);\nconst fallos = [];\nconst okList = [];\nfor (const esp of expectativa.debe_aparecer || []) {\n  const hit = visiblesTodos.some(v => v && v.toLowerCase().includes(String(esp).toLowerCase()));\n  (hit ? okList : fallos).push({ esperaba_ver: esp, tipo: \"aparecer\" });\n}\nfor (const esp of expectativa.debe_desaparecer || []) {\n  const hit = visiblesTodos.some(v => v && v.toLowerCase().includes(String(esp).toLowerCase()));\n  (hit ? fallos : okList).push({ esperaba_ver: esp, tipo: \"desaparecer\", problema: \"SIGUE PRESENTE\" });\n}\nif (expectativa.debe_contener_texto && !vis.toLowerCase().includes(String(expectativa.debe_contener_texto).toLowerCase())) fallos.push({ esperaba_ver: expectativa.debe_contener_texto, tipo: \"texto\", problema: \"texto no encontrado en viewport\" });\nconst verdicto = fallos.length === 0 ? \"CONFIRMADO: la acción produjo el estado esperado\" : fallos.length <= 2 ? \"PARCIAL: condiciones sin cumplir, posible lentitud/animación: re-verifica tras esperar\" : \"FALLIDO: la acción NO produjo el efecto: NO continúes el flujo\";\nreturn ok({\n  accion: expectativa.tras_accion,\n  confirmadas: okList.length,\n  fallidas: fallos.length,\n  fallos,\n  veredicto: verdicto,\n  siguiente_paso: fallos.length === 0 ? \"continúa el flujo\" : \"espera 1-2s y re-verifica; si persiste: checkpoint-undo y diagnostica (dom-baseline diff)\",\n});\n  }\n);\n\nserver.tool(\n  \"assert_page_ready\",\n  \"Comprueba señales de página lista vs página ocupada (spinners, overlays, disabled) contra el texto/estado actual.\",\n  {\n  texto_o_estado: z.string().describe(\"Texto visible o snapshot de atributos del viewport\"),\n  },\n  async (args: any) => {\n    const { texto_o_estado } = args as any;\n    const t = String(texto_o_estado || \"\");\nconst OCUPADO = /(cargando|loading|spinner|procesando|por favor espere|sincronizando|guardando...)/i;\nconst BLOQUEADO = /(deshabilitado|disabled|no disponible|intenta de nuevo más tarde|error 5\\d\\d|algo salió mal)/i;\nconst LISTO = /(listo|completado|guardado|enviado|correcto|success|resultado)/i;\nconst señales = { ocupado: OCUPADO.test(t), bloqueado: BLOQUEADO.test(t), listo: LISTO.test(t) };\nlet estado;\nif (señales.bloqueado) estado = \"BLOQUEADO: hay error visible: captura y aborta\";\nelse if (señales.ocupado && !señales.listo) estado = \"OCUPADO: espera 1-3s y vuelve a comprobar\";\nelse if (señales.listo) estado = \"LISTO: puedes interactuar\";\nelse estado = \"INDETERMINADO: sin señales claras: verifica elementos clave a mano\";\nreturn ok({ señales, estado, regla: \"jamás interactúes con una página en estado OCUPADO o BLOQUEADO\" });\n  }\n);\n\nserver.tool(\n  \"observed_report\",\n  \"Compara lo que el agente CREE que pasó vs lo observado: convierte suposiciones en evidencia.\",\n  {\n  suposicion: z.string().describe(\"Lo que el agente cree que logró\"),\n  observado: z.string().describe(\"Lo que realmente se ve en pantalla\"),\n  },\n  async (args: any) => {\n    const { suposicion, observado } = args as any;\n    const tokens = (s) => new Set(String(s).toLowerCase().split(/\\W+/).filter(w => w.length > 3));\nconst a = tokens(suposicion), b = tokens(observado);\nconst inter = [...a].filter(w => b.has(w)).length;\nconst union = new Set([...a, ...b]).size || 1;\nconst jaccard = inter / union;\nreturn ok({\n  coincidencia: Number(jaccard.toFixed(2)),\n  tokens_suposicion_sostenidos: [...a].filter(w => b.has(w)),\n  tokens_suposicion_sin_evidencia: [...a].filter(w => !b.has(w)),\n  veredicto: jaccard >= 0.5 ? \"la suposición está sostenida por lo observable\" : jaccard >= 0.25 ? \"parcialmente sostenida: confirmando con verify_viewport\" : \"SIN EVIDENCIA: lo que crees NO se ve en pantalla: no declares éxito\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor viewport-verifier está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"viewport-verifier\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[viewport-verifier] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "viewport-verifier"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

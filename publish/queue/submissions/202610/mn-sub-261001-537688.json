@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-537688",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-regression-harness",
+  "version": "1.0.0",
+  "description": "Regresión de comportamiento del agente: compara respuestas actuales vs históricas tras cualquier cambio Dolor que resuelve: Cambias el system prompt 'inofensivamente' y el agente empieza a fallar de formas nuevas. Sin battery de regresión de comportamiento, el daño aparece días después cuando nadie relaciona el cambio con el fallo. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Monitoring",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "evals",
+   "regression",
+   "golden-set"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only regression-harness",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-regression-harness",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "set_probes",
+    "record_run",
+    "compare_to_baseline",
+    "regression_history",
+    "rebaseline",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only regression-harness",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-regression-harness\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-regression-harness/dist/index.js\"]}}}. Tools disponibles: set_probes, record_run, compare_to_baseline, regression_history, rebaseline y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/regression-harness/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-regression-harness (set_probes, record_run, compare_to_baseline, regression_history, rebaseline). Regresión de comportamiento del agente: compara respuestas actuales vs históricas tras cualquier cambio. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/regression-harness/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/regression-harness\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Regression Harness — Regresión de comportamiento del agente: compara respuestas actuales vs históricas tras cualquier cambio (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-regression-harness\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"evaluaci-n-continua\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Regression Harness\n\n> Regresión de comportamiento del agente: compara respuestas actuales vs históricas tras cualquier cambio\n\n**Categoría:** Evaluación Continua · **ID:** `mcp-regression-harness`\n\n**Dolor de agente que resuelve:** Cambias el system prompt 'inofensivamente' y el agente empieza a fallar de formas nuevas. Sin battery de regresión de comportamiento, el daño aparece días después cuando nadie relaciona el cambio con el fallo.\n\n> Estado persistente en `~/.mcp-suite/regression-harness/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `set_probes`\nDefine las probes fijas (preguntas de sondeo) que se lanzarán en cada run para comparar comportamiento.\n\n**Parámetros:**\n  - `probes` (array, requerido): Lista de entradas de sondeo\n\n### `record_run`\nRegistra un run: qué cambio se aplicó (prompt/modelo/tool) y las respuestas a las probes (mismo orden).\n\n**Parámetros:**\n  - `cambio` (string, requerido): Descripción del cambio aplicado\n  - `respuestas` (array, requerido): Respuestas a las probes en orden\n  - `marcar_baseline` (boolean, opcional): Establecer este run como baseline\n\n### `compare_to_baseline`\nCompara el último run contra el baseline: diffs por probe (semántico, longitud, formato) y score de regresión.\n\n### `regression_history`\nHistorial de cambios vs estabilidad: qué cambio rompió qué (auditoría causa-efecto).\n\n### `rebaseline`\nRe-baselinea a un run concreto (el nuevo comportamiento aprobado pasa a ser la referencia).\n\n**Parámetros:**\n  - `run_n` (number, requerido): Número de run que pasa a ser baseline\n  - `motivo` (string, requerido): Por qué se aprueba el nuevo comportamiento\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"regression-harness\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-regression-harness/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/regression-harness/. Registra runs (cambio aplicado + respuestas a probes fijas), compara contra baseline y detecta diffs semánticos y de comportamiento (tono, formato, longitud).\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Regression Harness\n * Regresión de comportamiento del agente: compara respuestas actuales vs históricas tras cualquier cambio\n *\n * Dolor que resuelve: Cambias el system prompt 'inofensivamente' y el agente empieza a fallar de formas nuevas. Sin battery de regresión de comportamiento, el daño aparece días después cuando nadie relaciona el cambio con el fallo.\n * Categoría: Evaluación Continua | Generado por mcp-suite | id: regression-harness\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/regression-harness/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"regression-harness\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"regression-harness\", version: \"1.0.0\" });\n\nserver.tool(\n  \"set_probes\",\n  \"Define las probes fijas (preguntas de sondeo) que se lanzarán en cada run para comparar comportamiento.\",\n  {\n  probes: z.array(z.any()).describe(\"Lista de entradas de sondeo\"),\n  },\n  async (args: any) => {\n    const { probes } = args as any;\n    const st = store.load();\nconst lista = (probes || []).map(String).filter(Boolean);\nif (lista.length < 3) return fail(\"mínimo 3 probes para que la comparación sea significativa\");\nst.probes = lista;\nstore.save(st);\nreturn ok({ probes_fijadas: lista.length });\n  }\n);\n\nserver.tool(\n  \"record_run\",\n  \"Registra un run: qué cambio se aplicó (prompt/modelo/tool) y las respuestas a las probes (mismo orden).\",\n  {\n  cambio: z.string().describe(\"Descripción del cambio aplicado\"),\n  respuestas: z.array(z.any()).describe(\"Respuestas a las probes en orden\"),\n  marcar_baseline: z.boolean().describe(\"Establecer este run como baseline\").default(false),\n  },\n  async (args: any) => {\n    const { cambio, respuestas, marcar_baseline } = args as any;\n    const st = store.load();\nif (!st.probes) return fail(\"define las probes con set_probes primero\");\nconst resp = respuestas || [];\nif (resp.length !== st.probes.length) return fail(\"esperaba \" + st.probes.length + \" respuestas (una por probe), recibí \" + resp.length);\nst.runs = st.runs || [];\nconst run = { n: st.runs.length + 1, cambio, respuestas: resp.map(String), ts: new Date().toISOString() };\nif (marcar_baseline || st.runs.length === 0) st.baseline = run.n;\nst.runs.push(run);\nstore.save(st);\nreturn ok({ run: run.n, cambio, baseline: st.baseline });\n  }\n);\n\nserver.tool(\n  \"compare_to_baseline\",\n  \"Compara el último run contra el baseline: diffs por probe (semántico, longitud, formato) y score de regresión.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nif (!st.runs?.length || !st.baseline) return fail(\"sin runs o sin baseline\");\nconst base = st.runs.find(r => r.n === st.baseline);\nconst actual = st.runs[st.runs.length - 1];\nif (base.n === actual.n) return fail(\"el último run ES el baseline: registra otro run tras un cambio\");\nconst norm = (x) => new Set(String(x).toLowerCase().split(/\\W+/).filter(w => w.length > 3));\nconst diffs = st.probes.map((p, i) => {\n  const a = base.respuestas[i], b = actual.respuestas[i];\n  const sa = norm(a), sb = norm(b);\n  const inter = [...sa].filter(w => sb.has(w)).length;\n  const union = new Set([...sa, ...sb]).size || 1;\n  const jaccard = inter / union;\n  const lenDelta = b.length - a.length;\n  const fmtA = (a.match(/```|\\n\\d+\\.|\\n- /g) || []).length;\n  const fmtB = (b.match(/```|\\n\\d+\\.|\\n- /g) || []).length;\n  return {\n    probe: p.slice(0, 60),\n    similitud: Number(jaccard.toFixed(2)),\n    cambio_longitud_pct: a.length ? Number((lenDelta / a.length * 100).toFixed(0)) : null,\n    cambio_formato: fmtA !== fmtB,\n    estable: jaccard >= 0.6 && Math.abs(lenDelta / (a.length || 1)) < 0.4 && fmtA === fmtB,\n  };\n});\nconst estables = diffs.filter(d => d.estable).length;\nconst pct = Math.round(estables / diffs.length * 100);\nst.ultimoComparacion = { run: actual.n, contra: base.n, pct, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({\n  comparado: \"run \" + actual.n + \" (\" + actual.cambio.slice(0, 50) + \") vs baseline \" + base.n,\n  estables: estables + \"/\" + diffs.length,\n  score_estabilidad: pct + \"%\",\n  diffs_inestables: diffs.filter(d => !d.estable),\n  veredicto: pct >= 80 ? \"comportamiento estable tras el cambio\" : \"REGRESIÓN DE COMPORTAMIENTO: el cambio alteró respuestas, evalúa si es intencional\",\n});\n  }\n);\n\nserver.tool(\n  \"regression_history\",\n  \"Historial de cambios vs estabilidad: qué cambio rompió qué (auditoría causa-efecto).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nif (!st.runs?.length) return ok({ runs: 0 });\nreturn ok({\n  baseline: st.baseline,\n  runs: st.runs.map(r => ({ n: r.n, cambio: r.cambio.slice(0, 80), ts: r.ts, es_baseline: r.n === st.baseline })),\n  ultima_comparacion: st.ultimoComparacion || \"sin comparar aún\",\n});\n  }\n);\n\nserver.tool(\n  \"rebaseline\",\n  \"Re-baselinea a un run concreto (el nuevo comportamiento aprobado pasa a ser la referencia).\",\n  {\n  run_n: z.number().describe(\"Número de run que pasa a ser baseline\"),\n  motivo: z.string().describe(\"Por qué se aprueba el nuevo comportamiento\"),\n  },\n  async (args: any) => {\n    const { run_n, motivo } = args as any;\n    const st = store.load();\nconst r = (st.runs || []).find(x => x.n === run_n);\nif (!r) return fail(\"run inexistente\");\nif (!motivo) return fail(\"documenta por qué apruebas el nuevo comportamiento\");\nst.baseline = run_n;\nst.rebaselines = st.rebaselines || [];\nst.rebaselines.push({ hacia: run_n, motivo, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ baseline: run_n, motivo, total_rebaselines: st.rebaselines.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor regression-harness está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"regression-harness\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[regression-harness] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "regression-harness"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

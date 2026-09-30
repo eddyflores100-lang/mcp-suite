@@ -1,0 +1,63 @@
+{
+ "name": "mcp-noisy-neighbor-detector",
+ "version": "1.0.0",
+ "description": "Detecta al inquilino ruidoso: quién consume más de lo justo y degrada la experiencia de los demás Dolor que resuelve: Todos los tenants ven 'el agente va lento' pero nadie ve quién lo causa: sin medición de consumo relativo por inquilino, el vecino ruidoso es invisible y la degradación se achaca al sistema. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "multi-tenant",
+  "isolation",
+  "pii"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only noisy-neighbor-detector",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-noisy-neighbor-detector",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "record_usage_event",
+   "analyze_fairness",
+   "flag_noisy",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only noisy-neighbor-detector",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-noisy-neighbor-detector\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-noisy-neighbor-detector/dist/index.js\"]}}}. Tools disponibles: record_usage_event, analyze_fairness, flag_noisy y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/noisy-neighbor-detector/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-noisy-neighbor-detector (record_usage_event, analyze_fairness, flag_noisy). Detecta al inquilino ruidoso: quién consume más de lo justo y degrada la experiencia de los demás. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/noisy-neighbor-detector/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/noisy-neighbor-detector\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Noisy Neighbor Detector — Detecta al inquilino ruidoso: quién consume más de lo justo y degrada la experiencia de los demás (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-noisy-neighbor-detector\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"multi-tenant\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Noisy Neighbor Detector\n\n> Detecta al inquilino ruidoso: quién consume más de lo justo y degrada la experiencia de los demás\n\n**Categoría:** Multi-Tenant · **ID:** `mcp-noisy-neighbor-detector`\n\n**Dolor de agente que resuelve:** Todos los tenants ven 'el agente va lento' pero nadie ve quién lo causa: sin medición de consumo relativo por inquilino, el vecino ruidoso es invisible y la degradación se achaca al sistema.\n\n> Estado persistente en `~/.mcp-suite/noisy-neighbor-detector/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `record_usage_event`\nRegistra un evento de uso con su coste para atribución por tenant.\n\n**Parámetros:**\n  - `tenant` (string, requerido): Tenant\n  - `tokens` (number, opcional): Tokens consumidos\n  - `latencia_ms` (number, opcional): Latencia añadida al sistema\n  - `operacion` (string, opcional): Operación\n\n### `analyze_fairness`\nÍndice de equidad del consumo (Gini) y ranking de contribución al coste total.\n\n**Parámetros:**\n  - `ventana_minutos` (number, opcional): Ventana de análisis\n\n### `flag_noisy`\nMarca a los tenants ruidosos: consumo desproporcionado frente a su cuota o frente a la mediana.\n\n**Parámetros:**\n  - `umbral_x_mediana` (number, opcional): Veces la mediana para ser ruidoso\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"noisy-neighbor-detector\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-noisy-neighbor-detector/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/noisy-neighbor-detector/. Eventos de uso por tenant con coste (tokens/ms); índice de desequilibrio tipo Gini sobre el consumo; flaggeo de tenants por encima del umbral de su cuota relativa.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Noisy Neighbor Detector\n * Detecta al inquilino ruidoso: quién consume más de lo justo y degrada la experiencia de los demás\n *\n * Dolor que resuelve: Todos los tenants ven 'el agente va lento' pero nadie ve quién lo causa: sin medición de consumo relativo por inquilino, el vecino ruidoso es invisible y la degradación se achaca al sistema.\n * Categoría: Multi-Tenant | Generado por mcp-suite | id: noisy-neighbor-detector\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/noisy-neighbor-detector/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"noisy-neighbor-detector\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"noisy-neighbor-detector\", version: \"1.0.0\" });\n\nserver.tool(\n  \"record_usage_event\",\n  \"Registra un evento de uso con su coste para atribución por tenant.\",\n  {\n  tenant: z.string().describe(\"Tenant\"),\n  tokens: z.number().describe(\"Tokens consumidos\").default(0),\n  latencia_ms: z.number().describe(\"Latencia añadida al sistema\").default(0),\n  operacion: z.string().describe(\"Operación\").optional(),\n  },\n  async (args: any) => {\n    const { tenant, tokens, latencia_ms, operacion } = args as any;\n    const st = store.load();\nst.eventos = st.eventos || [];\nst.eventos.push({ tenant, tokens, latencia_ms, operacion: operacion || \"\", ts: new Date().toISOString() });\nif (st.eventos.length > 5000) st.eventos = st.eventos.slice(-4000);\nstore.save(st);\nreturn ok({ registrado: true, eventos: st.eventos.length });\n  }\n);\n\nserver.tool(\n  \"analyze_fairness\",\n  \"Índice de equidad del consumo (Gini) y ranking de contribución al coste total.\",\n  {\n  ventana_minutos: z.number().describe(\"Ventana de análisis\").default(60),\n  },\n  async (args: any) => {\n    const { ventana_minutos } = args as any;\n    const st = store.load();\nconst desde = Date.now() - ventana_minutos * 60000;\nconst eventos = (st.eventos || []).filter(e => new Date(e.ts).getTime() >= desde);\nif (eventos.length < 10) return ok({ eventos: eventos.length, mensaje: \"datos insuficientes en la ventana\" });\nconst peso = {};\neventos.forEach(e => { peso[e.tenant] = (peso[e.tenant] || 0) + e.tokens + e.latencia_ms / 100; });\nconst tenants = __vals(peso);\nconst total = tenants.reduce((a, b) => a + b, 0) || 1;\nconst ordenados = tenants.slice().sort((a, b) => a - b);\nconst n = ordenados.length;\nlet acumulado = 0;\nordenados.forEach(v => { acumulado += v; });\nlet gini = 0;\nordenados.forEach((v, i) => { gini += (2 * (i + 1) - n - 1) * v; });\ngini = gini / (n * acumulado);\nconst porTenant = {};\n__ents(peso).forEach(([t, v]) => { porTenant[t] = { peso: v, share: Number((v / total * 100).toFixed(1)) + \"%\" }; });\nreturn ok({ ventana_minutos, eventos: eventos.length, tenants: n, indice_gini: Number(gini.toFixed(3)), equidad: gini < 0.3 ? \"equitativa\" : gini < 0.6 ? \"concentrada\" : \"ALTAMENTE DESIGUAL: un tenant domina el consumo\", consumo_por_tenant: porTenant, top_consumidor: Object.keys(porTenant).sort((a, b) => peso[b] - peso[a])[0] });\n  }\n);\n\nserver.tool(\n  \"flag_noisy\",\n  \"Marca a los tenants ruidosos: consumo desproporcionado frente a su cuota o frente a la mediana.\",\n  {\n  umbral_x_mediana: z.number().describe(\"Veces la mediana para ser ruidoso\").default(3),\n  },\n  async (args: any) => {\n    const { umbral_x_mediana } = args as any;\n    const st = store.load();\nconst eventos = st.eventos || [];\nif (eventos.length < 20) return ok({ eventos: eventos.length, mensaje: \"insuficiente histórico\" });\nconst peso = {};\neventos.forEach(e => { peso[e.tenant] = (peso[e.tenant] || 0) + e.tokens + e.latencia_ms / 100; });\nconst ruidosos = __ents(peso).map(([t, v]) => {\n  const otros = __vals(peso).filter(x => x !== v).sort((a, b) => a - b);\n  const medianaOtros = otros.length ? otros[Math.floor(otros.length / 2)] : v;\n  return { tenant: t, peso: v, mediana_de_los_demas: medianaOtros, vs_mediana: Number((v / Math.max(medianaOtros, 1)).toFixed(1)) + \"x\", eventos: eventos.filter(e => e.tenant === t).length, ruidoso: v > medianaOtros * umbral_x_mediana };\n}).filter(x => x.ruidoso);\nconst latenciaAportada = {};\neventos.forEach(e => { latenciaAportada[e.tenant] = (latenciaAportada[e.tenant] || 0) + e.latencia_ms; });\nreturn ok({ umbral: umbral_x_mediana + \"x la mediana de los demás\", ruidosos, aportacion_latencia_ms: __ents(latenciaAportada).map(([t, v]) => ({ tenant: t, latencia_total_ms: Math.round(v) })).sort((a, b) => b.latencia_total_ms - a.latencia_total_ms).slice(0, 5), accion: ruidosos.length ? \"aplica throttle al tenant marcado o revisa su patrón (¿bucle?, ¿tareas redundantes?)\" : \"sin vecinos ruidosos\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor noisy-neighbor-detector está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"noisy-neighbor-detector\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[noisy-neighbor-detector] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

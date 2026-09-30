@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-e1fe81",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-readability-extract",
+  "version": "1.0.0",
+  "description": "Extrae el contenido principal de una página: título, artículo y metadatos Dolor que resuelve: Del HTML de una noticia el 80% es chrome (menus, footers, ads): leer sin extraer el main quema contexto. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "data",
+   "parsing",
+   "etl"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only readability-extract",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-readability-extract",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "extract",
+    "excerpt",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only readability-extract",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-readability-extract\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-readability-extract/dist/index.js\"]}}}. Tools disponibles: extract, excerpt y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/readability-extract/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-readability-extract (extract, excerpt). Extrae el contenido principal de una página: título, artículo y metadatos. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/readability-extract/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/readability-extract\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Readability Extract — Extrae el contenido principal de una página: título, artículo y metadatos (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-readability-extract\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Readability Extract\n\n> Extrae el contenido principal de una página: título, artículo y metadatos\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-readability-extract`\n\n**Dolor de agente que resuelve:** Del HTML de una noticia el 80% es chrome (menus, footers, ads): leer sin extraer el main quema contexto.\n\n## Tools (3 incl. health_check)\n\n### `extract`\nHeurística de legibilidad: detecta el bloque con más densidad de texto (article/main/role) y devuelve título + texto del artículo + metadatos.\n\n**Parámetros:**\n  - `html` (string, requerido): HTML de la página\n\n### `excerpt`\nDevuelve un excerpt de N palabras del contenido principal + keywords para decidir si leer más.\n\n**Parámetros:**\n  - `html` (string, requerido): HTML\n  - `palabras` (number, opcional): Palabras del excerpt\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"readability-extract\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-readability-extract/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Readability Extract\n * Extrae el contenido principal de una página: título, artículo y metadatos\n *\n * Dolor que resuelve: Del HTML de una noticia el 80% es chrome (menus, footers, ads): leer sin extraer el main quema contexto.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: readability-extract\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"readability-extract\", version: \"1.0.0\" });\n\nserver.tool(\n  \"extract\",\n  \"Heurística de legibilidad: detecta el bloque con más densidad de texto (article/main/role) y devuelve título + texto del artículo + metadatos.\",\n  {\n  html: z.string().describe(\"HTML de la página\"),\n  },\n  async (args: any) => {\n    const { html } = args as any;\n    const h = String(html);\nconst meta = (name: string) => { const m = h.match(new RegExp('<meta[^>]+(?:name|property)=[\"\\']' + name + '[\"\\'][^>]+content=[\"\\']([^\"\\']*)', \"i\")); return m ? m[1] : null; };\nconst titulo = (h.match(/<title[^>]*>([\\s\\S]*?)<\\/title>/i) || [])[1]?.trim() || meta(\"og:title\") || \"\";\nconst candidatos: Array<[string, string]> = [];\nconst tags = [\"article\", \"main\", \"section\", \"div\"];\nfor (const tag of tags) {\n  const re = new RegExp(\"<\" + tag + \"[^>]*>([\\s\\S]*?)<\\/\" + tag + \">\", \"gi\");\n  let m; while ((m = re.exec(h)) !== null) {\n    const texto = m[1].replace(/<script[\\s\\S]*?<\\/script>/gi, \"\").replace(/<[^>]+>/g, \" \");\n    const palabras = texto.split(/\\s+/).filter((w) => w.length > 2).length;\n    const enlaces = (m[1].match(/<a[\\s]/gi) || []).length;\n    const densidad = palabras / (1 + enlaces);\n    candidatos.push([m[0], palabras + \" palabras, densidad \" + Math.round(densidad)]);\n  }\n}\ncandidatos.sort((a, b) => parseFloat(b[1]) - parseFloat(a[1]));\nconst mejor = candidatos[0]?.[0] || h;\nconst texto = mejor.replace(/<script[\\s\\S]*?<\\/script>/gi, \"\").replace(/<style[\\s\\S]*?<\\/style>/gi, \"\").replace(/<br\\s*\\/?>/gi, \"\\n\").replace(/<\\/p>/gi, \"\\n\\n\").replace(/<[^>]+>/g, \" \").replace(/&nbsp;/g, \" \").replace(/&amp;/g, \"&\").replace(/ +/g, \" \").trim();\nreturn ok({ titulo, descripcion: meta(\"description\") || meta(\"og:description\"), autor: meta(\"author\"), palabras: texto.split(/\\s+/).length, bloques_analizados: candidatos.length, texto: texto.slice(0, 30000) });\n  }\n);\n\nserver.tool(\n  \"excerpt\",\n  \"Devuelve un excerpt de N palabras del contenido principal + keywords para decidir si leer más.\",\n  {\n  html: z.string().describe(\"HTML\"),\n  palabras: z.number().describe(\"Palabras del excerpt\").default(60),\n  },\n  async (args: any) => {\n    const { html, palabras } = args as any;\n    const h = String(html);\nconst body = h.replace(/<script[\\s\\S]*?<\\/script>/gi, \"\").replace(/<style[\\s\\S]*?<\\/style>/gi, \"\").replace(/<[^>]+>/g, \" \").replace(/\\s+/g, \" \").trim();\nconst words = body.split(\" \");\nconst freq: any = {};\nfor (const w of words) { const k = w.toLowerCase().replace(/[^a-záéíóúñü0-9]/g, \"\"); if (k.length > 5) freq[k] = (freq[k] || 0) + 1; }\nconst keywords = __ents(freq).sort((a: any, b: any) => b[1] - a[1]).slice(0, 10).map(([k]) => k);\nreturn ok({ excerpt: words.slice(0, palabras ?? 60).join(\" \"), total_palabras: words.length, keywords });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor readability-extract está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"readability-extract\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[readability-extract] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "readability-extract"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

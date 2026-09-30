@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-99007d",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-context-compressor",
+  "version": "1.0.0",
+  "description": "Comprime contextos largos: extrae lo esencial antes de desbordar la ventana Dolor que resuelve: El contexto crece hasta desbordar la ventana: falta compresión extractiva determinista antes de gastar tokens en reintentos. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "memory",
+   "context",
+   "retrieval"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only context-compressor",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-context-compressor",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "compress",
+    "key_points",
+    "stats",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only context-compressor",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-context-compressor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-context-compressor/dist/index.js\"]}}}. Tools disponibles: compress, key_points, stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/context-compressor/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-context-compressor (compress, key_points, stats). Comprime contextos largos: extrae lo esencial antes de desbordar la ventana. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/context-compressor/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/context-compressor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Context Compressor — Comprime contextos largos: extrae lo esencial antes de desbordar la ventana (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-context-compressor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Context Compressor\n\n> Comprime contextos largos: extrae lo esencial antes de desbordar la ventana\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-context-compressor`\n\n**Dolor de agente que resuelve:** El contexto crece hasta desbordar la ventana: falta compresión extractiva determinista antes de gastar tokens en reintentos.\n\n## Tools (4 incl. health_check)\n\n### `compress`\nCompresión extractiva de un texto largo: selecciona las oraciones más informativas (frecuencia de términos) reduciendo a ~40% del original.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto largo a comprimir\n  - `ratio` (number, opcional): Fracción a conservar (0.1-0.9)\n\n### `key_points`\nExtrae los N puntos clave de un texto (oraciones top por informatividad), sin reordenar el original.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a analizar\n  - `n` (number, opcional): Cuántos puntos\n\n### `stats`\nEstadísticas del texto: caracteres, palabras, oraciones, tokens estimados y densidad informativa.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a medir\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"context-compressor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-context-compressor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Context Compressor\n * Comprime contextos largos: extrae lo esencial antes de desbordar la ventana\n *\n * Dolor que resuelve: El contexto crece hasta desbordar la ventana: falta compresión extractiva determinista antes de gastar tokens en reintentos.\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: context-compressor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"context-compressor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"compress\",\n  \"Compresión extractiva de un texto largo: selecciona las oraciones más informativas (frecuencia de términos) reduciendo a ~40% del original.\",\n  {\n  texto: z.string().describe(\"Texto largo a comprimir\"),\n  ratio: z.number().describe(\"Fracción a conservar (0.1-0.9)\").default(0.4),\n  },\n  async (args: any) => {\n    const { texto, ratio } = args as any;\n    const oraciones = texto.replace(/\\s+/g, \" \").split(/(?<=[.!?])\\s+/).filter((s) => s.trim().length > 10);\nif (oraciones.length <= 3) return ok({ comprimido: texto, oraciones: oraciones.length, nota: \"ya es corto\" });\nconst freq: any = {};\nconst clean = (s: string) => s.toLowerCase().replace(/[^a-záéíóúñü0-9\\s]/g, \"\");\nfor (const o of oraciones) for (const w of clean(o).split(/\\s+/)) if (w.length > 3) freq[w] = (freq[w] || 0) + 1;\nconst puntuadas = oraciones.map((o, i) => {\n  const words = clean(o).split(/\\s+/).filter((w) => w.length > 3);\n  const score = words.reduce((a, w) => a + (freq[w] || 0), 0) / Math.sqrt(words.length || 1);\n  return { i, o, score };\n}).sort((a, b) => b.score - a.score);\nconst conservar = Math.max(3, Math.round(oraciones.length * (ratio ?? 0.4)));\nconst indices = puntuadas.slice(0, conservar).map((p) => p.i).sort((a, b) => a - b);\nconst comprimido = indices.map((i) => oraciones[i]).join(\" \");\nreturn ok({ original_caracteres: texto.length, comprimido_caracteres: comprimido.length, reduccion: Math.round((1 - comprimido.length / texto.length) * 100) + \"%\", oraciones_originales: oraciones.length, oraciones_conservadas: conservar, comprimido });\n  }\n);\n\nserver.tool(\n  \"key_points\",\n  \"Extrae los N puntos clave de un texto (oraciones top por informatividad), sin reordenar el original.\",\n  {\n  texto: z.string().describe(\"Texto a analizar\"),\n  n: z.number().describe(\"Cuántos puntos\").default(5),\n  },\n  async (args: any) => {\n    const { texto, n } = args as any;\n    const oraciones = texto.replace(/\\s+/g, \" \").split(/(?<=[.!?])\\s+/).filter((s) => s.trim().length > 15);\nconst freq: any = {};\nfor (const o of oraciones) for (const w of o.toLowerCase().split(/\\s+/)) if (w.length > 4) freq[w] = (freq[w] || 0) + 1;\nconst top = oraciones.map((o, i) => ({ i, o, score: o.toLowerCase().split(/\\s+/).filter((w: string) => w.length > 4).reduce((a: number, w: string) => a + (freq[w] || 0), 0) })).sort((a, b) => b.score - a.score).slice(0, n ?? 5);\nreturn ok({ puntos_clave: top.map((t) => t.o), total_oraciones: oraciones.length });\n  }\n);\n\nserver.tool(\n  \"stats\",\n  \"Estadísticas del texto: caracteres, palabras, oraciones, tokens estimados y densidad informativa.\",\n  {\n  texto: z.string().describe(\"Texto a medir\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const palabras = texto.split(/\\s+/).filter(Boolean);\nconst oraciones = texto.split(/[.!?]+/).filter((s) => s.trim().length > 0);\nconst unicas = new Set(palabras.map((w) => w.toLowerCase().replace(/[^a-záéíóúñü0-9]/g, \"\"))).size;\nreturn ok({ caracteres: texto.length, palabras: palabras.length, oraciones: oraciones.length, tokens_estimados: Math.ceil(texto.length / 4), palabras_unicas: unicas, riqueza_lexica: palabras.length ? Math.round((unicas / palabras.length) * 100) + \"%\" : \"0%\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor context-compressor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"context-compressor\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[context-compressor] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "context-compressor"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

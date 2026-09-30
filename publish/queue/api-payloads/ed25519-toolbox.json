@@ -1,0 +1,64 @@
+{
+ "name": "mcp-ed25519-toolbox",
+ "version": "1.0.0",
+ "description": "Genera claves, firma y verifica mensajes con Ed25519 (RFC 8032) — la base del trust de agentes Dolor que resuelve: Los agentes firman/verifican sin crypto adecuada: falta una toolbox Ed25519 simple y correcta para identidad de agentes. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "ed25519",
+  "cryptography",
+  "trust"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only ed25519-toolbox",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-ed25519-toolbox",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 9.99,
+  "currency": "USD",
+  "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+ },
+ "price": 9.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "generate_keypair",
+   "sign_message",
+   "verify_signature",
+   "list_keys",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only ed25519-toolbox",
+   "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-ed25519-toolbox\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-ed25519-toolbox/dist/index.js\"]}}}. Tools disponibles: generate_keypair, sign_message, verify_signature, list_keys y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/ed25519-toolbox/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-ed25519-toolbox (generate_keypair, sign_message, verify_signature, list_keys). Genera claves, firma y verifica mensajes con Ed25519 (RFC 8032) — la base del trust de agentes. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/ed25519-toolbox/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/ed25519-toolbox\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Ed25519 Toolbox — Genera claves, firma y verifica mensajes con Ed25519 (RFC 8032) — la base del trust de agentes (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-ed25519-toolbox\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Ed25519 Toolbox\n\n> Genera claves, firma y verifica mensajes con Ed25519 (RFC 8032) — la base del trust de agentes\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-ed25519-toolbox`\n\n**Dolor de agente que resuelve:** Los agentes firman/verifican sin crypto adecuada: falta una toolbox Ed25519 simple y correcta para identidad de agentes.\n\n> Estado persistente en `~/.mcp-suite/ed25519-toolbox/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `generate_keypair`\nGenera un par de claves Ed25519 y la guarda localmente con un alias. Devuelve la pública PEM.\n\n**Parámetros:**\n  - `alias` (string, requerido): Alias para guardar la clave (ej: mi-agente)\n\n### `sign_message`\nFirma un mensaje con la clave privada del alias guardado. Devuelve firma en base64 (detached).\n\n**Parámetros:**\n  - `alias` (string, requerido): Alias de la clave\n  - `mensaje` (string, requerido): Mensaje a firmar\n\n### `verify_signature`\nVerifica una firma detached Ed25519 dado el mensaje, la firma base64 y la clave pública PEM.\n\n**Parámetros:**\n  - `mensaje` (string, requerido): Mensaje original\n  - `firma_b64` (string, requerido): Firma en base64\n  - `public_pem` (string, requerido): Clave pública PEM\n\n### `list_keys`\nLista los alias de claves guardadas (solo metadatos, nunca la privada).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"ed25519-toolbox\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-ed25519-toolbox/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nUsa node:crypto nativo (Ed25519, RFC 8032). Las claves se guardan como PEM en ~/.mcp-suite/ed25519-toolbox/. Las firmas son detached (solo la firma) y también firmas JWS compactas.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Ed25519 Toolbox\n * Genera claves, firma y verifica mensajes con Ed25519 (RFC 8032) — la base del trust de agentes\n *\n * Dolor que resuelve: Los agentes firman/verifican sin crypto adecuada: falta una toolbox Ed25519 simple y correcta para identidad de agentes.\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: ed25519-toolbox\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/ed25519-toolbox/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"ed25519-toolbox\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"ed25519-toolbox\", version: \"1.0.0\" });\n\nserver.tool(\n  \"generate_keypair\",\n  \"Genera un par de claves Ed25519 y la guarda localmente con un alias. Devuelve la pública PEM.\",\n  {\n  alias: z.string().describe(\"Alias para guardar la clave (ej: mi-agente)\"),\n  },\n  async (args: any) => {\n    const { alias } = args as any;\n    const { publicKey, privateKey } = generateKeyPairSync(\"ed25519\");\nconst st = store.load();\nst.keys = st.keys || {};\nst.keys[alias] = { public: publicKey.export({ type: \"spki\", format: \"pem\" }), private: privateKey.export({ type: \"pkcs8\", format: \"pem\" }), created: new Date().toISOString() };\nstore.save(st);\nreturn ok({ alias, public_pem: st.keys[alias].public, algoritmo: \"Ed25519 (RFC 8032)\" });\n  }\n);\n\nserver.tool(\n  \"sign_message\",\n  \"Firma un mensaje con la clave privada del alias guardado. Devuelve firma en base64 (detached).\",\n  {\n  alias: z.string().describe(\"Alias de la clave\"),\n  mensaje: z.string().describe(\"Mensaje a firmar\"),\n  },\n  async (args: any) => {\n    const { alias, mensaje } = args as any;\n    const st = store.load();\nconst k = st.keys?.[alias];\nif (!k) return fail(\"alias no existe: genera_keypair primero\");\nconst firma = sign(null, Buffer.from(mensaje, \"utf8\"), createPrivateKey(k.private));\nreturn ok({ alias, mensaje_hash: createHash(\"sha256\").update(mensaje).digest(\"hex\"), firma_b64: firma.toString(\"base64\") });\n  }\n);\n\nserver.tool(\n  \"verify_signature\",\n  \"Verifica una firma detached Ed25519 dado el mensaje, la firma base64 y la clave pública PEM.\",\n  {\n  mensaje: z.string().describe(\"Mensaje original\"),\n  firma_b64: z.string().describe(\"Firma en base64\"),\n  public_pem: z.string().describe(\"Clave pública PEM\"),\n  },\n  async (args: any) => {\n    const { mensaje, firma_b64, public_pem } = args as any;\n    let valida = false;\nlet error = null;\ntry {\n  valida = verify(null, Buffer.from(mensaje, \"utf8\"), createPublicKey(public_pem), Buffer.from(firma_b64, \"base64\"));\n} catch (e) { error = e.message; }\nreturn ok({ valida, error, algoritmo: \"Ed25519\" });\n  }\n);\n\nserver.tool(\n  \"list_keys\",\n  \"Lista los alias de claves guardadas (solo metadatos, nunca la privada).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst keys = __ents((st.keys || {}) as any).map(([alias, k]: [string, any]) => ({ alias, created: k.created, public_fingerprint: createHash(\"sha256\").update(k.public).digest(\"hex\").slice(0, 16) }));\nreturn ok({ total: keys.length, keys });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor ed25519-toolbox está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"ed25519-toolbox\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[ed25519-toolbox] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

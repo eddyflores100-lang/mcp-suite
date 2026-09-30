@@ -1,0 +1,62 @@
+{
+ "name": "mcp-debug-console",
+ "version": "1.0.0",
+ "description": "Introspección del entorno del agente: capacidades, variables y salud del runtime Dolor que resuelve: Debuggear a ciegas: el agente no sabe qué runtime, variables o versiones tiene debajo. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Monitoring",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "observability",
+  "tracing",
+  "monitoring"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only debug-console",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-debug-console",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "env_probe",
+   "capabilities",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only debug-console",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-debug-console\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-debug-console/dist/index.js\"]}}}. Tools disponibles: env_probe, capabilities y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/debug-console/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-debug-console (env_probe, capabilities). Introspección del entorno del agente: capacidades, variables y salud del runtime. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/debug-console/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/debug-console\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Debug Console — Introspección del entorno del agente: capacidades, variables y salud del runtime (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-debug-console\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"observabilidad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Debug Console\n\n> Introspección del entorno del agente: capacidades, variables y salud del runtime\n\n**Categoría:** Observabilidad · **ID:** `mcp-debug-console`\n\n**Dolor de agente que resuelve:** Debuggear a ciegas: el agente no sabe qué runtime, variables o versiones tiene debajo.\n\n## Tools (3 incl. health_check)\n\n### `env_probe`\nSondea el entorno: versión de node, plataforma, CPUs, memoria y variables de entorno RELEVANTES (solo whitelist, nunca valores secretos).\n\n### `capabilities`\nReporta las capacidades de este runtime MCP: transporte, tools disponibles y features del entorno.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"debug-console\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-debug-console/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Debug Console\n * Introspección del entorno del agente: capacidades, variables y salud del runtime\n *\n * Dolor que resuelve: Debuggear a ciegas: el agente no sabe qué runtime, variables o versiones tiene debajo.\n * Categoría: Observabilidad | Generado por mcp-suite | id: debug-console\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { homedir, tmpdir, cpus, freemem, totalmem } from \"node:os\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"debug-console\", version: \"1.0.0\" });\n\nserver.tool(\n  \"env_probe\",\n  \"Sondea el entorno: versión de node, plataforma, CPUs, memoria y variables de entorno RELEVANTES (solo whitelist, nunca valores secretos).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const seguras = [\"NODE_ENV\", \"LANG\", \"TZ\", \"SHELL\", \"TERM\", \"HOME\"];\nconst detectadas: any = {};\nfor (const k of seguras) if (process.env[k]) detectadas[k] = process.env[k];\nreturn ok({ node: process.version, plataforma: process.platform, arquitectura: process.arch, cpus: cpus().length, memoria_libre_mb: Math.round(freemem() / 1048576), memoria_total_mb: Math.round(totalmem() / 1048576), uptime_proceso_s: Math.round(process.uptime()), env_seguras: detectadas, nota: \"nunca se exponen valores de secrets\" });\n  }\n);\n\nserver.tool(\n  \"capabilities\",\n  \"Reporta las capacidades de este runtime MCP: transporte, tools disponibles y features del entorno.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    return ok({ servidor: \"debug-console\", transporte: \"stdio\", protocolo: \"MCP 2025-03-26\", features: { fetch_global: typeof fetch === \"function\", crypto_node: true, fs_local: true, persistencia: \"~/.mcp-suite/\" }, red: typeof fetch === \"function\" ? \"disponible\" : \"no\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor debug-console está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"debug-console\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[debug-console] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

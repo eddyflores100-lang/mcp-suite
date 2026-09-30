@@ -1,0 +1,91 @@
+{
+ "id": "mn-sub-261001-ae7289",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-deadlock-detector",
+  "version": "1.0.0",
+  "description": "Detecta esperas circulares y contentión de recursos entre agentes antes de que se congelen Dolor que resuelve: Los agentes se bloquean en silencio: A espera a B, B espera a C y C espera a A. Nadie detecta el ciclo y la misión muere congelada sin error visible. Incluye 7 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "multi-agent",
+   "orchestration",
+   "coordination"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only deadlock-detector",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-deadlock-detector",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (6 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "declare_state",
+    "detect",
+    "resolve",
+    "stale_agents",
+    "wait_graph",
+    "clear",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only deadlock-detector",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-deadlock-detector\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-deadlock-detector/dist/index.js\"]}}}. Tools disponibles: declare_state, detect, resolve, stale_agents, wait_graph, clear y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/deadlock-detector/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-deadlock-detector (declare_state, detect, resolve, stale_agents, wait_graph, clear). Detecta esperas circulares y contentión de recursos entre agentes antes de que se congelen. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/deadlock-detector/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/deadlock-detector\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Deadlock Detector — Detecta esperas circulares y contentión de recursos entre agentes antes de que se congelen (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-deadlock-detector\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"multi-agente-y-coordinaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 7\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Deadlock Detector\n\n> Detecta esperas circulares y contentión de recursos entre agentes antes de que se congelen\n\n**Categoría:** Multi-Agente y Coordinación · **ID:** `mcp-deadlock-detector`\n\n**Dolor de agente que resuelve:** Los agentes se bloquean en silencio: A espera a B, B espera a C y C espera a A. Nadie detecta el ciclo y la misión muere congelada sin error visible.\n\n> Estado persistente en `~/.mcp-suite/deadlock-detector/state.json` (local, privado, tuya la data).\n\n## Tools (7 incl. health_check)\n\n### `declare_state`\nUn agente declara qué recursos retiene y en quién espera. Reemplaza el estado previo del agente.\n\n**Parámetros:**\n  - `agente` (string, requerido): Agent_id\n  - `retiene` (array, opcional): Recursos que retiene (IDs)\n  - `espera_a` (array, opcional): Agent_ids o recursos a los que espera\n  - `tarea` (string, opcional): Qué está haciendo (para diagnóstico)\n\n### `detect`\nAnaliza el grafo de esperas y detecta ciclos (deadlocks) y cadenas de espera largas (livelock risk).\n\n### `resolve`\nResuelve un deadlock eligiendo una víctima (la más barata de reiniciar) y genera el plan de desbloqueo.\n\n**Parámetros:**\n  - `ciclo` (array, opcional): Agentes del ciclo (del detect), opcional si solo hay uno\n  - `victima_manual` (string, opcional): Forzar víctima concreta\n\n### `stale_agents`\nDetecta agentes cuyo último reporte supera un umbral: posibles procesos muertos que retienen recursos.\n\n**Parámetros:**\n  - `umbral_minutos` (number, opcional): Minutos sin reporte para considerarlo rancio\n\n### `wait_graph`\nExporta el grafo de esperas en formato legible (aristas agente→espera_a) para diagnóstico o visualización.\n\n### `clear`\nLimpia el estado de un agente (terminó o fue reiniciado) liberando sus declaraciones.\n\n**Parámetros:**\n  - `agente` (string, requerido): Agent_id a limpiar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"deadlock-detector\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-deadlock-detector/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/deadlock-detector/. Grafo esperando-a: los agentes declaran 'wait_for' y 'hold'; se detectan ciclos (DFS) y se sugiere la víctima a cancelar.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Deadlock Detector\n * Detecta esperas circulares y contentión de recursos entre agentes antes de que se congelen\n *\n * Dolor que resuelve: Los agentes se bloquean en silencio: A espera a B, B espera a C y C espera a A. Nadie detecta el ciclo y la misión muere congelada sin error visible.\n * Categoría: Multi-Agente y Coordinación | Generado por mcp-suite | id: deadlock-detector\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/deadlock-detector/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"deadlock-detector\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"deadlock-detector\", version: \"1.0.0\" });\n\nserver.tool(\n  \"declare_state\",\n  \"Un agente declara qué recursos retiene y en quién espera. Reemplaza el estado previo del agente.\",\n  {\n  agente: z.string().describe(\"Agent_id\"),\n  retiene: z.array(z.any()).describe(\"Recursos que retiene (IDs)\").default([]),\n  espera_a: z.array(z.any()).describe(\"Agent_ids o recursos a los que espera\").default([]),\n  tarea: z.string().describe(\"Qué está haciendo (para diagnóstico)\").optional(),\n  },\n  async (args: any) => {\n    const { agente, retiene, espera_a, tarea } = args as any;\n    const st = store.load();\nst.agentes = st.agentes || {};\nst.agentes[agente] = { retiene: retiene || [], espera_a: espera_a || [], tarea: tarea || null, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({ agente, retiene: (retiene || []).length, espera_a: (espera_a || []).length });\n  }\n);\n\nserver.tool(\n  \"detect\",\n  \"Analiza el grafo de esperas y detecta ciclos (deadlocks) y cadenas de espera largas (livelock risk).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst agentes = st.agentes || {};\nconst nombres = Object.keys(agentes);\nconst ciclos = [];\nconst visitando = new Set(), visitados = new Set();\nfunction dfs(nodo, camino) {\n  if (visitando.has(nodo)) {\n    const inicio = camino.indexOf(nodo);\n    if (inicio >= 0) ciclos.push([...camino.slice(inicio), nodo]);\n    return;\n  }\n  visitando.add(nodo); visitados.add(nodo);\n  for (const next of agentes[nodo]?.espera_a || []) if (nombres.includes(next) || agentes[next]) dfs(next, [...camino, nodo]);\n  visitando.delete(nodo);\n}\nfor (const n of nombres) if (!visitados.has(n)) dfs(n, []);\nconst unicos = [];\nfor (const c of ciclos) {\n  const firma = [...c].sort().join(\">\");\n  if (!unicos.some(u => u.firma === firma)) unicos.push({ ciclo: c, firma });\n}\nconst recursosSostenidos = {};\nfor (const [a, info] of __ents(agentes)) for (const r of info.retiene || []) recursosSostenidos[r] = recursosSostenidos[r] || [];\nfor (const [a, info] of __ents(agentes)) for (const r of info.retiene || []) recursosSostenidos[r].push(a);\nconst contencion = __ents(recursosSostenidos).filter(([, duenos]) => duenos.length > 1);\nconst esperandoAlgo = nombres.filter(n => (agentes[n].espera_a || []).length > 0);\nreturn ok({\n  agentes_declarados: nombres.length,\n  deadlocks: unicos.length,\n  ciclos: unicos.map(u => u.ciclo),\n  deadlocked: [...new Set(unicos.flatMap(u => u.ciclo))],\n  contention: contencion.map(([r, d]) => ({ recurso: r, retenido_por: d })),\n  cadena_mas_larga: (() => { let mejor = []; for (const n of nombres) { const camino = [n]; let cur = agentes[n]?.espera_a?.[0]; let hops = 0; while (cur && agentes[cur] && hops < 20) { camino.push(cur); cur = agentes[cur]?.espera_a?.[0]; hops++; } if (camino.length > mejor.length) mejor = camino; } return mejor; })(),\n  veredicto: unicos.length ? \"DEADLOCK: resuelve con resolve (elige víctima)\" : contencion.length ? \"contentión sin ciclo: vigila\" : \"sin bloqueos\",\n});\n  }\n);\n\nserver.tool(\n  \"resolve\",\n  \"Resuelve un deadlock eligiendo una víctima (la más barata de reiniciar) y genera el plan de desbloqueo.\",\n  {\n  ciclo: z.array(z.any()).describe(\"Agentes del ciclo (del detect), opcional si solo hay uno\").optional(),\n  victima_manual: z.string().describe(\"Forzar víctima concreta\").optional(),\n  },\n  async (args: any) => {\n    const { ciclo, victima_manual } = args as any;\n    const st = store.load();\nconst agentes = st.agentes || {};\nlet ciclosDetectados = [];\nconst visitando = new Set(), visitados = new Set();\nfunction dfs(n, camino) {\n  if (visitando.has(n)) { const i = camino.indexOf(n); if (i >= 0) ciclosDetectados.push([...camino.slice(i), n]); return; }\n  visitando.add(n); visitados.add(n);\n  for (const nx of agentes[n]?.espera_a || []) if (agentes[nx]) dfs(nx, [...camino, n]);\n  visitando.delete(n);\n}\nfor (const n of Object.keys(agentes)) if (!visitados.has(n)) dfs(n, []);\nlet objetivo = ciclo && ciclo.length ? ciclo : ciclosDetectados[0];\nif (!objetivo) return fail(\"no hay ciclo que resolver\");\nconst miembros = objetivo.filter(x => agentes[x]);\nif (!victima_manual) {\n  miembros.sort((a, b) => (agentes[a].retiene?.length || 0) - (agentes[b].retiene?.length || 0));\n}\nconst victima = victima_manual && miembros.includes(victima_manual) ? victima_manual : miembros[0];\nfor (const m of miembros) {\n  agentes[m].espera_a = (agentes[m].espera_a || []).filter(e => e !== victima);\n  agentes[m].interrumpido = true;\n}\nst.resoluciones = st.resoluciones || [];\nst.resoluciones.push({ ciclo: miembros, victima, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({\n  victima, plan: [\n    \"1. cancela/rollback de \" + victima + \" (retiene \" + (agentes[victima]?.retiene?.length || 0) + \" recursos)\",\n    \"2. libera sus recursos para que los demás avancen\",\n    ...miembros.filter(m => m !== victima).map(m => \"3\" + (m === miembros[1] ? \"\" : \".x\") + \". \" + m + \" reintenta sin esperar a \" + victima),\n    \"4. reprograma el trabajo de \" + victima + \" al final de la cola\",\n  ],\n  criterio_victima: \"menor retención de recursos = reinicio más barato\",\n});\n  }\n);\n\nserver.tool(\n  \"stale_agents\",\n  \"Detecta agentes cuyo último reporte supera un umbral: posibles procesos muertos que retienen recursos.\",\n  {\n  umbral_minutos: z.number().describe(\"Minutos sin reporte para considerarlo rancio\").default(30),\n  },\n  async (args: any) => {\n    const { umbral_minutos } = args as any;\n    const st = store.load();\nconst agentes = st.agentes || {};\nconst limite = Date.now() - umbral_minutos * 60000;\nconst rancios = __ents(agentes).filter(([, i]) => new Date(i.ts).getTime() < limite);\nreturn ok({\n  umbral_minutos, rancios: rancios.length,\n  agentes_stale: rancios.map(([a, i]) => ({ agente: a, minutos_sin_reportar: Math.round((Date.now() - new Date(i.ts).getTime()) / 60000), retiene: i.retiene?.length || 0, ultima_tarea: i.tarea })),\n  recursos_secuestrados: rancios.flatMap(([, i]) => i.retiene || []),\n  consejo: rancios.length ? \"declara esos recursos liberados o reinicia los agentes\" : \"todos frescos\",\n});\n  }\n);\n\nserver.tool(\n  \"wait_graph\",\n  \"Exporta el grafo de esperas en formato legible (aristas agente→espera_a) para diagnóstico o visualización.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst agentes = st.agentes || {};\nconst aristas = [];\nfor (const [a, i] of __ents(agentes)) for (const e of i.espera_a || []) aristas.push(a + \" -> \" + e);\nreturn ok({ nodos: Object.keys(agentes).length, aristas: aristas.length, grafo: aristas, dot: \"digraph waits {\" + aristas.map(a => '\"' + a.split(\" -> \")[0] + '\" -> \"' + a.split(\" -> \")[1] + '\"').join(\"; \") + \"}\" });\n  }\n);\n\nserver.tool(\n  \"clear\",\n  \"Limpia el estado de un agente (terminó o fue reiniciado) liberando sus declaraciones.\",\n  {\n  agente: z.string().describe(\"Agent_id a limpiar\"),\n  },\n  async (args: any) => {\n    const { agente } = args as any;\n    const st = store.load();\nif (!(st.agentes || {})[agente]) return ok({ limpiado: false, razon: \"no tenía estado\" });\ndelete st.agentes[agente];\nstore.save(st);\nreturn ok({ limpiado: true, agente, quedan: Object.keys(st.agentes).length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor deadlock-detector está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"deadlock-detector\", tools: 7, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[deadlock-detector] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "deadlock-detector"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

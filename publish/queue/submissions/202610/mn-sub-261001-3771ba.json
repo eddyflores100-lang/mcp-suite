@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-3771ba",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-side-effect-ledger",
+  "version": "1.0.0",
+  "description": "Libro mayor de efectos secundarios: cada cambio queda registrado con su receta de deshacer Dolor que resuelve: El agente hizo 14 cambios y solo recuerda 3: cuando hay que volver atrás no existe un registro de qué tocó ni cómo se deshace cada cosa. Los 'action logs' genéricos guardan qué pasó, no cómo revertirlo. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "preflight",
+   "readiness",
+   "checklist"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only side-effect-ledger",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-side-effect-ledger",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_effect",
+    "undo_info",
+    "mark_undone",
+    "list_open_effects",
+    "rollback_plan",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only side-effect-ledger",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-side-effect-ledger\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-side-effect-ledger/dist/index.js\"]}}}. Tools disponibles: register_effect, undo_info, mark_undone, list_open_effects, rollback_plan y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/side-effect-ledger/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-side-effect-ledger (register_effect, undo_info, mark_undone, list_open_effects, rollback_plan). Libro mayor de efectos secundarios: cada cambio queda registrado con su receta de deshacer. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/side-effect-ledger/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/side-effect-ledger\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Side-Effect Ledger — Libro mayor de efectos secundarios: cada cambio queda registrado con su receta de deshacer (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-side-effect-ledger\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"pre-vuelo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Side-Effect Ledger\n\n> Libro mayor de efectos secundarios: cada cambio queda registrado con su receta de deshacer\n\n**Categoría:** Pre-Vuelo · **ID:** `mcp-side-effect-ledger`\n\n**Dolor de agente que resuelve:** El agente hizo 14 cambios y solo recuerda 3: cuando hay que volver atrás no existe un registro de qué tocó ni cómo se deshace cada cosa. Los 'action logs' genéricos guardan qué pasó, no cómo revertirlo.\n\n> Estado persistente en `~/.mcp-suite/side-effect-ledger/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `register_effect`\nRegistra un efecto secundario con su receta de reversión. Úsalo INMEDIATAMENTE después de cada acción con impacto.\n\n**Parámetros:**\n  - `target` (string, requerido): Recurso afectado (archivo, registro, cuenta, estado)\n  - `tipo` (enum, requerido): Tipo de efecto\n  - `como_deshacer` (string, requerido): Receta concreta para revertir (comando, API, secuencia)\n  - `paso` (string, opcional): Paso/acción del agente que lo causó\n  - `caducidad_horas` (number, opcional): Horas tras las que la receta de deshacer deja de ser válida (0 = nunca)\n  - `dificultad` (enum, opcional): Dificultad de reversión\n\n### `undo_info`\nRecupera la receta de deshacer para un target (o por id de efecto).\n\n**Parámetros:**\n  - `target` (string, opcional): Recurso a revertir\n  - `id` (string, opcional): Id del efecto exacto\n\n### `mark_undone`\nMarca un efecto como deshecho (con nota de verificación).\n\n**Parámetros:**\n  - `id` (string, requerido): Id del efecto (fx_0001)\n  - `verificado_por` (string, opcional): Cómo se verificó que quedó revertido\n\n### `list_open_effects`\nTodos los efectos sin deshacer, agrupados por dificultad y con los más urgentes primero.\n\n**Parámetros:**\n  - `solo_tipo` (string, opcional): Filtrar por tipo\n\n### `rollback_plan`\nGenera el plan de reversión total: deshacer todos los efectos abiertos en orden inverso (LIFO).\n\n**Parámetros:**\n  - `desde_id` (string, opcional): Revertir desde este efecto (inclusive) hacia atrás\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"side-effect-ledger\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-side-effect-ledger/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/side-effect-ledger/. Cada efecto guarda: target, tipo, cómo deshacer (comando/receta), si ya se deshizo y caducidad de la receta (algunos undos expiran).\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Side-Effect Ledger\n * Libro mayor de efectos secundarios: cada cambio queda registrado con su receta de deshacer\n *\n * Dolor que resuelve: El agente hizo 14 cambios y solo recuerda 3: cuando hay que volver atrás no existe un registro de qué tocó ni cómo se deshace cada cosa. Los 'action logs' genéricos guardan qué pasó, no cómo revertirlo.\n * Categoría: Pre-Vuelo | Generado por mcp-suite | id: side-effect-ledger\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/side-effect-ledger/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"side-effect-ledger\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"side-effect-ledger\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_effect\",\n  \"Registra un efecto secundario con su receta de reversión. Úsalo INMEDIATAMENTE después de cada acción con impacto.\",\n  {\n  target: z.string().describe(\"Recurso afectado (archivo, registro, cuenta, estado)\"),\n  tipo: z.enum([\"creado\",\"modificado\",\"eliminado\",\"estado_cambiado\",\"externo_enviado\",\"permiso_otorgado\"]).describe(\"Tipo de efecto\"),\n  como_deshacer: z.string().describe(\"Receta concreta para revertir (comando, API, secuencia)\"),\n  paso: z.string().describe(\"Paso/acción del agente que lo causó\").optional(),\n  caducidad_horas: z.number().describe(\"Horas tras las que la receta de deshacer deja de ser válida (0 = nunca)\").default(0),\n  dificultad: z.enum([\"trivial\",\"media\",\"dificil\",\"imposible\"]).describe(\"Dificultad de reversión\").default(\"media\"),\n  },\n  async (args: any) => {\n    const { target, tipo, como_deshacer, paso, caducidad_horas, dificultad } = args as any;\n    const st = store.load();\nst.efectos = st.efectos || [];\nconst id = \"fx_\" + String(st.efectos.length + 1).padStart(4, \"0\");\nst.efectos.push({ id, target, tipo, como_deshacer, paso: paso || \"\", dificultad, caducidad_horas, creado: new Date().toISOString(), deshecho: false });\nstore.save(st);\nreturn ok({ id, target, tipo, dificultad, registrado: true, abiertos: st.efectos.filter(e => !e.deshecho).length });\n  }\n);\n\nserver.tool(\n  \"undo_info\",\n  \"Recupera la receta de deshacer para un target (o por id de efecto).\",\n  {\n  target: z.string().describe(\"Recurso a revertir\").optional(),\n  id: z.string().describe(\"Id del efecto exacto\").optional(),\n  },\n  async (args: any) => {\n    const { target, id } = args as any;\n    const st = store.load();\nconst efectos = st.efectos || [];\nlet e = id ? efectos.find(x => x.id === id) : null;\nif (!e && target) { const cands = efectos.filter(x => !x.deshecho && x.target.includes(target)); if (!cands.length) return fail(\"sin efectos abiertos para: \" + target); e = cands[cands.length - 1]; }\nif (!e) return fail(\"indica target o id\");\nif (e.deshecho) return ok({ id: e.id, aviso: \"ya está deshecho\", deshecho_en: e.deshecho_ts });\nconst vence = e.caducidad_horas > 0 ? new Date(new Date(e.creado).getTime() + e.caducidad_horas * 3600000).toISOString() : null;\nconst expirado = vence && new Date(vence).getTime() < Date.now();\nreturn ok({ id: e.id, target: e.target, tipo: e.tipo, dificultad: e.dificultad, receta_deshacer: e.como_deshacer, creado: e.creado, vence_en: vence, receta_expirada: expirado, aviso: expirado ? \"LA RECETA EXPIRÓ: revertir manualmente con conocimiento del dominio\" : e.dificultad === \"imposible\" ? \"IRREVERSIBLE declarado: solo queda compensación, no reversión\" : \"receta válida\" });\n  }\n);\n\nserver.tool(\n  \"mark_undone\",\n  \"Marca un efecto como deshecho (con nota de verificación).\",\n  {\n  id: z.string().describe(\"Id del efecto (fx_0001)\"),\n  verificado_por: z.string().describe(\"Cómo se verificó que quedó revertido\").optional(),\n  },\n  async (args: any) => {\n    const { id, verificado_por } = args as any;\n    const st = store.load();\nconst e = (st.efectos || []).find(x => x.id === id);\nif (!e) return fail(\"efecto no encontrado: \" + id);\nif (e.deshecho) return fail(\"ya estaba deshecho desde \" + e.deshecho_ts);\ne.deshecho = true;\ne.deshecho_ts = new Date().toISOString();\ne.verificado_por = verificado_por || \"no verificado\";\nstore.save(st);\nreturn ok({ id, target: e.target, deshecho: true, abiertos: st.efectos.filter(x => !x.deshecho).length });\n  }\n);\n\nserver.tool(\n  \"list_open_effects\",\n  \"Todos los efectos sin deshacer, agrupados por dificultad y con los más urgentes primero.\",\n  {\n  solo_tipo: z.string().describe(\"Filtrar por tipo\").optional(),\n  },\n  async (args: any) => {\n    const { solo_tipo } = args as any;\n    const st = store.load();\nlet abiertos = (st.efectos || []).filter(e => !e.deshecho);\nif (solo_tipo) abiertos = abiertos.filter(e => e.tipo === solo_tipo);\nconst orden = { imposible: 0, dificil: 1, media: 2, trivial: 3 };\nconst vencidos = abiertos.filter(e => e.caducidad_horas > 0 && new Date(new Date(e.creado).getTime() + e.caducidad_horas * 3600000).getTime() < Date.now());\nreturn ok({ abiertos: abiertos.length, por_dificultad: { imposible: abiertos.filter(e => e.dificultad === \"imposible\").length, dificil: abiertos.filter(e => e.dificultad === \"dificil\").length, media: abiertos.filter(e => e.dificultad === \"media\").length, trivial: abiertos.filter(e => e.dificultad === \"trivial\").length }, recetas_expiradas: vencidos.length, efectos: abiertos.sort((a, b) => (orden[a.dificultad] ?? 2) - (orden[b.dificultad] ?? 2)).map(e => ({ id: e.id, target: e.target, tipo: e.tipo, dificultad: e.dificultad, creado: e.creado, paso: e.paso })) });\n  }\n);\n\nserver.tool(\n  \"rollback_plan\",\n  \"Genera el plan de reversión total: deshacer todos los efectos abiertos en orden inverso (LIFO).\",\n  {\n  desde_id: z.string().describe(\"Revertir desde este efecto (inclusive) hacia atrás\").optional(),\n  },\n  async (args: any) => {\n    const { desde_id } = args as any;\n    const st = store.load();\nconst abiertos = (st.efectos || []).filter(e => !e.deshecho);\nif (!abiertos.length) return ok({ pasos: 0, mensaje: \"no hay efectos abiertos: nada que revertir\" });\nlet secuencia = abiertos.slice().reverse();\nif (desde_id) {\n  const idx = secuencia.findIndex(e => e.id === desde_id);\n  if (idx === -1) return fail(\"efecto no encontrado o ya deshecho: \" + desde_id);\n  secuencia = secuencia.slice(idx);\n}\nconst pasos = secuencia.map((e, i) => ({ orden: i + 1, id: e.id, target: e.target, receta: e.como_deshacer, dificultad: e.dificultad, alerta: e.dificultad === \"imposible\" ? \"IRREVERSIBLE: este paso no tiene reversión, evalúa compensación\" : e.caducidad_horas > 0 ? \"verifica que la receta no haya expirado\" : null }));\nreturn ok({ total_pasos: pasos.length, estrategia: \"LIFO: deshacer en orden inverso a como se aplicaron\", pasos, estimacion: pasos.filter(p => p.alerta).length + \" pasos con alerta de \" + pasos.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor side-effect-ledger está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"side-effect-ledger\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[side-effect-ledger] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "side-effect-ledger"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

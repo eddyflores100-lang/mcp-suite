@@ -1,0 +1,62 @@
+{
+ "name": "mcp-heartbeat-monitor",
+ "version": "1.0.0",
+ "description": "El agente reporta latidos: detecta congelamientos y sesiones huérfanas Dolor que resuelve: Un agente congelado no falla: simplemente desaparece. Sin heartbeats, nadie nota la muerte silenciosa. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Monitoring",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "observability",
+  "tracing",
+  "monitoring"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only heartbeat-monitor",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-heartbeat-monitor",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "beat",
+   "status",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only heartbeat-monitor",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-heartbeat-monitor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-heartbeat-monitor/dist/index.js\"]}}}. Tools disponibles: beat, status y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/heartbeat-monitor/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-heartbeat-monitor (beat, status). El agente reporta latidos: detecta congelamientos y sesiones huérfanas. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/heartbeat-monitor/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/heartbeat-monitor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Heartbeat Monitor — El agente reporta latidos: detecta congelamientos y sesiones huérfanas (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-heartbeat-monitor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"observabilidad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Heartbeat Monitor\n\n> El agente reporta latidos: detecta congelamientos y sesiones huérfanas\n\n**Categoría:** Observabilidad · **ID:** `mcp-heartbeat-monitor`\n\n**Dolor de agente que resuelve:** Un agente congelado no falla: simplemente desaparece. Sin heartbeats, nadie nota la muerte silenciosa.\n\n> Estado persistente en `~/.mcp-suite/heartbeat-monitor/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `beat`\nRegistra un latido de una unidad de trabajo (agente/bucle). Devuelve si está en riesgo (mucho tiempo sin latir no puede pasar, pero múltiple beats largos sí alertan).\n\n**Parámetros:**\n  - `unidad` (string, requerido): Nombre de la unidad (ej: agent-scraper)\n  - `fase` (string, opcional): Fase actual del trabajo\n\n### `status`\nEstado de todas las unidades: último latido, intervalo medio y alerta si el intervalo creció (posible congelamiento lento).\n\n**Parámetros:**\n  - `umbral_factor` (number, opcional): Factor de degradación para alertar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"heartbeat-monitor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-heartbeat-monitor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Heartbeat Monitor\n * El agente reporta latidos: detecta congelamientos y sesiones huérfanas\n *\n * Dolor que resuelve: Un agente congelado no falla: simplemente desaparece. Sin heartbeats, nadie nota la muerte silenciosa.\n * Categoría: Observabilidad | Generado por mcp-suite | id: heartbeat-monitor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/heartbeat-monitor/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"heartbeat-monitor\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"heartbeat-monitor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"beat\",\n  \"Registra un latido de una unidad de trabajo (agente/bucle). Devuelve si está en riesgo (mucho tiempo sin latir no puede pasar, pero múltiple beats largos sí alertan).\",\n  {\n  unidad: z.string().describe(\"Nombre de la unidad (ej: agent-scraper)\"),\n  fase: z.string().describe(\"Fase actual del trabajo\").optional(),\n  },\n  async (args: any) => {\n    const { unidad, fase } = args as any;\n    const st = store.load();\nst.unidades = st.unidades || {};\nconst u = st.unidades[unidad] = st.unidades[unidad] || { latidos: [], fases: [] };\nu.latidos.push(new Date().toISOString());\nu.fases.push(fase || \"\");\nu.latidos = u.latidos.slice(-100);\nu.fases = u.fases.slice(-100);\nstore.save(st);\nreturn ok({ unidad, total_latidos: u.latidos.length, ultimo: u.latidos[u.latidos.length - 1] });\n  }\n);\n\nserver.tool(\n  \"status\",\n  \"Estado de todas las unidades: último latido, intervalo medio y alerta si el intervalo creció (posible congelamiento lento).\",\n  {\n  umbral_factor: z.number().describe(\"Factor de degradación para alertar\").default(3),\n  },\n  async (args: any) => {\n    const { umbral_factor } = args as any;\n    const st = store.load();\nconst ahora = Date.now();\nconst reporte = __ents(st.unidades || {}).map(([nombre, u]: [string, any]) => {\n  const latidos: string[] = u.latidos || [];\n  if (!latidos.length) return { nombre, estado: \"sin_datos\" };\n  const ultimo = new Date(latidos[latidos.length - 1]).getTime();\n  const intervalos: number[] = [];\n  for (let i = 1; i < latidos.length; i++) intervalos.push(new Date(latidos[i]).getTime() - new Date(latidos[i - 1]).getTime());\n  const media = intervalos.length ? intervalos.reduce((a, b) => a + b, 0) / intervalos.length : 0;\n  const ultimo_intervalo = intervalos.length ? intervalos[intervalos.length - 1] : 0;\n  const silencio_min = Math.round((ahora - ultimo) / 60000);\n  return { nombre, ultimo_latido: latidos[latidos.length - 1], silencio_minutos: silencio_min, intervalo_medio_ms: Math.round(media), fase_reciente: (u.fases || []).slice(-3), alerta: media > 0 && ultimo_intervalo > media * (umbral_factor ?? 3) ? \"intervalo degradado \" + Math.round(ultimo_intervalo / 1000) + \"s vs media \" + Math.round(media / 1000) + \"s\" : null };\n});\nreturn ok({ unidades: reporte });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor heartbeat-monitor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"heartbeat-monitor\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[heartbeat-monitor] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

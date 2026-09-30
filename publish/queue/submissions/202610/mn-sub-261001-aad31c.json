@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-aad31c",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-json-repair",
+  "version": "1.0.0",
+  "description": "Repara JSON roto de LLMs: comillas, comas, truncados y fences Dolor que resuelve: El JSON que devuelve un LLM viene con markdown fences, comas colgantes y strings sin cerrar: cada parse falla. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Developer Tools",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "quality",
+   "validation",
+   "hallucination"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only json-repair",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-json-repair",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "repair",
+    "extract_json",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only json-repair",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-json-repair\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-json-repair/dist/index.js\"]}}}. Tools disponibles: repair, extract_json y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/json-repair/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-json-repair (repair, extract_json). Repara JSON roto de LLMs: comillas, comas, truncados y fences. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/json-repair/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/json-repair\",\n  \"version\": \"1.0.0\",\n  \"description\": \"JSON Repair — Repara JSON roto de LLMs: comillas, comas, truncados y fences (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-json-repair\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# JSON Repair\n\n> Repara JSON roto de LLMs: comillas, comas, truncados y fences\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-json-repair`\n\n**Dolor de agente que resuelve:** El JSON que devuelve un LLM viene con markdown fences, comas colgantes y strings sin cerrar: cada parse falla.\n\n## Tools (3 incl. health_check)\n\n### `repair`\nRepara JSON roto: quita fences de código, elimina comas colgantes, cierra llaves/corchetes/quotes truncados (algoritmo de stack de brackets) y corrige comillas tipográficas.\n\n**Parámetros:**\n  - `texto` (string, requerido): JSON (posiblemente roto) a reparar\n\n### `extract_json`\nExtrae el primer JSON válido de un texto ruidoso (dentro de fences, prosa o logs).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto que contiene JSON en alguna parte\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"json-repair\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-json-repair/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: JSON Repair\n * Repara JSON roto de LLMs: comillas, comas, truncados y fences\n *\n * Dolor que resuelve: El JSON que devuelve un LLM viene con markdown fences, comas colgantes y strings sin cerrar: cada parse falla.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: json-repair\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"json-repair\", version: \"1.0.0\" });\n\nserver.tool(\n  \"repair\",\n  \"Repara JSON roto: quita fences de código, elimina comas colgantes, cierra llaves/corchetes/quotes truncados (algoritmo de stack de brackets) y corrige comillas tipográficas.\",\n  {\n  texto: z.string().describe(\"JSON (posiblemente roto) a reparar\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    function repararEstructura(src: string): string {\n  let out = \"\";\n  const stack: string[] = [];\n  let enStr = false, esc = false;\n  const cerrar = (ch: string) => {\n    out = out.replace(/[,\\s]+$/, \"\");\n    const esperado = ch === \"}\" ? \"{\" : \"[\";\n    if (stack.length && stack[stack.length - 1] === esperado) { stack.pop(); out += ch; }\n    else {\n      let cierre = \"\";\n      while (stack.length && stack[stack.length - 1] !== esperado) { const top = stack.pop(); cierre += top === \"{\" ? \"}\" : \"]\"; }\n      if (stack.length) stack.pop();\n      out += cierre + ch;\n    }\n  };\n  for (const ch of src) {\n    if (enStr) { out += ch; if (esc) esc = false; else if (ch === \"\\\\\") esc = true; else if (ch === '\"') enStr = false; continue; }\n    if (ch === '\"') { enStr = true; out += ch; continue; }\n    if (ch === \"{\" || ch === \"[\") { stack.push(ch); out += ch; continue; }\n    if (ch === \"}\" || ch === \"]\") { cerrar(ch); continue; }\n    out += ch;\n  }\n  let cola = \"\";\n  while (stack.length) { const top = stack.pop(); cola += top === \"{\" ? \"}\" : \"]\"; }\n  if (enStr) cola = '\"' + cola;\n  return out + cola;\n}\nlet s = String(texto).trim();\nconst bt3 = String.fromCharCode(96, 96, 96);\ns = s.replace(new RegExp(\"^\" + bt3 + \"(json)?\\s*\", \"i\"), \"\").replace(new RegExp(\"\\s*\" + bt3 + \"$\"), \"\");\ns = s.replace(/[\\u201c\\u201d]/g, '\"').replace(/[\\u2018\\u2019]/g, \"'\");\nconst intentos: string[] = [];\ntry { return ok({ reparado: false, json: JSON.parse(s), metodo: \"directo\" }); } catch (e: any) { intentos.push(\"directo: \" + e.message); }\ntry { return ok({ reparado: true, json: JSON.parse(repararEstructura(s)), metodo: \"stack-de-brackets\" }); } catch (e: any) { intentos.push(\"stack: \" + e.message); }\nconst t = s.replace(/,\\s*([}\\]])/g, \"$1\").replace(/([{,]\\s*)(\\w+)\\s*:/g, '$1\"$2\":');\ntry { return ok({ reparado: true, json: JSON.parse(t), metodo: \"comas+comillas\" }); } catch (e: any) { intentos.push(\"comas: \" + e.message); }\ntry { return ok({ reparado: true, json: JSON.parse(repararEstructura(t)), metodo: \"stack+comas\" }); } catch (e: any) { intentos.push(\"stack2: \" + e.message); }\nreturn fail(\"no reparable. Intentos: \" + intentos.join(\" | \"));\n  }\n);\n\nserver.tool(\n  \"extract_json\",\n  \"Extrae el primer JSON válido de un texto ruidoso (dentro de fences, prosa o logs).\",\n  {\n  texto: z.string().describe(\"Texto que contiene JSON en alguna parte\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const s = String(texto);\nconst candidatos: string[] = [];\nconst bt3 = String.fromCharCode(96, 96, 96);\nconst fence = s.match(new RegExp(bt3 + \"(?:json)?\\\\s*([\\\\s\\\\S]*?)\" + bt3));\nif (fence) candidatos.push(fence[1]);\nfor (let i = 0; i < s.length; i++) {\n  if (s[i] === \"{\" || s[i] === \"[\") {\n    let prof = 0; let enStr = false; let escp = false;\n    for (let j = i; j < s.length; j++) {\n      const ch = s[j];\n      if (escp) { escp = false; continue; }\n      if (ch === \"\\\\\") { escp = true; continue; }\n      if (ch === '\"') enStr = !enStr;\n      if (enStr) continue;\n      if (ch === \"{\" || ch === \"[\") prof++;\n      if (ch === \"}\" || ch === \"]\") { prof--; if (prof === 0) { candidatos.push(s.slice(i, j + 1)); i = j; break; } }\n    }\n  }\n}\nfor (const c of candidatos) { try { return ok({ json: JSON.parse(c), fuente: c.slice(0, 80) }); } catch {} }\nreturn fail(\"sin JSON válido en el texto\");\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor json-repair está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"json-repair\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[json-repair] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "json-repair"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

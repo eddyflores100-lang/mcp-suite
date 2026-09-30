@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-524a13",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-feedback-loop",
+  "version": "1.0.0",
+  "description": "Recolecta feedback estructurado y detecta sentimiento sin APIs externas Dolor que resuelve: El feedback llega suelto por chat: sin registro ni análisis, el agente repite lo que molesta. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Communication",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "human-in-the-loop",
+   "communication",
+   "approvals"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only feedback-loop",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-feedback-loop",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "collect",
+    "sentiment_lite",
+    "summarize_feedback",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only feedback-loop",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-feedback-loop\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-feedback-loop/dist/index.js\"]}}}. Tools disponibles: collect, sentiment_lite, summarize_feedback y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/feedback-loop/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-feedback-loop (collect, sentiment_lite, summarize_feedback). Recolecta feedback estructurado y detecta sentimiento sin APIs externas. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/feedback-loop/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/feedback-loop\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Feedback Loop — Recolecta feedback estructurado y detecta sentimiento sin APIs externas (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-feedback-loop\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comunicaci-n-y-humano\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Feedback Loop\n\n> Recolecta feedback estructurado y detecta sentimiento sin APIs externas\n\n**Categoría:** Comunicación y Humano · **ID:** `mcp-feedback-loop`\n\n**Dolor de agente que resuelve:** El feedback llega suelto por chat: sin registro ni análisis, el agente repite lo que molesta.\n\n> Estado persistente en `~/.mcp-suite/feedback-loop/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `collect`\nRegistra feedback: categoría (claridad, velocidad, calidad, error), texto y puntuación opcional 1-5.\n\n**Parámetros:**\n  - `categoria` (enum, requerido): Categoría\n  - `texto` (string, requerido): El feedback\n  - `puntuacion` (number, opcional): 1-5 opcional\n\n### `sentiment_lite`\nSentimiento léxico local (ES): positivo/negativo/neutral con los términos detectados, sin APIs.\n\n**Parámetros:**\n  - `texto` (string, requerido): Feedback a analizar\n\n### `summarize_feedback`\nResumen del feedback acumulado: promedio por categoría, temas frecuentes y sentimiento global.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"feedback-loop\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-feedback-loop/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Feedback Loop\n * Recolecta feedback estructurado y detecta sentimiento sin APIs externas\n *\n * Dolor que resuelve: El feedback llega suelto por chat: sin registro ni análisis, el agente repite lo que molesta.\n * Categoría: Comunicación y Humano | Generado por mcp-suite | id: feedback-loop\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/feedback-loop/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"feedback-loop\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"feedback-loop\", version: \"1.0.0\" });\n\nserver.tool(\n  \"collect\",\n  \"Registra feedback: categoría (claridad, velocidad, calidad, error), texto y puntuación opcional 1-5.\",\n  {\n  categoria: z.enum([\"claridad\",\"velocidad\",\"calidad\",\"error\",\"sugerencia\"]).describe(\"Categoría\"),\n  texto: z.string().describe(\"El feedback\"),\n  puntuacion: z.number().describe(\"1-5 opcional\").optional(),\n  },\n  async (args: any) => {\n    const { categoria, texto, puntuacion } = args as any;\n    const st = store.load();\nst.feedback = st.feedback || [];\nst.feedback.push({ categoria, texto, puntuacion: puntuacion ?? null, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ total_feedback: st.feedback.length });\n  }\n);\n\nserver.tool(\n  \"sentiment_lite\",\n  \"Sentimiento léxico local (ES): positivo/negativo/neutral con los términos detectados, sin APIs.\",\n  {\n  texto: z.string().describe(\"Feedback a analizar\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const positivas = [\"bien\", \"excelente\", \"genial\", \"gracias\", \"perfecto\", \"claro\", \"útil\", \"rápido\", \"sí\", \"correcto\", \"me gusta\", \"funciona\", \"increíble\", \"buen\", \"bueno\", \"buena\", \"excelente\"];\nconst negativas = [\"mal\", \"malo\", \"mala\", \"lento\", \"error\", \"fallo\", \"no funciona\", \"confuso\", \"no entiendo\", \"difícil\", \"peor\", \"molesto\", \"no me gusta\", \"equivocado\", \"roto\", \"pésimo\", \"inútil\", \"no\"];\nconst t = \" \" + texto.toLowerCase() + \" \";\nlet score = 0; const hallados_pos: string[] = []; const hallados_neg: string[] = [];\nfor (const p of positivas) { const re = new RegExp(\"\\\\b\" + p + \"\\\\b\"); if (re.test(t)) { score++; hallados_pos.push(p); } }\nfor (const n of negativas) { const re = new RegExp(\"\\\\b\" + n + \"\\\\b\"); if (re.test(t)) { score--; hallados_neg.push(n); } }\nconst excl = /[!]{2,}/.test(texto) ? 1 : 0;\nconst sentimiento = score + excl > 0 ? \"positivo\" : score < 0 ? \"negativo\" : \"neutral\";\nreturn ok({ sentimiento, score, terminos_positivos: hallados_pos, terminos_negativos: hallados_neg, intensidad: Math.abs(score) });\n  }\n);\n\nserver.tool(\n  \"summarize_feedback\",\n  \"Resumen del feedback acumulado: promedio por categoría, temas frecuentes y sentimiento global.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst fb = st.feedback || [];\nif (!fb.length) return fail(\"sin feedback registrado\");\nconst por_categoria: any = {};\nfor (const f of fb) {\n  por_categoria[f.categoria] = por_categoria[f.categoria] || { n: 0, suma: 0, textos: [] };\n  por_categoria[f.categoria].n++;\n  if (f.puntuacion) por_categoria[f.categoria].suma += f.puntuacion;\n  por_categoria[f.categoria].textos.push(f.texto);\n}\nconst resumen = __ents(por_categoria).map(([cat, d]: [string, any]) => ({ categoria: cat, n: d.n, promedio: d.suma ? Math.round((d.suma / d.n) * 10) / 10 : null, ejemplo: d.textos[0]?.slice(0, 80) }));\nconst scores = fb.filter((f) => f.puntuacion).map((f) => f.puntuacion);\nreturn ok({ total: fb.length, promedio_global: scores.length ? Math.round((scores.reduce((a: number, b: number) => a + b, 0) / scores.length) * 10) / 10 : null, por_categoria: resumen });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor feedback-loop está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"feedback-loop\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[feedback-loop] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "feedback-loop"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

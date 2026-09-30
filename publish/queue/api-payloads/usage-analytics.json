@@ -1,0 +1,62 @@
+{
+ "name": "mcp-usage-analytics",
+ "version": "1.0.0",
+ "description": "Analítica de uso de tools: qué se usa, qué nunca, y tendencias Dolor que resuelve: Mantener MCP instalados que no se usan drena contexto y tokens: falta analítica de uso real. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Monitoring",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "observability",
+  "tracing",
+  "monitoring"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only usage-analytics",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-usage-analytics",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "record_tool_use",
+   "top_tools",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only usage-analytics",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-usage-analytics\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-usage-analytics/dist/index.js\"]}}}. Tools disponibles: record_tool_use, top_tools y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/usage-analytics/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-usage-analytics (record_tool_use, top_tools). Analítica de uso de tools: qué se usa, qué nunca, y tendencias. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/usage-analytics/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/usage-analytics\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Usage Analytics — Analítica de uso de tools: qué se usa, qué nunca, y tendencias (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-usage-analytics\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"observabilidad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Usage Analytics\n\n> Analítica de uso de tools: qué se usa, qué nunca, y tendencias\n\n**Categoría:** Observabilidad · **ID:** `mcp-usage-analytics`\n\n**Dolor de agente que resuelve:** Mantener MCP instalados que no se usan drena contexto y tokens: falta analítica de uso real.\n\n> Estado persistente en `~/.mcp-suite/usage-analytics/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `record_tool_use`\nRegistra el uso de una tool (éxito o no, duración).\n\n**Parámetros:**\n  - `tool` (string, requerido): Nombre de la tool\n  - `exito` (boolean, opcional): Resultado\n  - `duracion_ms` (number, opcional): Duración\n\n### `top_tools`\nRanking de tools por uso, con tasa de éxito y duración media. Marca candidatas a desinstalar.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"usage-analytics\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-usage-analytics/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Usage Analytics\n * Analítica de uso de tools: qué se usa, qué nunca, y tendencias\n *\n * Dolor que resuelve: Mantener MCP instalados que no se usan drena contexto y tokens: falta analítica de uso real.\n * Categoría: Observabilidad | Generado por mcp-suite | id: usage-analytics\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/usage-analytics/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"usage-analytics\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"usage-analytics\", version: \"1.0.0\" });\n\nserver.tool(\n  \"record_tool_use\",\n  \"Registra el uso de una tool (éxito o no, duración).\",\n  {\n  tool: z.string().describe(\"Nombre de la tool\"),\n  exito: z.boolean().describe(\"Resultado\").default(true),\n  duracion_ms: z.number().describe(\"Duración\").optional(),\n  },\n  async (args: any) => {\n    const { tool, exito, duracion_ms } = args as any;\n    const st = store.load();\nst.uso = st.uso || {};\nst.uso[tool] = st.uso[tool] || { llamadas: 0, exitos: 0, duraciones: [] };\nconst u = st.uso[tool];\nu.llamadas++;\nif (exito ?? true) u.exitos++;\nif (duracion_ms) u.duraciones = u.duraciones.concat(duracion_ms).slice(-100);\nu.ultima = new Date().toISOString();\nstore.save(st);\nreturn ok({ tool, llamadas: u.llamadas });\n  }\n);\n\nserver.tool(\n  \"top_tools\",\n  \"Ranking de tools por uso, con tasa de éxito y duración media. Marca candidatas a desinstalar.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst rows = __ents(st.uso || {}).map(([tool, u]: [string, any]) => {\n  const dur = u.duraciones || [];\n  return { tool, llamadas: u.llamadas, tasa_exito: Math.round((u.exitos / u.llamadas) * 100) + \"%\", duracion_media_ms: dur.length ? Math.round(dur.reduce((a: number, b: number) => a + b, 0) / dur.length) : null, ultima: u.ultima };\n}).sort((a: any, b: any) => b.llamadas - a.llamadas);\nreturn ok({ total_tools_usadas: rows.length, ranking: rows, candidatas_desinstalar: rows.filter((r) => r.llamadas <= 2 && rows.indexOf(r) > 5).map((r) => r.tool) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor usage-analytics está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"usage-analytics\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[usage-analytics] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-670635",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-safe-math",
+  "version": "1.0.0",
+  "description": "Aritmética exacta del agente: evaluación, porcentajes y reglas de tres Dolor que resuelve: Los LLM cometen errores aritméticos notorios: cualquier cifra importante debe calcularse con tool, no 'de cabeza'. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Productivity",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "utilities",
+   "toolkit",
+   "productivity"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only safe-math",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-safe-math",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "evaluate",
+    "percent_change",
+    "rule_of_three",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only safe-math",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-safe-math\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-safe-math/dist/index.js\"]}}}. Tools disponibles: evaluate, percent_change, rule_of_three y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/safe-math/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-safe-math (evaluate, percent_change, rule_of_three). Aritmética exacta del agente: evaluación, porcentajes y reglas de tres. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/safe-math/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/safe-math\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Safe Math — Aritmética exacta del agente: evaluación, porcentajes y reglas de tres (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-safe-math\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"utilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Safe Math\n\n> Aritmética exacta del agente: evaluación, porcentajes y reglas de tres\n\n**Categoría:** Utilidades · **ID:** `mcp-safe-math`\n\n**Dolor de agente que resuelve:** Los LLM cometen errores aritméticos notorios: cualquier cifra importante debe calcularse con tool, no 'de cabeza'.\n\n## Tools (4 incl. health_check)\n\n### `evaluate`\nEvalúa una expresión aritmética de forma segura con parser propio (sin eval): + - * / % ** y paréntesis.\n\n**Parámetros:**\n  - `expresion` (string, requerido): Expresión (ej: (1250 - 320) * 0.15)\n\n### `percent_change`\nCalcula variación porcentual exacta entre dos valores (con dirección y magnitud).\n\n**Parámetros:**\n  - `valor_inicial` (number, requerido): Valor inicial\n  - `valor_final` (number, requerido): Valor final\n\n### `rule_of_three`\nRegla de tres directa/inversa: dado A→B, ¿qué corresponde a C?\n\n**Parámetros:**\n  - `a` (number, requerido): Valor A\n  - `b` (number, requerido): Valor correspondiente a A\n  - `c` (number, requerido): Nuevo valor de A\n  - `inversa` (boolean, opcional): Proporcionalidad inversa\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"safe-math\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-safe-math/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Safe Math\n * Aritmética exacta del agente: evaluación, porcentajes y reglas de tres\n *\n * Dolor que resuelve: Los LLM cometen errores aritméticos notorios: cualquier cifra importante debe calcularse con tool, no 'de cabeza'.\n * Categoría: Utilidades | Generado por mcp-suite | id: safe-math\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"safe-math\", version: \"1.0.0\" });\n\nserver.tool(\n  \"evaluate\",\n  \"Evalúa una expresión aritmética de forma segura con parser propio (sin eval): + - * / % ** y paréntesis.\",\n  {\n  expresion: z.string().describe(\"Expresión (ej: (1250 - 320) * 0.15)\"),\n  },\n  async (args: any) => {\n    const { expresion } = args as any;\n    const expr = String(expresion).replace(/\\s+/g, \"\").replace(/,/g, \".\").replace(/\\^/g, \"**\");\nif (!/^[\\d+\\-*/%().]+$/.test(expr.replace(/\\*\\*/g, \"*\"))) return fail(\"caracteres no permitidos\");\nconst tokens = expr.match(/\\d+\\.?\\d*|\\*\\*|[+\\-*/%()]/g);\nif (!tokens) return fail(\"no parseable\");\nconst salida: any[] = []; const ops: string[] = [];\nconst prec: any = { \"+\": 1, \"-\": 1, \"*\": 2, \"/\": 2, \"%\": 2, \"**\": 3 };\nlet prev = \"\";\nfor (const tok of tokens) {\n  if (/^\\d/.test(tok)) { salida.push(parseFloat(tok)); }\n  else if (tok === \"(\") ops.push(tok);\n  else if (tok === \")\") { while (ops.length && ops[ops.length - 1] !== \"(\") salida.push(ops.pop()); ops.pop(); }\n  else {\n    if ((tok === \"-\" || tok === \"+\") && (prev === \"\" || prev === \"(\" || prec[prev])) salida.push(0);\n    while (ops.length && ops[ops.length - 1] !== \"(\" && prec[ops[ops.length - 1]] >= prec[tok]) salida.push(ops.pop());\n    ops.push(tok);\n  }\n  prev = tok;\n}\nwhile (ops.length) { const op = ops.pop(); if (op !== \"(\") salida.push(op); }\nconst pila: number[] = [];\nfor (const t of salida) {\n  if (typeof t === \"number\") { pila.push(t); continue; }\n  const b = pila.pop() as number; const a = pila.pop() as number;\n  if (a === undefined) return fail(\"expresión malformada\");\n  if (t === \"+\") pila.push(a + b); else if (t === \"-\") pila.push(a - b);\n  else if (t === \"*\") pila.push(a * b); else if (t === \"%\") pila.push(a % b);\n  else if (t === \"**\") pila.push(Math.pow(a, b));\n  else if (t === \"/\") { if (b === 0) return fail(\"división por cero\"); pila.push(a / b); }\n}\nif (pila.length !== 1 || !Number.isFinite(pila[0])) return fail(\"expresión malformada\");\nreturn ok({ expresion, resultado: Math.round(pila[0] * 1e10) / 1e10 });\n  }\n);\n\nserver.tool(\n  \"percent_change\",\n  \"Calcula variación porcentual exacta entre dos valores (con dirección y magnitud).\",\n  {\n  valor_inicial: z.number().describe(\"Valor inicial\"),\n  valor_final: z.number().describe(\"Valor final\"),\n  },\n  async (args: any) => {\n    const { valor_inicial, valor_final } = args as any;\n    if (valor_inicial === 0) return fail(\"valor inicial 0: variación indefinida\");\nconst cambio = (valor_final - valor_inicial) / Math.abs(valor_inicial) * 100;\nreturn ok({ valor_inicial, valor_final, delta: valor_final - valor_inicial, cambio_porcentual: Math.round(cambio * 100) / 100 + \"%\", direccion: cambio > 0 ? \"aumento\" : cambio < 0 ? \"disminución\" : \"sin cambio\" });\n  }\n);\n\nserver.tool(\n  \"rule_of_three\",\n  \"Regla de tres directa/inversa: dado A→B, ¿qué corresponde a C?\",\n  {\n  a: z.number().describe(\"Valor A\"),\n  b: z.number().describe(\"Valor correspondiente a A\"),\n  c: z.number().describe(\"Nuevo valor de A\"),\n  inversa: z.boolean().describe(\"Proporcionalidad inversa\").default(false),\n  },\n  async (args: any) => {\n    const { a, b, c, inversa } = args as any;\n    if (a === 0 || c === 0) return fail(\"valores no pueden ser 0\");\nconst x = inversa ? (b * a) / c : (b * c) / a;\nreturn ok({ planteo: a + \" → \" + b + \" ; \" + c + \" → ?\", resultado: Math.round(x * 1e6) / 1e6, tipo: inversa ? \"inversa\" : \"directa\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor safe-math está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"safe-math\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[safe-math] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "safe-math"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

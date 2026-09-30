@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-3d2a13",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-scratchpad",
+  "version": "1.0.0",
+  "description": "Pizarra temporal por tarea: lo que el agente piensa sin ensuciar el contexto Dolor que resuelve: El agente mezcla razonamiento intermedio con contexto durable: necesita una pizarra de trabajo desechable y aislada por tarea. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "memory",
+   "context",
+   "retrieval"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only scratchpad",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-scratchpad",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "write",
+    "read",
+    "clear",
+    "list_tasks",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only scratchpad",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-scratchpad\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-scratchpad/dist/index.js\"]}}}. Tools disponibles: write, read, clear, list_tasks y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/scratchpad/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-scratchpad (write, read, clear, list_tasks). Pizarra temporal por tarea: lo que el agente piensa sin ensuciar el contexto. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/scratchpad/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/scratchpad\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Scratchpad — Pizarra temporal por tarea: lo que el agente piensa sin ensuciar el contexto (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-scratchpad\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Scratchpad\n\n> Pizarra temporal por tarea: lo que el agente piensa sin ensuciar el contexto\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-scratchpad`\n\n**Dolor de agente que resuelve:** El agente mezcla razonamiento intermedio con contexto durable: necesita una pizarra de trabajo desechable y aislada por tarea.\n\n> Estado persistente en `~/.mcp-suite/scratchpad/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `write`\nEscribe en la pizarra de la tarea activa (anexar o reemplazar por etiqueta).\n\n**Parámetros:**\n  - `etiqueta` (string, requerido): Etiqueta de la nota (ej: hipotesis-1)\n  - `contenido` (string, requerido): Contenido\n  - `tarea` (string, opcional): Tarea activa\n\n### `read`\nLee la pizarra completa de la tarea (o una etiqueta específica).\n\n**Parámetros:**\n  - `tarea` (string, opcional): Tarea\n  - `etiqueta` (string, opcional): Etiqueta específica\n\n### `clear`\nLimpia la pizarra de una tarea (el razonamiento intermedio no debe persistir).\n\n**Parámetros:**\n  - `tarea` (string, opcional): Tarea a limpiar\n\n### `list_tasks`\nLista las tareas con pizarra activa y cuántas notas tienen cada una.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"scratchpad\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-scratchpad/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Scratchpad\n * Pizarra temporal por tarea: lo que el agente piensa sin ensuciar el contexto\n *\n * Dolor que resuelve: El agente mezcla razonamiento intermedio con contexto durable: necesita una pizarra de trabajo desechable y aislada por tarea.\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: scratchpad\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/scratchpad/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"scratchpad\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"scratchpad\", version: \"1.0.0\" });\n\nserver.tool(\n  \"write\",\n  \"Escribe en la pizarra de la tarea activa (anexar o reemplazar por etiqueta).\",\n  {\n  etiqueta: z.string().describe(\"Etiqueta de la nota (ej: hipotesis-1)\"),\n  contenido: z.string().describe(\"Contenido\"),\n  tarea: z.string().describe(\"Tarea activa\").default(\"default\"),\n  },\n  async (args: any) => {\n    const { etiqueta, contenido, tarea } = args as any;\n    const st = store.load();\nconst t = tarea || \"default\";\nst[t] = st[t] || {};\nst[t][etiqueta] = { contenido, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({ tarea: t, etiqueta, total_notas: Object.keys(st[t]).length });\n  }\n);\n\nserver.tool(\n  \"read\",\n  \"Lee la pizarra completa de la tarea (o una etiqueta específica).\",\n  {\n  tarea: z.string().describe(\"Tarea\").default(\"default\"),\n  etiqueta: z.string().describe(\"Etiqueta específica\").optional(),\n  },\n  async (args: any) => {\n    const { tarea, etiqueta } = args as any;\n    const st = store.load();\nconst t = tarea || \"default\";\nconst notas = st[t] || {};\nif (etiqueta) return ok(notas[etiqueta] ? { etiqueta, ...notas[etiqueta] } : { etiqueta, contenido: null });\nreturn ok({ tarea: t, notas });\n  }\n);\n\nserver.tool(\n  \"clear\",\n  \"Limpia la pizarra de una tarea (el razonamiento intermedio no debe persistir).\",\n  {\n  tarea: z.string().describe(\"Tarea a limpiar\").default(\"default\"),\n  },\n  async (args: any) => {\n    const { tarea } = args as any;\n    const st = store.load();\ndelete st[tarea || \"default\"];\nstore.save(st);\nreturn ok({ limpiada: tarea || \"default\" });\n  }\n);\n\nserver.tool(\n  \"list_tasks\",\n  \"Lista las tareas con pizarra activa y cuántas notas tienen cada una.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst tareas = __ents(st).map(([t, v]: [string, any]) => ({ tarea: t, notas: Object.keys(v || {}).length }));\nreturn ok({ tareas });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor scratchpad está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"scratchpad\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[scratchpad] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "scratchpad"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

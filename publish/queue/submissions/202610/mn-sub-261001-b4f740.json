@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-b4f740",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-caption-aligner",
+  "version": "1.0.0",
+  "description": "Alinea transcripción y subtítulos por tiempo: cobertura, solapes y huecos detectados antes de confiar en ellos Dolor que resuelve: El transcript dice 'a las 14:30' y el caption correspondiente empieza 40 segundos tarde: el agente cita minutos exactos de un material desalineado y la referencia temporal es pura ficción. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Communication",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "multimodal",
+   "voice",
+   "turn-taking"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only caption-aligner",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-caption-aligner",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "ingest_segments",
+    "coverage_check",
+    "align_transcript",
+    "suggest_offset",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only caption-aligner",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-caption-aligner\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-caption-aligner/dist/index.js\"]}}}. Tools disponibles: ingest_segments, coverage_check, align_transcript, suggest_offset y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/caption-aligner/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-caption-aligner (ingest_segments, coverage_check, align_transcript, suggest_offset). Alinea transcripción y subtítulos por tiempo: cobertura, solapes y huecos detectados antes de confiar en ellos. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/caption-aligner/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/caption-aligner\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Caption Aligner — Alinea transcripción y subtítulos por tiempo: cobertura, solapes y huecos detectados antes de confiar en ellos (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-caption-aligner\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"multimodal-voz\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Caption Aligner\n\n> Alinea transcripción y subtítulos por tiempo: cobertura, solapes y huecos detectados antes de confiar en ellos\n\n**Categoría:** Multimodal & Voz · **ID:** `mcp-caption-aligner`\n\n**Dolor de agente que resuelve:** El transcript dice 'a las 14:30' y el caption correspondiente empieza 40 segundos tarde: el agente cita minutos exactos de un material desalineado y la referencia temporal es pura ficción.\n\n> Estado persistente en `~/.mcp-suite/caption-aligner/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `ingest_segments`\nIngiere los segmentos de subtítulo con sus tiempos.\n\n**Parámetros:**\n  - `material` (string, requerido): Nombre del material (video/clase/reunión)\n  - `segmentos` (array, requerido): Segmentos {start: segundos, end: segundos, texto}\n  - `duracion_total_seg` (number, opcional): Duración del material\n\n### `coverage_check`\nCobertura temporal: qué zonas del material no tienen caption (huecos) y cuánto duran.\n\n**Parámetros:**\n  - `material` (string, requerido): Material\n\n### `align_transcript`\nAlinea oraciones del transcript con los segmentos por similitud textual y devuelve el mapeo con confianza.\n\n**Parámetros:**\n  - `material` (string, requerido): Material\n  - `oraciones` (array, requerido): Oraciones del transcript (texto, en orden)\n\n### `suggest_offset`\nSi todo alinea pero desplazado constante, calcula el offset de corrección por puntos de anclaje.\n\n**Parámetros:**\n  - `material` (string, requerido): Material\n  - `anclajes` (array, requerido): Puntos verificados {texto_cita, tiempo_real_seg}\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"caption-aligner\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-caption-aligner/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/caption-aligner/. Ingiere segmentos de subtítulo (start/end/texto) y oraciones del transcript; calcula solapes, huecos de cobertura y deriva acumulada; propone offsets de corrección.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Caption Aligner\n * Alinea transcripción y subtítulos por tiempo: cobertura, solapes y huecos detectados antes de confiar en ellos\n *\n * Dolor que resuelve: El transcript dice 'a las 14:30' y el caption correspondiente empieza 40 segundos tarde: el agente cita minutos exactos de un material desalineado y la referencia temporal es pura ficción.\n * Categoría: Multimodal & Voz | Generado por mcp-suite | id: caption-aligner\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/caption-aligner/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"caption-aligner\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"caption-aligner\", version: \"1.0.0\" });\n\nserver.tool(\n  \"ingest_segments\",\n  \"Ingiere los segmentos de subtítulo con sus tiempos.\",\n  {\n  material: z.string().describe(\"Nombre del material (video/clase/reunión)\"),\n  segmentos: z.array(z.any()).describe(\"Segmentos {start: segundos, end: segundos, texto}\"),\n  duracion_total_seg: z.number().describe(\"Duración del material\").optional(),\n  },\n  async (args: any) => {\n    const { material, segmentos, duracion_total_seg } = args as any;\n    const st = store.load();\nst.materiales = st.materiales || {};\nconst limpios = (segmentos || []).filter(s => typeof s.start === \"number\" && typeof s.end === \"number\" && s.texto).map(s => ({ start: s.start, end: s.end, texto: String(s.texto).trim() })).sort((a, b) => a.start - b.start);\nif (!limpios.length) return fail(\"sin segmentos válidos {start, end, texto}\");\nconst solapes = [];\nfor (let i = 1; i < limpios.length; i++) {\n  if (limpios[i].start < limpios[i - 1].end - 0.05) solapes.push({ entre: [i, i + 1], segundos: Number((limpios[i - 1].end - limpios[i].start).toFixed(2)) });\n}\nconst invertidos = limpios.filter((s, i) => i > 0 && s.start < limpios[i - 1].start).length;\nst.materiales[material] = { material, segmentos: limpios, duracion: duracion_total_seg || limpios[limpios.length - 1].end, solapes, ingerido: new Date().toISOString() };\nstore.save(st);\nreturn ok({ material, segmentos: limpios.length, duracion_seg: st.materiales[material].duracion, solapes_detectados: solapes.length, segmentos_invertidos: invertidos, aviso: solapes.length > limpios.length * 0.2 ? \"más del 20% de segmentos se solapan: la fuente de captions es sucia, límpiala antes de alinear\" : \"ingesta razonable\" });\n  }\n);\n\nserver.tool(\n  \"coverage_check\",\n  \"Cobertura temporal: qué zonas del material no tienen caption (huecos) y cuánto duran.\",\n  {\n  material: z.string().describe(\"Material\"),\n  },\n  async (args: any) => {\n    const { material } = args as any;\n    const st = store.load();\nconst m = (st.materiales || {})[material];\nif (!m) return fail(\"material no encontrado: ingiere con ingest_segments\");\nconst huecos = [];\nlet cursor = 0;\nm.segmentos.forEach(s => {\n  if (s.start > cursor + 1.5) huecos.push({ desde: Number(cursor.toFixed(1)), hasta: Number(s.start.toFixed(1)), duracion: Number((s.start - cursor).toFixed(1)) });\n  cursor = Math.max(cursor, s.end);\n});\nif (m.duracion > cursor + 2) huecos.push({ desde: Number(cursor.toFixed(1)), hasta: Number(m.duracion.toFixed(1)), duracion: Number((m.duracion - cursor).toFixed(1)) });\nconst cobertura = Number((m.segmentos.reduce((a, s) => a + (s.end - s.start), 0) / m.duracion * 100).toFixed(1));\nreturn ok({ material, duracion_total: Number(m.duracion.toFixed(1)), cobertura_pct: cobertura + \"%\", huecos: huecos.sort((a, b) => b.duracion - a.duracion), zona_mas_oscura: huecos[0] || null, veredicto: cobertura < 85 ? \"cobertura POBRE: el \" + Number((100 - cobertura).toFixed(0)) + \"% del material no tiene caption: NO cites tiempos de zonas sin caption\" : cobertura < 95 ? \"cobertura aceptable con huecos acotados\" : \"cobertura completa\" });\n  }\n);\n\nserver.tool(\n  \"align_transcript\",\n  \"Alinea oraciones del transcript con los segmentos por similitud textual y devuelve el mapeo con confianza.\",\n  {\n  material: z.string().describe(\"Material\"),\n  oraciones: z.array(z.any()).describe(\"Oraciones del transcript (texto, en orden)\"),\n  },\n  async (args: any) => {\n    const { material, oraciones } = args as any;\n    const st = store.load();\nconst m = (st.materiales || {})[material];\nif (!m) return fail(\"material no encontrado\");\nconst ords = (oraciones || []).map(String).filter(o => o.trim());\nif (!ords.length) return fail(\"sin oraciones\");\nconst tokens = (x) => new Set(x.toLowerCase().split(/[^a-z0-9áéíóúñ]+/).filter(w => w.length > 2));\nconst alineadas = ords.map((o, idx) => {\n  const to = tokens(o);\n  let mejor = null;\n  m.segmentos.forEach((s, si) => {\n    const ts = tokens(s.texto);\n    const inter = [...to].filter(w => ts.has(w)).length;\n    const sim = inter / Math.max(to.size, 1);\n    if (!mejor || sim > mejor.sim) mejor = { segmento_idx: si, start: s.start, end: s.end, sim };\n  });\n  return { oracion_idx: idx, oracion: o.slice(0, 60), segmento: mejor ? mejor.segmento_idx + 1 : null, tiempo: mejor ? { desde: Number(mejor.start.toFixed(1)), hasta: Number(mejor.end.toFixed(1)) } : null, confianza: mejor ? (mejor.sim >= 0.7 ? \"ALTA\" : mejor.sim >= 0.4 ? \"MEDIA\" : \"BAJA\") : \"NINGUNA\", similitud: mejor ? Number(mejor.sim.toFixed(2)) : 0 };\n});\nconst monotono = alineadas.every((a, i) => i === 0 || !a.tiempo || !alineadas[i - 1].tiempo || a.tiempo.desde >= alineacionesPrevias(alineadas, i));\nfunction alineacionesPrevias(arr, i) { return arr[i - 1].tiempo; }\nconst bajas = alineadas.filter(a => a.confianza === \"BAJA\" || a.confianza === \"NINGUNA\");\nreturn ok({ material, oraciones_alineadas: alineadas.filter(a => a.tiempo).length, alineacion: alineadas, orden_temporal_coherente: monotono, confianzas: { alta: alineadas.filter(a => a.confianza === \"ALTA\").length, media: alineadas.filter(a => a.confianza === \"MEDIA\").length, baja_baja: bajas.length }, aviso: bajas.length > ords.length * 0.25 ? \"más del 25% de oraciones alinean MAL: el transcript y los captions cuentan historias distintas, no mezcles sus tiempos\" : null });\n  }\n);\n\nserver.tool(\n  \"suggest_offset\",\n  \"Si todo alinea pero desplazado constante, calcula el offset de corrección por puntos de anclaje.\",\n  {\n  material: z.string().describe(\"Material\"),\n  anclajes: z.array(z.any()).describe(\"Puntos verificados {texto_cita, tiempo_real_seg}\"),\n  },\n  async (args: any) => {\n    const { material, anclajes } = args as any;\n    const st = store.load();\nconst m = (st.materiales || {})[material];\nif (!m) return fail(\"material no encontrado\");\nconst tokens = (x) => new Set(x.toLowerCase().split(/[^a-z0-9áéíóúñ]+/).filter(w => w.length > 2));\nconst deltas = [];\n(anclajes || []).forEach(a => {\n  const to = tokens(String(a.texto_cita || \"\"));\n  let mejor = null;\n  m.segmentos.forEach(s => {\n    const ts = tokens(s.texto);\n    const sim = [...to].filter(w => ts.has(w)).length / Math.max(to.size, 1);\n    if (!mejor || sim > mejor.sim) mejor = { sim, start: s.start };\n  });\n  if (mejor && mejor.sim >= 0.5) deltas.push({ cita: String(a.texto_cita).slice(0, 40), caption_dice: Number(mejor.start.toFixed(1)), tiempo_real: Number(a.tiempo_real_seg), delta_seg: Number((a.tiempo_real_seg - mejor.start).toFixed(2)) });\n});\nif (deltas.length < 2) return fail(\"necesitas al menos 2 anclajes con similitud suficiente; aportados válidos: \" + deltas.length);\nconst media = deltas.reduce((s, d) => s + d.delta_seg, 0) / deltas.length;\nconst dispersion = Math.max(...deltas.map(d => Math.abs(d.delta_seg - media)));\nreturn ok({ anclajes: deltas, offset_medio_seg: Number(media.toFixed(2)), dispersion_seg: Number(dispersion.toFixed(2)), correccion: dispersion < 0.75 ? \"offset CONSTANTE: suma \" + Number(media.toFixed(2)) + \"s a todo caption y queda alineado\" : \"offset VARIABLE (deriva): el material se desincroniza progresivamente; realinea por tramos en lugar de un solo offset\", aplicacion: \"al citar tiempos del material, corrige: tiempo_cita = tiempo_caption + \" + Number(media.toFixed(2)) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor caption-aligner está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"caption-aligner\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[caption-aligner] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "caption-aligner"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

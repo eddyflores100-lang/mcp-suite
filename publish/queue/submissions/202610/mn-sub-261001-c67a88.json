@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-c67a88",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-explain-decision",
+  "version": "1.0.0",
+  "description": "Explica decisiones post-hoc con evidencia: qué sabía, qué opciones descartó y por qué eligió Dolor que resuelve: El agente no puede explicar por qué hizo algo: no conserva qué información tenía, qué alternativas consideró ni qué criterio aplicó. Sin explicación, no hay confianza ni auditoría posible. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Productivity",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "human-approval",
+   "escalation",
+   "consent"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only explain-decision",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-explain-decision",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "record_decision",
+    "explain",
+    "record_outcome",
+    "decision_audit",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only explain-decision",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-explain-decision\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-explain-decision/dist/index.js\"]}}}. Tools disponibles: record_decision, explain, record_outcome, decision_audit y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/explain-decision/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-explain-decision (record_decision, explain, record_outcome, decision_audit). Explica decisiones post-hoc con evidencia: qué sabía, qué opciones descartó y por qué eligió. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/explain-decision/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/explain-decision\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Explain Decision — Explica decisiones post-hoc con evidencia: qué sabía, qué opciones descartó y por qué eligió (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-explain-decision\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"humano-en-el-bucle\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Explain Decision\n\n> Explica decisiones post-hoc con evidencia: qué sabía, qué opciones descartó y por qué eligió\n\n**Categoría:** Humano en el Bucle · **ID:** `mcp-explain-decision`\n\n**Dolor de agente que resuelve:** El agente no puede explicar por qué hizo algo: no conserva qué información tenía, qué alternativas consideró ni qué criterio aplicó. Sin explicación, no hay confianza ni auditoría posible.\n\n> Estado persistente en `~/.mcp-suite/explain-decision/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `record_decision`\nRegistra una decisión con su contexto completo (evidencia, opciones, criterio, elegida).\n\n**Parámetros:**\n  - `decision` (string, requerido): Decisión tomada\n  - `situacion` (string, requerido): Situación que la motivó\n  - `evidencia` (array, requerido): Datos/hechos en los que se basó\n  - `opciones_consideradas` (array, requerido): Alternativas evaluadas\n  - `criterio` (string, requerido): Criterio de elección\n  - `elegida_porque` (string, requerido): Por qué ganó la elegida\n  - `resultado_esperado` (string, requerido): Qué se espera que ocurra\n\n### `explain`\nReconstruye la explicación completa de una decisión (para auditoría o pregunta del humano).\n\n**Parámetros:**\n  - `decision_id` (string, requerido): ID de la decisión\n\n### `record_outcome`\nRegistra el resultado real de la decisión y califica el criterio (acertó o no).\n\n**Parámetros:**\n  - `decision_id` (string, requerido): ID de la decisión\n  - `resultado_real` (string, requerido): Qué pasó realmente\n  - `acierto` (boolean, requerido): ¿El criterio acertó?\n\n### `decision_audit`\nAuditoría de decisiones: tasa de acierto del criterio y patrones de decisiones mal soportadas.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"explain-decision\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-explain-decision/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/explain-decision/. Decisión = situación + evidencia disponible + opciones consideradas + criterio + elegida + resultado esperado; reconstructible a posteriori.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Explain Decision\n * Explica decisiones post-hoc con evidencia: qué sabía, qué opciones descartó y por qué eligió\n *\n * Dolor que resuelve: El agente no puede explicar por qué hizo algo: no conserva qué información tenía, qué alternativas consideró ni qué criterio aplicó. Sin explicación, no hay confianza ni auditoría posible.\n * Categoría: Humano en el Bucle | Generado por mcp-suite | id: explain-decision\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/explain-decision/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"explain-decision\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"explain-decision\", version: \"1.0.0\" });\n\nserver.tool(\n  \"record_decision\",\n  \"Registra una decisión con su contexto completo (evidencia, opciones, criterio, elegida).\",\n  {\n  decision: z.string().describe(\"Decisión tomada\"),\n  situacion: z.string().describe(\"Situación que la motivó\"),\n  evidencia: z.array(z.any()).describe(\"Datos/hechos en los que se basó\"),\n  opciones_consideradas: z.array(z.any()).describe(\"Alternativas evaluadas\"),\n  criterio: z.string().describe(\"Criterio de elección\"),\n  elegida_porque: z.string().describe(\"Por qué ganó la elegida\"),\n  resultado_esperado: z.string().describe(\"Qué se espera que ocurra\"),\n  },\n  async (args: any) => {\n    const { decision, situacion, evidencia, opciones_consideradas, criterio, elegida_porque, resultado_esperado } = args as any;\n    const st = store.load();\nst.decisiones = st.decisiones || [];\nconst d = {\n  id: \"dc_\" + Date.now().toString(36),\n  decision, situacion, evidencia: evidencia || [], opciones: opciones_consideradas || [], criterio, elegida_porque, resultado_esperado,\n  resultado_real: null, ts: new Date().toISOString(),\n};\nst.decisiones.push(d);\nif (st.decisiones.length > 500) st.decisiones = st.decisiones.slice(-300);\nstore.save(st);\nreturn ok({ decision_id: d.id, registrada: true, verificable: \"registra el resultado real luego para calibrar el criterio\" });\n  }\n);\n\nserver.tool(\n  \"explain\",\n  \"Reconstruye la explicación completa de una decisión (para auditoría o pregunta del humano).\",\n  {\n  decision_id: z.string().describe(\"ID de la decisión\"),\n  },\n  async (args: any) => {\n    const { decision_id } = args as any;\n    const st = store.load();\nconst d = (st.decisiones || []).find(x => x.id === decision_id);\nif (!d) return fail(\"decisión no encontrada\");\nreturn ok({\n  explicacion: [\n    \"DECISIÓN: \" + d.decision,\n    \"SITUACIÓN: \" + d.situacion,\n    \"EVIDENCIA QUE TENÍA: \" + (d.evidencia.length ? d.evidencia.map((e, i) => (i + 1) + \". \" + e).join(\"; \") : \"(sin evidencia explícita registrada)\") ,\n    \"OPCIONES CONSIDERADAS: \" + (d.opciones.length ? d.opciones.join(\" | \") : \"(solo una camino considerado)\"),\n    \"CRITERIO: \" + d.criterio,\n    \"POR QUÉ LA ELEGIDA: \" + d.elegida_porque,\n    \"RESULTADO ESPERADO: \" + d.resultado_esperado,\n    \"RESULTADO REAL: \" + (d.resultado_real || \"pendiente de registrar\"),\n  ],\n  bandera_auditoria: d.evidencia.length < 2 ? \"DECISIÓN CON EVIDENCIA DÉBIL (menos de 2 soportes): era una corazonada\" : d.opciones.length < 2 ? \"SIN ALTERNATIVAS EVALUADAS: se tomó el primer camino\" : \"decisión bien soportada\",\n});\n  }\n);\n\nserver.tool(\n  \"record_outcome\",\n  \"Registra el resultado real de la decisión y califica el criterio (acertó o no).\",\n  {\n  decision_id: z.string().describe(\"ID de la decisión\"),\n  resultado_real: z.string().describe(\"Qué pasó realmente\"),\n  acierto: z.boolean().describe(\"¿El criterio acertó?\"),\n  },\n  async (args: any) => {\n    const { decision_id, resultado_real, acierto } = args as any;\n    const st = store.load();\nconst d = (st.decisiones || []).find(x => x.id === decision_id);\nif (!d) return fail(\"decisión no encontrada\");\nd.resultado_real = resultado_real;\nd.acierto = acierto;\nstore.save(st);\nreturn ok({ decision: d.id, acierto });\n  }\n);\n\nserver.tool(\n  \"decision_audit\",\n  \"Auditoría de decisiones: tasa de acierto del criterio y patrones de decisiones mal soportadas.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ds = st.decisiones || [];\nif (!ds.length) return ok({ decisiones: 0 });\nconst evaluadas = ds.filter(d => d.acierto !== null && d.acierto !== undefined);\nreturn ok({\n  decisiones: ds.length, evaluadas: evaluadas.length,\n  tasa_acierto_criterio: evaluadas.length ? Number((evaluadas.filter(d => d.acierto).length / evaluadas.length).toFixed(2)) : null,\n  mal_soportadas: ds.filter(d => d.evidencia.length < 2).length,\n  sin_alternativas: ds.filter(d => d.opciones.length < 2).length,\n  sin_desenlace: ds.length - evaluadas.length,\n  veredicto: ds.filter(d => d.evidencia.length < 2).length > ds.length * 0.4 ? \"40%+ de decisiones con evidencia débil: exige 2+ soportes antes de decidir\" : \"disciplina decisional sana\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor explain-decision está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"explain-decision\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[explain-decision] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "explain-decision"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

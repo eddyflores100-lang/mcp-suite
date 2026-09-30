@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-c99f09",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-decision-matrix",
+  "version": "1.0.0",
+  "description": "Decisiones ponderadas: opciones × criterios con análisis de sensibilidad Dolor que resuelve: El agente decide por intuición: sin matriz ponderada, las decisiones no son reproducibles ni explicables. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "planning",
+   "reasoning",
+   "cognition"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only decision-matrix",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-decision-matrix",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "decide",
+    "sensitivity",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only decision-matrix",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-decision-matrix\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-decision-matrix/dist/index.js\"]}}}. Tools disponibles: decide, sensitivity y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/decision-matrix/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-decision-matrix (decide, sensitivity). Decisiones ponderadas: opciones × criterios con análisis de sensibilidad. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/decision-matrix/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/decision-matrix\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Decision Matrix — Decisiones ponderadas: opciones × criterios con análisis de sensibilidad (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-decision-matrix\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Decision Matrix\n\n> Decisiones ponderadas: opciones × criterios con análisis de sensibilidad\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-decision-matrix`\n\n**Dolor de agente que resuelve:** El agente decide por intuición: sin matriz ponderada, las decisiones no son reproducibles ni explicables.\n\n## Tools (3 incl. health_check)\n\n### `decide`\nEvalúa opciones contra criterios ponderados: puntúa cada opción, calcula total ponderado y recomienda la ganadora.\n\n**Parámetros:**\n  - `opciones` (array, requerido): Nombres de opciones\n  - `criterios` (array, requerido): Lista {nombre, peso}\n  - `puntajes` (any, requerido): Matriz {opcion: {criterio: 0-10}}\n\n### `sensitivity`\nAnálisis de sensibilidad: ¿cambia la decisión si un criterio cambia de peso? Encuentra los pesos que voltean la decisión.\n\n**Parámetros:**\n  - `opciones` (array, requerido): Nombres de opciones\n  - `criterios` (array, requerido): Lista {nombre, peso}\n  - `puntajes` (any, requerido): Matriz de puntajes\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"decision-matrix\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-decision-matrix/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Decision Matrix\n * Decisiones ponderadas: opciones × criterios con análisis de sensibilidad\n *\n * Dolor que resuelve: El agente decide por intuición: sin matriz ponderada, las decisiones no son reproducibles ni explicables.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: decision-matrix\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"decision-matrix\", version: \"1.0.0\" });\n\nserver.tool(\n  \"decide\",\n  \"Evalúa opciones contra criterios ponderados: puntúa cada opción, calcula total ponderado y recomienda la ganadora.\",\n  {\n  opciones: z.array(z.any()).describe(\"Nombres de opciones\"),\n  criterios: z.array(z.any()).describe(\"Lista {nombre, peso}\"),\n  puntajes: z.any().describe(\"Matriz {opcion: {criterio: 0-10}}\"),\n  },\n  async (args: any) => {\n    const { opciones, criterios, puntajes } = args as any;\n    const opts = Array.isArray(opciones) ? opciones : [];\nconst crits = (Array.isArray(criterios) ? criterios : []).map((c: any) => typeof c === \"string\" ? { nombre: c, peso: 1 } : c);\nconst pesos = crits.reduce((a: number, c: any) => a + (c.peso ?? 1), 0) || 1;\nconst resultados = opts.map((o: string) => {\n  let total = 0; const detalle: any = {};\n  for (const c of crits) {\n    const v = Math.max(0, Math.min(10, Number(puntajes?.[o]?.[c.nombre] ?? 5)));\n    detalle[c.nombre] = v;\n    total += v * (c.peso ?? 1);\n  }\n  return { opcion: o, puntaje_ponderado: Math.round((total / pesos) * 100) / 100, detalle };\n}).sort((a: any, b: any) => b.puntaje_ponderado - a.puntaje_ponderado);\nreturn ok({ ganadora: resultados[0]?.opcion, ranking: resultados, criterios: crits, empate: resultados.length > 1 && resultados[0].puntaje_ponderado === resultados[1].puntaje_ponderado });\n  }\n);\n\nserver.tool(\n  \"sensitivity\",\n  \"Análisis de sensibilidad: ¿cambia la decisión si un criterio cambia de peso? Encuentra los pesos que voltean la decisión.\",\n  {\n  opciones: z.array(z.any()).describe(\"Nombres de opciones\"),\n  criterios: z.array(z.any()).describe(\"Lista {nombre, peso}\"),\n  puntajes: z.any().describe(\"Matriz de puntajes\"),\n  },\n  async (args: any) => {\n    const { opciones, criterios, puntajes } = args as any;\n    const opts = Array.isArray(opciones) ? opciones : [];\nconst crits = (Array.isArray(criterios) ? criterios : []).map((c: any) => typeof c === \"string\" ? { nombre: c, peso: 1 } : c);\nfunction totalDe(opcion: string, pesos: any): number {\n  let t = 0;\n  for (const c of crits) t += Math.max(0, Math.min(10, Number(puntajes?.[opcion]?.[c.nombre] ?? 5))) * pesos[c.nombre];\n  return t;\n}\nconst ganadora = opts.reduce((best: any, o: string) => { const t = totalDe(o, Object.fromEntries(crits.map((c: any) => [c.nombre, c.peso ?? 1]))); return !best || t > best.t ? { o, t } : best; }, null);\nconst sensibilidades: any[] = [];\nfor (const c of crits) {\n  for (const factor of [0, 0.5, 2, 5]) {\n    const pesos: any = Object.fromEntries(crits.map((x: any) => [x.nombre, x.peso ?? 1]));\n    pesos[c.nombre] = (c.peso ?? 1) * factor;\n    const nueva = opts.reduce((best: any, o: string) => { const t = totalDe(o, pesos); return !best || t > best.t ? { o, t } : best; }, null);\n    if (nueva.o !== ganadora.o) sensibilidades.push({ criterio: c.nombre, factor_peso: factor, nueva_ganadora: nueva.o, razon: \"si \" + c.nombre + \" pesa x\" + factor + \", gana \" + nueva.o });\n  }\n}\nreturn ok({ ganadora_original: ganadora?.o, volatil: sensibilidades.length > 0, sensibilidades: sensibilidades.slice(0, 8), nota: sensibilidades.length ? \"decisión sensible: documenta la justificación de pesos\" : \"decisión robusta a cambios de peso\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor decision-matrix está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"decision-matrix\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[decision-matrix] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "decision-matrix"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

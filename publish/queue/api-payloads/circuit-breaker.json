@@ -1,0 +1,64 @@
+{
+ "name": "mcp-circuit-breaker",
+ "version": "1.0.0",
+ "description": "Disyuntor por servicio: deja de martillar lo que está caído Dolor que resuelve: Cuando un servicio MCP cae, cada llamada espera su timeout completo: cascada de latencia. Falta circuit breaker. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "DevOps",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "resilience",
+  "circuit-breaker",
+  "retry"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only circuit-breaker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-circuit-breaker",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 2.99,
+  "currency": "USD",
+  "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+ },
+ "price": 2.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "record_success",
+   "record_failure",
+   "check",
+   "reset",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only circuit-breaker",
+   "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-circuit-breaker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-circuit-breaker/dist/index.js\"]}}}. Tools disponibles: record_success, record_failure, check, reset y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/circuit-breaker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-circuit-breaker (record_success, record_failure, check, reset). Disyuntor por servicio: deja de martillar lo que está caído. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/circuit-breaker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/circuit-breaker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Circuit Breaker — Disyuntor por servicio: deja de martillar lo que está caído (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-circuit-breaker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Circuit Breaker\n\n> Disyuntor por servicio: deja de martillar lo que está caído\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-circuit-breaker`\n\n**Dolor de agente que resuelve:** Cuando un servicio MCP cae, cada llamada espera su timeout completo: cascada de latencia. Falta circuit breaker.\n\n> Estado persistente en `~/.mcp-suite/circuit-breaker/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `record_success`\nRegistra un éxito del servicio (resetea contador de fallos; cierra el circuito si estaba half-open).\n\n**Parámetros:**\n  - `servicio` (string, requerido): Nombre del servicio\n\n### `record_failure`\nRegistra un fallo del servicio: al llegar al umbral, el circuito se ABRE (bloquea llamadas).\n\n**Parámetros:**\n  - `servicio` (string, requerido): Servicio\n  - `umbral` (number, opcional): Fallos para abrir\n\n### `check`\nConsulta el estado del circuito para un servicio: permite llamar (closed/half-open tras cooldown) o bloqueado (open).\n\n**Parámetros:**\n  - `servicio` (string, requerido): Servicio\n  - `cooldown_ms` (number, opcional): Cooldown antes de half-open\n\n### `reset`\nResetea manualmente el circuito de un servicio (tras confirmar que volvió).\n\n**Parámetros:**\n  - `servicio` (string, requerido): Servicio\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"circuit-breaker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-circuit-breaker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nEstados: CLOSED (normal) → OPEN tras N fallos (bloquea) → HALF-OPEN tras cooldown (prueba 1 llamada).\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Circuit Breaker\n * Disyuntor por servicio: deja de martillar lo que está caído\n *\n * Dolor que resuelve: Cuando un servicio MCP cae, cada llamada espera su timeout completo: cascada de latencia. Falta circuit breaker.\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: circuit-breaker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/circuit-breaker/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"circuit-breaker\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"circuit-breaker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"record_success\",\n  \"Registra un éxito del servicio (resetea contador de fallos; cierra el circuito si estaba half-open).\",\n  {\n  servicio: z.string().describe(\"Nombre del servicio\"),\n  },\n  async (args: any) => {\n    const { servicio } = args as any;\n    const st = store.load();\nst.breakers = st.breakers || {};\nconst b = st.breakers[servicio] = st.breakers[servicio] || { estado: \"closed\", fallos: 0, exitos: 0 };\nb.exitos = (b.exitos || 0) + 1;\nb.fallos = 0;\nif (b.estado === \"half-open\") b.estado = \"closed\";\nb.ultimo_evento = new Date().toISOString();\nstore.save(st);\nreturn ok({ servicio, estado: b.estado });\n  }\n);\n\nserver.tool(\n  \"record_failure\",\n  \"Registra un fallo del servicio: al llegar al umbral, el circuito se ABRE (bloquea llamadas).\",\n  {\n  servicio: z.string().describe(\"Servicio\"),\n  umbral: z.number().describe(\"Fallos para abrir\").default(5),\n  },\n  async (args: any) => {\n    const { servicio, umbral } = args as any;\n    const st = store.load();\nst.breakers = st.breakers || {};\nconst b = st.breakers[servicio] = st.breakers[servicio] || { estado: \"closed\", fallos: 0, exitos: 0 };\nb.fallos = (b.fallos || 0) + 1;\nif (b.estado === \"half-open\" || b.fallos >= (umbral ?? 5)) { b.estado = \"open\"; b.abierto = new Date().toISOString(); }\nb.ultimo_evento = new Date().toISOString();\nstore.save(st);\nreturn ok({ servicio, estado: b.estado, fallos_consecutivos: b.fallos });\n  }\n);\n\nserver.tool(\n  \"check\",\n  \"Consulta el estado del circuito para un servicio: permite llamar (closed/half-open tras cooldown) o bloqueado (open).\",\n  {\n  servicio: z.string().describe(\"Servicio\"),\n  cooldown_ms: z.number().describe(\"Cooldown antes de half-open\").default(30000),\n  },\n  async (args: any) => {\n    const { servicio, cooldown_ms } = args as any;\n    const st = store.load();\nconst b = st.breakers?.[servicio];\nif (!b) return ok({ servicio, estado: \"closed\", permitir: true, fallos: 0 });\nlet estado = b.estado; let permitir = estado !== \"open\";\nif (estado === \"open\") {\n  const desde = new Date(b.abierto || 0).getTime();\n  if (Date.now() - desde >= (cooldown_ms ?? 30000)) { estado = \"half-open\"; permitir = true; }\n}\nreturn ok({ servicio, estado, permitir, fallos_consecutivos: b.fallos, exitos: b.exitos, ultima: b.ultimo_evento });\n  }\n);\n\nserver.tool(\n  \"reset\",\n  \"Resetea manualmente el circuito de un servicio (tras confirmar que volvió).\",\n  {\n  servicio: z.string().describe(\"Servicio\"),\n  },\n  async (args: any) => {\n    const { servicio } = args as any;\n    const st = store.load();\nif (st.breakers?.[servicio]) { st.breakers[servicio] = { estado: \"closed\", fallos: 0, exitos: 0 }; store.save(st); }\nreturn ok({ servicio, reset: true });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor circuit-breaker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"circuit-breaker\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[circuit-breaker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

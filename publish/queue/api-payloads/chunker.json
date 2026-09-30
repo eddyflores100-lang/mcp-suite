@@ -1,0 +1,62 @@
+{
+ "name": "mcp-chunker",
+ "version": "1.0.0",
+ "description": "Trocea texto para RAG: chunks por oraciones/superposiciones con presupuesto de tokens Dolor que resuelve: El RAG casero trocea mal (corta oraciones, tamaños desiguales): la calidad de recuperación se hunde. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "data",
+  "parsing",
+  "etl"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only chunker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-chunker",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "chunk_text",
+   "chunk_stats",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only chunker",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-chunker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-chunker/dist/index.js\"]}}}. Tools disponibles: chunk_text, chunk_stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/chunker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-chunker (chunk_text, chunk_stats). Trocea texto para RAG: chunks por oraciones/superposiciones con presupuesto de tokens. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/chunker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/chunker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Chunker — Trocea texto para RAG: chunks por oraciones/superposiciones con presupuesto de tokens (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-chunker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Chunker\n\n> Trocea texto para RAG: chunks por oraciones/superposiciones con presupuesto de tokens\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-chunker`\n\n**Dolor de agente que resuelve:** El RAG casero trocea mal (corta oraciones, tamaños desiguales): la calidad de recuperación se hunde.\n\n## Tools (3 incl. health_check)\n\n### `chunk_text`\nTrocea texto en chunks de presupuesto de tokens: respeta oraciones, superposición configurable y mínimo por chunk.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a trocear\n  - `max_tokens` (number, opcional): Tokens por chunk\n  - `overlap_oraciones` (number, opcional): Oraciones solapadas entre chunks\n\n### `chunk_stats`\nEstadísticas de una lista de chunks: tamaños, desviación y cobertura con overlap (para tunear el chunking).\n\n**Parámetros:**\n  - `chunks` (array, requerido): Lista de chunks (strings u objetos con texto)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"chunker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-chunker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Chunker\n * Trocea texto para RAG: chunks por oraciones/superposiciones con presupuesto de tokens\n *\n * Dolor que resuelve: El RAG casero trocea mal (corta oraciones, tamaños desiguales): la calidad de recuperación se hunde.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: chunker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"chunker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"chunk_text\",\n  \"Trocea texto en chunks de presupuesto de tokens: respeta oraciones, superposición configurable y mínimo por chunk.\",\n  {\n  texto: z.string().describe(\"Texto a trocear\"),\n  max_tokens: z.number().describe(\"Tokens por chunk\").default(400),\n  overlap_oraciones: z.number().describe(\"Oraciones solapadas entre chunks\").default(1),\n  },\n  async (args: any) => {\n    const { texto, max_tokens, overlap_oraciones } = args as any;\n    const oraciones = String(texto).replace(/\\s+/g, \" \").split(/(?<=[.!?])\\s+/).filter((s) => s.trim());\nconst presupuesto = max_tokens ?? 400;\nconst chunks: any[] = [];\nlet actual: string[] = [];\nlet tokensActual = 0;\nfor (const o of oraciones) {\n  const t = Math.ceil(o.length / 4);\n  if (tokensActual + t > presupuesto && actual.length) {\n    chunks.push({ chunk: chunks.length + 1, texto: actual.join(\" \"), tokens: tokensActual, oraciones: actual.length });\n    const cola = actual.slice(-(overlap_oraciones ?? 1));\n    actual = [...cola];\n    tokensActual = Math.ceil(cola.join(\" \").length / 4);\n  }\n  if (t > presupuesto) {\n    const palabras = o.split(\" \");\n    let parte: string[] = [];\n    for (const w of palabras) {\n      if (Math.ceil(parte.join(\" \").length / 4) + Math.ceil(w.length / 4) > presupuesto && parte.length) { chunks.push({ chunk: chunks.length + 1, texto: parte.join(\" \"), tokens: Math.ceil(parte.join(\" \").length / 4), oraciones: 1 }); parte = []; }\n      parte.push(w);\n    }\n    if (parte.length) { actual = actual.concat([parte.join(\" \")]); tokensActual = Math.ceil(actual.join(\" \").length / 4); }\n  } else { actual.push(o); tokensActual += t; }\n}\nif (actual.length) chunks.push({ chunk: chunks.length + 1, texto: actual.join(\" \"), tokens: tokensActual, oraciones: actual.length });\nreturn ok({ total_chunks: chunks.length, tokens_origen: Math.ceil(texto.length / 4), chunks });\n  }\n);\n\nserver.tool(\n  \"chunk_stats\",\n  \"Estadísticas de una lista de chunks: tamaños, desviación y cobertura con overlap (para tunear el chunking).\",\n  {\n  chunks: z.array(z.any()).describe(\"Lista de chunks (strings u objetos con texto)\"),\n  },\n  async (args: any) => {\n    const { chunks } = args as any;\n    const tamaños = (Array.isArray(chunks) ? chunks : []).map((c: any) => typeof c === \"string\" ? Math.ceil(c.length / 4) : Math.ceil(String(c.texto || c.chunk || \"\").length / 4));\nif (!tamaños.length) return fail(\"sin chunks\");\nconst media = tamaños.reduce((a: number, b: number) => a + b, 0) / tamaños.length;\nconst sd = Math.sqrt(tamaños.reduce((a: number, t: number) => a + (t - media) ** 2, 0) / tamaños.length);\nconst sorted = [...tamaños].sort((a, b) => a - b);\nreturn ok({ chunks: tamaños.length, tokens_media: Math.round(media), desviacion: Math.round(sd), min: sorted[0], max: sorted[sorted.length - 1], p50: sorted[Math.floor(sorted.length / 2)], uniformidad: Math.round((1 - sd / (media || 1)) * 100) + \"%\", recomendacion: sd / (media || 1) > 0.5 ? \"tamaños muy dispares: revisa el chunking\" : \"uniformidad aceptable\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor chunker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"chunker\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[chunker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

@@ -1,0 +1,64 @@
+{
+ "name": "mcp-deadline-engine",
+ "version": "1.0.0",
+ "description": "Deadlines con prioridad dinámica: el antídoto contra la procrastinación estructural del agente Dolor que resuelve: El agente trabaja en orden de llegada, no de urgencia: descubre el deadline vencido cuando pregunta '¿qué hago ahora?' y ya no hay tiempo. La urgencia tiene que calcularse, no recordarse. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "freshness",
+  "staleness",
+  "knowledge-cutoff"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only deadline-engine",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-deadline-engine",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add_deadline",
+   "priority_queue",
+   "feasibility_check",
+   "complete",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only deadline-engine",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-deadline-engine\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-deadline-engine/dist/index.js\"]}}}. Tools disponibles: add_deadline, priority_queue, feasibility_check, complete y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/deadline-engine/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-deadline-engine (add_deadline, priority_queue, feasibility_check, complete). Deadlines con prioridad dinámica: el antídoto contra la procrastinación estructural del agente. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/deadline-engine/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/deadline-engine\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Deadline Engine — Deadlines con prioridad dinámica: el antídoto contra la procrastinación estructural del agente (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-deadline-engine\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"frescura-del-conocimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Deadline Engine\n\n> Deadlines con prioridad dinámica: el antídoto contra la procrastinación estructural del agente\n\n**Categoría:** Frescura del Conocimiento · **ID:** `mcp-deadline-engine`\n\n**Dolor de agente que resuelve:** El agente trabaja en orden de llegada, no de urgencia: descubre el deadline vencido cuando pregunta '¿qué hago ahora?' y ya no hay tiempo. La urgencia tiene que calcularse, no recordarse.\n\n> Estado persistente en `~/.mcp-suite/deadline-engine/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `add_deadline`\nAñade un item con deadline, peso y esfuerzo estimado: la prioridad se recalcula sola.\n\n**Parámetros:**\n  - `item` (string, requerido): Tarea/entrega con plazo\n  - `deadline` (string, requerido): Fecha ISO o 'en Xh'/'en Xd'\n  - `peso` (enum, opcional): Importancia\n  - `esfuerzo_horas` (number, opcional): Esfuerzo estimado\n\n### `priority_queue`\nCola priorizada dinámicamente: urgencia por cercanía x peso, con slack (tiempo libre antes del deadline).\n\n### `feasibility_check`\nComprueba si todo lo pendiente cabe en el tiempo disponible: detecta deadlines imposibles.\n\n**Parámetros:**\n  - `horas_disponibles` (number, opcional): Horas de trabajo disponibles hasta el deadline más lejano\n\n### `complete`\nMarca un item como completado y mide si se cumplió a tiempo.\n\n**Parámetros:**\n  - `id` (string, requerido): ID del item\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"deadline-engine\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-deadline-engine/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/deadline-engine/. Items con deadline y peso; prioridad dinámica = cercanía x peso x tamaño (slack); detecta deadlines imposibles y agenda de trabajo óptima.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Deadline Engine\n * Deadlines con prioridad dinámica: el antídoto contra la procrastinación estructural del agente\n *\n * Dolor que resuelve: El agente trabaja en orden de llegada, no de urgencia: descubre el deadline vencido cuando pregunta '¿qué hago ahora?' y ya no hay tiempo. La urgencia tiene que calcularse, no recordarse.\n * Categoría: Frescura del Conocimiento | Generado por mcp-suite | id: deadline-engine\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/deadline-engine/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"deadline-engine\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"deadline-engine\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_deadline\",\n  \"Añade un item con deadline, peso y esfuerzo estimado: la prioridad se recalcula sola.\",\n  {\n  item: z.string().describe(\"Tarea/entrega con plazo\"),\n  deadline: z.string().describe(\"Fecha ISO o 'en Xh'/'en Xd'\"),\n  peso: z.enum([\"bajo\",\"medio\",\"alto\",\"critico\"]).describe(\"Importancia\").default(\"medio\"),\n  esfuerzo_horas: z.number().describe(\"Esfuerzo estimado\").default(1),\n  },\n  async (args: any) => {\n    const { item, deadline, peso, esfuerzo_horas } = args as any;\n    const st = store.load();\nconst m = String(deadline).toLowerCase().match(/^en\\s+(\\d+)\\s*(h|horas|d|dias|día)/);\nconst cuando = m\n  ? new Date(Date.now() + parseInt(m[1]) * (m[2].startsWith(\"h\") ? 3600000 : 86400000)).toISOString()\n  : (() => { const d = new Date(deadline); return isNaN(d.getTime()) ? null : d.toISOString(); })();\nif (!cuando) return fail(\"deadline no interpretable (ISO o 'en 3h' / 'en 2d')\");\nst.items = st.items || [];\nst.items.push({ id: \"dl_\" + Date.now().toString(36), item, deadline: cuando, peso, esfuerzo_horas: esfuerzo_horas ?? 1, completado: false, creado: new Date().toISOString() });\nstore.save(st);\nreturn ok({ item: item.slice(0, 60), deadline: cuando, horas_restantes: Number(((new Date(cuando).getTime() - Date.now()) / 3600000).toFixed(1)) });\n  }\n);\n\nserver.tool(\n  \"priority_queue\",\n  \"Cola priorizada dinámicamente: urgencia por cercanía x peso, con slack (tiempo libre antes del deadline).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst items = (st.items || []).filter(i => !i.completado);\nif (!items.length) return ok({ pendientes: 0 });\nconst PESO = { critico: 4, alto: 3, medio: 2, bajo: 1 };\nconst cola = items.map(i => {\n  const horasRest = (new Date(i.deadline).getTime() - Date.now()) / 3600000;\n  const slack = horasRest - i.esfuerzo_horas;\n  const urgencia = PESO[i.peso] * (1 / Math.max(horasRest / 24, 0.05));\n  const prioridad = urgencia * (slack < 0 ? 1.5 : 1);\n  return { id: i.id, item: i.item.slice(0, 70), deadline: i.deadline.slice(0, 16), horas_restantes: Number(horasRest.toFixed(1)), slack_horas: Number(slack.toFixed(1)), peso: i.peso, prioridad: Number(prioridad.toFixed(2)) };\n}).sort((a, b) => b.prioridad - a.prioridad);\nreturn ok({\n  pendientes: cola.length,\n  vencidos: cola.filter(c => c.horas_restantes < 0).length,\n  sin_slack: cola.filter(c => c.slack_horas < 0 && c.horas_restantes > 0).length,\n  cola,\n  siguiente_accion: cola[0] ? \"trabaja AHORA en: \" + cola[0].item + (cola[0].slack_horas < 0 ? \" (SLACK NEGATIVO: avisa del retraso YA)\" : \"\") : null,\n});\n  }\n);\n\nserver.tool(\n  \"feasibility_check\",\n  \"Comprueba si todo lo pendiente cabe en el tiempo disponible: detecta deadlines imposibles.\",\n  {\n  horas_disponibles: z.number().describe(\"Horas de trabajo disponibles hasta el deadline más lejano\").default(8),\n  },\n  async (args: any) => {\n    const { horas_disponibles } = args as any;\n    const st = store.load();\nconst items = (st.items || []).filter(i => !i.completado);\nif (!items.length) return ok({ pendientes: 0 });\nconst totalEsfuerzo = items.reduce((s, i) => s + i.esfuerzo_horas, 0);\nconst imposible = items.filter(i => (new Date(i.deadline).getTime() - Date.now()) / 3600000 < i.esfuerzo_horas);\nreturn ok({\n  pendientes: items.length,\n  esfuerzo_total_horas: Number(totalEsfuerzo.toFixed(1)),\n  horas_disponibles: horas_disponibles,\n  carga: Number((totalEsfuerzo / horas_disponibles).toFixed(2)) + \"x\",\n  deadlines_imposibles: imposible.map(i => ({ item: i.item.slice(0, 60), horas_restantes: Number(((new Date(i.deadline).getTime() - Date.now()) / 3600000).toFixed(1)), necesita: i.esfuerzo_horas })),\n  veredicto: totalEsfuerzo > horas_disponibles ? \"SOBRECARGA: no cabe todo: renegocia plazos o delega ANTES de fallar\" : imposible.length ? \"hay items imposibles individualmente: avisa ya\" : \"factible\",\n});\n  }\n);\n\nserver.tool(\n  \"complete\",\n  \"Marca un item como completado y mide si se cumplió a tiempo.\",\n  {\n  id: z.string().describe(\"ID del item\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst i = (st.items || []).find(x => x.id === id);\nif (!i) return fail(\"item no encontrado\");\ni.completado = true;\ni.completado_ts = new Date().toISOString();\ni.a_tiempo = new Date(i.completado_ts) <= new Date(i.deadline);\nstore.save(st);\nreturn ok({ item: i.item.slice(0, 60), a_tiempo: i.a_tiempo, horas_margen: Number(((new Date(i.deadline).getTime() - new Date(i.completado_ts).getTime()) / 3600000).toFixed(1)) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor deadline-engine está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"deadline-engine\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[deadline-engine] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

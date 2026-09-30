@@ -1,0 +1,63 @@
+{
+ "name": "mcp-milestone-checker",
+ "version": "1.0.0",
+ "description": "Hitos con checkpoints de calidad: mide progreso real contra el plan Dolor que resuelve: El '90% listo' del agente es mentira estadística: sin hitos verificables no hay progreso medible. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "planning",
+  "reasoning",
+  "cognition"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only milestone-checker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-milestone-checker",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "define_milestones",
+   "evaluate",
+   "progress",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only milestone-checker",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-milestone-checker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-milestone-checker/dist/index.js\"]}}}. Tools disponibles: define_milestones, evaluate, progress y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/milestone-checker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-milestone-checker (define_milestones, evaluate, progress). Hitos con checkpoints de calidad: mide progreso real contra el plan. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/milestone-checker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/milestone-checker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Milestone Checker — Hitos con checkpoints de calidad: mide progreso real contra el plan (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-milestone-checker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Milestone Checker\n\n> Hitos con checkpoints de calidad: mide progreso real contra el plan\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-milestone-checker`\n\n**Dolor de agente que resuelve:** El '90% listo' del agente es mentira estadística: sin hitos verificables no hay progreso medible.\n\n> Estado persistente en `~/.mcp-suite/milestone-checker/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `define_milestones`\nDefine los hitos de un proyecto: nombre, criterio verificable y peso relativo.\n\n**Parámetros:**\n  - `proyecto` (string, requerido): Proyecto\n  - `hitos` (array, requerido): Lista de {nombre, criterio, peso}\n\n### `evaluate`\nMarca un hito como cumplido (o lo revierte) evaluando su criterio.\n\n**Parámetros:**\n  - `proyecto` (string, requerido): Proyecto\n  - `hito` (number, requerido): Número de hito\n  - `cumplido` (boolean, opcional): ¿Cumplido?\n  - `evidencia` (string, opcional): Evidencia del cumplimiento\n\n### `progress`\nReporte de progreso del proyecto: hitos cumplidos/pendientes, próximos y estancados.\n\n**Parámetros:**\n  - `proyecto` (string, requerido): Proyecto\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"milestone-checker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-milestone-checker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Milestone Checker\n * Hitos con checkpoints de calidad: mide progreso real contra el plan\n *\n * Dolor que resuelve: El '90% listo' del agente es mentira estadística: sin hitos verificables no hay progreso medible.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: milestone-checker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/milestone-checker/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"milestone-checker\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"milestone-checker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"define_milestones\",\n  \"Define los hitos de un proyecto: nombre, criterio verificable y peso relativo.\",\n  {\n  proyecto: z.string().describe(\"Proyecto\"),\n  hitos: z.array(z.any()).describe(\"Lista de {nombre, criterio, peso}\"),\n  },\n  async (args: any) => {\n    const { proyecto, hitos } = args as any;\n    const st = store.load();\nst.proyectos = st.proyectos || {};\nconst p = st.proyectos[proyecto] = st.proyectos[proyecto] || {};\np.hitos = (Array.isArray(hitos) ? hitos : []).map((h: any, i: number) => ({ n: i + 1, nombre: h.nombre, criterio: h.criterio || \"\", peso: h.peso ?? 1, cumplido: false }));\nstore.save(st);\nreturn ok({ proyecto, hitos: p.hitos.length, peso_total: p.hitos.reduce((a: number, h: any) => a + h.peso, 0) });\n  }\n);\n\nserver.tool(\n  \"evaluate\",\n  \"Marca un hito como cumplido (o lo revierte) evaluando su criterio.\",\n  {\n  proyecto: z.string().describe(\"Proyecto\"),\n  hito: z.number().describe(\"Número de hito\"),\n  cumplido: z.boolean().describe(\"¿Cumplido?\").default(true),\n  evidencia: z.string().describe(\"Evidencia del cumplimiento\").optional(),\n  },\n  async (args: any) => {\n    const { proyecto, hito, cumplido, evidencia } = args as any;\n    const st = store.load();\nconst p = st.proyectos?.[proyecto];\nif (!p) return fail(\"proyecto no existe\");\nconst h = p.hitos.find((x) => x.n === hito);\nif (!h) return fail(\"hito no existe\");\nh.cumplido = cumplido ?? true;\nh.evidencia = evidencia || \"\";\nh.evaluado = new Date().toISOString();\nstore.save(st);\nconst logrados = p.hitos.filter((x) => x.cumplido);\nreturn ok({ hito, cumplido: h.cumplido, progreso: Math.round((logrados.reduce((a: number, x: any) => a + x.peso, 0) / p.hitos.reduce((a: number, x: any) => a + x.peso, 0)) * 100) + \"%\" });\n  }\n);\n\nserver.tool(\n  \"progress\",\n  \"Reporte de progreso del proyecto: hitos cumplidos/pendientes, próximos y estancados.\",\n  {\n  proyecto: z.string().describe(\"Proyecto\"),\n  },\n  async (args: any) => {\n    const { proyecto } = args as any;\n    const st = store.load();\nconst p = st.proyectos?.[proyecto];\nif (!p) return fail(\"proyecto no existe\");\nconst pendientes = p.hitos.filter((h: any) => !h.cumplido);\nreturn ok({ hitos: p.hitos.length, cumplidos: p.hitos.length - pendientes.length, pendientes: pendientes.map((h: any) => h.n + \". \" + h.nombre), proximo: pendientes[0] ? pendientes[0].nombre : \"COMPLETADO\", progreso: Math.round(((p.hitos.length - pendientes.length) / p.hitos.length) * 100) + \"%\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor milestone-checker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"milestone-checker\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[milestone-checker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

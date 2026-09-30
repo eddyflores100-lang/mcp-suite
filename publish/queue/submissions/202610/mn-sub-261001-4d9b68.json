@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-4d9b68",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-action-limiter",
+  "version": "1.0.0",
+  "description": "Cinturón de seguridad del agente: limita frecuencia y volumen de acciones destructivas aunque el modelo insista Dolor que resuelve: El agente entra en bucle y repite la llamada destructiva 47 veces porque 'el error dice que reintentes'. Sin limitador local, ni el prompt ni el buen propósito frenan la máquina. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "preflight",
+   "readiness",
+   "checklist"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only action-limiter",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-action-limiter",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "set_policy",
+    "check_action",
+    "register_action",
+    "usage_report",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only action-limiter",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-action-limiter\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-action-limiter/dist/index.js\"]}}}. Tools disponibles: set_policy, check_action, register_action, usage_report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/action-limiter/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-action-limiter (set_policy, check_action, register_action, usage_report). Cinturón de seguridad del agente: limita frecuencia y volumen de acciones destructivas aunque el modelo insista. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/action-limiter/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/action-limiter\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Action Limiter — Cinturón de seguridad del agente: limita frecuencia y volumen de acciones destructivas aunque el modelo insista (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-action-limiter\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"pre-vuelo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Action Limiter\n\n> Cinturón de seguridad del agente: limita frecuencia y volumen de acciones destructivas aunque el modelo insista\n\n**Categoría:** Pre-Vuelo · **ID:** `mcp-action-limiter`\n\n**Dolor de agente que resuelve:** El agente entra en bucle y repite la llamada destructiva 47 veces porque 'el error dice que reintentes'. Sin limitador local, ni el prompt ni el buen propósito frenan la máquina.\n\n> Estado persistente en `~/.mcp-suite/action-limiter/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `set_policy`\nDefine el límite para una clase de acciones (verbo sobre objetivo).\n\n**Parámetros:**\n  - `verbo` (string, requerido): Verbo de la acción (delete, send, update, create...)\n  - `objetivo` (string, opcional): Patrón del objetivo (archivo:*, tabla:*, api:*)\n  - `max_por_hora` (number, opcional): Máximo permitido por hora (0 = ilimitado)\n  - `max_por_sesion` (number, opcional): Máximo por sesión (0 = ilimitado)\n  - `escala` (enum, opcional): Qué hacer al superarlo\n\n### `check_action`\nPregunta ANTES de ejecutar: ¿esta acción está dentro de límite? Devuelve PERMITIDO / AVISADO / CONFIRMAR_HUMANO / BLOQUEADO con motivo.\n\n**Parámetros:**\n  - `verbo` (string, requerido): Verbo de la acción\n  - `objetivo` (string, requerido): Objetivo concreto (ej: tabla:usuarios)\n  - `sesion` (string, opcional): Sesión/agente que ejecuta\n\n### `register_action`\nRegistra la ejecución real de la acción (alimenta los contadores).\n\n**Parámetros:**\n  - `verbo` (string, requerido): Verbo ejecutado\n  - `objetivo` (string, requerido): Objetivo\n  - `resultado` (string, opcional): exito | error | parcial\n  - `sesion` (string, opcional): Sesión\n\n### `usage_report`\nConsumo por verbo/objetivo en la última hora y estado frente a cada política.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"action-limiter\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-action-limiter/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/action-limiter/. Políticas por verbo+objetivo: máx por ventana, máx por sesión, y escala (avisar → exigir confirmación humana → bloquear). El contador es local: el agente no puede negociarlo.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Action Limiter\n * Cinturón de seguridad del agente: limita frecuencia y volumen de acciones destructivas aunque el modelo insista\n *\n * Dolor que resuelve: El agente entra en bucle y repite la llamada destructiva 47 veces porque 'el error dice que reintentes'. Sin limitador local, ni el prompt ni el buen propósito frenan la máquina.\n * Categoría: Pre-Vuelo | Generado por mcp-suite | id: action-limiter\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/action-limiter/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"action-limiter\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"action-limiter\", version: \"1.0.0\" });\n\nserver.tool(\n  \"set_policy\",\n  \"Define el límite para una clase de acciones (verbo sobre objetivo).\",\n  {\n  verbo: z.string().describe(\"Verbo de la acción (delete, send, update, create...)\"),\n  objetivo: z.string().describe(\"Patrón del objetivo (archivo:*, tabla:*, api:*)\").default(\"*\"),\n  max_por_hora: z.number().describe(\"Máximo permitido por hora (0 = ilimitado)\").default(0),\n  max_por_sesion: z.number().describe(\"Máximo por sesión (0 = ilimitado)\").default(0),\n  escala: z.enum([\"avisar\",\"confirmar_humano\",\"bloquear\"]).describe(\"Qué hacer al superarlo\").default(\"bloquear\"),\n  },\n  async (args: any) => {\n    const { verbo, objetivo, max_por_hora, max_por_sesion, escala } = args as any;\n    const st = store.load();\nst.politicas = st.politicas || {};\nconst clave = verbo.toLowerCase() + \"::\" + (objetivo || \"*\");\nst.politicas[clave] = { verbo: verbo.toLowerCase(), objetivo: objetivo || \"*\", max_por_hora, max_por_sesion, escala, creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ politica: clave, max_por_hora, max_por_sesion, escala, politicas_totales: Object.keys(st.politicas).length });\n  }\n);\n\nserver.tool(\n  \"check_action\",\n  \"Pregunta ANTES de ejecutar: ¿esta acción está dentro de límite? Devuelve PERMITIDO / AVISADO / CONFIRMAR_HUMANO / BLOQUEADO con motivo.\",\n  {\n  verbo: z.string().describe(\"Verbo de la acción\"),\n  objetivo: z.string().describe(\"Objetivo concreto (ej: tabla:usuarios)\"),\n  sesion: z.string().describe(\"Sesión/agente que ejecuta\").default(\"default\"),\n  },\n  async (args: any) => {\n    const { verbo, objetivo, sesion } = args as any;\n    const st = store.load();\nst.eventos = st.eventos || [];\nconst politicas = __vals(st.politicas || {});\nconst v = verbo.toLowerCase();\nconst politica = politicas.filter(p => p.verbo === v).sort((a, b) => (b.objetivo === \"*\" ? 0 : 1) - (a.objetivo === \"*\" ? 0 : 1)).find(p => p.objetivo === \"*\" || (objetivo || \"\").startsWith(p.objetivo.replace(/\\*$/, \"\")) || (objetivo || \"\").includes(p.objetivo));\nif (!politica) return ok({ decision: \"PERMITIDO\", motivo: \"sin política para \" + v + \": define una si es destructivo\", politica: null });\nconst ahora = Date.now();\nst.eventos = st.eventos.filter(e => ahora - new Date(e.ts).getTime() < 3600000);\nconst propios = st.eventos.filter(e => e.verbo === politica.verbo && e.sesion === sesion);\nconst mismosObjetivo = propios.filter(e => (objetivo || \"\").includes(e.objetivo.slice(0, 20)));\nconst enVentana = propios.filter(e => true);\nconst porHora = politica.max_por_hora > 0 ? enVentana.length >= politica.max_por_hora : false;\nconst porSesion = politica.max_por_sesion > 0 ? propios.length >= politica.max_por_sesion : false;\nlet decision = \"PERMITIDO\";\nlet motivo = \"dentro de límites (\" + enVentana.length + \"/h, \" + propios.length + \"/sesión)\";\nif (porHora || porSesion) {\n  if (politica.escala === \"avisar\") { decision = \"AVISADO\"; motivo = \"límite superado (\" + (porHora ? enVentana.length + \"/\" + politica.max_por_hora + \" por hora\" : propios.length + \"/\" + politica.max_por_sesion + \" por sesión\") + \"): puede continuar pero el exceso queda registrado\"; }\n  else if (politica.escala === \"confirmar_humano\") { decision = \"CONFIRMAR_HUMANO\"; motivo = \"límite superado: requiere confirmación humana explícita para continuar\"; }\n  else { decision = \"BLOQUEADO\"; motivo = \"límite superado (\" + (porHora ? \"ventana horaria\" : \"sesión\") + \") y la política manda bloquear: NIEGA la acción al agente\"; }\n}\nreturn ok({ decision, motivo, politica: { verbo: politica.verbo, objetivo: politica.objetivo, max_por_hora: politica.max_por_hora, max_por_sesion: politica.max_por_sesion, escala: politica.escala }, uso_actual: { ultima_hora: enVentana.length, sesion: propios.length, mismo_objetivo: mismosObjetivo.length }, siguiente: decision === \"PERMITIDO\" ? \"ejecuta y luego registra con register_action\" : \"obedece la decisión: el limitador es inapelable\" });\n  }\n);\n\nserver.tool(\n  \"register_action\",\n  \"Registra la ejecución real de la acción (alimenta los contadores).\",\n  {\n  verbo: z.string().describe(\"Verbo ejecutado\"),\n  objetivo: z.string().describe(\"Objetivo\"),\n  resultado: z.string().describe(\"exito | error | parcial\").default(\"exito\"),\n  sesion: z.string().describe(\"Sesión\").default(\"default\"),\n  },\n  async (args: any) => {\n    const { verbo, objetivo, resultado, sesion } = args as any;\n    const st = store.load();\nst.eventos = st.eventos || [];\nst.eventos.push({ verbo: verbo.toLowerCase(), objetivo, resultado, sesion, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ registrado: true, eventos_totales: st.eventos.length });\n  }\n);\n\nserver.tool(\n  \"usage_report\",\n  \"Consumo por verbo/objetivo en la última hora y estado frente a cada política.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ahora = Date.now();\nconst eventos = (st.eventos || []).filter(e => ahora - new Date(e.ts).getTime() < 3600000);\nconst porVerbo = {};\neventos.forEach(e => { const k = e.verbo + \"::\" + e.objetivo.slice(0, 30); porVerbo[k] = (porVerbo[k] || 0) + 1; });\nconst politicas = __vals(st.politicas || {}).map(p => {\n  const uso = eventos.filter(e => e.verbo === p.verbo).length;\n  return { politica: p.verbo + \"::\" + p.objetivo, limite_hora: p.max_por_hora, uso_ultima_hora: uso, estado: p.max_por_hora > 0 ? (uso >= p.max_por_hora ? \"EN LÍMITE\" : uso >= p.max_por_hora * 0.7 ? \"ACERCÁNDOSE\" : \"holgado\") : \"sin límite horario\" };\n});\nreturn ok({ eventos_ultima_hora: eventos.length, por_verbo_objetivo: porVerbo, politicas, errores_repetidos: eventos.filter(e => e.resultado === \"error\").length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor action-limiter está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"action-limiter\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[action-limiter] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "action-limiter"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

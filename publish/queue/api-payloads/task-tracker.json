@@ -1,0 +1,64 @@
+{
+ "name": "mcp-task-tracker",
+ "version": "1.0.0",
+ "description": "Tareas del agente con estados, prioridades y bloqueos Dolor que resuelve: Sin tracker de tareas el agente pierde el hilo entre sesiones y no sabe qué está bloqueado. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "planning",
+  "reasoning",
+  "cognition"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only task-tracker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-task-tracker",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 2.99,
+  "currency": "USD",
+  "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+ },
+ "price": 2.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add",
+   "update_status",
+   "pending",
+   "summary",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only task-tracker",
+   "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-task-tracker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-task-tracker/dist/index.js\"]}}}. Tools disponibles: add, update_status, pending, summary y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/task-tracker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-task-tracker (add, update_status, pending, summary). Tareas del agente con estados, prioridades y bloqueos. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/task-tracker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/task-tracker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Task Tracker — Tareas del agente con estados, prioridades y bloqueos (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-task-tracker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Task Tracker\n\n> Tareas del agente con estados, prioridades y bloqueos\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-task-tracker`\n\n**Dolor de agente que resuelve:** Sin tracker de tareas el agente pierde el hilo entre sesiones y no sabe qué está bloqueado.\n\n> Estado persistente en `~/.mcp-suite/task-tracker/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `add`\nAñade una tarea: título, detalle, prioridad y etiquetas. Devuelve ID.\n\n**Parámetros:**\n  - `titulo` (string, requerido): Título de la tarea\n  - `detalle` (string, opcional): Detalle\n  - `prioridad` (enum, opcional): Prioridad\n  - `etiquetas` (array, opcional): Tags\n\n### `update_status`\nActualiza el estado de una tarea: pendiente → en_progreso → done | bloqueada (con motivo).\n\n**Parámetros:**\n  - `id` (string, requerido): ID de la tarea\n  - `estado` (enum, requerido): Nuevo estado\n  - `motivo` (string, opcional): Motivo (para bloqueos)\n\n### `pending`\nLista tareas pendientes/en progreso ordenadas por prioridad, con bloqueadas destacadas.\n\n**Parámetros:**\n  - `etiqueta` (string, opcional): Filtrar por etiqueta\n\n### `summary`\nResumen de productividad: completadas hoy/semana, tasa de finalización y tareas estancadas.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"task-tracker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-task-tracker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Task Tracker\n * Tareas del agente con estados, prioridades y bloqueos\n *\n * Dolor que resuelve: Sin tracker de tareas el agente pierde el hilo entre sesiones y no sabe qué está bloqueado.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: task-tracker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/task-tracker/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"task-tracker\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"task-tracker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add\",\n  \"Añade una tarea: título, detalle, prioridad y etiquetas. Devuelve ID.\",\n  {\n  titulo: z.string().describe(\"Título de la tarea\"),\n  detalle: z.string().describe(\"Detalle\").optional(),\n  prioridad: z.enum([\"alta\",\"media\",\"baja\"]).describe(\"Prioridad\").default(\"media\"),\n  etiquetas: z.array(z.any()).describe(\"Tags\").optional(),\n  },\n  async (args: any) => {\n    const { titulo, detalle, prioridad, etiquetas } = args as any;\n    const st = store.load();\nst.tareas = st.tareas || [];\nst.seq = (st.seq || 0) + 1;\nconst t = { id: \"T\" + st.seq, titulo, detalle: detalle || \"\", prioridad: prioridad || \"media\", etiquetas: Array.isArray(etiquetas) ? etiquetas : [], estado: \"pendiente\", creada: new Date().toISOString() };\nst.tareas.push(t);\nstore.save(st);\nreturn ok({ tarea: t, total: st.tareas.length });\n  }\n);\n\nserver.tool(\n  \"update_status\",\n  \"Actualiza el estado de una tarea: pendiente → en_progreso → done | bloqueada (con motivo).\",\n  {\n  id: z.string().describe(\"ID de la tarea\"),\n  estado: z.enum([\"pendiente\",\"en_progreso\",\"done\",\"bloqueada\"]).describe(\"Nuevo estado\"),\n  motivo: z.string().describe(\"Motivo (para bloqueos)\").optional(),\n  },\n  async (args: any) => {\n    const { id, estado, motivo } = args as any;\n    const st = store.load();\nconst t = (st.tareas || []).find((x) => x.id === id);\nif (!t) return fail(\"tarea no existe: \" + id);\nt.estado = estado;\nt.actualizada = new Date().toISOString();\nif (estado === \"bloqueada\") t.bloqueo = motivo || \"sin motivo\";\nif (estado === \"done\") t.completada = new Date().toISOString();\nstore.save(st);\nreturn ok({ id, estado });\n  }\n);\n\nserver.tool(\n  \"pending\",\n  \"Lista tareas pendientes/en progreso ordenadas por prioridad, con bloqueadas destacadas.\",\n  {\n  etiqueta: z.string().describe(\"Filtrar por etiqueta\").optional(),\n  },\n  async (args: any) => {\n    const { etiqueta } = args as any;\n    const st = store.load();\nlet tareas: any[] = (st.tareas || []).filter((t) => t.estado !== \"done\");\nif (etiqueta) tareas = tareas.filter((t) => (t.etiquetas || []).includes(etiqueta));\nconst orden: any = { alta: 0, media: 1, baja: 2 };\ntareas.sort((a, b) => (orden[a.prioridad] ?? 1) - (orden[b.prioridad] ?? 1));\nreturn ok({ pendientes: tareas.length, bloqueadas: tareas.filter((t) => t.estado === \"bloqueada\").length, en_progreso: tareas.filter((t) => t.estado === \"en_progreso\").length, tareas });\n  }\n);\n\nserver.tool(\n  \"summary\",\n  \"Resumen de productividad: completadas hoy/semana, tasa de finalización y tareas estancadas.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst tareas: any[] = st.tareas || [];\nconst ahora = Date.now();\nconst done = tareas.filter((t) => t.estado === \"done\");\nconst hoy = done.filter((t) => new Date(t.completada).getTime() > ahora - 86400000).length;\nconst semana = done.filter((t) => new Date(t.completada).getTime() > ahora - 7 * 86400000).length;\nconst estancadas = tareas.filter((t) => t.estado === \"en_progreso\" && (!t.actualizada || ahora - new Date(t.actualizada).getTime() > 86400000));\nreturn ok({ total: tareas.length, completadas: done.length, completadas_hoy: hoy, completadas_7d: semana, tasa_finalizacion: tareas.length ? Math.round((done.length / tareas.length) * 100) + \"%\" : \"0%\", estancadas_24h: estancadas.map((t) => t.id + \" \" + t.titulo) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor task-tracker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"task-tracker\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[task-tracker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

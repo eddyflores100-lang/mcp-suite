@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-d20ad1",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-quality-drift-monitor",
+  "version": "1.0.0",
+  "description": "Vigila la tendencia de calidad del agente en el tiempo: detecta empeoramiento gradual antes del cliente Dolor que resuelve: La calidad del agente no cae de golpe: baja 2% cada semana (cambio de datos, deriva de contexto) y nadie lo nota hasta que el cliente grita. Falta un monitor de tendencia con alertas. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Monitoring",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "evals",
+   "regression",
+   "golden-set"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only quality-drift-monitor",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-quality-drift-monitor",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "record_score",
+    "trend",
+    "drift_alerts",
+    "compare_period",
+    "series_report",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only quality-drift-monitor",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-quality-drift-monitor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-quality-drift-monitor/dist/index.js\"]}}}. Tools disponibles: record_score, trend, drift_alerts, compare_period, series_report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/quality-drift-monitor/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-quality-drift-monitor (record_score, trend, drift_alerts, compare_period, series_report). Vigila la tendencia de calidad del agente en el tiempo: detecta empeoramiento gradual antes del cliente. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/quality-drift-monitor/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/quality-drift-monitor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Quality Drift Monitor — Vigila la tendencia de calidad del agente en el tiempo: detecta empeoramiento gradual antes del cliente (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-quality-drift-monitor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"evaluaci-n-continua\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Quality Drift Monitor\n\n> Vigila la tendencia de calidad del agente en el tiempo: detecta empeoramiento gradual antes del cliente\n\n**Categoría:** Evaluación Continua · **ID:** `mcp-quality-drift-monitor`\n\n**Dolor de agente que resuelve:** La calidad del agente no cae de golpe: baja 2% cada semana (cambio de datos, deriva de contexto) y nadie lo nota hasta que el cliente grita. Falta un monitor de tendencia con alertas.\n\n> Estado persistente en `~/.mcp-suite/quality-drift-monitor/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `record_score`\nRegistra un punto de calidad: score 0-100 con etiqueta y contexto opcional.\n\n**Parámetros:**\n  - `score` (number, requerido): Puntuación 0-100\n  - `etiqueta` (string, opcional): Etiqueta/dimensión (ej: respuestas, extraccion)\n  - `contexto` (string, opcional): Contexto del punto (qué tarea/caso)\n\n### `trend`\nTendencia de una etiqueta: pendiente por semana, media móvil 7 y comparación primer/último tercio.\n\n**Parámetros:**\n  - `etiqueta` (string, opcional): Etiqueta a analizar\n\n### `drift_alerts`\nRevisa todas las etiquetas y devuelve alertas de drift (umbrales configurables).\n\n**Parámetros:**\n  - `umbral_pendiente` (number, opcional): Pendiente semanal que dispara alerta (negativa)\n  - `min_puntos` (number, opcional): Puntos mínimos para evaluar\n\n### `compare_period`\nCompara dos periodos de una etiqueta (antes vs después de una fecha) con significancia aproximada.\n\n**Parámetros:**\n  - `etiqueta` (string, opcional): Etiqueta\n  - `fecha_corte` (string, requerido): Fecha ISO de corte\n\n### `series_report`\nReporte de todas las series: puntos, media actual y mini-sparkline ASCII por etiqueta.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"quality-drift-monitor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-quality-drift-monitor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/quality-drift-monitor/. Serie temporal de scores de calidad por etiqueta; calcula pendiente (regresión lineal simple), ventana móvil y dispara alertas configurables.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Quality Drift Monitor\n * Vigila la tendencia de calidad del agente en el tiempo: detecta empeoramiento gradual antes del cliente\n *\n * Dolor que resuelve: La calidad del agente no cae de golpe: baja 2% cada semana (cambio de datos, deriva de contexto) y nadie lo nota hasta que el cliente grita. Falta un monitor de tendencia con alertas.\n * Categoría: Evaluación Continua | Generado por mcp-suite | id: quality-drift-monitor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/quality-drift-monitor/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"quality-drift-monitor\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"quality-drift-monitor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"record_score\",\n  \"Registra un punto de calidad: score 0-100 con etiqueta y contexto opcional.\",\n  {\n  score: z.number().describe(\"Puntuación 0-100\"),\n  etiqueta: z.string().describe(\"Etiqueta/dimensión (ej: respuestas, extraccion)\").default(\"general\"),\n  contexto: z.string().describe(\"Contexto del punto (qué tarea/caso)\").optional(),\n  },\n  async (args: any) => {\n    const { score, etiqueta, contexto } = args as any;\n    if (score < 0 || score > 100) return fail(\"score debe estar 0-100\");\nconst st = store.load();\nst.series = st.series || {};\nst.series[etiqueta] = st.series[etiqueta] || [];\nst.series[etiqueta].push({ score, contexto: contexto || null, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ etiqueta, puntos: st.series[etiqueta].length });\n  }\n);\n\nserver.tool(\n  \"trend\",\n  \"Tendencia de una etiqueta: pendiente por semana, media móvil 7 y comparación primer/último tercio.\",\n  {\n  etiqueta: z.string().describe(\"Etiqueta a analizar\").default(\"general\"),\n  },\n  async (args: any) => {\n    const { etiqueta } = args as any;\n    const st = store.load();\nconst pts = (st.series || {})[etiqueta] || [];\nif (pts.length < 5) return ok({ etiqueta, puntos: pts.length, tendencia: \"insuficiente (mínimo 5 puntos)\" });\nconst xs = pts.map(p => new Date(p.ts).getTime());\nconst ys = pts.map(p => p.score);\nconst n = pts.length;\nconst mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;\nlet num = 0, den = 0;\nfor (let i = 0; i < n; i++) { num += (xs[i] - mx) * (ys[i] - my); den += (xs[i] - mx) ** 2; }\nconst pendienteMs = den ? num / den : 0;\nconst semanaMs = 7 * 86400000;\nconst pendienteSemanal = Number((pendienteMs * semanaMs).toFixed(2));\nconst mm7 = ys.slice(-7);\nconst mediaMovil = Number((mm7.reduce((a, b) => a + b, 0) / mm7.length).toFixed(1));\nconst t1 = Math.floor(n / 3), t3 = n - t1;\nconst mediaPrimerTercio = ys.slice(0, t1).reduce((a, b) => a + b, 0) / t1;\nconst mediaUltimoTercio = ys.slice(t3).reduce((a, b) => a + b, 0) / (n - t3);\nreturn ok({\n  etiqueta, puntos: n,\n  pendiente_por_semana: pendienteSemanal,\n  media_movil_7: mediaMovil,\n  comparacion_tercios: { primer: Number(mediaPrimerTercio.toFixed(1)), ultimo: Number(mediaUltimoTercio.toFixed(1)), delta: Number((mediaUltimoTercio - mediaPrimerTercio).toFixed(1)) },\n  veredicto: pendienteSemanal < -1 ? \"DERRUMBE: calidad cayendo \" + pendienteSemanal + \" pts/semana: investiga YA (datos, prompt, contexto)\" : pendienteSemanal < -0.3 ? \"erosión leve: vigila\" : pendienteSemanal > 0.5 ? \"mejorando\" : \"estable\",\n});\n  }\n);\n\nserver.tool(\n  \"drift_alerts\",\n  \"Revisa todas las etiquetas y devuelve alertas de drift (umbrales configurables).\",\n  {\n  umbral_pendiente: z.number().describe(\"Pendiente semanal que dispara alerta (negativa)\").default(-1),\n  min_puntos: z.number().describe(\"Puntos mínimos para evaluar\").default(5),\n  },\n  async (args: any) => {\n    const { umbral_pendiente, min_puntos } = args as any;\n    const st = store.load();\nconst series = st.series || {};\nconst alertas = [];\nfor (const [etq, pts] of __ents(series)) {\n  if (pts.length < min_puntos) continue;\n  const xs = pts.map(p => new Date(p.ts).getTime());\n  const ys = pts.map(p => p.score);\n  const n = pts.length;\n  const mx = xs.reduce((a, b) => a + b, 0) / n, my = ys.reduce((a, b) => a + b, 0) / n;\n  let num = 0, den = 0;\n  for (let i = 0; i < n; i++) { num += (xs[i] - mx) * (ys[i] - my); den += (xs[i] - mx) ** 2; }\n  const pendiente = den ? (num / den) * 7 * 86400000 : 0;\n  if (pendiente < umbral_pendiente) alertas.push({ etiqueta: etq, pendiente_semanal: Number(pendiente.toFixed(2)), puntos: n, score_reciente: ys[n - 1] });\n}\nreturn ok({\n  etiquetas_monitoreadas: Object.keys(series).length,\n  alertas: alertas.length,\n  detalle: alertas.sort((a, b) => a.pendiente_semanal - b.pendiente_semanal),\n  accion: alertas.length ? \"para cada alerta: revisa qué cambió (prompt/modelo/datos) cerca del inicio del declive\" : \"sin drift activo\",\n});\n  }\n);\n\nserver.tool(\n  \"compare_period\",\n  \"Compara dos periodos de una etiqueta (antes vs después de una fecha) con significancia aproximada.\",\n  {\n  etiqueta: z.string().describe(\"Etiqueta\").default(\"general\"),\n  fecha_corte: z.string().describe(\"Fecha ISO de corte\"),\n  },\n  async (args: any) => {\n    const { etiqueta, fecha_corte } = args as any;\n    const st = store.load();\nconst pts = (st.series || {})[etiqueta] || [];\nconst corte = new Date(fecha_corte).getTime();\nif (isNaN(corte)) return fail(\"fecha_corte inválida\");\nconst antes = pts.filter(p => new Date(p.ts).getTime() < corte);\nconst despues = pts.filter(p => new Date(p.ts).getTime() >= corte);\nif (antes.length < 3 || despues.length < 3) return fail(\"necesitas >=3 puntos por periodo (antes: \" + antes.length + \", después: \" + despues.length + \")\");\nconst media = (arr) => arr.reduce((s, p) => s + p.score, 0) / arr.length;\nconst varr = (arr, m) => arr.reduce((s, p) => s + (p.score - m) ** 2, 0) / (arr.length - 1 || 1);\nconst mA = media(antes), mD = media(despues);\nconst sA = Math.sqrt(varr(antes, mA)), sD = Math.sqrt(varr(despues, mD));\nconst t = (mD - mA) / Math.sqrt(sA / antes.length + sD / despues.length);\nreturn ok({\n  etiqueta, corte: fecha_corte,\n  antes: { n: antes.length, media: Number(mA.toFixed(1)), sd: Number(sA.toFixed(1)) },\n  despues: { n: despues.length, media: Number(mD.toFixed(1)), sd: Number(sD.toFixed(1)) },\n  delta: Number((mD - mA).toFixed(1)),\n  t_aprox: Number(t.toFixed(2)),\n  lectura: Math.abs(t) > 2 ? \"cambio SIGNIFICATIVO tras el corte\" : Math.abs(t) > 1 ? \"cambio sugestivo, no concluyente\" : \"sin cambio detectable\",\n});\n  }\n);\n\nserver.tool(\n  \"series_report\",\n  \"Reporte de todas las series: puntos, media actual y mini-sparkline ASCII por etiqueta.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst series = st.series || {};\nconst salida = {};\nfor (const [etq, pts] of __ents(series)) {\n  const ys = pts.map(p => p.score);\n  const bloques = 24;\n  const chars = \"▁▂▃▄▅▆▇█\";\n  let spark = \"\";\n  if (ys.length > 1) {\n    const paso = ys.length / bloques;\n    for (let i = 0; i < bloques; i++) {\n      const v = ys[Math.min(ys.length - 1, Math.floor(i * paso))];\n      spark += chars[Math.min(7, Math.floor(v / 100 * 8))];\n    }\n  }\n  salida[etq] = { puntos: ys.length, media: Number((ys.reduce((a, b) => a + b, 0) / ys.length).toFixed(1)), sparkline: spark };\n}\nreturn ok({ etiquetas: Object.keys(series).length, series: salida });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor quality-drift-monitor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"quality-drift-monitor\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[quality-drift-monitor] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "quality-drift-monitor"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

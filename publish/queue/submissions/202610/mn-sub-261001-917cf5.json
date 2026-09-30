@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-917cf5",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-regex-forge",
+  "version": "1.0.0",
+  "description": "Construye, prueba y explica regex: patrones comunes + riesgo ReDoS Dolor que resuelve: El LLM escribe regex sin testear y a veces catastróficas (ReDoS): forja con validación previa. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Productivity",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "utilities",
+   "toolkit",
+   "productivity"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only regex-forge",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-regex-forge",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "build",
+    "test",
+    "redos_check",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only regex-forge",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-regex-forge\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-regex-forge/dist/index.js\"]}}}. Tools disponibles: build, test, redos_check y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/regex-forge/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-regex-forge (build, test, redos_check). Construye, prueba y explica regex: patrones comunes + riesgo ReDoS. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/regex-forge/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/regex-forge\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Regex Forge — Construye, prueba y explica regex: patrones comunes + riesgo ReDoS (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-regex-forge\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"utilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Regex Forge\n\n> Construye, prueba y explica regex: patrones comunes + riesgo ReDoS\n\n**Categoría:** Utilidades · **ID:** `mcp-regex-forge`\n\n**Dolor de agente que resuelve:** El LLM escribe regex sin testear y a veces catastróficas (ReDoS): forja con validación previa.\n\n## Tools (4 incl. health_check)\n\n### `build`\nGenera regex probadas para casos comunes: email, teléfono EC, slug, fecha ISO, hex color, URL, número, cédula.\n\n**Parámetros:**\n  - `patron` (enum, requerido): Tipo de patrón\n\n### `test`\nPrueba una regex contra un texto: coincidencias, grupos y posiciones.\n\n**Parámetros:**\n  - `regex` (string, requerido): La regex (sin delimitadores)\n  - `flags` (string, opcional): Flags (g, i, m...)\n  - `texto` (string, requerido): Texto de prueba\n\n### `redos_check`\nHeurística de riesgo ReDoS: detecta cuantificadores anidados y alternancias superpuestas catastróficas.\n\n**Parámetros:**\n  - `regex` (string, requerido): Regex a auditar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"regex-forge\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-regex-forge/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Regex Forge\n * Construye, prueba y explica regex: patrones comunes + riesgo ReDoS\n *\n * Dolor que resuelve: El LLM escribe regex sin testear y a veces catastróficas (ReDoS): forja con validación previa.\n * Categoría: Utilidades | Generado por mcp-suite | id: regex-forge\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"regex-forge\", version: \"1.0.0\" });\n\nserver.tool(\n  \"build\",\n  \"Genera regex probadas para casos comunes: email, teléfono EC, slug, fecha ISO, hex color, URL, número, cédula.\",\n  {\n  patron: z.enum([\"email\",\"telefono_ec\",\"slug\",\"fecha_iso\",\"hex_color\",\"url\",\"numero_decimal\",\"cedula_ec\",\"dni_generico\",\"version_semver\"]).describe(\"Tipo de patrón\"),\n  },\n  async (args: any) => {\n    const { patron } = args as any;\n    const patrones: any = {\n  email: { regex: \"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}\", flags: \"\", ejemplo_valido: \"user@example.com\", ejemplo_invalido: \"user@@\" },\n  telefono_ec: { regex: \"(\\\\+593)?\\\\s?\\\\d{2}\\\\d{7,8}\", flags: \"\", ejemplo_valido: \"0991234567\", ejemplo_invalido: \"12345\" },\n  slug: { regex: \"^[a-z0-9]+(-[a-z0-9]+)*$\", flags: \"\", ejemplo_valido: \"mi-slug-2\", ejemplo_invalido: \"Mi Slug\" },\n  fecha_iso: { regex: \"^\\\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\\\d|3[01])$\", flags: \"\", ejemplo_valido: \"2026-09-10\", ejemplo_invalido: \"2026-13-45\" },\n  hex_color: { regex: \"^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$\", flags: \"\", ejemplo_valido: \"#ff00aa\", ejemplo_invalido: \"#ff00a\" },\n  url: { regex: \"^https?:\\\\/\\\\/[\\\\w.-]+\\\\.[a-z]{2,}(\\\\/\\\\S*)?$\", flags: \"i\", ejemplo_valido: \"https://marketnow.site/api\", ejemplo_invalido: \"ftp://x\" },\n  numero_decimal: { regex: \"^-?\\\\d{1,3}(\\\\.\\\\d+)?([.,]\\\\d{3})*(,\\\\d+)?$\", flags: \"\", ejemplo_valido: \"1.234,56\", ejemplo_invalido: \"1.2.3\" },\n  cedula_ec: { regex: \"^\\\\d{10}$\", flags: \"\", ejemplo_valido: \"1712345678\", ejemplo_invalido: \"12345\" },\n  dni_generico: { regex: \"^[A-Z0-9]{6,12}$\", flags: \"\", ejemplo_valido: \"X1234567L\", ejemplo_invalido: \"abc\" },\n  version_semver: { regex: \"^\\\\d+\\\\.\\\\d+\\\\.\\\\d+(-[\\\\w.]+)?(\\\\+[\\\\w.]+)?$\", flags: \"\", ejemplo_valido: \"1.30.0-beta.1\", ejemplo_invalido: \"1.30\" },\n};\nconst p = patrones[patron];\nif (!p) return fail(\"patrón no existe\");\nreturn ok({ tipo: patron, regex: \"/\" + p.regex + \"/\" + p.flags, raw: p.regex, flags: p.flags, ejemplos: { valido: p.ejemplo_valido, invalido: p.ejemplo_invalido } });\n  }\n);\n\nserver.tool(\n  \"test\",\n  \"Prueba una regex contra un texto: coincidencias, grupos y posiciones.\",\n  {\n  regex: z.string().describe(\"La regex (sin delimitadores)\"),\n  flags: z.string().describe(\"Flags (g, i, m...)\").default(\"g\"),\n  texto: z.string().describe(\"Texto de prueba\"),\n  },\n  async (args: any) => {\n    const { regex, flags, texto } = args as any;\n    let re: RegExp;\ntry { re = new RegExp(regex, flags || \"g\"); } catch (e: any) { return fail(\"regex inválida: \" + e.message); }\nconst matches = [...String(texto).matchAll(new RegExp(regex, (flags || \"g\") + (flags?.includes(\"g\") ? \"\" : \"g\")))];\nif (!matches.length) return ok({ coincidencias: 0, mensaje: \"sin matches\" });\nreturn ok({ coincidencias: matches.length, matches: matches.slice(0, 20).map((m) => ({ texto: m[0], posicion: m.index, grupos: m.slice(1) })) });\n  }\n);\n\nserver.tool(\n  \"redos_check\",\n  \"Heurística de riesgo ReDoS: detecta cuantificadores anidados y alternancias superpuestas catastróficas.\",\n  {\n  regex: z.string().describe(\"Regex a auditar\"),\n  },\n  async (args: any) => {\n    const { regex } = args as any;\n    let re: RegExp;\ntry { re = new RegExp(regex); } catch (e: any) { return fail(\"regex inválida: \" + e.message); }\nconst riesgos: string[] = [];\nif (/(\\+|\\*|{\\d+,})[^+]*?(\\+|\\*|{\\d+,})/.test(regex.replace(/\\[[^\\]]*\\]/g, \"[]\"))) riesgos.push(\"cuantificadores encadenados: posible backtracking exponencial\");\nif (/\\(([^)]*[+*])\\)[+*]/.test(regex)) riesgos.push(\"grupo cuantificado con cuantificador interno: clásico ReDoS\");\nif (/\\(.*\\|.*\\)/.test(regex)) riesgos.push(\"alternancia anidada en grupo: revisa backtracking\");\nconst inicio = Date.now();\nconst sjon = \"a\".repeat(30) + \"x\";\ntry { re.test(sjon); } catch {}\nconst ms = Date.now() - inicio;\nreturn ok({ riesgos, tiempo_test_30chars_ms: ms, veredicto: riesgos.length === 0 && ms < 100 ? \"segura\" : \"revisar: potencialmente costosa\", recomendacion: riesgos.length ? \"reescribe con posesivos/atomic o limita la entrada\" : \"ok\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor regex-forge está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"regex-forge\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[regex-forge] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "regex-forge"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

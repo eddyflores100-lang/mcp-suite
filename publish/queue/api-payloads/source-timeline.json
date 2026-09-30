@@ -1,0 +1,64 @@
+{
+ "name": "mcp-source-timeline",
+ "version": "1.0.0",
+ "description": "Línea de tiempo de fuentes: cuándo se supo qué y qué fuente dijo primero cada cosa Dolor que resuelve: El agente funde información de fuentes de distinta época en un solo presente: dice 'según los informes' mezclando 2019 con 2026 sin poder reconstruir qué se sabía en qué momento. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "freshness",
+  "staleness",
+  "knowledge-cutoff"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only source-timeline",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-source-timeline",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 2.99,
+  "currency": "USD",
+  "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+ },
+ "price": 2.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add_event",
+   "timeline",
+   "contradiction_scan",
+   "who_said_first",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only source-timeline",
+   "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-source-timeline\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-source-timeline/dist/index.js\"]}}}. Tools disponibles: add_event, timeline, contradiction_scan, who_said_first y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/source-timeline/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-source-timeline (add_event, timeline, contradiction_scan, who_said_first). Línea de tiempo de fuentes: cuándo se supo qué y qué fuente dijo primero cada cosa. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/source-timeline/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/source-timeline\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Source Timeline — Línea de tiempo de fuentes: cuándo se supo qué y qué fuente dijo primero cada cosa (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-source-timeline\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"frescura-del-conocimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Source Timeline\n\n> Línea de tiempo de fuentes: cuándo se supo qué y qué fuente dijo primero cada cosa\n\n**Categoría:** Frescura del Conocimiento · **ID:** `mcp-source-timeline`\n\n**Dolor de agente que resuelve:** El agente funde información de fuentes de distinta época en un solo presente: dice 'según los informes' mezclando 2019 con 2026 sin poder reconstruir qué se sabía en qué momento.\n\n> Estado persistente en `~/.mcp-suite/source-timeline/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `add_event`\nAñade un evento de conocimiento: fuente, fecha, afirmación y tema.\n\n**Parámetros:**\n  - `fuente` (string, requerido): Nombre de la fuente\n  - `fecha` (string, requerido): Fecha ISO de la publicación/observación\n  - `afirmacion` (string, requerido): Qué afirmó\n  - `tema` (string, opcional): Tema (para agrupar)\n\n### `timeline`\nDevuelve la línea de tiempo cronológica (global o por tema) con edad de cada afirmación.\n\n**Parámetros:**\n  - `tema` (string, opcional): Filtrar por tema\n\n### `contradiction_scan`\nEscanea contradicciones cronológicas: fuentes posteriores que afirman lo opuesto sobre el mismo tema.\n\n### `who_said_first`\nPara un tema/afirmación: qué fuente lo dijo primero y quién lo replicó después.\n\n**Parámetros:**\n  - `consulta` (string, requerido): Tema o palabra clave\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"source-timeline\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-source-timeline/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/source-timeline/. Eventos de conocimiento {fuente, fecha, afirmación}; timeline cronológico, contradicciones cronológicas (una fuente posterior contradice) y quién dijo primero.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Source Timeline\n * Línea de tiempo de fuentes: cuándo se supo qué y qué fuente dijo primero cada cosa\n *\n * Dolor que resuelve: El agente funde información de fuentes de distinta época en un solo presente: dice 'según los informes' mezclando 2019 con 2026 sin poder reconstruir qué se sabía en qué momento.\n * Categoría: Frescura del Conocimiento | Generado por mcp-suite | id: source-timeline\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/source-timeline/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"source-timeline\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"source-timeline\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_event\",\n  \"Añade un evento de conocimiento: fuente, fecha, afirmación y tema.\",\n  {\n  fuente: z.string().describe(\"Nombre de la fuente\"),\n  fecha: z.string().describe(\"Fecha ISO de la publicación/observación\"),\n  afirmacion: z.string().describe(\"Qué afirmó\"),\n  tema: z.string().describe(\"Tema (para agrupar)\").default(\"general\"),\n  },\n  async (args: any) => {\n    const { fuente, fecha, afirmacion, tema } = args as any;\n    const st = store.load();\nif (isNaN(new Date(fecha).getTime())) return fail(\"fecha ISO inválida\");\nst.eventos = st.eventos || [];\nst.eventos.push({ fuente, fecha, afirmacion, tema, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ fuente, fecha: fecha.slice(0, 10), tema });\n  }\n);\n\nserver.tool(\n  \"timeline\",\n  \"Devuelve la línea de tiempo cronológica (global o por tema) con edad de cada afirmación.\",\n  {\n  tema: z.string().describe(\"Filtrar por tema\").optional(),\n  },\n  async (args: any) => {\n    const { tema } = args as any;\n    const st = store.load();\nlet evs = st.eventos || [];\nif (tema) evs = evs.filter(e => e.tema === tema);\nif (!evs.length) return ok({ eventos: 0 });\nevs = [...evs].sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());\nreturn ok({\n  eventos: evs.length,\n  rango: { desde: evs[0].fecha.slice(0, 10), hasta: evs[evs.length - 1].fecha.slice(0, 10) },\n  linea: evs.map(e => ({ fecha: e.fecha.slice(0, 10), fuente: e.fuente, afirmacion: e.afirmacion.slice(0, 100), tema: e.tema, dias_desde: Number(((Date.now() - new Date(e.fecha).getTime()) / 86400000).toFixed(0)) })),\n  advertencia: (Date.now() - new Date(evs[evs.length - 1].fecha).getTime()) / 86400000 > 180 ? \"la información más reciente tiene más de 6 meses: busca fuentes frescas\" : null,\n});\n  }\n);\n\nserver.tool(\n  \"contradiction_scan\",\n  \"Escanea contradicciones cronológicas: fuentes posteriores que afirman lo opuesto sobre el mismo tema.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst evs = (st.eventos || []).map(e => e).sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());\nif (evs.length < 2) return ok({ eventos: evs.length, contradicciones: 0 });\nconst tokens = (s) => new Set(String(s).toLowerCase().split(/\\W+/).filter(w => w.length > 4));\nconst NEGADORES = /\\b(no|nunca|sin|cero|falso|reverso|declinó|declino|cayó|cayo|baja)\\b/i;\nconst contradicciones = [];\nfor (let i = 0; i < evs.length; i++) {\n  for (let j = i + 1; j < evs.length; j++) {\n    if (evs[i].tema !== evs[j].tema) continue;\n    const a = tokens(evs[i].afirmacion), b = tokens(evs[j].afirmacion);\n    const inter = [...a].filter(w => b.has(w)).length;\n    const union = new Set([...a, ...b]).size || 1;\n    const similitud = inter / union;\n    if (similitud >= 0.35 && (NEGADORES.test(evs[i].afirmacion) !== NEGADORES.test(evs[j].afirmacion))) {\n      contradicciones.push({ tema: evs[i].tema, antes: { fuente: evs[i].fuente, fecha: evs[i].fecha.slice(0, 10), afirmacion: evs[i].afirmacion.slice(0, 80) }, despues: { fuente: evs[j].fuente, fecha: evs[j].fecha.slice(0, 10), afirmacion: evs[j].afirmacion.slice(0, 80) }, similitud: Number(similitud.toFixed(2)) });\n    }\n  }\n}\nreturn ok({\n  contradicciones: contradicciones.length,\n  pares: contradicciones.slice(0, 8),\n  regla: \"ante contradicción cronológica: cita la fuente MÁS RECIENTE pero menciona que hubo cambio ('antes se decía X, desde [fecha] Y')\",\n});\n  }\n);\n\nserver.tool(\n  \"who_said_first\",\n  \"Para un tema/afirmación: qué fuente lo dijo primero y quién lo replicó después.\",\n  {\n  consulta: z.string().describe(\"Tema o palabra clave\"),\n  },\n  async (args: any) => {\n    const { consulta } = args as any;\n    const st = store.load();\nconst evs = (st.eventos || []).filter(e => e.tema.toLowerCase().includes(String(consulta).toLowerCase()) || e.afirmacion.toLowerCase().includes(String(consulta).toLowerCase())).sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());\nif (!evs.length) return ok({ encontrados: 0 });\nreturn ok({\n  encontrados: evs.length,\n  primera: { fuente: evs[0].fuente, fecha: evs[0].fecha.slice(0, 10), afirmacion: evs[0].afirmacion.slice(0, 100) },\n  replicas: evs.slice(1).map(e => ({ fuente: e.fuente, fecha: e.fecha.slice(0, 10) })),\n  lectura: evs.length === 1 ? \"una sola fuente: corroboración pendiente\" : \"corroborado por \" + evs.length + \" fuentes, original de \" + evs[0].fuente,\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor source-timeline está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"source-timeline\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[source-timeline] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

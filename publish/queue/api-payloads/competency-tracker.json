@@ -1,0 +1,64 @@
+{
+ "name": "mcp-competency-tracker",
+ "version": "1.0.0",
+ "description": "Matriz de competencias del agente: en qué es fiable, en qué necesita supervisión humana Dolor que resuelve: No se sabe en qué es bueno el agente: se le delega tareas donde falla sistemáticamente y se le supervisa tareas que ya domina. Sin matriz de competencias, la delegación es a ciegas. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "skill-learning",
+  "lessons",
+  "self-improvement"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only competency-tracker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-competency-tracker",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 2.99,
+  "currency": "USD",
+  "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+ },
+ "price": 2.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "define_competency",
+   "record_outcome",
+   "competency_matrix",
+   "learning_progress",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only competency-tracker",
+   "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-competency-tracker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-competency-tracker/dist/index.js\"]}}}. Tools disponibles: define_competency, record_outcome, competency_matrix, learning_progress y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/competency-tracker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-competency-tracker (define_competency, record_outcome, competency_matrix, learning_progress). Matriz de competencias del agente: en qué es fiable, en qué necesita supervisión humana. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/competency-tracker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/competency-tracker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Competency Tracker — Matriz de competencias del agente: en qué es fiable, en qué necesita supervisión humana (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-competency-tracker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"aprendizaje-de-habilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Competency Tracker\n\n> Matriz de competencias del agente: en qué es fiable, en qué necesita supervisión humana\n\n**Categoría:** Aprendizaje de Habilidades · **ID:** `mcp-competency-tracker`\n\n**Dolor de agente que resuelve:** No se sabe en qué es bueno el agente: se le delega tareas donde falla sistemáticamente y se le supervisa tareas que ya domina. Sin matriz de competencias, la delegación es a ciegas.\n\n> Estado persistente en `~/.mcp-suite/competency-tracker/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `define_competency`\nDefine una competencia rastreable (área, descripción, cómo se mide).\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre de la competencia\n  - `area` (string, requerido): Área (datos, código, redacción, análisis...)\n  - `como_se_mide` (string, requerido): Evidencia de éxito (qué cuenta como acierto)\n\n### `record_outcome`\nRegistra un resultado (éxito/fallo) de la competencia en una tarea concreta.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Competencia\n  - `exito` (boolean, requerido): ¿La tarea salió bien?\n  - `tarea` (string, opcional): Tarea concreta\n\n### `competency_matrix`\nMatriz completa: nivel por competencia (novato/competente/experto) y qué necesita supervisión.\n\n### `learning_progress`\nProgreso de aprendizaje por competencia: ¿la tasa de éxito mejora con la práctica?\n\n**Parámetros:**\n  - `nombre` (string, requerido): Competencia\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"competency-tracker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-competency-tracker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/competency-tracker/. Competencias con evidencia de éxito/fallo acumulada; nivel derivado (novato→competente→experto) y recomendación de supervisión por área.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Competency Tracker\n * Matriz de competencias del agente: en qué es fiable, en qué necesita supervisión humana\n *\n * Dolor que resuelve: No se sabe en qué es bueno el agente: se le delega tareas donde falla sistemáticamente y se le supervisa tareas que ya domina. Sin matriz de competencias, la delegación es a ciegas.\n * Categoría: Aprendizaje de Habilidades | Generado por mcp-suite | id: competency-tracker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/competency-tracker/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"competency-tracker\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"competency-tracker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"define_competency\",\n  \"Define una competencia rastreable (área, descripción, cómo se mide).\",\n  {\n  nombre: z.string().describe(\"Nombre de la competencia\"),\n  area: z.string().describe(\"Área (datos, código, redacción, análisis...)\"),\n  como_se_mide: z.string().describe(\"Evidencia de éxito (qué cuenta como acierto)\"),\n  },\n  async (args: any) => {\n    const { nombre, area, como_se_mide } = args as any;\n    const st = store.load();\nst.competencias = st.competencias || {};\nif (st.competencias[nombre]) return fail(\"competencia existente\");\nst.competencias[nombre] = { nombre, area, como_se_mide, exitos: 0, fallos: 0, historial: [], creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ competencia: nombre, area });\n  }\n);\n\nserver.tool(\n  \"record_outcome\",\n  \"Registra un resultado (éxito/fallo) de la competencia en una tarea concreta.\",\n  {\n  nombre: z.string().describe(\"Competencia\"),\n  exito: z.boolean().describe(\"¿La tarea salió bien?\"),\n  tarea: z.string().describe(\"Tarea concreta\").optional(),\n  },\n  async (args: any) => {\n    const { nombre, exito, tarea } = args as any;\n    const st = store.load();\nconst c = (st.competencias || {})[nombre];\nif (!c) return fail(\"competencia no encontrada\");\nif (exito) c.exitos++; else c.fallos++;\nc.historial.push({ exito, tarea: tarea || null, ts: new Date().toISOString() });\nstore.save(st);\nconst total = c.exitos + c.fallos;\nreturn ok({ competencia: nombre, exitos: c.exitos, fallos: c.fallos, tasa: Number((c.exitos / total).toFixed(2)) });\n  }\n);\n\nserver.tool(\n  \"competency_matrix\",\n  \"Matriz completa: nivel por competencia (novato/competente/experto) y qué necesita supervisión.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst cs = __vals(st.competencias || {});\nif (!cs.length) return ok({ competencias: 0, sugerencia: \"define competencias con define_competency\" });\nconst filas = cs.map(c => {\n  const total = c.exitos + c.fallos;\n  const tasa = total ? c.exitos / total : null;\n  let nivel = \"sin datos\";\n  if (total >= 10 && tasa >= 0.9) nivel = \"experto (delegable sin supervisión)\";\n  else if (total >= 5 && tasa >= 0.75) nivel = \"competente (supervisión ligera)\";\n  else if (total >= 3) nivel = \"aprendiz (revisar salida siempre)\";\n  else if (total > 0) nivel = \"novato (datos insuficientes)\";\n  return { competencia: c.nombre, area: c.area, exitos: c.exitos, fallos: c.fallos, tasa: tasa === null ? null : Number(tasa.toFixed(2)), nivel };\n});\nreturn ok({\n  competencias: filas.length,\n  matriz: filas.sort((a, b) => (b.tasa ?? -1) - (a.tasa ?? -1)),\n  delegables_sin_supervision: filas.filter(f => f.nivel.startsWith(\"experto\")).map(f => f.competencia),\n  prohibido_delegar_solo: filas.filter(f => f.nivel.startsWith(\"aprendiz\") || (f.tasa !== null && f.tasa < 0.5)).map(f => f.competencia),\n});\n  }\n);\n\nserver.tool(\n  \"learning_progress\",\n  \"Progreso de aprendizaje por competencia: ¿la tasa de éxito mejora con la práctica?\",\n  {\n  nombre: z.string().describe(\"Competencia\"),\n  },\n  async (args: any) => {\n    const { nombre } = args as any;\n    const st = store.load();\nconst c = (st.competencias || {})[nombre];\nif (!c) return fail(\"competencia no encontrada\");\nconst h = c.historial || [];\nif (h.length < 6) return ok({ competencia: nombre, datos: h.length, progreso: \"insuficiente (mínimo 6 tareas)\" });\nconst mitad = Math.floor(h.length / 2);\nconst tasaPrimera = h.slice(0, mitad).filter(x => x.exito).length / mitad;\nconst tasaSegunda = h.slice(mitad).filter(x => x.exito).length / (h.length - mitad);\nreturn ok({\n  competencia: nombre, tareas: h.length,\n  tasa_primeras: Number(tasaPrimera.toFixed(2)),\n  tasa_ultimas: Number(tasaSegunda.toFixed(2)),\n  mejora: Number((tasaSegunda - tasaPrimera).toFixed(2)),\n  veredicto: tasaSegunda - tasaPrimera > 0.15 ? \"aprendiendo: la práctica está funcionando\" : tasaSegunda - tasaPrimera < -0.1 ? \"degradando: algo cambió (modelo, datos o contexto)\" : \"meseta: para subir de nivel necesita feedback explícito, no más práctica\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor competency-tracker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"competency-tracker\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[competency-tracker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

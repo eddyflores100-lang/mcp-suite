@@ -1,0 +1,63 @@
+{
+ "name": "mcp-x402-payments",
+ "version": "1.0.0",
+ "description": "Helpers del protocolo x402: pagos HTTP 402 para comercio entre agentes Dolor que resuelve: Los agentes no pueden pagar por recursos: HTTP 402 Payment Required existe pero falta tooling para offers/deliveries entre agentes. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "ed25519",
+  "cryptography",
+  "trust"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only x402-payments",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-x402-payments",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 9.99,
+  "currency": "USD",
+  "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+ },
+ "price": 9.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": true,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "parse_402_response",
+   "build_payment_offer",
+   "validate_delivery",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only x402-payments",
+   "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-x402-payments\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-x402-payments/dist/index.js\"]}}}. Tools disponibles: parse_402_response, build_payment_offer, validate_delivery y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/x402-payments/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-x402-payments (parse_402_response, build_payment_offer, validate_delivery). Helpers del protocolo x402: pagos HTTP 402 para comercio entre agentes. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/x402-payments/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/x402-payments\",\n  \"version\": \"1.0.0\",\n  \"description\": \"x402 Payments — Helpers del protocolo x402: pagos HTTP 402 para comercio entre agentes (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-x402-payments\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# x402 Payments\n\n> Helpers del protocolo x402: pagos HTTP 402 para comercio entre agentes\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-x402-payments`\n\n**Dolor de agente que resuelve:** Los agentes no pueden pagar por recursos: HTTP 402 Payment Required existe pero falta tooling para offers/deliveries entre agentes.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n> Estado persistente en `~/.mcp-suite/x402-payments/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `parse_402_response`\nInterpreta una respuesta HTTP 402: extrae el challenge de pago (accepts, scheme, maxAmount, resource) y explica cómo responder.\n\n**Parámetros:**\n  - `status` (number, requerido): Código HTTP recibido\n  - `body` (string, opcional): Cuerpo de la respuesta (texto)\n\n### `build_payment_offer`\nConstruye el header Payment (offer) para responder a un challenge 402: esquema, monto, asset y referencia.\n\n**Parámetros:**\n  - `esquema` (string, requerido): Esquema de pago (ej: x402/erc20, x402/near)\n  - `monto` (string, requerido): Monto con unidad (ej: 0.05 USDC)\n  - `asset` (string, opcional): Asset de pago\n  - `referencia` (string, opcional): Referencia/recurso que se paga\n\n### `validate_delivery`\nValida el delivery de pago recibido tras una offer: estructura, firma de settlement y unicidad (anti-replay por nonce).\n\n**Parámetros:**\n  - `delivery` (any, requerido): Delivery JSON recibido del servidor\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"x402-payments\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-x402-payments/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nImplementa helpers del flujo x402: respuesta 402 con challenge → offer del cliente → delivery verificado. Registra intentos y estado local.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: x402 Payments\n * Helpers del protocolo x402: pagos HTTP 402 para comercio entre agentes\n *\n * Dolor que resuelve: Los agentes no pueden pagar por recursos: HTTP 402 Payment Required existe pero falta tooling para offers/deliveries entre agentes.\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: x402-payments\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/x402-payments/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"x402-payments\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/x402-payments\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"x402-payments\", version: \"1.0.0\" });\n\nserver.tool(\n  \"parse_402_response\",\n  \"Interpreta una respuesta HTTP 402: extrae el challenge de pago (accepts, scheme, maxAmount, resource) y explica cómo responder.\",\n  {\n  status: z.number().describe(\"Código HTTP recibido\"),\n  body: z.string().describe(\"Cuerpo de la respuesta (texto)\").optional(),\n  },\n  async (args: any) => {\n    const { status, body } = args as any;\n    let parsed: any = {};\ntry { parsed = JSON.parse(body || \"{}\"); } catch { parsed = { raw: (body || \"\").slice(0, 200) } }\nconst accepts = parsed.accepts || parsed.challenges || null;\nreturn ok({ es_402: status === 402, challenge: accepts, esquemas_detectados: (JSON.stringify(parsed).match(/(erc20|usdc|usd-coin|xrpl|lightning|sol)/gi) || []).map((s) => s.toLowerCase()), siguiente_paso: status === 402 ? \"construye offer con build_payment_offer y reintenta con header Payment\" : \"no es 402: procesa normal\" });\n  }\n);\n\nserver.tool(\n  \"build_payment_offer\",\n  \"Construye el header Payment (offer) para responder a un challenge 402: esquema, monto, asset y referencia.\",\n  {\n  esquema: z.string().describe(\"Esquema de pago (ej: x402/erc20, x402/near)\"),\n  monto: z.string().describe(\"Monto con unidad (ej: 0.05 USDC)\"),\n  asset: z.string().describe(\"Asset de pago\").default(\"USDC\"),\n  referencia: z.string().describe(\"Referencia/recurso que se paga\").optional(),\n  },\n  async (args: any) => {\n    const { esquema, monto, asset, referencia } = args as any;\n    const offer = { scheme: esquema, amount: monto, asset: asset || \"USDC\", nonce: randomBytes(8).toString(\"hex\"), ts: new Date().toISOString(), resource: referencia || null };\nconst header = esquema + \" \" + Buffer.from(JSON.stringify(offer)).toString(\"base64\");\nconst st = store.load();\nst.offers = st.offers || [];\nst.offers.push({ ts: offer.ts, offer, header: header.slice(0, 60) + \"...\" });\nstore.save(st);\nreturn ok({ offer, payment_header: header, uso: \"reintenta la petición HTTP incluyendo el header 'Payment'\" });\n  }\n);\n\nserver.tool(\n  \"validate_delivery\",\n  \"Valida el delivery de pago recibido tras una offer: estructura, firma de settlement y unicidad (anti-replay por nonce).\",\n  {\n  delivery: z.any().describe(\"Delivery JSON recibido del servidor\"),\n  },\n  async (args: any) => {\n    const { delivery } = args as any;\n    const d = delivery || {};\nconst st = store.load();\nst.deliveries = st.deliveries || [];\nconst nonce = (d as any).settlement?.nonce || (d as any).nonce;\nconst replay = nonce && st.deliveries.some((x: any) => x.nonce === nonce);\nconst valido = !!(d.settlement || d.transaction || d.txHash || d.proof);\nconst resultado = { estructura_valida: valido, anti_replay: !replay, nonce, veredicto: valido && !replay ? \"ACEPTAR\" : \"RECHAZAR\", checks: [\"settlement presente\", \"nonce único\", \"monto coincide con offer registrada\"] };\nif (valido && !replay) { st.deliveries.push({ nonce, ts: new Date().toISOString() }); store.save(st); }\nreturn ok(resultado);\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor x402-payments está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"x402-payments\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[x402-payments] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

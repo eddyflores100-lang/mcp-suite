@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-92cd3f",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-task-roi",
+  "version": "1.0.0",
+  "description": "ROI por tarea: valor generado vs costo en tokens/dinero/tiempo — qué trabajo vale la pena Dolor que resuelve: El agente no sabe cuánto cuesta su trabajo ni cuánto vale: optimiza completar tareas, no el retorno de completarlas. Tareas de bajo valor consumen el mismo presupuesto que las críticas. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "FinTech",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "token-cost",
+   "budget",
+   "economics"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only task-roi",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-task-roi",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "log_task",
+    "roi_report",
+    "prioritize",
+    "cost_per_output",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only task-roi",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-task-roi\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-task-roi/dist/index.js\"]}}}. Tools disponibles: log_task, roi_report, prioritize, cost_per_output y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/task-roi/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-task-roi (log_task, roi_report, prioritize, cost_per_output). ROI por tarea: valor generado vs costo en tokens/dinero/tiempo — qué trabajo vale la pena. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/task-roi/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/task-roi\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Task ROI — ROI por tarea: valor generado vs costo en tokens/dinero/tiempo — qué trabajo vale la pena (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-task-roi\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"econom-a-del-agente\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Task ROI\n\n> ROI por tarea: valor generado vs costo en tokens/dinero/tiempo — qué trabajo vale la pena\n\n**Categoría:** Economía del Agente · **ID:** `mcp-task-roi`\n\n**Dolor de agente que resuelve:** El agente no sabe cuánto cuesta su trabajo ni cuánto vale: optimiza completar tareas, no el retorno de completarlas. Tareas de bajo valor consumen el mismo presupuesto que las críticas.\n\n> Estado persistente en `~/.mcp-suite/task-roi/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `log_task`\nRegistra una tarea completada: valor estimado, costo en USD, tokens y minutos.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Descripción de la tarea\n  - `valor_usd` (number, requerido): Valor estimado generado (USD)\n  - `costo_usd` (number, requerido): Costo total (USD)\n  - `tokens` (number, opcional): Tokens consumidos\n  - `minutos` (number, opcional): Tiempo invertido\n  - `categoria` (string, opcional): Categoría del trabajo\n\n### `roi_report`\nReporte ROI global y por categoría: retorno medio, tareas de valor negativo y mejor/peor inversión.\n\n### `prioritize`\nPrioriza trabajo pendiente por valor/costo (ROI esperado) con desempate por urgencia.\n\n**Parámetros:**\n  - `pendientes` (array, requerido): Tareas {tarea, valor_usd, costo_usd, urgencia}\n\n### `cost_per_output`\nCosto por unidad de salida (documento, análisis, línea de código): métrica de eficiencia comparativa.\n\n**Parámetros:**\n  - `tareas` (array, requerido): Tareas {tarea, costo_usd, unidades}\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"task-roi\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-task-roi/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/task-roi/. Cada tarea registra valor estimado (USD o puntos) y costo real (tokens, USD, minutos); calcula ROI, prioriza por valor/costo y detecta tareas de valor negativo.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Task ROI\n * ROI por tarea: valor generado vs costo en tokens/dinero/tiempo — qué trabajo vale la pena\n *\n * Dolor que resuelve: El agente no sabe cuánto cuesta su trabajo ni cuánto vale: optimiza completar tareas, no el retorno de completarlas. Tareas de bajo valor consumen el mismo presupuesto que las críticas.\n * Categoría: Economía del Agente | Generado por mcp-suite | id: task-roi\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/task-roi/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"task-roi\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"task-roi\", version: \"1.0.0\" });\n\nserver.tool(\n  \"log_task\",\n  \"Registra una tarea completada: valor estimado, costo en USD, tokens y minutos.\",\n  {\n  tarea: z.string().describe(\"Descripción de la tarea\"),\n  valor_usd: z.number().describe(\"Valor estimado generado (USD)\"),\n  costo_usd: z.number().describe(\"Costo total (USD)\"),\n  tokens: z.number().describe(\"Tokens consumidos\").optional(),\n  minutos: z.number().describe(\"Tiempo invertido\").optional(),\n  categoria: z.string().describe(\"Categoría del trabajo\").default(\"general\"),\n  },\n  async (args: any) => {\n    const { tarea, valor_usd, costo_usd, tokens, minutos, categoria } = args as any;\n    const st = store.load();\nst.tareas = st.tareas || [];\nst.tareas.push({ tarea, valor_usd, costo_usd, tokens: tokens || null, minutos: minutos || null, categoria, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ registrada: true, roi: Number((valor_usd / Math.max(costo_usd, 0.0001)).toFixed(2)) + \"x\" });\n  }\n);\n\nserver.tool(\n  \"roi_report\",\n  \"Reporte ROI global y por categoría: retorno medio, tareas de valor negativo y mejor/peor inversión.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ts = st.tareas || [];\nif (!ts.length) return ok({ tareas: 0, sugerencia: \"registra tareas con log_task\" });\nconst porCat = {};\nfor (const t of ts) {\n  porCat[t.categoria] = porCat[t.categoria] || { n: 0, valor: 0, costo: 0 };\n  porCat[t.categoria].n++; porCat[t.categoria].valor += t.valor_usd; porCat[t.categoria].costo += t.costo_usd;\n}\nconst valorTotal = ts.reduce((s, t) => s + t.valor_usd, 0);\nconst costoTotal = ts.reduce((s, t) => s + t.costo_usd, 0);\nconst negativas = ts.filter(t => t.valor_usd < t.costo_usd);\nreturn ok({\n  tareas: ts.length,\n  global: { valor: Number(valorTotal.toFixed(2)), costo: Number(costoTotal.toFixed(2)), roi: Number((valorTotal / Math.max(costoTotal, 0.0001)).toFixed(2)) + \"x\" },\n  por_categoria: __ents(porCat).map(([cat, v]) => ({ categoria: cat, tareas: v.n, roi: Number((v.valor / Math.max(v.costo, 0.0001)).toFixed(2)) + \"x\", costo_medio: Number((v.costo / v.n).toFixed(3)) })).sort((a, b) => parseFloat(b.roi) - parseFloat(a.roi)),\n  tareas_valor_negativo: negativas.length,\n  peores: negativas.sort((a, b) => (a.valor_usd - a.costo_usd) - (b.valor_usd - b.costo_usd)).slice(0, 5).map(t => ({ tarea: t.tarea.slice(0, 60), valor: t.valor_usd, costo: t.costo_usd, delta: Number((t.valor_usd - t.costo_usd).toFixed(3)) })),\n  consejo: negativas.length > ts.length * 0.3 ? \"más del 30% de tareas destruye valor: sube el umbral de qué tareas aceptas\" : \"cartera sana\",\n});\n  }\n);\n\nserver.tool(\n  \"prioritize\",\n  \"Prioriza trabajo pendiente por valor/costo (ROI esperado) con desempate por urgencia.\",\n  {\n  pendientes: z.array(z.any()).describe(\"Tareas {tarea, valor_usd, costo_usd, urgencia}\"),\n  },\n  async (args: any) => {\n    const { pendientes } = args as any;\n    const items = (pendientes || []).filter(t => t && t.tarea);\nif (!items.length) return fail(\"lista vacía\");\nconst rankeadas = items.map(t => {\n  const costo = Math.max(Number(t.costo_usd) || 0.01, 0.01);\n  const valor = Number(t.valor_usd) || 0;\n  const urgencia = Number(t.urgencia) || 3;\n  const roi = valor / costo;\n  const score = roi * (1 + (5 - urgencia) * 0.15);\n  return { tarea: t.tarea, valor: valor, costo: costo, roi_esperado: Number(roi.toFixed(2)), urgencia, score: Number(score.toFixed(2)) };\n}).sort((a, b) => b.score - a.score);\nreturn ok({\n  orden_recomendado: rankeadas.map((r, i) => ({ prioridad: i + 1, tarea: r.tarea, roi: r.roi_esperado + \"x\", score: r.score })),\n  criterio: \"score = ROI x factor urgencia (urgencia 1=alta multiplica x1.6)\",\n  descarta: rankeadas.filter(r => r.roi_esperado < 1).map(r => ({ tarea: r.tarea, razon: \"ROI esperado < 1x: destruye valor\" })),\n});\n  }\n);\n\nserver.tool(\n  \"cost_per_output\",\n  \"Costo por unidad de salida (documento, análisis, línea de código): métrica de eficiencia comparativa.\",\n  {\n  tareas: z.array(z.any()).describe(\"Tareas {tarea, costo_usd, unidades}\"),\n  },\n  async (args: any) => {\n    const { tareas } = args as any;\n    const items = (tareas || []).filter(t => t && t.tarea && t.costo_usd && t.unidades);\nif (!items.length) return fail(\"necesitas tareas con costo_usd y unidades\");\nconst filas = items.map(t => ({ tarea: t.tarea, costo: Number(t.costo_usd), unidades: Number(t.unidades), costo_por_unidad: Number((t.costo_usd / t.unidades).toFixed(4)) }));\nconst media = filas.reduce((s, f) => s + f.costo_por_unidad, 0) / filas.length;\nreturn ok({\n  costo_medio_por_unidad: Number(media.toFixed(4)),\n  filas: filas.sort((a, b) => a.costo_por_unidad - b.costo_por_unidad),\n  outliers_caros: filas.filter(f => f.costo_por_unidad > media * 2).map(f => f.tarea),\n  benchmark: \"compara contra la media interna: >2x la media es outlier que merece autopsia\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor task-roi está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"task-roi\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[task-roi] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "task-roi"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,63 @@
+{
+ "name": "mcp-markdown-toolkit",
+ "version": "1.0.0",
+ "description": "TOC, encabezados, enlaces y lint de Markdown Dolor que resuelve: Documentos markdown desordenados: sin TOC ni lint, la doc del agente degrada rápido. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "data",
+  "parsing",
+  "etl"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only markdown-toolkit",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-markdown-toolkit",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "toc",
+   "structure",
+   "extract_links",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only markdown-toolkit",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-markdown-toolkit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-markdown-toolkit/dist/index.js\"]}}}. Tools disponibles: toc, structure, extract_links y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/markdown-toolkit/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-markdown-toolkit (toc, structure, extract_links). TOC, encabezados, enlaces y lint de Markdown. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/markdown-toolkit/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/markdown-toolkit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Markdown Toolkit — TOC, encabezados, enlaces y lint de Markdown (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-markdown-toolkit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Markdown Toolkit\n\n> TOC, encabezados, enlaces y lint de Markdown\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-markdown-toolkit`\n\n**Dolor de agente que resuelve:** Documentos markdown desordenados: sin TOC ni lint, la doc del agente degrada rápido.\n\n## Tools (4 incl. health_check)\n\n### `toc`\nGenera la tabla de contenidos de un markdown: encabezados anidados con anchors válidos.\n\n**Parámetros:**\n  - `markdown` (string, requerido): Markdown\n  - `max_nivel` (number, opcional): Profundidad máxima\n\n### `structure`\nAnaliza la estructura de un markdown: encabezados por nivel, enlaces, imágenes, bloques de código y conteo de palabras por sección.\n\n**Parámetros:**\n  - `markdown` (string, requerido): Markdown\n\n### `extract_links`\nExtrae todos los enlaces {texto, url} de un markdown, detectando duplicados y anchors internos.\n\n**Parámetros:**\n  - `markdown` (string, requerido): Markdown\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"markdown-toolkit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-markdown-toolkit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Markdown Toolkit\n * TOC, encabezados, enlaces y lint de Markdown\n *\n * Dolor que resuelve: Documentos markdown desordenados: sin TOC ni lint, la doc del agente degrada rápido.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: markdown-toolkit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"markdown-toolkit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"toc\",\n  \"Genera la tabla de contenidos de un markdown: encabezados anidados con anchors válidos.\",\n  {\n  markdown: z.string().describe(\"Markdown\"),\n  max_nivel: z.number().describe(\"Profundidad máxima\").default(3),\n  },\n  async (args: any) => {\n    const { markdown, max_nivel } = args as any;\n    const lineas = String(markdown).split(\"\\n\");\nconst toc: any[] = [];\nlet enBloque = false;\nfor (const l of lineas) {\n  if (l.trim().startsWith(String.fromCharCode(96, 96, 96))) enBloque = !enBloque;\n  if (enBloque) continue;\n  const m = l.match(/^(#{1,6})\\s+(.+)$/);\n  if (m) {\n    const nivel = m[1].length;\n    if (nivel <= (max_nivel ?? 3)) {\n      const texto = m[2].trim();\n      const anchor = texto.toLowerCase().replace(/[^a-záéíóúñü0-9\\s-]/g, \"\").replace(/\\s+/g, \"-\");\n      toc.push({ nivel, texto, anchor, linea: \"[#\" + texto + \"](#\" + anchor + \")\" });\n    }\n  }\n}\nconst indentado = toc.map((t) => \"  \".repeat(t.nivel - 1) + \"- \" + t.linea).join(\"\\n\");\nreturn ok({ encabezados: toc.length, toc: indentado });\n  }\n);\n\nserver.tool(\n  \"structure\",\n  \"Analiza la estructura de un markdown: encabezados por nivel, enlaces, imágenes, bloques de código y conteo de palabras por sección.\",\n  {\n  markdown: z.string().describe(\"Markdown\"),\n  },\n  async (args: any) => {\n    const { markdown } = args as any;\n    const md = String(markdown);\nconst encabezados = (md.match(/^#{1,6}\\s+.+$/gm) || []).length;\nconst h1 = (md.match(/^#\\s+.+$/gm) || []).length;\nconst enlaces = (md.match(/\\[[^\\]]+\\]\\([^)]+\\)/g) || []).length;\nconst enlaces_rotos = (md.match(/\\]\\(\\s*\\)|\\]\\(#\\)/g) || []).length;\nconst imagenes = (md.match(/!\\[[^\\]]*\\]\\([^)]+\\)/g) || []).length;\nconst fence = String.fromCharCode(96, 96, 96);\nconst bloques = (md.match(new RegExp(\"^\" + fence, \"gm\")) || []).length / 2;\nconst palabras = md.replace(new RegExp(fence + \"[\\s\\S]*?\" + fence, \"g\"), \"\").split(/\\s+/).filter(Boolean).length;\nconst problemas: string[] = [];\nif (h1 === 0) problemas.push(\"sin H1 principal\");\nif (h1 > 1) problemas.push(h1 + \" H1: debería haber uno\");\nif (encabezados === 0 && palabras > 200) problemas.push(\"documento largo sin encabezados\");\nif (enlaces_rotos) problemas.push(enlaces_rotos + \" enlaces vacíos\");\nif (!Number.isInteger(bloques)) problemas.push(\"bloques de código sin cerrar\");\nif (bloques === 0 && palabras > 100) problemas.push(\"sin ejemplos de código\");\nreturn ok({ encabezados, h1, enlaces, imagenes, bloques_codigo: Math.round(bloques), palabras, problemas, estructura_ok: problemas.length === 0 });\n  }\n);\n\nserver.tool(\n  \"extract_links\",\n  \"Extrae todos los enlaces {texto, url} de un markdown, detectando duplicados y anchors internos.\",\n  {\n  markdown: z.string().describe(\"Markdown\"),\n  },\n  async (args: any) => {\n    const { markdown } = args as any;\n    const md = String(markdown);\nconst re = /(?<!!)\\[([^\\]]*)\\]\\(([^)]+)\\)/g;\nconst enlaces: any[] = [];\nlet m;\nwhile ((m = re.exec(md)) !== null) enlaces.push({ texto: m[1], url: m[2], interno: m[2].startsWith(\"#\") });\nconst urls = enlaces.map((e) => e.url);\nconst duplicados = [...new Set(urls.filter((u, i) => urls.indexOf(u) !== i))];\nreturn ok({ total: enlaces.length, internos: enlaces.filter((e) => e.interno).length, duplicados, enlaces: enlaces.slice(0, 200) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor markdown-toolkit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"markdown-toolkit\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[markdown-toolkit] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

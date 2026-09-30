@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-842633",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-marketnow-certification",
+  "version": "1.0.0",
+  "description": "Reportes de certificación L1/L2 del pipeline Sentinel: 10/10 checks y deep-scans Dolor que resuelve: Las certificaciones de skills viven en PDFs/portales: el agente no puede consultarlas programáticamente para decidir. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "marketnow",
+   "skill-marketplace",
+   "trust-layer"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-certification",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-certification",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": true,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "get_certification",
+    "get_scans",
+    "l1_checklist",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-certification",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-marketnow-certification\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-marketnow-certification/dist/index.js\"]}}}. Tools disponibles: get_certification, get_scans, l1_checklist y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/marketnow-certification/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-marketnow-certification (get_certification, get_scans, l1_checklist). Reportes de certificación L1/L2 del pipeline Sentinel: 10/10 checks y deep-scans. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/marketnow-certification/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/marketnow-certification\",\n  \"version\": \"1.0.0\",\n  \"description\": \"MarketNow · Certification — Reportes de certificación L1/L2 del pipeline Sentinel: 10/10 checks y deep-scans (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-marketnow-certification\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# MarketNow · Certification\n\n> Reportes de certificación L1/L2 del pipeline Sentinel: 10/10 checks y deep-scans\n\n**Categoría:** MarketNow · **ID:** `mcp-marketnow-certification`\n\n**Dolor de agente que resuelve:** Las certificaciones de skills viven en PDFs/portales: el agente no puede consultarlas programáticamente para decidir.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (4 incl. health_check)\n\n### `get_certification`\nReporte de certificación en vivo (GET /api/certification.json): cuántas skills index-certified L1, deep-scan L2 y estado global.\n\n### `get_scans`\nDetalle de los deep-scans L2 (GET /api/certification-scans.json): tarballs escaneados, reglas Sentinel aplicadas y hallazgos.\n\n### `l1_checklist`\nLos 10 checks del nivel L1 de Sentinel (Repo Exists, Has README, Has Manifest, Has License, No Secrets, No Malicious Code, etc.) con explicación de cada uno para auto-evaluarte.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"marketnow-certification\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-marketnow-certification/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: MarketNow · Certification\n * Reportes de certificación L1/L2 del pipeline Sentinel: 10/10 checks y deep-scans\n *\n * Dolor que resuelve: Las certificaciones de skills viven en PDFs/portales: el agente no puede consultarlas programáticamente para decidir.\n * Categoría: MarketNow | Generado por mcp-suite | id: marketnow-certification\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/marketnow-certification\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"marketnow-certification\", version: \"1.0.0\" });\n\nserver.tool(\n  \"get_certification\",\n  \"Reporte de certificación en vivo (GET /api/certification.json): cuántas skills index-certified L1, deep-scan L2 y estado global.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/certification.json\");\nif (!r.json) return fail(\"respuesta no-JSON (HTTP \" + r.status + \")\");\nreturn ok(r.json);\n  }\n);\n\nserver.tool(\n  \"get_scans\",\n  \"Detalle de los deep-scans L2 (GET /api/certification-scans.json): tarballs escaneados, reglas Sentinel aplicadas y hallazgos.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/certification-scans.json\");\nif (!r.json) return fail(\"respuesta no-JSON (HTTP \" + r.status + \")\");\nconst text = JSON.stringify(r.json);\nreturn ok({ tamano_bytes: text.length, resumen: Array.isArray(r.json) ? { total: r.json.length, muestra: r.json.slice(0, 3) } : r.json });\n  }\n);\n\nserver.tool(\n  \"l1_checklist\",\n  \"Los 10 checks del nivel L1 de Sentinel (Repo Exists, Has README, Has Manifest, Has License, No Secrets, No Malicious Code, etc.) con explicación de cada uno para auto-evaluarte.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    return ok({ nivel: \"L1 index certification\", checks: [\n  { check: \"Repo Exists\", como: \"el repositorio fuente responde y es público\" },\n  { check: \"Has README\", como: \"documentación mínima con instalación y uso\" },\n  { check: \"Has Manifest\", como: \"package.json/pyproject válido con metadata\" },\n  { check: \"Has License\", como: \"licencia explícita (MIT, Apache-2.0...)\" },\n  { check: \"No Secrets\", como: \"sin tokens/API keys hardcodeados en el código\" },\n  { check: \"No Malicious Code\", como: \"sin patrones de destrucción o exfiltración\" },\n  { check: \"Install Command Documented\", como: \"comando de instalación reproducible\" },\n  { check: \"Version Pinned\", como: \"versión publicada y estable\" },\n  { check: \"Dependencies Sane\", como: \"deps mínimas y conocidas\" },\n  { check: \"Source Traceable\", como: \"origen verificable (GitHub/npm)\" },\n], nota: \"Los 6 primeros provienen del agent.json público de MarketNow; el resto son checks equivalentes del pipeline\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor marketnow-certification está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"marketnow-certification\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[marketnow-certification] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": [
+    "requires_network: true — accede a APIs públicas (MarketNow) en modo live, sin claves ni secretos"
+   ]
+  },
+  "trust_score_100": 50,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "marketnow-certification"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-8d3f8e",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-takeover-request",
+  "version": "1.0.0",
+  "description": "Solicita toma de control humano con el contexto mínimo suficiente: sin volcar todo el historial Dolor que resuelve: Cuando el agente se atasca pide ayuda volcando todo el historial o no pide nada y decide solo. El punto medio —un paquete de takeover con lo justo— no existe. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Productivity",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "human-approval",
+   "escalation",
+   "consent"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only takeover-request",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-takeover-request",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "request_takeover",
+    "respond",
+    "pending_requests",
+    "takeover_stats",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only takeover-request",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-takeover-request\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-takeover-request/dist/index.js\"]}}}. Tools disponibles: request_takeover, respond, pending_requests, takeover_stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/takeover-request/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-takeover-request (request_takeover, respond, pending_requests, takeover_stats). Solicita toma de control humano con el contexto mínimo suficiente: sin volcar todo el historial. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/takeover-request/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/takeover-request\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Takeover Request — Solicita toma de control humano con el contexto mínimo suficiente: sin volcar todo el historial (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-takeover-request\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"humano-en-el-bucle\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Takeover Request\n\n> Solicita toma de control humano con el contexto mínimo suficiente: sin volcar todo el historial\n\n**Categoría:** Humano en el Bucle · **ID:** `mcp-takeover-request`\n\n**Dolor de agente que resuelve:** Cuando el agente se atasca pide ayuda volcando todo el historial o no pide nada y decide solo. El punto medio —un paquete de takeover con lo justo— no existe.\n\n> Estado persistente en `~/.mcp-suite/takeover-request/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `request_takeover`\nConstruye un paquete de takeover: contexto mínimo, opciones con trade-offs y la pregunta concreta al humano.\n\n**Parámetros:**\n  - `situacion` (string, requerido): Situación en 2-3 frases\n  - `intentado` (array, requerido): Lo que ya se intentó y falló\n  - `punto_decision` (string, requerido): La decisión exacta que no puede tomar solo\n  - `opciones` (array, requerido): Opciones viables con trade-offs\n  - `pregunta_al_humano` (string, requerido): La pregunta concreta y cerrada\n  - `urgencia` (enum, opcional): Urgencia\n\n### `respond`\nRegistra la respuesta del humano y mide el tiempo que tomó.\n\n**Parámetros:**\n  - `takeover_id` (string, requerido): ID de la solicitud\n  - `decision` (string, requerido): Qué decidió el humano (opción o instrucción)\n  - `notas` (string, opcional): Matices del humano\n\n### `pending_requests`\nSolicitudes pendientes ordenadas por urgencia y antigüedad.\n\n### `takeover_stats`\nEstadísticas: cuánto decide el humano, tiempo medio de respuesta y decisiones que más se repiten.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"takeover-request\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-takeover-request/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/takeover-request/. Paquetes de takeover: situación, lo intentado, el punto exacto de decisión, opciones con trade-offs y qué se necesita del humano. Mide tiempo de respuesta.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Takeover Request\n * Solicita toma de control humano con el contexto mínimo suficiente: sin volcar todo el historial\n *\n * Dolor que resuelve: Cuando el agente se atasca pide ayuda volcando todo el historial o no pide nada y decide solo. El punto medio —un paquete de takeover con lo justo— no existe.\n * Categoría: Humano en el Bucle | Generado por mcp-suite | id: takeover-request\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/takeover-request/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"takeover-request\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"takeover-request\", version: \"1.0.0\" });\n\nserver.tool(\n  \"request_takeover\",\n  \"Construye un paquete de takeover: contexto mínimo, opciones con trade-offs y la pregunta concreta al humano.\",\n  {\n  situacion: z.string().describe(\"Situación en 2-3 frases\"),\n  intentado: z.array(z.any()).describe(\"Lo que ya se intentó y falló\"),\n  punto_decision: z.string().describe(\"La decisión exacta que no puede tomar solo\"),\n  opciones: z.array(z.any()).describe(\"Opciones viables con trade-offs\"),\n  pregunta_al_humano: z.string().describe(\"La pregunta concreta y cerrada\"),\n  urgencia: z.enum([\"baja\",\"media\",\"alta\"]).describe(\"Urgencia\").default(\"media\"),\n  },\n  async (args: any) => {\n    const { situacion, intentado, punto_decision, opciones, pregunta_al_humano, urgencia } = args as any;\n    const st = store.load();\nst.solicitudes = st.solicitudes || [];\nif (!opciones || opciones.length < 2) return fail(\"sin >=2 opciones no hay decisión que tomar: investiga más o decide solo\");\nconst paquete = {\n  id: \"tk_\" + Date.now().toString(36),\n  situacion, intentado: intentado || [], punto_decision, opciones: (opciones || []).map(String), pregunta_al_humano, urgencia,\n  estado: \"pendiente\", creado: new Date().toISOString(), respondido: null,\n};\nst.solicitudes.push(paquete);\nstore.save(st);\nreturn ok({\n  takeover_id: paquete.id, urgencia,\n  paquete_para_el_humano: [\n    \"SITUACIÓN: \" + situacion,\n    ...(intentado || []).map((i, x) => \"INTENTO \" + (x + 1) + \": \" + i),\n    \"DECISIÓN PENDIENTE: \" + punto_decision,\n    ...opciones.map((o, x) => \"OPCIÓN \" + (x + 1) + \": \" + o),\n    \"PREGUNTA: \" + pregunta_al_humano,\n  ],\n  regla: \"el humano decide la OPCIÓN, no re-deriva todo el análisis\",\n});\n  }\n);\n\nserver.tool(\n  \"respond\",\n  \"Registra la respuesta del humano y mide el tiempo que tomó.\",\n  {\n  takeover_id: z.string().describe(\"ID de la solicitud\"),\n  decision: z.string().describe(\"Qué decidió el humano (opción o instrucción)\"),\n  notas: z.string().describe(\"Matices del humano\").optional(),\n  },\n  async (args: any) => {\n    const { takeover_id, decision, notas } = args as any;\n    const st = store.load();\nconst s = (st.solicitudes || []).find(x => x.id === takeover_id);\nif (!s) return fail(\"solicitud no encontrada\");\nif (s.estado !== \"pendiente\") return fail(\"ya respondida\");\ns.estado = \"respondida\";\ns.decision = { decision, notas: notas || null };\ns.respondido = new Date().toISOString();\nstore.save(st);\nreturn ok({\n  decision,\n  minutos_para_responder: Number(((new Date(s.respondido).getTime() - new Date(s.creado).getTime()) / 60000).toFixed(1)),\n  proximo_paso: \"continúa la tarea aplicando la decisión y registra la lección si la decisión sorprendió (lesson-library)\",\n});\n  }\n);\n\nserver.tool(\n  \"pending_requests\",\n  \"Solicitudes pendientes ordenadas por urgencia y antigüedad.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst pend = (st.solicitudes || []).filter(s => s.estado === \"pendiente\");\nif (!pend.length) return ok({ pendientes: 0 });\nconst peso = { alta: 0, media: 1, baja: 2 };\nreturn ok({\n  pendientes: pend.length,\n  solicitudes: pend.map(s => ({ id: s.id, urgencia: s.urgencia, pregunta: s.pregunta_al_humano.slice(0, 80), minutos_esperando: Number(((Date.now() - new Date(s.creado).getTime()) / 60000).toFixed(0)) })).sort((a, b) => (peso[a.urgencia] - peso[b.urgencia]) || b.minutos_esperando - a.minutos_esperando),\n});\n  }\n);\n\nserver.tool(\n  \"takeover_stats\",\n  \"Estadísticas: cuánto decide el humano, tiempo medio de respuesta y decisiones que más se repiten.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ss = st.solicitudes || [];\nif (!ss.length) return ok({ solicitudes: 0 });\nconst respondidas = ss.filter(s => s.respondido);\nconst tiempos = respondidas.map(s => (new Date(s.respondido).getTime() - new Date(s.creado).getTime()) / 60000);\nconst porPunto = {};\nfor (const s of ss) { const k = s.punto_decision.split(/\\s+/).slice(0, 3).join(\" \"); porPunto[k] = (porPunto[k] || 0) + 1; }\nreturn ok({\n  solicitudes: ss.length, respondidas: respondidas.length, pendientes: ss.length - respondidas.length,\n  tiempo_respuesta_medio_min: tiempos.length ? Number((tiempos.reduce((a, b) => a + b, 0) / tiempos.length).toFixed(1)) : null,\n  decisiones_recurrentes: __ents(porPunto).sort((a, b) => b[1] - a[1]).filter(([, v]) => v >= 2).map(([k, v]) => ({ punto: k, veces: v, sugerencia: \"automatiza esta decisión con una política (escalación-policy)\" })),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor takeover-request está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"takeover-request\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[takeover-request] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "takeover-request"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

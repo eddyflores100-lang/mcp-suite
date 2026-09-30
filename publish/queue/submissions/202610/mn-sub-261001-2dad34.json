@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-2dad34",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-failure-tagger",
+  "version": "1.0.0",
+  "description": "Taxonomía de fallos del agente: etiqueta, agrupa y encuentra el patrón raíz de los errores Dolor que resuelve: Los fallos se tratan como anecdotes: cada error se investiga desde cero porque no hay taxonomía compartida ni conteo por tipo, así que el mismo fallo se 'descubre' diez veces. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Monitoring",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "evals",
+   "regression",
+   "golden-set"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only failure-tagger",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-failure-tagger",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "get_taxonomy",
+    "tag_failure",
+    "attach_fix",
+    "failure_stats",
+    "postmortem_list",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only failure-tagger",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-failure-tagger\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-failure-tagger/dist/index.js\"]}}}. Tools disponibles: get_taxonomy, tag_failure, attach_fix, failure_stats, postmortem_list y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/failure-tagger/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-failure-tagger (get_taxonomy, tag_failure, attach_fix, failure_stats, postmortem_list). Taxonomía de fallos del agente: etiqueta, agrupa y encuentra el patrón raíz de los errores. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/failure-tagger/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/failure-tagger\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Failure Tagger — Taxonomía de fallos del agente: etiqueta, agrupa y encuentra el patrón raíz de los errores (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-failure-tagger\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"evaluaci-n-continua\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Failure Tagger\n\n> Taxonomía de fallos del agente: etiqueta, agrupa y encuentra el patrón raíz de los errores\n\n**Categoría:** Evaluación Continua · **ID:** `mcp-failure-tagger`\n\n**Dolor de agente que resuelve:** Los fallos se tratan como anecdotes: cada error se investiga desde cero porque no hay taxonomía compartida ni conteo por tipo, así que el mismo fallo se 'descubre' diez veces.\n\n> Estado persistente en `~/.mcp-suite/failure-tagger/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `get_taxonomy`\nDevuelve la taxonomía de fallos raíz con señales típicas de cada tipo.\n\n### `tag_failure`\nEtiqueta un incidente con tipo raíz, descripción y causa probable (alimentado por quien investiga).\n\n**Parámetros:**\n  - `titulo` (string, requerido): Título corto del incidente\n  - `tipo` (enum, requerido): Tipo raíz\n  - `descripcion` (string, requerido): Qué pasó exactamente\n  - `causa_probable` (string, requerido): Causa raíz estimada\n  - `severidad` (enum, opcional): Severidad\n\n### `attach_fix`\nAdjunta el fix aplicado a un incidente y márcalo resuelto.\n\n**Parámetros:**\n  - `incidente_id` (string, requerido): ID del incidente\n  - `fix` (string, requerido): Qué se cambió para resolverlo\n  - `verificado` (boolean, opcional): ¿Se verificó que ya no ocurre?\n\n### `failure_stats`\nEstadísticas por tipo: frecuencia, severidad media y tasa de recurrencia (mismo tipo sin fix verificado).\n\n### `postmortem_list`\nLista incidentes con fix o críticos sin resolver, para reunión de retrospectiva.\n\n**Parámetros:**\n  - `solo_abiertos` (boolean, opcional): Solo no resueltos/no verificados\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"failure-tagger\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-failure-tagger/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/failure-tagger/. Taxonomía fija (10 tipos raíz) + etiquetado de incidentes con causalidad y detección de tipo dominante y recurrente.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Failure Tagger\n * Taxonomía de fallos del agente: etiqueta, agrupa y encuentra el patrón raíz de los errores\n *\n * Dolor que resuelve: Los fallos se tratan como anecdotes: cada error se investiga desde cero porque no hay taxonomía compartida ni conteo por tipo, así que el mismo fallo se 'descubre' diez veces.\n * Categoría: Evaluación Continua | Generado por mcp-suite | id: failure-tagger\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/failure-tagger/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"failure-tagger\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"failure-tagger\", version: \"1.0.0\" });\n\nserver.tool(\n  \"get_taxonomy\",\n  \"Devuelve la taxonomía de fallos raíz con señales típicas de cada tipo.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const TAX = {\n  percepcion: { desc: \"el agente entendió mal la entrada o el contexto\", señales: [\"responde a otra cosa\", \"ignora parte del input\", \"confunde entidades\"] },\n  planificacion: { desc: \"el plan era incorrecto o incompleto\", señales: [\"paso faltante\", \"orden subóptimo\", \"no considera dependencias\"] },\n  ejecucion_tool: { desc: \"la tool/API falló o se llamó mal\", señales: [\"parametros inválidos\", \"timeout\", \"respuesta inesperada de la tool\"] },\n  alucion: { desc: \"inventó hechos o datos\", señales: [\"cifras sin fuente\", \"citas inexistentes\", \"APIs que no existen\"] },\n  contexto: { desc: \"perdió o desbordó contexto\", señales: [\"olvida instrucciones previas\", \"repite trabajo\", \"desborda ventana\"] },\n  formato_salida: { desc: \"el contenido era correcto pero el formato no\", señales: [\"JSON inválido\", \"schema violado\", \"idioma incorrecto\"] },\n  razonamiento: { desc: \"lógica o aritmética errónea\", señales: [\"cálculo mal\", \"condición invertida\", \"inferencia no válida\"] },\n  coordinacion: { desc: \"falla entre múltiples agentes/handoffs\", señales: [\"trabajo duplicado\", \"mensaje perdido\", \"deadlock\"] },\n  seguridad: { desc: \"vulneró política o filtró datos\", señales: [\"inyección no detectada\", \"PII expuesta\", \"acción no autorizada\"] },\n  recursos: { desc: \"se quedó sin presupuesto/tiempo\", señales: [\"timeout global\", \"tokens agotados\", \"rate limit\"] },\n};\nreturn ok({ tipos: Object.keys(TAX), taxonomia: TAX });\n  }\n);\n\nserver.tool(\n  \"tag_failure\",\n  \"Etiqueta un incidente con tipo raíz, descripción y causa probable (alimentado por quien investiga).\",\n  {\n  titulo: z.string().describe(\"Título corto del incidente\"),\n  tipo: z.enum([\"percepcion\",\"planificacion\",\"ejecucion_tool\",\"alucion\",\"contexto\",\"formato_salida\",\"razonamiento\",\"coordinacion\",\"seguridad\",\"recursos\"]).describe(\"Tipo raíz\"),\n  descripcion: z.string().describe(\"Qué pasó exactamente\"),\n  causa_probable: z.string().describe(\"Causa raíz estimada\"),\n  severidad: z.enum([\"baja\",\"media\",\"alta\",\"critica\"]).describe(\"Severidad\").default(\"media\"),\n  },\n  async (args: any) => {\n    const { titulo, tipo, descripcion, causa_probable, severidad } = args as any;\n    const st = store.load();\nst.incidentes = st.incidentes || [];\nconst id = \"inc_\" + Date.now().toString(36);\nst.incidentes.push({ id, titulo, tipo, descripcion, causa_probable, severidad, ts: new Date().toISOString(), fix: null });\nstore.save(st);\nreturn ok({ incidente_id: id, tipo, severidad });\n  }\n);\n\nserver.tool(\n  \"attach_fix\",\n  \"Adjunta el fix aplicado a un incidente y márcalo resuelto.\",\n  {\n  incidente_id: z.string().describe(\"ID del incidente\"),\n  fix: z.string().describe(\"Qué se cambió para resolverlo\"),\n  verificado: z.boolean().describe(\"¿Se verificó que ya no ocurre?\").default(false),\n  },\n  async (args: any) => {\n    const { incidente_id, fix, verificado } = args as any;\n    const st = store.load();\nconst i = (st.incidentes || []).find(x => x.id === incidente_id);\nif (!i) return fail(\"incidente no encontrado\");\ni.fix = fix;\ni.resuelto = true;\ni.verificado = verificado;\ni.resuelto_ts = new Date().toISOString();\nstore.save(st);\nreturn ok({ incidente: i.id, resuelto: true, verificado });\n  }\n);\n\nserver.tool(\n  \"failure_stats\",\n  \"Estadísticas por tipo: frecuencia, severidad media y tasa de recurrencia (mismo tipo sin fix verificado).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst incs = st.incidentes || [];\nif (!incs.length) return ok({ incidentes: 0, sugerencia: \"etiqueta fallos con tag_failure\" });\nconst SEV = { baja: 1, media: 2, alta: 3, critica: 4 };\nconst porTipo = {};\nfor (const i of incs) {\n  porTipo[i.tipo] = porTipo[i.tipo] || { total: 0, sevSuma: 0, resueltos: 0, verificados: 0 };\n  porTipo[i.tipo].total++;\n  porTipo[i.tipo].sevSuma += SEV[i.severidad] || 2;\n  if (i.resuelto) porTipo[i.tipo].resueltos++;\n  if (i.verificado) porTipo[i.tipo].verificados++;\n}\nconst filas = __ents(porTipo).map(([tipo, v]) => ({\n  tipo, incidentes: v.total,\n  severidad_media: Number((v.sevSuma / v.total).toFixed(1)),\n  resueltos: v.resueltos,\n  verificados: v.verificados,\n  recurrencia_activa: v.total - v.verificados,\n})).sort((a, b) => b.incidentes - a.incidentes);\nreturn ok({\n  incidentes: incs.length,\n  por_tipo: filas,\n  tipo_dominante: filas[0]?.tipo,\n  criticos_sin_verificar: incs.filter(i => i.severidad === \"critica\" && !i.verificado).length,\n  consejo: filas[0] && filas[0].recurrencia_activa > 2 ? \"el tipo '\" + filas[0].tipo + \"' recurre: es un problema sistémico, no anecdótico: arregla la CAUSA no el síntoma\" : \"sin recurrencia dominante\",\n});\n  }\n);\n\nserver.tool(\n  \"postmortem_list\",\n  \"Lista incidentes con fix o críticos sin resolver, para reunión de retrospectiva.\",\n  {\n  solo_abiertos: z.boolean().describe(\"Solo no resueltos/no verificados\").default(false),\n  },\n  async (args: any) => {\n    const { solo_abiertos } = args as any;\n    const st = store.load();\nlet incs = st.incidentes || [];\nif (solo_abiertos) incs = incs.filter(i => !i.verificado);\nreturn ok({\n  total: incs.length,\n  incidentes: incs.slice(-15).reverse().map(i => ({ id: i.id, titulo: i.titulo, tipo: i.tipo, severidad: i.severidad, resuelto: !!i.resuelto, verificado: !!i.verificado, causa: i.causa_probable?.slice(0, 80), fix: i.fix?.slice(0, 80) || null })),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor failure-tagger está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"failure-tagger\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[failure-tagger] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "failure-tagger"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

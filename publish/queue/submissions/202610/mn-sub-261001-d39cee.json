@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-d39cee",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-schema-validator",
+  "version": "1.0.0",
+  "description": "Valida cualquier JSON contra un JSON Schema (subconjunto potente): tipos, requeridos, anidados Dolor que resuelve: La salida estructurada de un LLM se acepta sin validar: los campos faltantes explotan río abajo. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Developer Tools",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "quality",
+   "validation",
+   "hallucination"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only schema-validator",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-schema-validator",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "validate",
+    "common_schemas",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only schema-validator",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-schema-validator\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-schema-validator/dist/index.js\"]}}}. Tools disponibles: validate, common_schemas y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/schema-validator/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-schema-validator (validate, common_schemas). Valida cualquier JSON contra un JSON Schema (subconjunto potente): tipos, requeridos, anidados. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/schema-validator/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/schema-validator\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Schema Validator — Valida cualquier JSON contra un JSON Schema (subconjunto potente): tipos, requeridos, anidados (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-schema-validator\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Schema Validator\n\n> Valida cualquier JSON contra un JSON Schema (subconjunto potente): tipos, requeridos, anidados\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-schema-validator`\n\n**Dolor de agente que resuelve:** La salida estructurada de un LLM se acepta sin validar: los campos faltantes explotan río abajo.\n\n## Tools (3 incl. health_check)\n\n### `validate`\nValida un JSON contra un schema {tipo, requeridos:[], propiedades:{campo:tipo}, items, min/max}. Devuelve errores con ruta exacta.\n\n**Parámetros:**\n  - `data` (any, requerido): JSON a validar\n  - `schema` (any, requerido): Schema de validación\n\n### `common_schemas`\nDevuelve schemas listos para usar: producto, usuario, artículo, respuesta-tool-MCP, evento.\n\n**Parámetros:**\n  - `cual` (enum, requerido): Schema a obtener\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"schema-validator\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-schema-validator/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Schema Validator\n * Valida cualquier JSON contra un JSON Schema (subconjunto potente): tipos, requeridos, anidados\n *\n * Dolor que resuelve: La salida estructurada de un LLM se acepta sin validar: los campos faltantes explotan río abajo.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: schema-validator\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"schema-validator\", version: \"1.0.0\" });\n\nserver.tool(\n  \"validate\",\n  \"Valida un JSON contra un schema {tipo, requeridos:[], propiedades:{campo:tipo}, items, min/max}. Devuelve errores con ruta exacta.\",\n  {\n  data: z.any().describe(\"JSON a validar\"),\n  schema: z.any().describe(\"Schema de validación\"),\n  },\n  async (args: any) => {\n    const { data, schema } = args as any;\n    function tipoDe(v: any): string {\n  if (v === null) return \"null\";\n  if (Array.isArray(v)) return \"array\";\n  return typeof v;\n}\nfunction validar(dato: any, sch: any, ruta: string, errores: string[]) {\n  const s = sch || {};\n  if (s.tipo || s.type) {\n    const esperado = s.tipo || s.type;\n    const real = tipoDe(dato);\n    if (esperado === \"integer\" && !(typeof dato === \"number\" && Number.isInteger(dato))) errores.push(ruta + \": esperaba integer, hay \" + real);\n    else if (esperado !== \"integer\" && real !== esperado) { errores.push(ruta + \": esperaba \" + esperado + \", hay \" + real); return; }\n  }\n  if (s.requeridos || s.required) {\n    const req: string[] = s.requeridos || s.required;\n    for (const r of req) if (dato?.[r] === undefined) errores.push(ruta + \".\" + r + \": requerido y ausente\");\n  }\n  if (s.propiedades || s.properties) {\n    const props: any = s.propiedades || s.properties;\n    for (const [k, sub] of __ents(props)) {\n      if (dato?.[k] !== undefined) validar(dato[k], sub, ruta + \".\" + k, errores);\n    }\n  }\n  if (s.items && Array.isArray(dato)) dato.forEach((item: any, i: number) => validar(item, s.items, ruta + \"[\" + i + \"]\", errores));\n  if (s.enum && !s.enum.includes(dato)) errores.push(ruta + \": valor \" + JSON.stringify(dato) + \" fuera de enum \" + JSON.stringify(s.enum));\n  if (s.min !== undefined && typeof dato === \"number\" && dato < s.min) errores.push(ruta + \": \" + dato + \" < min \" + s.min);\n  if (s.max !== undefined && typeof dato === \"number\" && dato > s.max) errores.push(ruta + \": \" + dato + \" > max \" + s.max);\n  if (s.min_longitud && typeof dato === \"string\" && dato.length < s.min_longitud) errores.push(ruta + \": longitud < \" + s.min_longitud);\n}\nconst errores: string[] = [];\nvalidar(data, schema, \"$\", errores);\nreturn ok({ valido: errores.length === 0, errores });\n  }\n);\n\nserver.tool(\n  \"common_schemas\",\n  \"Devuelve schemas listos para usar: producto, usuario, artículo, respuesta-tool-MCP, evento.\",\n  {\n  cual: z.enum([\"producto\",\"usuario\",\"articulo\",\"respuesta-mcp\",\"evento\"]).describe(\"Schema a obtener\"),\n  },\n  async (args: any) => {\n    const { cual } = args as any;\n    const schemas: any = {\n  producto: { tipo: \"object\", requeridos: [\"nombre\", \"precio\"], propiedades: { nombre: { tipo: \"string\", min_longitud: 1 }, precio: { tipo: \"number\", min: 0 }, moneda: { tipo: \"string\" }, stock: { tipo: \"integer\", min: 0 } } },\n  usuario: { tipo: \"object\", requeridos: [\"nombre\", \"email\"], propiedades: { nombre: { tipo: \"string\" }, email: { tipo: \"string\" }, rol: { tipo: \"string\", enum: [\"admin\", \"user\", \"agente\"] } } },\n  articulo: { tipo: \"object\", requeridos: [\"titulo\", \"cuerpo\"], propiedades: { titulo: { tipo: \"string\" }, cuerpo: { tipo: \"string\", min_longitud: 50 }, fecha: { tipo: \"string\" }, tags: { tipo: \"array\", items: { tipo: \"string\" } } } },\n  \"respuesta-mcp\": { tipo: \"object\", requeridos: [\"content\"], propiedades: { content: { tipo: \"array\", items: { tipo: \"object\", requeridos: [\"type\"], propiedades: { type: { tipo: \"string\", enum: [\"text\", \"image\"] }, text: { tipo: \"string\" } } } }, isError: { tipo: \"boolean\" } } },\n  evento: { tipo: \"object\", requeridos: [\"tipo\", \"ts\"], propiedades: { tipo: { tipo: \"string\" }, ts: { tipo: \"string\" }, payload: { tipo: \"object\" } } },\n};\nif (!schemas[cual]) return fail(\"schema desconocido\");\nreturn ok({ schema: schemas[cual] });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor schema-validator está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"schema-validator\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[schema-validator] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "schema-validator"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

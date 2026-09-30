@@ -1,0 +1,62 @@
+{
+ "name": "mcp-output-diff",
+ "version": "1.0.0",
+ "description": "Diffs de JSON y texto: qué cambió entre dos versiones de una salida Dolor que resuelve: Regenerar una respuesta y no saber qué cambió respecto a la anterior: imposible evaluar mejoras. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Developer Tools",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "quality",
+  "validation",
+  "hallucination"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only output-diff",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-output-diff",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "diff_json",
+   "diff_text",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only output-diff",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-output-diff\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-output-diff/dist/index.js\"]}}}. Tools disponibles: diff_json, diff_text y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/output-diff/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-output-diff (diff_json, diff_text). Diffs de JSON y texto: qué cambió entre dos versiones de una salida. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/output-diff/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/output-diff\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Output Diff — Diffs de JSON y texto: qué cambió entre dos versiones de una salida (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-output-diff\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Output Diff\n\n> Diffs de JSON y texto: qué cambió entre dos versiones de una salida\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-output-diff`\n\n**Dolor de agente que resuelve:** Regenerar una respuesta y no saber qué cambió respecto a la anterior: imposible evaluar mejoras.\n\n## Tools (3 incl. health_check)\n\n### `diff_json`\nDiff estructural de dos JSON: rutas añadidas, eliminadas y con valor cambiado.\n\n**Parámetros:**\n  - `a` (any, requerido): JSON base\n  - `b` (any, requerido): JSON nuevo\n\n### `diff_text`\nDiff línea a línea de dos textos (LCS simple): añadidas, eliminadas y contexto.\n\n**Parámetros:**\n  - `a` (string, requerido): Texto base\n  - `b` (string, requerido): Texto nuevo\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"output-diff\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-output-diff/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Output Diff\n * Diffs de JSON y texto: qué cambió entre dos versiones de una salida\n *\n * Dolor que resuelve: Regenerar una respuesta y no saber qué cambió respecto a la anterior: imposible evaluar mejoras.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: output-diff\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"output-diff\", version: \"1.0.0\" });\n\nserver.tool(\n  \"diff_json\",\n  \"Diff estructural de dos JSON: rutas añadidas, eliminadas y con valor cambiado.\",\n  {\n  a: z.any().describe(\"JSON base\"),\n  b: z.any().describe(\"JSON nuevo\"),\n  },\n  async (args: any) => {\n    const { a, b } = args as any;\n    function caminar(obj: any, ruta: string, out: any) {\n  if (obj === null || typeof obj !== \"object\") { out[ruta] = obj; return; }\n  for (const [k, v] of __ents(obj)) caminar(v, ruta ? ruta + \".\" + k : k, out);\n}\nconst flatA: any = {}; const flatB: any = {};\ncaminar(a, \"\", flatA); caminar(b, \"\", flatB);\nconst añadidas: string[] = []; const eliminadas: string[] = []; const cambiadas: any[] = [];\nfor (const k of Object.keys(flatB)) if (!(k in flatA)) añadidas.push(k);\nfor (const k of Object.keys(flatA)) if (!(k in flatB)) eliminadas.push(k);\nfor (const k of Object.keys(flatA)) if (k in flatB && JSON.stringify(flatA[k]) !== JSON.stringify(flatB[k])) cambiadas.push({ ruta: k, antes: flatA[k], ahora: flatB[k] });\nreturn ok({ añadidas, eliminadas, cambiadas, resumen: { \"+\": añadidas.length, \"-\": eliminadas.length, \"~\": cambiadas.length } });\n  }\n);\n\nserver.tool(\n  \"diff_text\",\n  \"Diff línea a línea de dos textos (LCS simple): añadidas, eliminadas y contexto.\",\n  {\n  a: z.string().describe(\"Texto base\"),\n  b: z.string().describe(\"Texto nuevo\"),\n  },\n  async (args: any) => {\n    const { a, b } = args as any;\n    const la = a.split(\"\\n\"); const lb = b.split(\"\\n\");\nconst m = la.length, n = lb.length;\nconst dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\nfor (let i = m - 1; i >= 0; i--) for (let j = n - 1; j >= 0; j--) dp[i][j] = la[i] === lb[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);\nconst cambios: any[] = [];\nlet i = 0, j = 0;\nwhile (i < m && j < n) {\n  if (la[i] === lb[j]) { i++; j++; }\n  else if (dp[i + 1][j] >= dp[i][j + 1]) { cambios.push({ tipo: \"-\", linea: i + 1, texto: la[i] }); i++; }\n  else { cambios.push({ tipo: \"+\", linea: j + 1, texto: lb[j] }); j++; }\n}\nwhile (i < m) { cambios.push({ tipo: \"-\", linea: i + 1, texto: la[i] }); i++; }\nwhile (j < n) { cambios.push({ tipo: \"+\", linea: j + 1, texto: lb[j] }); j++; }\nreturn ok({ lineas_base: m, lineas_nuevas: n, cambios: cambios.slice(0, 200), total_cambios: cambios.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor output-diff está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"output-diff\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[output-diff] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

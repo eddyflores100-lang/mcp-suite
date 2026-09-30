@@ -1,0 +1,91 @@
+{
+ "id": "mn-sub-261001-f02c2f",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-commitment-ledger",
+  "version": "1.0.0",
+  "description": "Libro mayor de compromisos del agente: promesas con deadline, cumplimiento y reputación Dolor que resuelve: Los agentes prometen ('lo envío hoy', 'lo reviso luego') y olvidan: no hay libro de compromisos, así que el incumplimiento es invisible hasta que el humano pregunta dónde está. Incluye 7 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "goals",
+   "long-horizon",
+   "alignment"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only commitment-ledger",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-commitment-ledger",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 6 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "make_commitment",
+    "list_commitments",
+    "fulfill",
+    "renegotiate",
+    "reputation",
+    "load_forecast",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only commitment-ledger",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-commitment-ledger\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-commitment-ledger/dist/index.js\"]}}}. Tools disponibles: make_commitment, list_commitments, fulfill, renegotiate, reputation, load_forecast y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/commitment-ledger/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-commitment-ledger (make_commitment, list_commitments, fulfill, renegotiate, reputation, load_forecast). Libro mayor de compromisos del agente: promesas con deadline, cumplimiento y reputación. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/commitment-ledger/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/commitment-ledger\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Commitment Ledger — Libro mayor de compromisos del agente: promesas con deadline, cumplimiento y reputación (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-commitment-ledger\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"objetivos-y-largo-plazo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 7\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Commitment Ledger\n\n> Libro mayor de compromisos del agente: promesas con deadline, cumplimiento y reputación\n\n**Categoría:** Objetivos y Largo Plazo · **ID:** `mcp-commitment-ledger`\n\n**Dolor de agente que resuelve:** Los agentes prometen ('lo envío hoy', 'lo reviso luego') y olvidan: no hay libro de compromisos, así que el incumplimiento es invisible hasta que el humano pregunta dónde está.\n\n> Estado persistente en `~/.mcp-suite/commitment-ledger/state.json` (local, privado, tuya la data).\n\n## Tools (7 incl. health_check)\n\n### `make_commitment`\nRegistra un compromiso verificable: qué, para quién, cuándo y con qué criterio de cumplimiento.\n\n**Parámetros:**\n  - `que` (string, requerido): Qué se promete (accionable)\n  - `para_quien` (string, requerido): Beneficiario (humano o agente)\n  - `deadline` (string, requerido): Fecha ISO o relativa (en 2h, mañana, 2026-12-01)\n  - `prioridad` (enum, opcional): Prioridad\n  - `criterio` (string, opcional): Cómo se sabrá que se cumplió\n\n### `list_commitments`\nLista compromisos abiertos ordenados por deadline con riesgo de vencimiento inminente.\n\n**Parámetros:**\n  - `solo_abiertos` (boolean, opcional): Solo pendientes\n  - `para_quien` (string, opcional): Filtrar por beneficiario\n\n### `fulfill`\nMarca un compromiso como cumplido con evidencia; alimenta el score de reputación.\n\n**Parámetros:**\n  - `compromiso_id` (string, requerido): ID del compromiso\n  - `evidencia` (string, opcional): Cómo se cumplió\n\n### `renegotiate`\nRenegocia un compromiso a punto de vencer: nuevo deadline con motivo (queda auditado).\n\n**Parámetros:**\n  - `compromiso_id` (string, requerido): ID del compromiso\n  - `nuevo_deadline` (string, requerido): Nuevo plazo (ISO o 'en Xh')\n  - `motivo` (string, requerido): Por qué se renegocia\n\n### `reputation`\nScore de cumplimiento: tasa a tiempo, tardíos medios y patrón de renegociación.\n\n### `load_forecast`\nProyección de carga por semana según compromisos abiertos: detecta semanas saturadas.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"commitment-ledger\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-commitment-ledger/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/commitment-ledger/. Compromisos con deadline, prioridad y beneficiario; alerta de vencidos, reputación de cumplimiento y carga futura por semana.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Commitment Ledger\n * Libro mayor de compromisos del agente: promesas con deadline, cumplimiento y reputación\n *\n * Dolor que resuelve: Los agentes prometen ('lo envío hoy', 'lo reviso luego') y olvidan: no hay libro de compromisos, así que el incumplimiento es invisible hasta que el humano pregunta dónde está.\n * Categoría: Objetivos y Largo Plazo | Generado por mcp-suite | id: commitment-ledger\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/commitment-ledger/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"commitment-ledger\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"commitment-ledger\", version: \"1.0.0\" });\n\nserver.tool(\n  \"make_commitment\",\n  \"Registra un compromiso verificable: qué, para quién, cuándo y con qué criterio de cumplimiento.\",\n  {\n  que: z.string().describe(\"Qué se promete (accionable)\"),\n  para_quien: z.string().describe(\"Beneficiario (humano o agente)\"),\n  deadline: z.string().describe(\"Fecha ISO o relativa (en 2h, mañana, 2026-12-01)\"),\n  prioridad: z.enum([\"alta\",\"media\",\"baja\"]).describe(\"Prioridad\").default(\"media\"),\n  criterio: z.string().describe(\"Cómo se sabrá que se cumplió\").optional(),\n  },\n  async (args: any) => {\n    const { que, para_quien, deadline, prioridad, criterio } = args as any;\n    const st = store.load();\nst.compromisos = st.compromisos || [];\nfunction parseCuando(s) {\n  const s2 = String(s).toLowerCase().trim();\n  const m = s2.match(/^en\\s+(\\d+)\\s*(min|minutos|h|horas|d|dias|día|semana|semanas)/);\n  if (m) { const n = parseInt(m[1]); const u = m[2]; const mult = u.startsWith(\"min\") ? 60000 : u.startsWith(\"h\") ? 3600000 : u.includes(\"semana\") ? 604800000 : 86400000; return new Date(Date.now() + n * mult).toISOString(); }\n  const d = new Date(s);\n  return isNaN(d.getTime()) ? null : d.toISOString();\n}\nconst cuando = parseCuando(deadline);\nif (!cuando) return fail(\"deadline no interpretable: usa ISO o 'en 2h' / 'en 3 dias'\");\nconst id = \"cm_\" + Date.now().toString(36);\nst.compromisos.push({ id, que, para_quien, deadline: cuando, prioridad, criterio: criterio || null, estado: \"abierto\", creado: new Date().toISOString(), cumplido_ts: null });\nstore.save(st);\nreturn ok({ compromiso_id: id, deadline: cuando, horas_restantes: Number(((new Date(cuando).getTime() - Date.now()) / 3600000).toFixed(1)) });\n  }\n);\n\nserver.tool(\n  \"list_commitments\",\n  \"Lista compromisos abiertos ordenados por deadline con riesgo de vencimiento inminente.\",\n  {\n  solo_abiertos: z.boolean().describe(\"Solo pendientes\").default(true),\n  para_quien: z.string().describe(\"Filtrar por beneficiario\").optional(),\n  },\n  async (args: any) => {\n    const { solo_abiertos, para_quien } = args as any;\n    const st = store.load();\nlet cs = st.compromisos || [];\nif (solo_abiertos) cs = cs.filter(c => c.estado === \"abierto\");\nif (para_quien) cs = cs.filter(c => c.para_quien === para_quien);\ncs.sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime());\nreturn ok({\n  total: cs.length,\n  vencidos: cs.filter(c => c.estado === \"abierto\" && new Date(c.deadline) < new Date()).length,\n  compromisos: cs.map(c => ({\n    id: c.id, que: c.que.slice(0, 80), para: c.para_quien, prioridad: c.prioridad,\n    horas_restantes: Number(((new Date(c.deadline).getTime() - Date.now()) / 3600000).toFixed(1)),\n    estado: c.estado === \"abierto\" && new Date(c.deadline) < new Date() ? \"VENCIDO\" : c.estado,\n  })),\n});\n  }\n);\n\nserver.tool(\n  \"fulfill\",\n  \"Marca un compromiso como cumplido con evidencia; alimenta el score de reputación.\",\n  {\n  compromiso_id: z.string().describe(\"ID del compromiso\"),\n  evidencia: z.string().describe(\"Cómo se cumplió\").optional(),\n  },\n  async (args: any) => {\n    const { compromiso_id, evidencia } = args as any;\n    const st = store.load();\nconst c = (st.compromisos || []).find(x => x.id === compromiso_id);\nif (!c) return fail(\"compromiso no encontrado\");\nif (c.estado !== \"abierto\") return fail(\"ya está \" + c.estado);\nc.estado = \"cumplido\";\nc.cumplido_ts = new Date().toISOString();\nc.evidencia = evidencia || null;\nconst tarde = new Date(c.cumplido_ts) > new Date(c.deadline);\nc.tarde = tarde;\nstore.save(st);\nreturn ok({ compromiso: c.id, cumplido: true, a_tiempo: !tarde, horas_de_diferencia: Number(((new Date(c.cumplido_ts).getTime() - new Date(c.deadline).getTime()) / 3600000).toFixed(1)) });\n  }\n);\n\nserver.tool(\n  \"renegotiate\",\n  \"Renegocia un compromiso a punto de vencer: nuevo deadline con motivo (queda auditado).\",\n  {\n  compromiso_id: z.string().describe(\"ID del compromiso\"),\n  nuevo_deadline: z.string().describe(\"Nuevo plazo (ISO o 'en Xh')\"),\n  motivo: z.string().describe(\"Por qué se renegocia\"),\n  },\n  async (args: any) => {\n    const { compromiso_id, nuevo_deadline, motivo } = args as any;\n    const st = store.load();\nconst c = (st.compromisos || []).find(x => x.id === compromiso_id);\nif (!c) return fail(\"compromiso no encontrado\");\nif (c.estado !== \"abierto\") return fail(\"compromiso \" + c.estado);\nconst m = String(nuevo_deadline).toLowerCase().match(/^en\\s+(\\d+)\\s*(min|minutos|h|horas|d|dias|semanas?)/);\nconst cuando = m ? new Date(Date.now() + parseInt(m[1]) * (m[2].startsWith(\"min\") ? 60000 : m[2].startsWith(\"h\") ? 3600000 : m[2].includes(\"semana\") ? 604800000 : 86400000)).toISOString() : (() => { const d = new Date(nuevo_deadline); return isNaN(d.getTime()) ? null : d.toISOString(); })();\nif (!cuando) return fail(\"nuevo deadline no interpretable\");\nc.renegociaciones = c.renegociaciones || [];\nc.renegociaciones.push({ antes: c.deadline, ahora: cuando, motivo, ts: new Date().toISOString() });\nc.deadline = cuando;\nstore.save(st);\nreturn ok({ compromiso: c.id, nuevo_deadline: cuando, renegociaciones: c.renegociaciones.length, aviso: c.renegociaciones.length >= 2 ? \"dos renegociaciones: esto es un patrón, no un imprevisto\" : \"renegociado\" });\n  }\n);\n\nserver.tool(\n  \"reputation\",\n  \"Score de cumplimiento: tasa a tiempo, tardíos medios y patrón de renegociación.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst cs = st.compromisos || [];\nconst cerrados = cs.filter(c => c.estado === \"cumplido\" || c.estado === \"incumplido\");\nif (!cerrados.length) return ok({ cerrados: 0, sugerencia: \"registra y cierra compromisos para medir reputación\" });\nconst aTiempo = cerrados.filter(c => c.estado === \"cumplido\" && !c.tarde).length;\nconst tardios = cerrados.filter(c => c.tarde).length;\nconst reneg = cs.reduce((s, c) => s + (c.renegociaciones?.length || 0), 0);\nreturn ok({\n  total: cs.length, abiertos: cs.filter(c => c.estado === \"abierto\").length, vencidos_abiertos: cs.filter(c => c.estado === \"abierto\" && new Date(c.deadline) < new Date()).length,\n  score_cumplimiento: Number((aTiempo / cerrados.length).toFixed(2)),\n  a_tiempo: aTiempo, tardios, incumplidos: cerrados.filter(c => c.estado === \"incumplido\").length,\n  renegociaciones_totales: reneg,\n  veredicto: aTiempo / cerrados.length > 0.8 ? \"agente fiable\" : aTiempo / cerrados.length > 0.5 ? \"cumplimiento irregular: compromete menos cosas o más plazo\" : \"incumplidor crónico: deja de prometer deadlines\",\n});\n  }\n);\n\nserver.tool(\n  \"load_forecast\",\n  \"Proyección de carga por semana según compromisos abiertos: detecta semanas saturadas.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst abiertos = (st.compromisos || []).filter(c => c.estado === \"abierto\");\nif (!abiertos.length) return ok({ carga: 0, semanas: [] });\nconst semanas = {};\nfor (const c of abiertos) {\n  const d = new Date(c.deadline);\n  const inicio = new Date(d); inicio.setHours(0, 0, 0, 0); inicio.setDate(inicio.getDate() - inicio.getDay());\n  const k = inicio.toISOString().slice(0, 10);\n  semanas[k] = semanas[k] || { semana: k, compromisos: 0, alta: 0 };\n  semanas[k].compromisos++;\n  if (c.prioridad === \"alta\") semanas[k].alta++;\n}\nconst lista = __vals(semanas).sort((a, b) => a.semana < b.semana ? -1 : 1);\nreturn ok({\n  abiertos: abiertos.length,\n  semanas: lista.map(s => ({ ...s, saturada: s.compromisos >= 5 || s.alta >= 3 })),\n  advertencia: lista.filter(s => s.compromisos >= 5 || s.alta >= 3).map(s => \"semana \" + s.semana + \" saturada: renegocia o delega antes\"),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor commitment-ledger está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"commitment-ledger\", tools: 7, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[commitment-ledger] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "commitment-ledger"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

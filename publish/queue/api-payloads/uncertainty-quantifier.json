@@ -1,0 +1,62 @@
+{
+ "name": "mcp-uncertainty-quantifier",
+ "version": "1.0.0",
+ "description": "Cuantifica la confianza del agente: estimaciones con rangos y calibración Brier Dolor que resuelve: El agente expresa certeza binaria (sí/no) en vez de probabilidades: sin calibración, la confianza no significa nada. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "planning",
+  "reasoning",
+  "cognition"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only uncertainty-quantifier",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-uncertainty-quantifier",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "estimate_confidence",
+   "calibrate",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only uncertainty-quantifier",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-uncertainty-quantifier\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-uncertainty-quantifier/dist/index.js\"]}}}. Tools disponibles: estimate_confidence, calibrate y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/uncertainty-quantifier/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-uncertainty-quantifier (estimate_confidence, calibrate). Cuantifica la confianza del agente: estimaciones con rangos y calibración Brier. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/uncertainty-quantifier/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/uncertainty-quantifier\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Uncertainty Quantifier — Cuantifica la confianza del agente: estimaciones con rangos y calibración Brier (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-uncertainty-quantifier\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Uncertainty Quantifier\n\n> Cuantifica la confianza del agente: estimaciones con rangos y calibración Brier\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-uncertainty-quantifier`\n\n**Dolor de agente que resuelve:** El agente expresa certeza binaria (sí/no) en vez de probabilidades: sin calibración, la confianza no significa nada.\n\n> Estado persistente en `~/.mcp-suite/uncertainty-quantifier/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `estimate_confidence`\nConvierte una creencia verbal (seguro/probable/quizás) en probabilidad con rango, y valida coherencia.\n\n**Parámetros:**\n  - `afirmacion` (string, requerido): La afirmación a cuantificar\n  - `nivel_verbal` (enum, requerido): Nivel verbal de confianza\n  - `evidencia_items` (number, opcional): Cuántas evidencias independientes tienes\n\n### `calibrate`\nCalibra tu confianza histórica: registra predicciones con probabilidad y outcomes; calcula score de Brier (menor = mejor).\n\n**Parámetros:**\n  - `prediccion` (string, opcional): La predicción\n  - `probabilidad` (number, opcional): Probabilidad estimada 0-1\n  - `ocurrio` (boolean, opcional): ¿Ocurrió? (para resolver una predicción previa)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"uncertainty-quantifier\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-uncertainty-quantifier/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Uncertainty Quantifier\n * Cuantifica la confianza del agente: estimaciones con rangos y calibración Brier\n *\n * Dolor que resuelve: El agente expresa certeza binaria (sí/no) en vez de probabilidades: sin calibración, la confianza no significa nada.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: uncertainty-quantifier\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/uncertainty-quantifier/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"uncertainty-quantifier\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"uncertainty-quantifier\", version: \"1.0.0\" });\n\nserver.tool(\n  \"estimate_confidence\",\n  \"Convierte una creencia verbal (seguro/probable/quizás) en probabilidad con rango, y valida coherencia.\",\n  {\n  afirmacion: z.string().describe(\"La afirmación a cuantificar\"),\n  nivel_verbal: z.enum([\"seguro\",\"muy-probable\",\"probable\",\"posible\",\"improbable\",\"casi-imposible\"]).describe(\"Nivel verbal de confianza\"),\n  evidencia_items: z.number().describe(\"Cuántas evidencias independientes tienes\").default(0),\n  },\n  async (args: any) => {\n    const { afirmacion, nivel_verbal, evidencia_items } = args as any;\n    const tabla: any = { \"seguro\": [0.95, 0.99], \"muy-probable\": [0.8, 0.9], \"probable\": [0.6, 0.75], \"posible\": [0.4, 0.6], \"improbable\": [0.1, 0.25], \"casi-imposible\": [0.01, 0.05] };\nconst [lo, hi] = tabla[nivel_verbal] || tabla.posible;\nconst evid = evidencia_items ?? 0;\nlet ajuste = 1;\nif (evid === 0) ajuste = 0.7; else if (evid <= 2) ajuste = 0.85;\nconst punto = Math.max(0.01, Math.min(0.99, ((lo + hi) / 2) * ajuste));\nreturn ok({ afirmacion: afirmacion.slice(0, 100), nivel_verbal, probabilidad_puntual: Math.round(punto * 100) + \"%\", rango: [Math.round(lo * ajuste * 100) + \"%\", Math.round(hi * ajuste * 100) + \"%\"], penalizacion_evidencia: evid === 0 ? \"sin evidencia: confianza reducida 30%\" : evid <= 2 ? \"poca evidencia: reducida 15%\" : \"sin penalización\", accion: punto < 0.6 ? \"reúne más evidencia antes de actuar\" : \"suficiente para proceder con monitoreo\" });\n  }\n);\n\nserver.tool(\n  \"calibrate\",\n  \"Calibra tu confianza histórica: registra predicciones con probabilidad y outcomes; calcula score de Brier (menor = mejor).\",\n  {\n  prediccion: z.string().describe(\"La predicción\").optional(),\n  probabilidad: z.number().describe(\"Probabilidad estimada 0-1\").optional(),\n  ocurrio: z.boolean().describe(\"¿Ocurrió? (para resolver una predicción previa)\").optional(),\n  },\n  async (args: any) => {\n    const { prediccion, probabilidad, ocurrio } = args as any;\n    const st = store.load();\nst.predicciones = st.predicciones || [];\nif (prediccion && probabilidad !== undefined) {\n  st.predicciones.push({ texto: prediccion, p: probabilidad, resuelta: null, ts: new Date().toISOString() });\n  store.save(st);\n  return ok({ registrada: true, pendientes: st.predicciones.filter((x) => x.resuelta === null).length });\n}\nif (ocurrio !== undefined) {\n  const pend = st.predicciones.find((x) => x.resuelta === null);\n  if (!pend) return fail(\"sin predicciones pendientes\");\n  pend.resuelta = ocurrio;\n  store.save(st);\n}\nconst resueltas = st.predicciones.filter((x) => x.resuelta !== null);\nif (!resueltas.length) return fail(\"sin predicciones resueltas para calibrar\");\nconst brier = resueltas.reduce((a: number, p: any) => a + (p.p - (p.resuelta ? 1 : 0)) ** 2, 0) / resueltas.length;\nreturn ok({ resueltas: resueltas.length, brier_score: Math.round(brier * 1000) / 1000, interpretacion: brier < 0.1 ? \"calibración excelente\" : brier < 0.25 ? \"calibración decente\" : brier < 0.33 ? \"mejor que azar apenas\" : \"peor que azar: revisa tus sesgos\", pendientes: st.predicciones.filter((x) => x.resuelta === null).map((x) => x.texto.slice(0, 80)) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor uncertainty-quantifier está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"uncertainty-quantifier\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[uncertainty-quantifier] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

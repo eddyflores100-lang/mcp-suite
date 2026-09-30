@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-0ca71d",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-occam-razor",
+  "version": "1.0.0",
+  "description": "Navaja de Occam cuantificada: hipótesis con entidades, supuestos y ajuste a evidencia — simplicidad que gana solo si empata Dolor que resuelve: El agente prefiere la hipótesis más elaborada porque 'explica más': sin contar entidades ni supuestos, la complejidad extra parece virtud y no coste. La navaja sin números corta al azar. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "structured-reasoning",
+   "argumentation",
+   "consistency"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only occam-razor",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-occam-razor",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_hypothesis",
+    "rate_fit",
+    "rank",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only occam-razor",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-occam-razor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-occam-razor/dist/index.js\"]}}}. Tools disponibles: add_hypothesis, rate_fit, rank y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/occam-razor/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-occam-razor (add_hypothesis, rate_fit, rank). Navaja de Occam cuantificada: hipótesis con entidades, supuestos y ajuste a evidencia — simplicidad que gana solo si empata. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/occam-razor/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/occam-razor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Occam Razor — Navaja de Occam cuantificada: hipótesis con entidades, supuestos y ajuste a evidencia — simplicidad que gana solo si empata (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-occam-razor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"razonamiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Occam Razor\n\n> Navaja de Occam cuantificada: hipótesis con entidades, supuestos y ajuste a evidencia — simplicidad que gana solo si empata\n\n**Categoría:** Razonamiento · **ID:** `mcp-occam-razor`\n\n**Dolor de agente que resuelve:** El agente prefiere la hipótesis más elaborada porque 'explica más': sin contar entidades ni supuestos, la complejidad extra parece virtud y no coste. La navaja sin números corta al azar.\n\n> Estado persistente en `~/.mcp-suite/occam-razor/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `add_hypothesis`\nAñade una hipótesis con sus entidades y supuestos independientes.\n\n**Parámetros:**\n  - `problema` (string, requerido): Problema a explicar\n  - `hipotesis` (string, requerido): Enunciado de la hipótesis\n  - `entidades` (array, requerido): Entidades/agentes/cosas que la hipótesis introduce\n  - `supuestos` (array, requerido): Supuestos independientes que da por ciertos (cada uno puede fallar solo)\n\n### `rate_fit`\nCalifica qué tan bien la hipótesis explica la evidencia observada (0 a 1).\n\n**Parámetros:**\n  - `problema` (string, requerido): Problema\n  - `hipotesis` (string, requerido): Hipótesis\n  - `ajuste` (number, requerido): Ajuste a la evidencia 0-1 (1 = lo explica todo sin residuos)\n  - `evidencia_cubierta` (string, opcional): Qué evidencia cubre y cuál no\n\n### `rank`\nRanking por navaja: penaliza complejidad y solo gana la simple si empata en ajuste.\n\n**Parámetros:**\n  - `problema` (string, requerido): Problema\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"occam-razor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-occam-razor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/occam-razor/. Hipótesis con lista de entidades y supuestos independientes + ajuste a la evidencia (0-1); penalización logarítmica por complejidad; recomendación con análisis de empate técnico.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Occam Razor\n * Navaja de Occam cuantificada: hipótesis con entidades, supuestos y ajuste a evidencia — simplicidad que gana solo si empata\n *\n * Dolor que resuelve: El agente prefiere la hipótesis más elaborada porque 'explica más': sin contar entidades ni supuestos, la complejidad extra parece virtud y no coste. La navaja sin números corta al azar.\n * Categoría: Razonamiento | Generado por mcp-suite | id: occam-razor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/occam-razor/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"occam-razor\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"occam-razor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_hypothesis\",\n  \"Añade una hipótesis con sus entidades y supuestos independientes.\",\n  {\n  problema: z.string().describe(\"Problema a explicar\"),\n  hipotesis: z.string().describe(\"Enunciado de la hipótesis\"),\n  entidades: z.array(z.any()).describe(\"Entidades/agentes/cosas que la hipótesis introduce\"),\n  supuestos: z.array(z.any()).describe(\"Supuestos independientes que da por ciertos (cada uno puede fallar solo)\"),\n  },\n  async (args: any) => {\n    const { problema, hipotesis, entidades, supuestos } = args as any;\n    const st = store.load();\nst.problemas = st.problemas || {};\nst.problemas[problema] = st.problemas[problema] || { problema, hipotesis: {} };\nconst p = st.problemas[problema];\nconst clave = hipotesis.toLowerCase().slice(0, 60);\nif (p.hipotesis[clave]) return fail(\"hipótesis ya registrada\");\np.hipotesis[clave] = { hipotesis, entidades: (entidades || []).map(String), supuestos: (supuestos || []).map(String), ajuste: null, registrado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ problema, hipotesis: clave, entidades: (entidades || []).length, supuestos: (supuestos || []).length, complejidad_bruta: (entidades || []).length + (supuestos || []).length, siguiente: \"califica el ajuste a la evidencia con rate_fit\" });\n  }\n);\n\nserver.tool(\n  \"rate_fit\",\n  \"Califica qué tan bien la hipótesis explica la evidencia observada (0 a 1).\",\n  {\n  problema: z.string().describe(\"Problema\"),\n  hipotesis: z.string().describe(\"Hipótesis\"),\n  ajuste: z.number().describe(\"Ajuste a la evidencia 0-1 (1 = lo explica todo sin residuos)\"),\n  evidencia_cubierta: z.string().describe(\"Qué evidencia cubre y cuál no\").optional(),\n  },\n  async (args: any) => {\n    const { problema, hipotesis, ajuste, evidencia_cubierta } = args as any;\n    const st = store.load();\nconst p = (st.problemas || {})[problema];\nif (!p) return fail(\"problema no encontrado\");\nconst clave = hipotesis.toLowerCase().slice(0, 60);\nconst h = p.hipotesis[clave];\nif (!h) return fail(\"hipótesis no registrada\");\nif (ajuste < 0 || ajuste > 1) return fail(\"ajuste entre 0 y 1\");\nh.ajuste = ajuste;\nh.evidencia_cubierta = evidencia_cubierta || \"\";\nstore.save(st);\nreturn ok({ hipotesis: clave, ajuste, nota: ajuste < 0.5 ? \"explica MENOS de la mitad de la evidencia: necesitas datos extra o una hipótesis distinta\" : \"ajuste registrado\" });\n  }\n);\n\nserver.tool(\n  \"rank\",\n  \"Ranking por navaja: penaliza complejidad y solo gana la simple si empata en ajuste.\",\n  {\n  problema: z.string().describe(\"Problema\"),\n  },\n  async (args: any) => {\n    const { problema } = args as any;\n    const st = store.load();\nconst p = (st.problemas || {})[problema];\nif (!p) return fail(\"problema no encontrado\");\nconst hs = __vals(p.hipotesis);\nif (hs.length < 2) return fail(\"necesitas 2+ hipótesis para rankear\");\nconst sinAjuste = hs.filter(h => h.ajuste === null);\nif (sinAjuste.length) return fail(\"sin calificar: \" + sinAjuste.map(h => h.hipotesis.slice(0, 40)).join(\", \") + \" (usa rate_fit)\");\nconst puntuadas = hs.map(h => {\n  const complejidad = h.entidades.length + h.supuestos.length;\n  const penalizacion = Math.log2(complejidad + 1);\n  const score = (h.ajuste ?? 0) - 0.08 * penalizacion;\n  return { hipotesis: h.hipotesis.slice(0, 80), entidades: h.entidades.length, supuestos: h.supuestos.length, complejidad, ajuste: h.ajuste, penalizacion_log: Number(penalizacion.toFixed(2)), score_naval: Number(score.toFixed(3)) };\n}).sort((a, b) => b.score_naval - a.score_naval);\nconst mejor = puntuadas[0];\nconst segunda = puntuadas[1];\nconst empateTecnico = segunda && Math.abs(mejor.score_naval - segunda.score_naval) < 0.05;\nreturn ok({ problema, ranking: puntuadas, ganadora: mejor.hipotesis, analisis: empateTecnico ? \"EMPATE TÉCNICO con '\" + segunda.hipotesis.slice(0, 50) + \"': cuando dos hipótesis empatan, la navaja manda elegir la MÁS SIMPLE de las dos\" : \"ventaja clara de \" + Number((mejor.score_naval - (segunda ? segunda.score_naval : 0)).toFixed(3)), advertencias: puntuadas.filter(h => h.entidades > 4).map(h => \"la hipótesis '\" + h.hipotesis.slice(0, 40) + \"' introduce \" + h.entidades + \" entidades: cada una es una historia que sostener\"), recordatorio: \"la simplicidad es el DESEMPATE, no el criterio: una hipótesis simple que no encaja (ajuste bajo) sigue siendo incorrecta\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor occam-razor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"occam-razor\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[occam-razor] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "occam-razor"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

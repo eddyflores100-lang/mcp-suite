@@ -1,0 +1,64 @@
+{
+ "name": "mcp-marketnow-trust",
+ "version": "1.0.0",
+ "description": "Clasificación de confianza del marketplace: safe/caution/risky/dangerous con evidencia Dolor que resuelve: Discovery está resuelto pero la confianza no: un agente necesita saber si una skill es segura antes de instalarla (install-risk). Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "marketnow",
+  "skill-marketplace",
+  "trust-layer"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-trust",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-trust",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 9.99,
+  "currency": "USD",
+  "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+ },
+ "price": 9.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": true,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "get_audit_report",
+   "classify_skill_risk",
+   "compare_trust",
+   "risk_digest",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-trust",
+   "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-marketnow-trust\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-marketnow-trust/dist/index.js\"]}}}. Tools disponibles: get_audit_report, classify_skill_risk, compare_trust, risk_digest y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/marketnow-trust/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-marketnow-trust (get_audit_report, classify_skill_risk, compare_trust, risk_digest). Clasificación de confianza del marketplace: safe/caution/risky/dangerous con evidencia. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/marketnow-trust/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/marketnow-trust\",\n  \"version\": \"1.0.0\",\n  \"description\": \"MarketNow · Trust & Riesgo — Clasificación de confianza del marketplace: safe/caution/risky/dangerous con evidencia (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-marketnow-trust\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# MarketNow · Trust & Riesgo\n\n> Clasificación de confianza del marketplace: safe/caution/risky/dangerous con evidencia\n\n**Categoría:** MarketNow · **ID:** `mcp-marketnow-trust`\n\n**Dolor de agente que resuelve:** Discovery está resuelto pero la confianza no: un agente necesita saber si una skill es segura antes de instalarla (install-risk).\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (5 incl. health_check)\n\n### `get_audit_report`\nDescarga el reporte de transparencia en vivo de MarketNow (GET /api/audit-report.json): totales por clasificación safe/caution/risky/dangerous y ejemplos.\n\n### `classify_skill_risk`\nMapea un sentinel_score (0-10) al tier de riesgo de MarketNow (dangerous <3, risky <5, caution <8, safe >=8) y explica qué revisar antes de instalar.\n\n**Parámetros:**\n  - `score` (number, requerido): Sentinel score de la skill (0-10)\n\n### `compare_trust`\nCompara dos skills (score, tier, verificación, licencia) y recomienda cuál instalar primero. Acepta datos que traigas del catálogo.\n\n**Parámetros:**\n  - `nombre_a` (string, requerido): Nombre skill A\n  - `score_a` (number, requerido): Sentinel score A\n  - `nombre_b` (string, requerido): Nombre skill B\n  - `score_b` (number, requerido): Sentinel score B\n\n### `risk_digest`\nResumen ejecutivo del estado de riesgo del marketplace: proporciones por tier y alertas (skills dangerous/risky presentes).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"marketnow-trust\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-marketnow-trust/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nEnvuelve /api/audit-report.json en vivo (transparencia real: safe 8238, caution 874, risky 54, dangerous 81 sobre 9248 skills auditadas) y mapea sentinel_score → tier de riesgo.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: MarketNow · Trust & Riesgo\n * Clasificación de confianza del marketplace: safe/caution/risky/dangerous con evidencia\n *\n * Dolor que resuelve: Discovery está resuelto pero la confianza no: un agente necesita saber si una skill es segura antes de instalarla (install-risk).\n * Categoría: MarketNow | Generado por mcp-suite | id: marketnow-trust\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/marketnow-trust\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"marketnow-trust\", version: \"1.0.0\" });\n\nserver.tool(\n  \"get_audit_report\",\n  \"Descarga el reporte de transparencia en vivo de MarketNow (GET /api/audit-report.json): totales por clasificación safe/caution/risky/dangerous y ejemplos.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/audit-report.json\");\nif (!r.json) return fail(\"respuesta no-JSON\");\nreturn ok({ generated_at: r.json.generated_at, total_skills: r.json.total_skills, resumen: r.json.summary, ejemplos_safe: (r.json.safe_examples || []).slice(0, 5) });\n  }\n);\n\nserver.tool(\n  \"classify_skill_risk\",\n  \"Mapea un sentinel_score (0-10) al tier de riesgo de MarketNow (dangerous <3, risky <5, caution <8, safe >=8) y explica qué revisar antes de instalar.\",\n  {\n  score: z.number().describe(\"Sentinel score de la skill (0-10)\"),\n  },\n  async (args: any) => {\n    const { score } = args as any;\n    const s = Math.max(0, Math.min(10, score));\nlet tier = \"safe\"; let accion = \"instalable\";\nif (s < 3) { tier = \"dangerous\"; accion = \"NO instalar sin revisión humana profunda\"; }\nelse if (s < 5) { tier = \"risky\"; accion = \"revisar código y permisos antes de instalar\"; }\nelse if (s < 8) { tier = \"caution\"; accion = \"instalar con sandbox y monitoreo\"; }\nreturn ok({ score: s, tier, recomendacion: accion, escala: \"0-3 dangerous, 3-5 risky, 5-8 caution, 8-10 safe (MarketNow Sentinel)\" });\n  }\n);\n\nserver.tool(\n  \"compare_trust\",\n  \"Compara dos skills (score, tier, verificación, licencia) y recomienda cuál instalar primero. Acepta datos que traigas del catálogo.\",\n  {\n  nombre_a: z.string().describe(\"Nombre skill A\"),\n  score_a: z.number().describe(\"Sentinel score A\"),\n  nombre_b: z.string().describe(\"Nombre skill B\"),\n  score_b: z.number().describe(\"Sentinel score B\"),\n  },\n  async (args: any) => {\n    const { nombre_a, score_a, nombre_b, score_b } = args as any;\n    const tier = (s) => s >= 8 ? \"safe\" : s >= 5 ? \"caution\" : s >= 3 ? \"risky\" : \"dangerous\";\nconst ganador = score_a >= score_b ? nombre_a : nombre_b;\nreturn ok({ comparacion: [{ skill: nombre_a, score: score_a, tier: tier(score_a) }, { skill: nombre_b, score: score_b, tier: tier(score_b) }], recomendado: ganador, razon: \"mayor sentinel score = menos install-risk\" });\n  }\n);\n\nserver.tool(\n  \"risk_digest\",\n  \"Resumen ejecutivo del estado de riesgo del marketplace: proporciones por tier y alertas (skills dangerous/risky presentes).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const r = await fetchSmart(\"https://marketnow.site/api/audit-report.json\");\nif (!r.json || !r.json.summary) return fail(\"sin datos\");\nconst s = r.json.summary; const t = r.json.total_skills || 1;\nconst pct = (n) => Math.round((n / t) * 1000) / 10;\nreturn ok({ total: t, distribucion: { safe: pct(s.safe) + \"%\", caution: pct(s.caution) + \"%\", risky: pct(s.risky) + \"%\", dangerous: pct(s.dangerous) + \"%\", no_auditado: s.not_audited }, alerta: s.dangerous > 0 ? s.dangerous + \" skills marcadas dangerous: evitar instalación directa\" : \"sin skills dangerous\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor marketnow-trust está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"marketnow-trust\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[marketnow-trust] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

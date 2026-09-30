@@ -1,0 +1,63 @@
+{
+ "name": "mcp-locale-helper",
+ "version": "1.0.0",
+ "description": "Glossario y reglas de localización ES/EN/FR: formatos y consistencia terminológica Dolor que resuelve: El agente mezcla formatos de fecha/número entre idiomas y traduce términos clave inconsistentemente: el glossario vive en ninguna parte. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Communication",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "human-in-the-loop",
+  "communication",
+  "approvals"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only locale-helper",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-locale-helper",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add_glossary",
+   "lookup_glossary",
+   "locale_rules",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only locale-helper",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-locale-helper\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-locale-helper/dist/index.js\"]}}}. Tools disponibles: add_glossary, lookup_glossary, locale_rules y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/locale-helper/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-locale-helper (add_glossary, lookup_glossary, locale_rules). Glossario y reglas de localización ES/EN/FR: formatos y consistencia terminológica. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/locale-helper/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/locale-helper\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Locale Helper — Glossario y reglas de localización ES/EN/FR: formatos y consistencia terminológica (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-locale-helper\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comunicaci-n-y-humano\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Locale Helper\n\n> Glossario y reglas de localización ES/EN/FR: formatos y consistencia terminológica\n\n**Categoría:** Comunicación y Humano · **ID:** `mcp-locale-helper`\n\n**Dolor de agente que resuelve:** El agente mezcla formatos de fecha/número entre idiomas y traduce términos clave inconsistentemente: el glossario vive en ninguna parte.\n\n> Estado persistente en `~/.mcp-suite/locale-helper/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `add_glossary`\nAñade términos al glossario multilingüe (es/en/fr) para traducciones consistentes.\n\n**Parámetros:**\n  - `es` (string, requerido): Término en español\n  - `en` (string, opcional): En inglés\n  - `fr` (string, opcional): En francés\n  - `nota` (string, opcional): Nota de uso\n\n### `lookup_glossary`\nBusca un término en el glossario y devuelve sus equivalentes + nota de uso.\n\n**Parámetros:**\n  - `termino` (string, requerido): Término (cualquier idioma)\n\n### `locale_rules`\nReglas de formato por locale: fechas, números, moneda y unidades (es-EC, es-ES, en-US, fr-CA, fr-FR).\n\n**Parámetros:**\n  - `locale` (enum, requerido): Locale\n  - `ejemplo_fecha` (string, opcional): Fecha ISO a formatear\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"locale-helper\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-locale-helper/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Locale Helper\n * Glossario y reglas de localización ES/EN/FR: formatos y consistencia terminológica\n *\n * Dolor que resuelve: El agente mezcla formatos de fecha/número entre idiomas y traduce términos clave inconsistentemente: el glossario vive en ninguna parte.\n * Categoría: Comunicación y Humano | Generado por mcp-suite | id: locale-helper\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/locale-helper/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"locale-helper\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"locale-helper\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_glossary\",\n  \"Añade términos al glossario multilingüe (es/en/fr) para traducciones consistentes.\",\n  {\n  es: z.string().describe(\"Término en español\"),\n  en: z.string().describe(\"En inglés\").optional(),\n  fr: z.string().describe(\"En francés\").optional(),\n  nota: z.string().describe(\"Nota de uso\").optional(),\n  },\n  async (args: any) => {\n    const { es, en, fr, nota } = args as any;\n    const st = store.load();\nst.glossario = st.glossario || [];\nst.glossario.push({ es, en: en || \"\", fr: fr || \"\", nota: nota || \"\" });\nstore.save(st);\nreturn ok({ terminos: st.glossario.length });\n  }\n);\n\nserver.tool(\n  \"lookup_glossary\",\n  \"Busca un término en el glossario y devuelve sus equivalentes + nota de uso.\",\n  {\n  termino: z.string().describe(\"Término (cualquier idioma)\"),\n  },\n  async (args: any) => {\n    const { termino } = args as any;\n    const st = store.load();\nconst t = termino.toLowerCase().trim();\nconst hit = (st.glossario || []).find((g: any) => [g.es, g.en, g.fr].some((v) => String(v).toLowerCase() === t));\nif (!hit) return ok({ encontrado: false, sugerencia: \"agrégalo con add_glossary para consistencia futura\" });\nreturn ok({ encontrado: true, ...hit });\n  }\n);\n\nserver.tool(\n  \"locale_rules\",\n  \"Reglas de formato por locale: fechas, números, moneda y unidades (es-EC, es-ES, en-US, fr-CA, fr-FR).\",\n  {\n  locale: z.enum([\"es-EC\",\"es-ES\",\"es-MX\",\"en-US\",\"en-GB\",\"fr-CA\",\"fr-FR\"]).describe(\"Locale\"),\n  ejemplo_fecha: z.string().describe(\"Fecha ISO a formatear\").default(\"2026-09-10\"),\n  },\n  async (args: any) => {\n    const { locale, ejemplo_fecha } = args as any;\n    const reglas: any = {\n  \"es-EC\": { fecha: \"10/09/2026\", fecha_larga: \"10 de septiembre de 2026\", numero: \"1.234,56\", moneda: \"$ 1.234,56 (USD)\", decimal: \",\", miles: \".\" },\n  \"es-ES\": { fecha: \"10/09/2026\", fecha_larga: \"10 de septiembre de 2026\", numero: \"1.234,56\", moneda: \"1.234,56 €\", decimal: \",\", miles: \".\" },\n  \"es-MX\": { fecha: \"10/09/2026\", fecha_larga: \"10 de septiembre de 2026\", numero: \"1,234.56\", moneda: \"$1,234.56 (MXN)\", decimal: \".\", miles: \",\" },\n  \"en-US\": { fecha: \"09/10/2026\", fecha_larga: \"September 10, 2026\", numero: \"1,234.56\", moneda: \"$1,234.56\", decimal: \".\", miles: \",\" },\n  \"en-GB\": { fecha: \"10/09/2026\", fecha_larga: \"10 September 2026\", numero: \"1,234.56\", moneda: \"£1,234.56\", decimal: \".\", miles: \",\" },\n  \"fr-CA\": { fecha: \"2026-09-10\", fecha_larga: \"10 septembre 2026\", numero: \"1 234,56\", moneda: \"1 234,56 $ CAD\", decimal: \",\", miles: \" \" },\n  \"fr-FR\": { fecha: \"10/09/2026\", fecha_larga: \"10 septembre 2026\", numero: \"1 234,56\", moneda: \"1 234,56 €\", decimal: \",\", miles: \" \" },\n};\nconst r = reglas[locale] || reglas[\"es-EC\"];\nreturn ok({ locale, ...r, ejemplo: \"formato corto: \" + r.fecha + \" | largo: \" + r.fecha_larga });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor locale-helper está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"locale-helper\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[locale-helper] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

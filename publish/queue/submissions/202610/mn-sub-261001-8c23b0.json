@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-8c23b0",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-spend-envelope",
+  "version": "1.0.0",
+  "description": "Sobres de gasto con autorización escalonada: el agente pide permiso ANTES de quemar el presupuesto Dolor que resuelve: El agente no tiene freno económico: una tarea de $0.05 termina costando $3 porque nadie le exigió parar y pedir autorización al cruzar umbrales. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "FinTech",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "token-cost",
+   "budget",
+   "economics"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only spend-envelope",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-spend-envelope",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "create_envelope",
+    "spend",
+    "authorize",
+    "envelope_status",
+    "portfolio",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only spend-envelope",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-spend-envelope\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-spend-envelope/dist/index.js\"]}}}. Tools disponibles: create_envelope, spend, authorize, envelope_status, portfolio y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/spend-envelope/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-spend-envelope (create_envelope, spend, authorize, envelope_status, portfolio). Sobres de gasto con autorización escalonada: el agente pide permiso ANTES de quemar el presupuesto. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/spend-envelope/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/spend-envelope\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Spend Envelope — Sobres de gasto con autorización escalonada: el agente pide permiso ANTES de quemar el presupuesto (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-spend-envelope\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"econom-a-del-agente\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Spend Envelope\n\n> Sobres de gasto con autorización escalonada: el agente pide permiso ANTES de quemar el presupuesto\n\n**Categoría:** Economía del Agente · **ID:** `mcp-spend-envelope`\n\n**Dolor de agente que resuelve:** El agente no tiene freno económico: una tarea de $0.05 termina costando $3 porque nadie le exigió parar y pedir autorización al cruzar umbrales.\n\n> Estado persistente en `~/.mcp-suite/spend-envelope/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `create_envelope`\nCrea un sobre de gasto: techo, umbral de aviso (80% por defecto) y política al superarlo.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre del sobre (misión, tarea X...)\n  - `techo_usd` (number, requerido): Límite máximo en dólares\n  - `padre` (string, opcional): Sobre padre (para jerarquía)\n  - `umbral_aviso_pct` (number, opcional): % al que avisa\n  - `politica` (enum, opcional): Al alcanzar el techo\n\n### `spend`\nRegistra gasto contra un sobre: valida techo, jerarquía y devuelve directiva (ok, aviso, PARAR).\n\n**Parámetros:**\n  - `sobre` (string, requerido): Nombre del sobre\n  - `concepto` (string, requerido): En qué se gastó (llm, tool, api)\n  - `usd` (number, requerido): Importe gastado\n  - `tokens` (number, opcional): Tokens si aplica\n\n### `authorize`\nAutoriza (o niega) continuar tras alcanzar el techo; queda auditoría de quién y cuánto extra.\n\n**Parámetros:**\n  - `sobre` (string, requerido): Nombre del sobre\n  - `aprobado` (boolean, requerido): ¿Autorizado?\n  - `monto_extra_usd` (number, opcional): Techo adicional autorizado\n  - `autorizado_por` (string, requerido): Quién autoriza\n  - `motivo` (string, requerido): Por qué\n\n### `envelope_status`\nEstado de un sobre: consumo, proyección al ritmo actual y movimientos recientes.\n\n**Parámetros:**\n  - `sobre` (string, requerido): Nombre del sobre\n\n### `portfolio`\nPanorama de todos los sobres: consumo agregado, sobres en riesgo y autorizaciones pendientes.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"spend-envelope\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-spend-envelope/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/spend-envelope/. Sobres jerárquicos (misión > tarea > sub-tarea) con techo, umbral de aviso y política de autorización (parar|pedir|abortar).\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Spend Envelope\n * Sobres de gasto con autorización escalonada: el agente pide permiso ANTES de quemar el presupuesto\n *\n * Dolor que resuelve: El agente no tiene freno económico: una tarea de $0.05 termina costando $3 porque nadie le exigió parar y pedir autorización al cruzar umbrales.\n * Categoría: Economía del Agente | Generado por mcp-suite | id: spend-envelope\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/spend-envelope/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"spend-envelope\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"spend-envelope\", version: \"1.0.0\" });\n\nserver.tool(\n  \"create_envelope\",\n  \"Crea un sobre de gasto: techo, umbral de aviso (80% por defecto) y política al superarlo.\",\n  {\n  nombre: z.string().describe(\"Nombre del sobre (misión, tarea X...)\"),\n  techo_usd: z.number().describe(\"Límite máximo en dólares\"),\n  padre: z.string().describe(\"Sobre padre (para jerarquía)\").optional(),\n  umbral_aviso_pct: z.number().describe(\"% al que avisa\").default(80),\n  politica: z.enum([\"parar\",\"pedir_autorizacion\",\"abortar\"]).describe(\"Al alcanzar el techo\").default(\"pedir_autorizacion\"),\n  },\n  async (args: any) => {\n    const { nombre, techo_usd, padre, umbral_aviso_pct, politica } = args as any;\n    if (techo_usd <= 0) return fail(\"techo inválido\");\nconst st = store.load();\nst.sobres = st.sobres || {};\nif (st.sobres[nombre]) return fail(\"sobre existente\");\nif (padre && !st.sobres[padre]) return fail(\"sobre padre no encontrado: \" + padre);\nst.sobres[nombre] = { nombre, techo_usd, padre: padre || null, umbral_aviso_pct: umbral_aviso_pct ?? 80, politica, gastado: 0, movimientos: [], autorizaciones: [], estado: \"abierto\", creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ sobre: nombre, techo: techo_usd, politica });\n  }\n);\n\nserver.tool(\n  \"spend\",\n  \"Registra gasto contra un sobre: valida techo, jerarquía y devuelve directiva (ok, aviso, PARAR).\",\n  {\n  sobre: z.string().describe(\"Nombre del sobre\"),\n  concepto: z.string().describe(\"En qué se gastó (llm, tool, api)\"),\n  usd: z.number().describe(\"Importe gastado\"),\n  tokens: z.number().describe(\"Tokens si aplica\").optional(),\n  },\n  async (args: any) => {\n    const { sobre, concepto, usd, tokens } = args as any;\n    const st = store.load();\nconst s = (st.sobres || {})[sobre];\nif (!s) return fail(\"sobre no encontrado: \" + sobre);\nif (s.estado !== \"abierto\") return fail(\"sobre \" + s.estado);\nif (usd <= 0) return fail(\"importe inválido\");\nconst previo = s.gastado;\ns.gastado = Number((s.gastado + usd).toFixed(4));\ns.movimientos.push({ concepto, usd, tokens: tokens || null, ts: new Date().toISOString(), acumulado: s.gastado });\nconst pct = s.gastado / s.techo_usd * 100;\nlet directiva = \"ok\";\nif (pct >= 100) {\n  if (s.politica === \"parar\") { s.estado = \"pausado\"; directiva = \"PARAR: techo alcanzado, política parar\"; }\n  else if (s.politica === \"abortar\") { s.estado = \"abortado\"; directiva = \"ABORTAR: techo alcanzado\"; }\n  else directiva = \"PEDIR_AUTORIZACION: techo alcanzado (\" + s.gastado.toFixed(2) + \"/\" + s.techo_usd + \" USD)\";\n} else if (pct >= (s.umbral_aviso_pct ?? 80)) {\n  directiva = \"AVISO: \" + Math.round(pct) + \"% del techo consumido, queda \" + (s.techo_usd - s.gastado).toFixed(2) + \" USD\";\n}\nlet padreAviso = null;\nif (s.padre) {\n  const p = st.sobres[s.padre];\n  p.gastado = Number((p.gastado + usd).toFixed(4));\n  const pctP = p.gastado / p.techo_usd * 100;\n  if (pctP >= (p.umbral_aviso_pct ?? 80)) padreAviso = \"PADRE \" + p.nombre + \" al \" + Math.round(pctP) + \"%\";\n}\nstore.save(st);\nreturn ok({ sobre, gastado: s.gastado, techo: s.techo_usd, pct: Number(pct.toFixed(1)), directiva, aviso_padre: padreAviso });\n  }\n);\n\nserver.tool(\n  \"authorize\",\n  \"Autoriza (o niega) continuar tras alcanzar el techo; queda auditoría de quién y cuánto extra.\",\n  {\n  sobre: z.string().describe(\"Nombre del sobre\"),\n  aprobado: z.boolean().describe(\"¿Autorizado?\"),\n  monto_extra_usd: z.number().describe(\"Techo adicional autorizado\").optional(),\n  autorizado_por: z.string().describe(\"Quién autoriza\"),\n  motivo: z.string().describe(\"Por qué\"),\n  },\n  async (args: any) => {\n    const { sobre, aprobado, monto_extra_usd, autorizado_por, motivo } = args as any;\n    const st = store.load();\nconst s = (st.sobres || {})[sobre];\nif (!s) return fail(\"sobre no encontrado\");\ns.autorizaciones.push({ aprobado, extra: monto_extra_usd || 0, por: autorizado_por, motivo, ts: new Date().toISOString() });\nif (aprobado) {\n  if (monto_extra_usd) s.techo_usd = Number((s.techo_usd + monto_extra_usd).toFixed(4));\n  s.estado = \"abierto\";\n} else {\n  s.estado = \"cerrado\";\n}\nstore.save(st);\nreturn ok({ sobre, decision: aprobado ? \"aprobado\" : \"denegado\", nuevo_techo: s.techo_usd, estado: s.estado });\n  }\n);\n\nserver.tool(\n  \"envelope_status\",\n  \"Estado de un sobre: consumo, proyección al ritmo actual y movimientos recientes.\",\n  {\n  sobre: z.string().describe(\"Nombre del sobre\"),\n  },\n  async (args: any) => {\n    const { sobre } = args as any;\n    const st = store.load();\nconst s = (st.sobres || {})[sobre];\nif (!s) return fail(\"sobre no encontrado\");\nconst movs = s.movimientos;\nlet ritmo = null;\nif (movs.length >= 3) {\n  const spanMs = new Date(movs[movs.length - 1].ts).getTime() - new Date(movs[0].ts).getTime();\n  if (spanMs > 0) ritmo = Number((s.gastado / (spanMs / 3600000)).toFixed(3));\n}\nreturn ok({\n  sobre, estado: s.estado,\n  gastado: Number(s.gastado.toFixed(4)), techo: s.techo_usd, pct: Number((s.gastado / s.techo_usd * 100).toFixed(1)),\n  usd_por_hora: ritmo,\n  horas_para_techo: ritmo && ritmo > 0 ? Number(((s.techo_usd - s.gastado) / ritmo).toFixed(1)) : null,\n  movimientos: movs.slice(-8).map(m => ({ concepto: m.concepto, usd: m.usd, acumulado: Number(m.acumulado.toFixed(3)) })),\n  autorizaciones: s.autorizaciones.length,\n});\n  }\n);\n\nserver.tool(\n  \"portfolio\",\n  \"Panorama de todos los sobres: consumo agregado, sobres en riesgo y autorizaciones pendientes.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst sobres = __vals(st.sobres || {});\nif (!sobres.length) return ok({ sobres: 0, sugerencia: \"crea sobres con create_envelope\" });\nconst totalGastado = sobres.reduce((s, x) => s + x.gastado, 0);\nconst totalTecho = sobres.reduce((s, x) => s + x.techo_usd, 0);\nconst enRiesgo = sobres.filter(x => x.estado === \"abierto\" && x.gastado / x.techo_usd * 100 >= (x.umbral_aviso_pct ?? 80));\nconst pausados = sobres.filter(x => [\"pausado\", \"abortado\"].includes(x.estado));\nreturn ok({\n  sobres: sobres.length,\n  global: { gastado: Number(totalGastado.toFixed(2)), techo: Number(totalTecho.toFixed(2)), pct: Number((totalGastado / totalTecho * 100).toFixed(1)) },\n  en_riesgo: enRiesgo.map(x => ({ sobre: x.nombre, pct: Math.round(x.gastado / x.techo_usd * 100) })),\n  pausados_o_abortados: pausados.map(x => ({ sobre: x.nombre, estado: x.estado, gastado: Number(x.gastado.toFixed(3)) })),\n  acciones: enRiesgo.length ? \"sobres en riesgo: decide autorizar o dejar que la política actúe\" : \"todo bajo control\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor spend-envelope está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"spend-envelope\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[spend-envelope] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "spend-envelope"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

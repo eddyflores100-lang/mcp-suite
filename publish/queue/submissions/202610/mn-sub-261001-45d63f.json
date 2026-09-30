@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-45d63f",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-run-reporter",
+  "version": "1.0.0",
+  "description": "Reportes de ejecución: pasos, duración, hallazgos y resultado final Dolor que resuelve: Al terminar una tarea no queda reporte de qué se hizo: el conocimiento de la ejecución se evapora. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Monitoring",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "observability",
+   "tracing",
+   "monitoring"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only run-reporter",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-run-reporter",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "start_run",
+    "add_step",
+    "finish_run",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only run-reporter",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-run-reporter\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-run-reporter/dist/index.js\"]}}}. Tools disponibles: start_run, add_step, finish_run y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/run-reporter/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-run-reporter (start_run, add_step, finish_run). Reportes de ejecución: pasos, duración, hallazgos y resultado final. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/run-reporter/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/run-reporter\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Run Reporter — Reportes de ejecución: pasos, duración, hallazgos y resultado final (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-run-reporter\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"observabilidad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Run Reporter\n\n> Reportes de ejecución: pasos, duración, hallazgos y resultado final\n\n**Categoría:** Observabilidad · **ID:** `mcp-run-reporter`\n\n**Dolor de agente que resuelve:** Al terminar una tarea no queda reporte de qué se hizo: el conocimiento de la ejecución se evapora.\n\n> Estado persistente en `~/.mcp-suite/run-reporter/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `start_run`\nInicia una ejecución con objetivo y contexto. Devuelve run_id.\n\n**Parámetros:**\n  - `objetivo` (string, requerido): Objetivo de la ejecución\n  - `contexto` (string, opcional): Contexto\n\n### `add_step`\nAñade un paso a la ejecución: descripción, resultado, duración y artefactos.\n\n**Parámetros:**\n  - `run_id` (string, requerido): ID de la ejecución\n  - `paso` (string, requerido): Descripción del paso\n  - `resultado` (string, opcional): Resultado\n  - `duracion_ms` (number, opcional): Duración\n  - `artefactos` (array, opcional): Archivos/deliverables generados\n\n### `finish_run`\nCierra la ejecución con éxito/fallo y genera el reporte completo (markdown).\n\n**Parámetros:**\n  - `run_id` (string, requerido): ID de la ejecución\n  - `exito` (boolean, requerido): Resultado global\n  - `resumen` (string, opcional): Resumen final\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"run-reporter\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-run-reporter/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Run Reporter\n * Reportes de ejecución: pasos, duración, hallazgos y resultado final\n *\n * Dolor que resuelve: Al terminar una tarea no queda reporte de qué se hizo: el conocimiento de la ejecución se evapora.\n * Categoría: Observabilidad | Generado por mcp-suite | id: run-reporter\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/run-reporter/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"run-reporter\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"run-reporter\", version: \"1.0.0\" });\n\nserver.tool(\n  \"start_run\",\n  \"Inicia una ejecución con objetivo y contexto. Devuelve run_id.\",\n  {\n  objetivo: z.string().describe(\"Objetivo de la ejecución\"),\n  contexto: z.string().describe(\"Contexto\").optional(),\n  },\n  async (args: any) => {\n    const { objetivo, contexto } = args as any;\n    const st = store.load();\nst.runs = st.runs || [];\nconst run = { id: \"run-\" + (st.runs.length + 1), objetivo, contexto: contexto || \"\", inicio: new Date().toISOString(), pasos: [], estado: \"en_curso\" };\nst.runs.push(run);\nstore.save(st);\nreturn ok({ run_id: run.id });\n  }\n);\n\nserver.tool(\n  \"add_step\",\n  \"Añade un paso a la ejecución: descripción, resultado, duración y artefactos.\",\n  {\n  run_id: z.string().describe(\"ID de la ejecución\"),\n  paso: z.string().describe(\"Descripción del paso\"),\n  resultado: z.string().describe(\"Resultado\").optional(),\n  duracion_ms: z.number().describe(\"Duración\").optional(),\n  artefactos: z.array(z.any()).describe(\"Archivos/deliverables generados\").optional(),\n  },\n  async (args: any) => {\n    const { run_id, paso, resultado, duracion_ms, artefactos } = args as any;\n    const st = store.load();\nconst run = (st.runs || []).find((r) => r.id === run_id);\nif (!run) return fail(\"run no existe\");\nrun.pasos.push({ n: run.pasos.length + 1, paso, resultado: resultado || \"\", duracion_ms: duracion_ms ?? null, artefactos: Array.isArray(artefactos) ? artefactos : [], ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ run_id, total_pasos: run.pasos.length });\n  }\n);\n\nserver.tool(\n  \"finish_run\",\n  \"Cierra la ejecución con éxito/fallo y genera el reporte completo (markdown).\",\n  {\n  run_id: z.string().describe(\"ID de la ejecución\"),\n  exito: z.boolean().describe(\"Resultado global\"),\n  resumen: z.string().describe(\"Resumen final\").optional(),\n  },\n  async (args: any) => {\n    const { run_id, exito, resumen } = args as any;\n    const st = store.load();\nconst run = (st.runs || []).find((r) => r.id === run_id);\nif (!run) return fail(\"run no existe\");\nrun.estado = exito ? \"exito\" : \"fallo\";\nrun.resumen = resumen || \"\";\nrun.fin = new Date().toISOString();\nconst duracion_total = (new Date(run.fin).getTime() - new Date(run.inicio).getTime()) / 1000;\nstore.save(st);\nconst md = [\"# Reporte \" + run.id, \"\", \"**Objetivo:** \" + run.objetivo, \"**Estado:** \" + run.estado.toUpperCase(), \"**Duración:** \" + Math.round(duracion_total) + \"s\", \"\", \"## Pasos\", ...run.pasos.map((p: any) => \"- [\" + p.n + \"] \" + p.paso + (p.resultado ? \" → \" + p.resultado : \"\") + (p.duracion_ms ? \" (\" + p.duracion_ms + \"ms)\" : \"\")), \"\", \"**Resumen:** \" + (run.resumen || \"n/a\")].join(\"\\n\");\nreturn ok({ run_id, estado: run.estado, duracion_seg: Math.round(duracion_total), pasos: run.pasos.length, reporte_markdown: md });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor run-reporter está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"run-reporter\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[run-reporter] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "run-reporter"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

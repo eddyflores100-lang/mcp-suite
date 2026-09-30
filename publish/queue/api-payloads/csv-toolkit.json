@@ -1,0 +1,63 @@
+{
+ "name": "mcp-csv-toolkit",
+ "version": "1.0.0",
+ "description": "Parse, filtra y resume CSVs sin Excel: separador auto-detectado Dolor que resuelve: Los datasets llegan en CSV con separadores mixtos y comillas rotas: el agente necesita parseo robusto local. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "data",
+  "parsing",
+  "etl"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only csv-toolkit",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-csv-toolkit",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "parse",
+   "filter_rows",
+   "summarize_columns",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only csv-toolkit",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-csv-toolkit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-csv-toolkit/dist/index.js\"]}}}. Tools disponibles: parse, filter_rows, summarize_columns y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/csv-toolkit/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-csv-toolkit (parse, filter_rows, summarize_columns). Parse, filtra y resume CSVs sin Excel: separador auto-detectado. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/csv-toolkit/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/csv-toolkit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"CSV Toolkit — Parse, filtra y resume CSVs sin Excel: separador auto-detectado (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-csv-toolkit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# CSV Toolkit\n\n> Parse, filtra y resume CSVs sin Excel: separador auto-detectado\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-csv-toolkit`\n\n**Dolor de agente que resuelve:** Los datasets llegan en CSV con separadores mixtos y comillas rotas: el agente necesita parseo robusto local.\n\n## Tools (4 incl. health_check)\n\n### `parse`\nParsea CSV con detección automática de separador (, ; tab |), comillas correctas y filas de encabezado.\n\n**Parámetros:**\n  - `csv` (string, requerido): Contenido CSV\n  - `tiene_headers` (boolean, opcional): Primera fila son headers\n\n### `filter_rows`\nFiltra filas de un CSV ya parseado {headers, rows} por condición simple (columna operador valor).\n\n**Parámetros:**\n  - `tabla` (any, requerido): {headers, rows}\n  - `columna` (string, requerido): Columna a filtrar\n  - `operador` (enum, requerido): Operador\n  - `valor` (string, requerido): Valor de comparación\n\n### `summarize_columns`\nResume columnas numéricas (min, max, media, suma) y categóricas (valores únicos top) de una tabla.\n\n**Parámetros:**\n  - `tabla` (any, requerido): {headers, rows}\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"csv-toolkit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-csv-toolkit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: CSV Toolkit\n * Parse, filtra y resume CSVs sin Excel: separador auto-detectado\n *\n * Dolor que resuelve: Los datasets llegan en CSV con separadores mixtos y comillas rotas: el agente necesita parseo robusto local.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: csv-toolkit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"csv-toolkit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"parse\",\n  \"Parsea CSV con detección automática de separador (, ; tab |), comillas correctas y filas de encabezado.\",\n  {\n  csv: z.string().describe(\"Contenido CSV\"),\n  tiene_headers: z.boolean().describe(\"Primera fila son headers\").default(true),\n  },\n  async (args: any) => {\n    const { csv, tiene_headers } = args as any;\n    const texto = String(csv).trim();\nconst muestra = texto.split(\"\\n\").slice(0, 5).join(\"\\n\");\nconst seps = [\",\", \";\", \"\\t\", \"|\"];\nconst conteos = seps.map((s) => muestra.split(s).length - 1);\nconst sep = seps[conteos.indexOf(Math.max(...conteos))];\nfunction parsearLinea(linea: string): string[] {\n  const out: string[] = []; let actual = \"\"; let enComillas = false;\n  for (let i = 0; i < linea.length; i++) {\n    const ch = linea[i];\n    if (ch === '\"') { if (enComillas && linea[i + 1] === '\"') { actual += '\"'; i++; } else enComillas = !enComillas; }\n    else if (ch === sep && !enComillas) { out.push(actual); actual = \"\"; }\n    else actual += ch;\n  }\n  out.push(actual);\n  return out.map((c) => c.trim());\n}\nconst lineas = texto.split(/\\r?\\n/).filter((l) => l.trim().length);\nconst filas = lineas.map(parsearLinea);\nconst headers = tiene_headers !== false ? filas[0] : filas[0].map((_, i) => \"col_\" + (i + 1));\nreturn ok({ separador: sep === \"\\t\" ? \"TAB\" : sep, columnas: headers.length, filas: filas.length - (tiene_headers !== false ? 1 : 0), headers, muestra: filas.slice(1, 6) });\n  }\n);\n\nserver.tool(\n  \"filter_rows\",\n  \"Filtra filas de un CSV ya parseado {headers, rows} por condición simple (columna operador valor).\",\n  {\n  tabla: z.any().describe(\"{headers, rows}\"),\n  columna: z.string().describe(\"Columna a filtrar\"),\n  operador: z.enum([\"=\",\">\",\"<\",\"contiene\",\"no_contiene\"]).describe(\"Operador\"),\n  valor: z.string().describe(\"Valor de comparación\"),\n  },\n  async (args: any) => {\n    const { tabla, columna, operador, valor } = args as any;\n    const t = tabla || {};\nconst idx = (t.headers || []).indexOf(columna);\nif (idx === -1) return fail(\"columna no existe: \" + (t.headers || []).join(\", \"));\nconst valNum = Number(valor);\nconst filtradas = (t.rows || []).filter((fila: any[]) => {\n  const celda = String(fila[idx] ?? \"\");\n  const cNum = Number(celda);\n  switch (operador) {\n    case \"=\": return celda === valor;\n    case \">\": return Number.isFinite(cNum) && Number.isFinite(valNum) && cNum > valNum;\n    case \"<\": return Number.isFinite(cNum) && Number.isFinite(valNum) && cNum < valNum;\n    case \"contiene\": return celda.toLowerCase().includes(valor.toLowerCase());\n    case \"no_contiene\": return !celda.toLowerCase().includes(valor.toLowerCase());\n    default: return false;\n  }\n});\nreturn ok({ coincidencias: filtradas.length, total: (t.rows || []).length, filas: filtradas.slice(0, 100) });\n  }\n);\n\nserver.tool(\n  \"summarize_columns\",\n  \"Resume columnas numéricas (min, max, media, suma) y categóricas (valores únicos top) de una tabla.\",\n  {\n  tabla: z.any().describe(\"{headers, rows}\"),\n  },\n  async (args: any) => {\n    const { tabla } = args as any;\n    const t = tabla || {};\nconst headers: string[] = t.headers || [];\nconst rows: any[][] = t.rows || [];\nconst resumen: any[] = [];\nheaders.forEach((h, i) => {\n  const valores = rows.map((r) => String(r[i] ?? \"\")).filter((v) => v !== \"\");\n  const num = valores.map(Number).filter((n) => Number.isFinite(n));\n  if (num.length >= valores.length * 0.8 && num.length > 0) {\n    resumen.push({ columna: h, tipo: \"numerica\", min: Math.min(...num), max: Math.max(...num), media: Math.round((num.reduce((a, b) => a + b, 0) / num.length) * 100) / 100, suma: Math.round(num.reduce((a, b) => a + b, 0) * 100) / 100, n: num.length });\n  } else {\n    const unicos: any = {};\n    for (const v of valores) unicos[v] = (unicos[v] || 0) + 1;\n    const top = __ents(unicos).sort((a: any, b: any) => b[1] - a[1]).slice(0, 5);\n    resumen.push({ columna: h, tipo: \"categorica\", valores_unicos: Object.keys(unicos).length, top: top.map(([v, n]) => v + \" (\" + n + \")\") });\n  }\n});\nreturn ok({ filas: rows.length, resumen });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor csv-toolkit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"csv-toolkit\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[csv-toolkit] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

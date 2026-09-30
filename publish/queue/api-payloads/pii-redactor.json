@@ -1,0 +1,62 @@
+{
+ "name": "mcp-pii-redactor",
+ "version": "1.0.0",
+ "description": "Enmascara datos personales (PII) antes de enviar texto a APIs externas Dolor que resuelve: El agente manda nombres, teléfonos, cédulas y tarjetas a APIs de terceros: fuga de PII por defecto. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "security",
+  "prompt-injection",
+  "hardening"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only pii-redactor",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-pii-redactor",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "redact",
+   "detect_types",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only pii-redactor",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-pii-redactor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-pii-redactor/dist/index.js\"]}}}. Tools disponibles: redact, detect_types y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/pii-redactor/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-pii-redactor (redact, detect_types). Enmascara datos personales (PII) antes de enviar texto a APIs externas. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/pii-redactor/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/pii-redactor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"PII Redactor — Enmascara datos personales (PII) antes de enviar texto a APIs externas (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-pii-redactor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"seguridad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# PII Redactor\n\n> Enmascara datos personales (PII) antes de enviar texto a APIs externas\n\n**Categoría:** Seguridad · **ID:** `mcp-pii-redactor`\n\n**Dolor de agente que resuelve:** El agente manda nombres, teléfonos, cédulas y tarjetas a APIs de terceros: fuga de PII por defecto.\n\n## Tools (3 incl. health_check)\n\n### `redact`\nDetecta y enmascara PII: emails, teléfonos, cédulas/DNI/RUC ecuatorianos, SSN, tarjetas, IBAN, direcciones IP. Devuelve texto limpio + resumen.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto con posible PII\n  - `modo` (enum, opcional): Modo de redacción\n\n### `detect_types`\nSolo detecta (sin redactar): qué tipos de PII contiene un texto y cuántos de cada uno.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a analizar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"pii-redactor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-pii-redactor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: PII Redactor\n * Enmascara datos personales (PII) antes de enviar texto a APIs externas\n *\n * Dolor que resuelve: El agente manda nombres, teléfonos, cédulas y tarjetas a APIs de terceros: fuga de PII por defecto.\n * Categoría: Seguridad | Generado por mcp-suite | id: pii-redactor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"pii-redactor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"redact\",\n  \"Detecta y enmascara PII: emails, teléfonos, cédulas/DNI/RUC ecuatorianos, SSN, tarjetas, IBAN, direcciones IP. Devuelve texto limpio + resumen.\",\n  {\n  texto: z.string().describe(\"Texto con posible PII\"),\n  modo: z.enum([\"mask\",\"hash\",\"remover\"]).describe(\"Modo de redacción\").default(\"mask\"),\n  },\n  async (args: any) => {\n    const { texto, modo } = args as any;\n    let t = String(texto);\nconst conteo: any = {};\nconst aplicar = (nombre: string, re: RegExp, rep: (m: string) => string) => {\n  t = t.replace(re, (...args: any[]) => { conteo[nombre] = (conteo[nombre] || 0) + 1; return rep(args[0]); });\n};\nconst modoFinal = modo || \"mask\";\nconst hash = (s: string) => { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) & 0xffff; return \"PII-\" + h.toString(16); };\nconst val = (s: string) => modoFinal === \"mask\" ? s.slice(0, 2) + \"***\" + s.slice(-2) : modoFinal === \"hash\" ? hash(s) : \"[REDACTADO]\";\naplicar(\"email\", /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,}/g, val);\naplicar(\"telefono\", /(?:\\+?593[-\\s]?|\\+?\\d{1,3}[-\\s]?)?\\d{2,3}[-\\s]?\\d{3}[-\\s]?\\d{4}\\b/g, (m) => { const d = m.replace(/\\D/g, \"\"); return d.length >= 9 && d.length <= 13 ? val(m) : m; });\naplicar(\"cedula_ec\", /\\b0\\d{9}\\b|\\b1[07]\\d{8}\\b/g, val);\naplicar(\"ruc_ec\", /\\b0\\d{9}001\\b|\\b[12]\\d{8}001\\b/g, val);\naplicar(\"ssn\", /\\b\\d{3}-\\d{2}-\\d{4}\\b/g, val);\naplicar(\"tarjeta\", /\\b(?:\\d[ -]?){13,19}\\b/g, (m) => { const d = m.replace(/\\D/g, \"\"); return d.length >= 13 && d.length <= 19 && /^\\d/.test(m) ? val(m) : m; });\naplicar(\"iban\", /\\b[A-Z]{2}\\d{2}[A-Z0-9]{10,30}\\b/g, val);\naplicar(\"ip\", /\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b/g, val);\naplicar(\"placa_ec\", /\\b[A-Z]{3}-\\d{3,4}\\b/g, val);\nreturn ok({ pii_encontrada: conteo, total_items: __vals(conteo).reduce((a: any, b: any) => a + b, 0), modo, texto_redactado: t });\n  }\n);\n\nserver.tool(\n  \"detect_types\",\n  \"Solo detecta (sin redactar): qué tipos de PII contiene un texto y cuántos de cada uno.\",\n  {\n  texto: z.string().describe(\"Texto a analizar\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const t = String(texto);\nconst tipos: any = {\n  email: (t.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,}/g) || []).length,\n  cedula_ec: (t.match(/\\b0\\d{9}\\b|\\b1[07]\\d{8}\\b/g) || []).length,\n  ruc_ec: (t.match(/\\b0\\d{9}001\\b|\\b[12]\\d{8}001\\b/g) || []).length,\n  telefono: (t.match(/(?:\\+?593[-\\s]?)?\\d{2,3}[-\\s]?\\d{3}[-\\s]?\\d{4}\\b/g) || []).length,\n  tarjeta: (t.match(/\\b(?:\\d[ -]?){13,19}\\b/g) || []).filter((m: string) => m.replace(/\\D/g, \"\").length >= 13).length,\n  ssn: (t.match(/\\b\\d{3}-\\d{2}-\\d{4}\\b/g) || []).length,\n  iban: (t.match(/\\b[A-Z]{2}\\d{2}[A-Z0-9]{10,30}\\b/g) || []).length,\n  ip: (t.match(/\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b/g) || []).length,\n};\nconst activos = __ents(tipos).filter(([, n]: [string, any]) => n > 0);\nreturn ok({ tipos_detectados: activos, total_pii: activos.reduce((a, [, n]: any) => a + n, 0), limpio: activos.length === 0 });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor pii-redactor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"pii-redactor\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[pii-redactor] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

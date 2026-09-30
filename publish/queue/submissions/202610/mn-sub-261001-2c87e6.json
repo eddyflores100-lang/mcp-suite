@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-2c87e6",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-sla-contract-manager",
+  "version": "1.0.0",
+  "description": "Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas Dolor que resuelve: El agente contrata un sub-agente 'rápido' sin SLA escrito: cuando empieza a tardar 40 segundos no hay objetivo, ni ventana de medición, ni forma objetiva de reclamar. La confianza entre agentes sin métricas es humo. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "FinTech",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "a2a",
+   "payments",
+   "escrow"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only sla-contract-manager",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-sla-contract-manager",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "create_contract",
+    "record_measurement",
+    "check_breach",
+    "contract_health",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only sla-contract-manager",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-sla-contract-manager\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-sla-contract-manager/dist/index.js\"]}}}. Tools disponibles: create_contract, record_measurement, check_breach, contract_health y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/sla-contract-manager/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-sla-contract-manager (create_contract, record_measurement, check_breach, contract_health). Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/sla-contract-manager/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/sla-contract-manager\",\n  \"version\": \"1.0.0\",\n  \"description\": \"SLA Contract Manager — Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-sla-contract-manager\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comercio-a2a\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# SLA Contract Manager\n\n> Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas\n\n**Categoría:** Comercio A2A · **ID:** `mcp-sla-contract-manager`\n\n**Dolor de agente que resuelve:** El agente contrata un sub-agente 'rápido' sin SLA escrito: cuando empieza a tardar 40 segundos no hay objetivo, ni ventana de medición, ni forma objetiva de reclamar. La confianza entre agentes sin métricas es humo.\n\n> Estado persistente en `~/.mcp-suite/sla-contract-manager/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `create_contract`\nCrea un contrato SLA: proveedor, métrica, objetivo, ventana y penalización por incumplimiento.\n\n**Parámetros:**\n  - `proveedor` (string, requerido): Agente/servicio proveedor\n  - `consumidor` (string, opcional): Agente consumidor\n  - `metrica` (enum, requerido): Métrica contratada\n  - `objetivo` (number, requerido): Valor objetivo (mejor = más rápido/más alto según métrica)\n  - `ventana` (enum, requerido): Ventana de evaluación\n  - `penalizacion` (string, opcional): Qué pasa si se incumple (descuento, crédito, terminación)\n  - `periodo_gracia_min` (number, opcional): Minutos de gracia antes de contar un incumplimiento\n\n### `record_measurement`\nRegistra una medición real de la métrica del contrato.\n\n**Parámetros:**\n  - `id` (string, requerido): Id del contrato\n  - `valor` (number, requerido): Valor medido\n  - `contexto` (string, opcional): Contexto (llamada, día, carga)\n\n### `check_breach`\nEvalúa el contrato contra las mediciones registradas: ¿hay brecha? ¿con gracia? ¿reclamable?\n\n**Parámetros:**\n  - `id` (string, requerido): Id del contrato\n\n### `contract_health`\nSalud global: contratos por proveedor, tendencias y quién incumple más.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"sla-contract-manager\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-sla-contract-manager/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/sla-contract-manager/. Contratos con métricas (latencia, disponibilidad, tasa de error, throughput), objetivo y penalización; las mediciones se contrastan con períodos de gracia.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: SLA Contract Manager\n * Contratos de nivel de servicio entre agentes: métricas, objetivos, ventanas y detección de brechas\n *\n * Dolor que resuelve: El agente contrata un sub-agente 'rápido' sin SLA escrito: cuando empieza a tardar 40 segundos no hay objetivo, ni ventana de medición, ni forma objetiva de reclamar. La confianza entre agentes sin métricas es humo.\n * Categoría: Comercio A2A | Generado por mcp-suite | id: sla-contract-manager\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/sla-contract-manager/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"sla-contract-manager\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"sla-contract-manager\", version: \"1.0.0\" });\n\nserver.tool(\n  \"create_contract\",\n  \"Crea un contrato SLA: proveedor, métrica, objetivo, ventana y penalización por incumplimiento.\",\n  {\n  proveedor: z.string().describe(\"Agente/servicio proveedor\"),\n  consumidor: z.string().describe(\"Agente consumidor\").default(\"yo\"),\n  metrica: z.enum([\"latencia_p95_ms\",\"disponibilidad_pct\",\"tasa_error_pct\",\"throughput_rps\",\"tiempo_resolucion_horas\"]).describe(\"Métrica contratada\"),\n  objetivo: z.number().describe(\"Valor objetivo (mejor = más rápido/más alto según métrica)\"),\n  ventana: z.enum([\"por_llamada\",\"diaria\",\"semanal\",\"mensual\"]).describe(\"Ventana de evaluación\"),\n  penalizacion: z.string().describe(\"Qué pasa si se incumple (descuento, crédito, terminación)\").optional(),\n  periodo_gracia_min: z.number().describe(\"Minutos de gracia antes de contar un incumplimiento\").default(0),\n  },\n  async (args: any) => {\n    const { proveedor, consumidor, metrica, objetivo, ventana, penalizacion, periodo_gracia_min } = args as any;\n    const st = store.load();\nst.contratos = st.contratos || [];\nconst id = \"sla_\" + String(st.contratos.length + 1).padStart(4, \"0\");\nconst esMax = [\"latencia_p95_ms\", \"tasa_error_pct\", \"tiempo_resolucion_horas\"].includes(metrica);\nst.contratos.push({ id, proveedor, consumidor, metrica, objetivo, sentido: esMax ? \"maximo\" : \"minimo\", ventana, penalizacion: penalizacion || \"sin penalización definida\", periodo_gracia_min, mediciones: [], brechas: [], activo: true, creado: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id, proveedor, metrica, objetivo, sentido: esMax ? \"≤ \" + objetivo : \"≥ \" + objetivo, ventana, siguiente: \"registra mediciones reales con record_measurement\" });\n  }\n);\n\nserver.tool(\n  \"record_measurement\",\n  \"Registra una medición real de la métrica del contrato.\",\n  {\n  id: z.string().describe(\"Id del contrato\"),\n  valor: z.number().describe(\"Valor medido\"),\n  contexto: z.string().describe(\"Contexto (llamada, día, carga)\").optional(),\n  },\n  async (args: any) => {\n    const { id, valor, contexto } = args as any;\n    const st = store.load();\nconst c = (st.contratos || []).find(x => x.id === id);\nif (!c) return fail(\"contrato no encontrado: \" + id);\nc.mediciones.push({ valor, contexto: contexto || \"\", ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id, mediciones: c.mediciones.length });\n  }\n);\n\nserver.tool(\n  \"check_breach\",\n  \"Evalúa el contrato contra las mediciones registradas: ¿hay brecha? ¿con gracia? ¿reclamable?\",\n  {\n  id: z.string().describe(\"Id del contrato\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst c = (st.contratos || []).find(x => x.id === id);\nif (!c) return fail(\"contrato no encontrado\");\nconst m = c.mediciones || [];\nif (!m.length) return fail(\"sin mediciones: registra primero con record_measurement\");\nlet valores = m.map(x => x.valor);\nlet resumen;\nif (c.metrica === \"latencia_p95_ms\") {\n  const ordenados = valores.slice().sort((a, b) => a - b);\n  valores = [ordenados[Math.floor(ordenados.length * 0.95)]];\n  resumen = \"p95 sobre \" + m.length + \" mediciones\";\n} else if (c.ventana === \"diaria\") {\n  const hoy = new Date().toISOString().slice(0, 10);\n  const deHoy = m.filter(x => x.ts.slice(0, 10) === hoy);\n  if (deHoy.length) { valores = deHoy.map(x => x.valor); resumen = \"media de \" + deHoy.length + \" mediciones de hoy\"; }\n} else { resumen = \"todas las mediciones (\" + m.length + \")\"; }\nconst agregado = valores.length > 1 ? valores.reduce((a, b) => a + b, 0) / valores.length : valores[0];\nconst incumple = c.sentido === \"maximo\" ? agregado > c.objetivo : agregado < c.objetivo;\nconst exceso = c.sentido === \"maximo\" ? Number((agregado - c.objetivo).toFixed(2)) : Number((c.objetivo - agregado).toFixed(2));\nconst ratio = Number((agregado / c.objetivo).toFixed(2));\nif (incumple) {\n  c.brechas.push({ ts: new Date().toISOString(), valor: Number(agregado.toFixed(2)), objetivo: c.objetivo, exceso, ratio });\n  store.save(st);\n}\nconst recl = incumple && ratio > (c.sentido === \"maximo\" ? 1.2 : 0.8);\nreturn ok({ id, proveedor: c.proveedor, metrica: c.metrica, agregado: Number(agregado.toFixed(2)), calculo: resumen, objetivo: c.objetivo, sentido: c.sentido, en_brecha: incumple, desvio: exceso, ratio_objetivo: ratio, penalizacion: c.penalizacion, reclamo: incumple ? (recl ? \"RECLAMABLE: desvío del \" + Number((Math.abs(ratio - 1) * 100).toFixed(0)) + \"% supera el umbral de tolerancia del 20%: documenta evidencia y reclama\" : \"leve: dentro de tolerancia del 20%, monitorea\") : \"conforme\", brechas_totales: c.brechas.length });\n  }\n);\n\nserver.tool(\n  \"contract_health\",\n  \"Salud global: contratos por proveedor, tendencias y quién incumple más.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst cs = st.contratos || [];\nif (!cs.length) return ok({ contratos: 0, mensaje: \"sin contratos\" });\nconst porProv = {};\ncs.forEach(c => {\n  porProv[c.proveedor] = porProv[c.proveedor] || { proveedor: c.proveedor, contratos: 0, mediciones: 0, brechas: 0 };\n  porProv[c.proveedor].contratos++;\n  porProv[c.proveedor].mediciones += (c.mediciones || []).length;\n  porProv[c.proveedor].brechas += (c.brechas || []).length;\n});\nconst ranking = __vals(porProv).map(p => ({ ...p, tasa_brecha: p.mediciones ? Number((p.brechas / p.mediciones * 100).toFixed(0)) + \"%\" : \"n/a\" })).sort((a, b) => b.brechas - a.brechas);\nreturn ok({ contratos: cs.length, activos: cs.filter(c => c.activo).length, ranking_proveedores: ranking, recomendacion: ranking[0] && ranking[0].brechas > 3 ? \"el proveedor '\" + ranking[0].proveedor + \"' acumula \" + ranking[0].brechas + \" brechas: renegocia SLA o cambia de proveedor\" : \"sin proveedores problemáticos\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor sla-contract-manager está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"sla-contract-manager\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[sla-contract-manager] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "sla-contract-manager"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-e8e089",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-acceptance-criteria",
+  "version": "1.0.0",
+  "description": "Convierte requests en criterios GIVEN/WHEN/THEN verificables con prioridad y trazabilidad Dolor que resuelve: Los 'definition of done' del agente son difusos: dice 'listo' cuando compiló, no cuando cumple criterios verificables que el humano podría auditar. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Developer Tools",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "specs",
+   "requirements",
+   "ambiguity"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only acceptance-criteria",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-acceptance-criteria",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_requirement",
+    "refine_criterion",
+    "verify_criterion",
+    "ready_check",
+    "coverage_matrix",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only acceptance-criteria",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-acceptance-criteria\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-acceptance-criteria/dist/index.js\"]}}}. Tools disponibles: add_requirement, refine_criterion, verify_criterion, ready_check, coverage_matrix y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/acceptance-criteria/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-acceptance-criteria (add_requirement, refine_criterion, verify_criterion, ready_check, coverage_matrix). Convierte requests en criterios GIVEN/WHEN/THEN verificables con prioridad y trazabilidad. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/acceptance-criteria/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/acceptance-criteria\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Acceptance Criteria — Convierte requests en criterios GIVEN/WHEN/THEN verificables con prioridad y trazabilidad (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-acceptance-criteria\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"especificaci-n-y-requisitos\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Acceptance Criteria\n\n> Convierte requests en criterios GIVEN/WHEN/THEN verificables con prioridad y trazabilidad\n\n**Categoría:** Especificación y Requisitos · **ID:** `mcp-acceptance-criteria`\n\n**Dolor de agente que resuelve:** Los 'definition of done' del agente son difusos: dice 'listo' cuando compiló, no cuando cumple criterios verificables que el humano podría auditar.\n\n> Estado persistente en `~/.mcp-suite/acceptance-criteria/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `add_requirement`\nRegistra un requerimiento y genera su borrador de criterios de aceptación GIVEN/WHEN/THEN.\n\n**Parámetros:**\n  - `requerimiento` (string, requerido): Texto del requerimiento\n  - `prioridad` (enum, opcional): MoSCoW\n  - `contexto` (string, opcional): Contexto adicional\n\n### `refine_criterion`\nRefina un criterio concreto (GIVEN/WHEN/THEN exactos) para hacerlo objetivamente verificable.\n\n**Parámetros:**\n  - `requerimiento_id` (string, requerido): ID del requerimiento\n  - `n` (number, requerido): Número del criterio\n  - `given` (string, requerido): Contexto previo exacto\n  - `when` (string, requerido): Acción concreta\n  - `then` (string, requerido): Resultado observable y medible\n\n### `verify_criterion`\nMarca un criterio como verificado (o fallido) con evidencia: la definición objetiva de 'listo'.\n\n**Parámetros:**\n  - `requerimiento_id` (string, requerido): ID del requerimiento\n  - `n` (number, requerido): Número del criterio\n  - `pasado` (boolean, requerido): ¿Verificado?\n  - `evidencia` (string, requerido): Cómo se verificó (test, revisión, salida)\n\n### `ready_check`\n¿Se puede declarar 'listo'? Solo si todos los must están verificados; lista lo que falta.\n\n### `coverage_matrix`\nMatriz requerimiento × criterios con estado, para auditoría rápida del avance.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"acceptance-criteria\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-acceptance-criteria/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/acceptance-criteria/. Convierte cada requerimiento en criterios GIVEN/WHEN/THEN priorizados (MoSCoW) con estado de verificación y evidencia.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Acceptance Criteria\n * Convierte requests en criterios GIVEN/WHEN/THEN verificables con prioridad y trazabilidad\n *\n * Dolor que resuelve: Los 'definition of done' del agente son difusos: dice 'listo' cuando compiló, no cuando cumple criterios verificables que el humano podría auditar.\n * Categoría: Especificación y Requisitos | Generado por mcp-suite | id: acceptance-criteria\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/acceptance-criteria/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"acceptance-criteria\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"acceptance-criteria\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_requirement\",\n  \"Registra un requerimiento y genera su borrador de criterios de aceptación GIVEN/WHEN/THEN.\",\n  {\n  requerimiento: z.string().describe(\"Texto del requerimiento\"),\n  prioridad: z.enum([\"must\",\"should\",\"could\",\"wont\"]).describe(\"MoSCoW\").default(\"must\"),\n  contexto: z.string().describe(\"Contexto adicional\").optional(),\n  },\n  async (args: any) => {\n    const { requerimiento, prioridad, contexto } = args as any;\n    const st = store.load();\nst.reqs = st.reqs || [];\nconst id = \"rq_\" + Date.now().toString(36);\nconst acciones = [\"mostrar\", \"mostrará\", \"listar\", \"devolver\", \"crear\", \"guardar\", \"procesar\", \"calcular\", \"validar\", \"enviar\", \"notificar\", \"buscar\", \"filtrar\", \"generar\"];\nconst entidadesGuess = requerimiento.split(/\\s+/).slice(0, 4).join(\" \");\nst.reqs.push({\n  id, requerimiento, prioridad, contexto: contexto || null,\n  criterios: [\n    { GIVEN: \"el sistema en estado normal\", WHEN: \"solicito: \" + entidadesGuess, THEN: \"obtengo el resultado descrito sin errores\" },\n    { GIVEN: \"datos de entrada inválidos o vacíos\", WHEN: \"solicito: \" + entidadesGuess, THEN: \"recibo error explícito y el estado no se corrompe\" },\n    { GIVEN: \"el resultado anterior\", WHEN: \"reviso la salida\", THEN: \"cumple el requerimiento literal: '\" + requerimiento.slice(0, 90) + \"'\" },\n  ].map((c, i) => ({ n: i + 1, ...c, estado: \"pendiente\", evidencia: null })),\n  creado: new Date().toISOString(),\n});\nstore.save(st);\nreturn ok({ requerimiento_id: id, prioridad, criterios_borrador: 3, aviso: \"edita/refina los criterios con refine_criterion: el borrador es el punto de partida\" });\n  }\n);\n\nserver.tool(\n  \"refine_criterion\",\n  \"Refina un criterio concreto (GIVEN/WHEN/THEN exactos) para hacerlo objetivamente verificable.\",\n  {\n  requerimiento_id: z.string().describe(\"ID del requerimiento\"),\n  n: z.number().describe(\"Número del criterio\"),\n  given: z.string().describe(\"Contexto previo exacto\"),\n  when: z.string().describe(\"Acción concreta\"),\n  then: z.string().describe(\"Resultado observable y medible\"),\n  },\n  async (args: any) => {\n    const { requerimiento_id, n, given, when, then } = args as any;\n    const st = store.load();\nconst r = (st.reqs || []).find(x => x.id === requerimiento_id);\nif (!r) return fail(\"requerimiento no encontrado\");\nconst c = r.criterios.find(x => x.n === n);\nif (!c) return fail(\"criterio inexistente\");\nconst problemas = [];\nif (/\\d/.test(then) === false && /(tiempo|segundos|ms|elementos|resultados)/i.test(then)) problemas.push(\"THEN menciona magnitud sin número\");\nif (then.split(/\\s+/).length < 5) problemas.push(\"THEN demasiado corto para ser observable\");\nif (when.split(/\\s+/).length < 3) problemas.push(\"WHEN demasiado vago: ¿qué acción exacta?\");\nc.GIVEN = given; c.WHEN = when; c.THEN = then; c.refinado = true;\nstore.save(st);\nreturn ok({ criterio: n, actualizado: true, problemas_estilo: problemas, estado: problemas.length ? \"mejorable\" : \"verificable\" });\n  }\n);\n\nserver.tool(\n  \"verify_criterion\",\n  \"Marca un criterio como verificado (o fallido) con evidencia: la definición objetiva de 'listo'.\",\n  {\n  requerimiento_id: z.string().describe(\"ID del requerimiento\"),\n  n: z.number().describe(\"Número del criterio\"),\n  pasado: z.boolean().describe(\"¿Verificado?\"),\n  evidencia: z.string().describe(\"Cómo se verificó (test, revisión, salida)\"),\n  },\n  async (args: any) => {\n    const { requerimiento_id, n, pasado, evidencia } = args as any;\n    const st = store.load();\nconst r = (st.reqs || []).find(x => x.id === requerimiento_id);\nif (!r) return fail(\"requerimiento no encontrado\");\nconst c = r.criterios.find(x => x.n === n);\nif (!c) return fail(\"criterio inexistente\");\nif (!evidencia) return fail(\"sin evidencia no hay verificación: ¿cómo lo comprobaste?\");\nc.estado = pasado ? \"verificado\" : \"fallido\";\nc.evidencia = evidencia;\nc.verificado_ts = new Date().toISOString();\nstore.save(st);\nconst verificados = r.criterios.filter(x => x.estado === \"verificado\").length;\nreturn ok({ criterio: n, estado: c.estado, progreso: verificados + \"/\" + r.criterios.length, listo: verificados === r.criterios.length });\n  }\n);\n\nserver.tool(\n  \"ready_check\",\n  \"¿Se puede declarar 'listo'? Solo si todos los must están verificados; lista lo que falta.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst reqs = st.reqs || [];\nif (!reqs.length) return ok({ requerimientos: 0 });\nconst faltantes = [];\nfor (const r of reqs) {\n  if (r.prioridad !== \"must\") continue;\n  for (const c of r.criterios) if (c.estado !== \"verificado\") faltantes.push({ req: r.id, texto: r.requerimiento.slice(0, 70), criterio: c.n, when: c.WHEN, estado: c.estado });\n}\nconst musts = reqs.filter(r => r.prioridad === \"must\");\nreturn ok({\n  requerimientos: reqs.length, musts: musts.length,\n  LISTO: faltantes.length === 0 && musts.length > 0,\n  criterios_must_pendientes: faltantes.length,\n  faltantes: faltantes.slice(0, 12),\n  veredicto: faltantes.length === 0 ? \"todos los must verificados: puedes declarar 'listo' con evidencia\" : \"NO declares listo: faltan \" + faltantes.length + \" criterios must\",\n});\n  }\n);\n\nserver.tool(\n  \"coverage_matrix\",\n  \"Matriz requerimiento × criterios con estado, para auditoría rápida del avance.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst reqs = st.reqs || [];\nreturn ok({\n  total_reqs: reqs.length,\n  matriz: reqs.map(r => ({\n    id: r.id, req: r.requerimiento.slice(0, 60), prioridad: r.prioridad,\n    criterios: r.criterios.map(c => c.estado === \"verificado\" ? \"V\" : c.estado === \"fallido\" ? \"F\" : \"·\").join(\" \"),\n    pct: Math.round(r.criterios.filter(c => c.estado === \"verificado\").length / r.criterios.length * 100),\n  })),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor acceptance-criteria está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"acceptance-criteria\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[acceptance-criteria] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "acceptance-criteria"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

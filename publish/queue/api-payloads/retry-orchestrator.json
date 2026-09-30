@@ -1,0 +1,63 @@
+{
+ "name": "mcp-retry-orchestrator",
+ "version": "1.0.0",
+ "description": "Política de reintentos con backoff exponencial y jitter: calcula cuándo y si reintentar Dolor que resuelve: Las tools fallan transitoriamente y el agente o abandona o spamea: falta una política de reintentos inteligente. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "DevOps",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "resilience",
+  "circuit-breaker",
+  "retry"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only retry-orchestrator",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-retry-orchestrator",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "plan_retries",
+   "should_retry",
+   "record_attempt",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only retry-orchestrator",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-retry-orchestrator\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-retry-orchestrator/dist/index.js\"]}}}. Tools disponibles: plan_retries, should_retry, record_attempt y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/retry-orchestrator/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-retry-orchestrator (plan_retries, should_retry, record_attempt). Política de reintentos con backoff exponencial y jitter: calcula cuándo y si reintentar. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/retry-orchestrator/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/retry-orchestrator\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Retry Orchestrator — Política de reintentos con backoff exponencial y jitter: calcula cuándo y si reintentar (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-retry-orchestrator\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Retry Orchestrator\n\n> Política de reintentos con backoff exponencial y jitter: calcula cuándo y si reintentar\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-retry-orchestrator`\n\n**Dolor de agente que resuelve:** Las tools fallan transitoriamente y el agente o abandona o spamea: falta una política de reintentos inteligente.\n\n> Estado persistente en `~/.mcp-suite/retry-orchestrator/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `plan_retries`\nCalcula el plan de reintentos para una operación fallida: intentos, delays con backoff exponencial + jitter y timeout total.\n\n**Parámetros:**\n  - `intento_actual` (number, requerido): En qué intento vas (empezando en 1)\n  - `max_intentos` (number, opcional): Máximo de intentos\n  - `base_ms` (number, opcional): Delay base\n\n### `should_retry`\nDecide si un error es reintentable: clasifica por tipo (red= sí, 4xx= no, 429= sí con espera, 5xx= sí).\n\n**Parámetros:**\n  - `error` (string, requerido): Mensaje o código de error\n\n### `record_attempt`\nRegistra el resultado de un intento (éxito/fallo) para aprender qué operaciones suelen necesitar reintentos.\n\n**Parámetros:**\n  - `operacion` (string, requerido): Nombre de la operación\n  - `exito` (boolean, requerido): Resultado\n  - `intento` (number, opcional): Número de intento\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"retry-orchestrator\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-retry-orchestrator/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Retry Orchestrator\n * Política de reintentos con backoff exponencial y jitter: calcula cuándo y si reintentar\n *\n * Dolor que resuelve: Las tools fallan transitoriamente y el agente o abandona o spamea: falta una política de reintentos inteligente.\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: retry-orchestrator\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/retry-orchestrator/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"retry-orchestrator\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"retry-orchestrator\", version: \"1.0.0\" });\n\nserver.tool(\n  \"plan_retries\",\n  \"Calcula el plan de reintentos para una operación fallida: intentos, delays con backoff exponencial + jitter y timeout total.\",\n  {\n  intento_actual: z.number().describe(\"En qué intento vas (empezando en 1)\"),\n  max_intentos: z.number().describe(\"Máximo de intentos\").default(5),\n  base_ms: z.number().describe(\"Delay base\").default(500),\n  },\n  async (args: any) => {\n    const { intento_actual, max_intentos, base_ms } = args as any;\n    const n = intento_actual;\nconst max = max_intentos ?? 5;\nif (n >= max) return ok({ reintentar: false, razon: \"máximo alcanzado (\" + max + \")\", siguiente_accion: \"fallback o escalar\" });\nconst delay = Math.min((base_ms ?? 500) * Math.pow(2, n - 1), 30000);\nconst jitter = Math.round(delay * 0.2 * Math.random());\nconst plan: any[] = [];\nfor (let i = n; i < max; i++) { const d = Math.min((base_ms ?? 500) * Math.pow(2, i - 1), 30000); plan.push({ intento: i + 1, delay_ms: d + Math.round(d * 0.2 * Math.random()) }); }\nreturn ok({ reintentar: true, proximo_delay_ms: delay + jitter, plan_restante: plan, timeout_total_estimado_ms: plan.reduce((a, p) => a + p.delay_ms, 0) });\n  }\n);\n\nserver.tool(\n  \"should_retry\",\n  \"Decide si un error es reintentable: clasifica por tipo (red= sí, 4xx= no, 429= sí con espera, 5xx= sí).\",\n  {\n  error: z.string().describe(\"Mensaje o código de error\"),\n  },\n  async (args: any) => {\n    const { error } = args as any;\n    const e = String(error).toLowerCase();\nlet tipo = \"desconocido\"; let reintentar = false; let espera = 0;\nif (/econnrefused|enotfound|etimedout|timeout|network|fetch failed|econnreset/.test(e)) { tipo = \"red\"; reintentar = true; espera = 1000; }\nelse if (/429|rate.?limit|too many|quota/.test(e)) { tipo = \"rate-limit\"; reintentar = true; espera = 5000; }\nelse if (/5\\d\\d|internal|bad gateway|service unavailable/.test(e)) { tipo = \"servidor\"; reintentar = true; espera = 2000; }\nelse if (/40[0134]|unauthorized|forbidden|not found|invalid|bad request|schema/.test(e)) { tipo = \"cliente\"; reintentar = false; }\nelse if (/abort|cancel/.test(e)) { tipo = \"cancelado\"; reintentar = false; }\nreturn ok({ tipo, reintentar, espera_sugerida_ms: espera, razon: reintentar ? \"error transitorio\" : \"error determinista: corregir input o credenciales\" });\n  }\n);\n\nserver.tool(\n  \"record_attempt\",\n  \"Registra el resultado de un intento (éxito/fallo) para aprender qué operaciones suelen necesitar reintentos.\",\n  {\n  operacion: z.string().describe(\"Nombre de la operación\"),\n  exito: z.boolean().describe(\"Resultado\"),\n  intento: z.number().describe(\"Número de intento\").default(1),\n  },\n  async (args: any) => {\n    const { operacion, exito, intento } = args as any;\n    const st = store.load();\nst.operaciones = st.operaciones || {};\nconst op = st.operaciones[operacion] = st.operaciones[operacion] || { exitos: 0, fallos: 0, max_intentos: 0 };\nif (exito) op.exitos++; else op.fallos++;\nop.max_intentos = Math.max(op.max_intentos, intento ?? 1);\nstore.save(st);\nreturn ok({ operacion, exitos: op.exitos, fallos: op.fallos, tasa_exito: Math.round((op.exitos / (op.exitos + op.fallos)) * 100) + \"%\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor retry-orchestrator está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"retry-orchestrator\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[retry-orchestrator] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

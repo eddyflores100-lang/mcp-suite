@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-e1941f",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-selector-healer",
+  "version": "1.0.0",
+  "description": "Repara selectores rotos por similitud: encuentra el elemento renombrado sin reescribir el flujo Dolor que resuelve: Un botón cambió de id (#btn-submit → #submit-btn) y el flujo entero muere: el agente no tiene forma de mapear 'el botón de antes' al elemento nuevo sin rehacer todo. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "computer-use",
+   "automation",
+   "browser"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only selector-healer",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-selector-healer",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_selector",
+    "heal",
+    "fragility_report",
+    "export_map",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only selector-healer",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-selector-healer\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-selector-healer/dist/index.js\"]}}}. Tools disponibles: register_selector, heal, fragility_report, export_map y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/selector-healer/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-selector-healer (register_selector, heal, fragility_report, export_map). Repara selectores rotos por similitud: encuentra el elemento renombrado sin reescribir el flujo. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/selector-healer/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/selector-healer\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Selector Healer — Repara selectores rotos por similitud: encuentra el elemento renombrado sin reescribir el flujo (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-selector-healer\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"computer-use\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Selector Healer\n\n> Repara selectores rotos por similitud: encuentra el elemento renombrado sin reescribir el flujo\n\n**Categoría:** Computer Use · **ID:** `mcp-selector-healer`\n\n**Dolor de agente que resuelve:** Un botón cambió de id (#btn-submit → #submit-btn) y el flujo entero muere: el agente no tiene forma de mapear 'el botón de antes' al elemento nuevo sin rehacer todo.\n\n> Estado persistente en `~/.mcp-suite/selector-healer/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `register_selector`\nRegistra un selector con metadatos ricos para poder curarlo después (texto, ordinal, atributos, página).\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre lógico (ej: boton_enviar)\n  - `selector` (string, requerido): Selector CSS/XPath actual\n  - `texto_visible` (string, opcional): Texto del elemento\n  - `pagina` (string, opcional): Página/flujo\n  - `atributos` (any, opcional): Atributos relevantes {id, class, name...}\n\n### `heal`\nDado un selector roto y los candidatos actuales del DOM, devuelve el mejor match con score de confianza.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre lógico del selector roto\n  - `candidatos` (array, requerido): Candidatos actuales {selector, texto, atributos}\n\n### `fragility_report`\nQué selectores se rompen más y con qué patrón (ids dinámicos, clases hash, textos volátiles).\n\n### `export_map`\nExporta el mapa lógico→selector actual (para el orquestador de navegador).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"selector-healer\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-selector-healer/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/selector-healer/. Guarda selectores con metadatos (texto visible, posición ordinal, atributos); ante un fallo propone el candidato más similar del DOM actual con score.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Selector Healer\n * Repara selectores rotos por similitud: encuentra el elemento renombrado sin reescribir el flujo\n *\n * Dolor que resuelve: Un botón cambió de id (#btn-submit → #submit-btn) y el flujo entero muere: el agente no tiene forma de mapear 'el botón de antes' al elemento nuevo sin rehacer todo.\n * Categoría: Computer Use | Generado por mcp-suite | id: selector-healer\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/selector-healer/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"selector-healer\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"selector-healer\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_selector\",\n  \"Registra un selector con metadatos ricos para poder curarlo después (texto, ordinal, atributos, página).\",\n  {\n  nombre: z.string().describe(\"Nombre lógico (ej: boton_enviar)\"),\n  selector: z.string().describe(\"Selector CSS/XPath actual\"),\n  texto_visible: z.string().describe(\"Texto del elemento\").optional(),\n  pagina: z.string().describe(\"Página/flujo\").default(\"default\"),\n  atributos: z.any().describe(\"Atributos relevantes {id, class, name...}\").optional(),\n  },\n  async (args: any) => {\n    const { nombre, selector, texto_visible, pagina, atributos } = args as any;\n    const st = store.load();\nst.selectores = st.selectores || {};\nst.selectores[nombre] = { nombre, selector, texto_visible: texto_visible || \"\", pagina, atributos: atributos || {}, curaciones: 0, creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ selector: nombre, registrado: true });\n  }\n);\n\nserver.tool(\n  \"heal\",\n  \"Dado un selector roto y los candidatos actuales del DOM, devuelve el mejor match con score de confianza.\",\n  {\n  nombre: z.string().describe(\"Nombre lógico del selector roto\"),\n  candidatos: z.array(z.any()).describe(\"Candidatos actuales {selector, texto, atributos}\"),\n  },\n  async (args: any) => {\n    const { nombre, candidatos } = args as any;\n    const st = store.load();\nconst s = (st.selectores || {})[nombre];\nif (!s) return fail(\"selector no registrado: \" + nombre);\nconst cands = (candidatos || []).filter(c => c && c.selector);\nif (!cands.length) return fail(\"sin candidatos: extrae los elementos del DOM actual primero\");\nconst tokens = (x) => new Set(String(x || \"\").toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2));\nconst scored = cands.map(c => {\n  let score = 0;\n  const selTokens = tokens(s.selector), candSel = tokens(c.selector);\n  const overlapSel = [...selTokens].filter(w => candSel.has(w)).length;\n  score += overlapSel / Math.max(selTokens.size, 1) * 40;\n  if (s.texto_visible && c.texto) {\n    const t1 = tokens(s.texto_visible), t2 = tokens(c.texto);\n    score += [...t1].filter(w => t2.has(w)).length / Math.max(t1.size, 1) * 35;\n  } else if (s.texto_visible && !c.texto) score -= 5;\n  if (s.atributos && c.atributos) {\n    const claves = Object.keys(s.atributos);\n    if (claves.length) {\n      const hits = claves.filter(k => c.atributos[k] && String(c.atributos[k]) === String(s.atributos[k])).length;\n      score += hits / claves.length * 25;\n    }\n  }\n  return { selector: c.selector, texto: (c.texto || \"\").slice(0, 40), score: Number(score.toFixed(1)) };\n}).sort((a, b) => b.score - a.score);\nconst mejor = scored[0];\nconst confianza = mejor.score >= 65 ? \"ALTA: aplica\" : mejor.score >= 40 ? \"MEDIA: aplica con verificación visual posterior\" : \"BAJA: intervención humana\";\nif (mejor.score >= 40 && mejor.selector !== s.selector) {\n  s.historial = s.historial || [];\n  s.historial.push({ desde: s.selector, hacia: mejor.selector, score: mejor.score, ts: new Date().toISOString() });\n  s.selector = mejor.selector;\n  s.curaciones = (s.curaciones || 0) + 1;\n  store.save(st);\n}\nreturn ok({ roto: nombre, mejor_candidato: mejor, confianza, top3: scored.slice(0, 3), curaciones_totales: s.curaciones });\n  }\n);\n\nserver.tool(\n  \"fragility_report\",\n  \"Qué selectores se rompen más y con qué patrón (ids dinámicos, clases hash, textos volátiles).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst sels = __vals(st.selectores || {});\nif (!sels.length) return ok({ selectores: 0 });\nconst analisis = sels.map(s => {\n  const patrones = [];\n  if (/\\d{4,}|\\$\\{.*\\}|[a-f0-9]{8,}/i.test(s.selector)) patrones.push(\"id/clase dinámico\");\n  if (/nth-child|nth-of-type/.test(s.selector)) patrones.push(\"posición ordinal frágil\");\n  if (/\\/\\/ul\\/\\/li\\//.test(s.selector)) patrones.push(\"xpath profundo\");\n  if (s.texto_visible && s.texto_visible.length > 25) patrones.push(\"texto largo volátil\");\n  return { nombre: s.nombre, curaciones: s.curaciones || 0, patrones_riesgo: patrones, selector: s.selector.slice(0, 70) };\n}).sort((a, b) => b.curaciones - a.curaciones);\nreturn ok({\n  selectores: sels.length,\n  curaciones_totales: sels.reduce((a, s) => a + (s.curaciones || 0), 0),\n  mas_fragiles: analisis.slice(0, 8),\n  consejo: \"prioriza data-testid > id estable > aria-label > texto corto > ordinal\",\n});\n  }\n);\n\nserver.tool(\n  \"export_map\",\n  \"Exporta el mapa lógico→selector actual (para el orquestador de navegador).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst sels = __vals(st.selectores || {});\nreturn ok({ total: sels.length, mapa: Object.fromEntries(sels.map(s => [s.nombre, { selector: s.selector, pagina: s.pagina, texto: s.texto_visible }])) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor selector-healer está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"selector-healer\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[selector-healer] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "selector-healer"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

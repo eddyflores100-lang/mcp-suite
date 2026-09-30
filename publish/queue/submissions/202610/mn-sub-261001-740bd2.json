@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-740bd2",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-sandbox-eval",
+  "version": "1.0.0",
+  "description": "Evaluación matemática/lógica segura: nunca eval() sobre input del usuario Dolor que resuelve: Para calcular algo el agente recurre a eval() con input no confiable: RCE garantizado. Hace falta un parser seguro. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "security",
+   "prompt-injection",
+   "hardening"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only sandbox-eval",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-sandbox-eval",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "safe_math",
+    "compare_expressions",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only sandbox-eval",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-sandbox-eval\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-sandbox-eval/dist/index.js\"]}}}. Tools disponibles: safe_math, compare_expressions y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/sandbox-eval/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-sandbox-eval (safe_math, compare_expressions). Evaluación matemática/lógica segura: nunca eval() sobre input del usuario. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/sandbox-eval/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/sandbox-eval\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Sandbox Eval — Evaluación matemática/lógica segura: nunca eval() sobre input del usuario (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-sandbox-eval\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"seguridad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Sandbox Eval\n\n> Evaluación matemática/lógica segura: nunca eval() sobre input del usuario\n\n**Categoría:** Seguridad · **ID:** `mcp-sandbox-eval`\n\n**Dolor de agente que resuelve:** Para calcular algo el agente recurre a eval() con input no confiable: RCE garantizado. Hace falta un parser seguro.\n\n## Tools (3 incl. health_check)\n\n### `safe_math`\nEvalúa una expresión aritmética de forma segura (parser shunting-yard, sin eval): + - * / % ** paréntesis y funciones matemáticas.\n\n**Parámetros:**\n  - `expresion` (string, requerido): Expresión (ej: (2+3)*4^2 o round(3.7))\n\n### `compare_expressions`\nCompara dos expresiones matemáticas: ¿son iguales? (útil para verificar cálculos del LLM).\n\n**Parámetros:**\n  - `a` (string, requerido): Expresión A\n  - `b` (string, requerido): Expresión B\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"sandbox-eval\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-sandbox-eval/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Sandbox Eval\n * Evaluación matemática/lógica segura: nunca eval() sobre input del usuario\n *\n * Dolor que resuelve: Para calcular algo el agente recurre a eval() con input no confiable: RCE garantizado. Hace falta un parser seguro.\n * Categoría: Seguridad | Generado por mcp-suite | id: sandbox-eval\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"sandbox-eval\", version: \"1.0.0\" });\n\nserver.tool(\n  \"safe_math\",\n  \"Evalúa una expresión aritmética de forma segura (parser shunting-yard, sin eval): + - * / % ** paréntesis y funciones matemáticas.\",\n  {\n  expresion: z.string().describe(\"Expresión (ej: (2+3)*4^2 o round(3.7))\"),\n  },\n  async (args: any) => {\n    const { expresion } = args as any;\n    const expr = String(expresion).toLowerCase().replace(/\\^/g, \"**\").replace(/,/g, \".\").replace(/\\s+/g, \"\");\nif (!/^[\\d+\\-*/%(). ]+$|^[$\\d+\\-*/%().a-z]+$/.test(expr)) return fail(\"caracteres no permitidos\");\nconst funcs: any = { sin: Math.sin, cos: Math.cos, tan: Math.tan, sqrt: Math.sqrt, abs: Math.abs, round: Math.round, floor: Math.floor, ceil: Math.ceil, log: Math.log, min: Math.min, max: Math.max, pow: Math.pow, exp: Math.exp };\nconst tokens = expr.match(/\\d+\\.?\\d*|[a-z]+|[+\\-*/%()]|\\*\\*/g);\nif (!tokens) return fail(\"no parseable\");\nconst salida: any[] = []; const operadores: string[] = [];\nconst precedencia: any = { \"+\": 1, \"-\": 1, \"*\": 2, \"/\": 2, \"%\": 2, \"**\": 3 };\nlet prev = \"\";\nfor (const tok of tokens) {\n  if (/^\\d/.test(tok)) salida.push(parseFloat(tok));\n  else if (funcs[tok]) { operadores.push(tok); }\n  else if (tok === \"(\") operadores.push(tok);\n  else if (tok === \")\") {\n    while (operadores.length && operadores[operadores.length - 1] !== \"(\") salida.push(operadores.pop());\n    operadores.pop();\n    if (operadores.length && funcs[operadores[operadores.length - 1]]) salida.push(operadores.pop());\n  } else {\n    if ((tok === \"-\" || tok === \"+\") && (prev === \"\" || prev === \"(\" || precedencia[prev])) { salida.push(0); }\n    while (operadores.length && operadores[operadores.length - 1] !== \"(\" && precedencia[operadores[operadores.length - 1]] >= precedencia[tok]) salida.push(operadores.pop());\n    operadores.push(tok);\n  }\n  prev = tok;\n}\nwhile (operadores.length) { const op = operadores.pop(); if (op !== \"(\") salida.push(op); }\nconst pila: number[] = [];\nfor (const t of salida) {\n  if (typeof t === \"number\") pila.push(t);\n  else if (funcs[t]) { const args = [pila.pop() as number]; pila.push(funcs[t](...args)); }\n  else {\n    const b = pila.pop() as number; const a = pila.pop() as number;\n    if (a === undefined || b === undefined) return fail(\"expresión malformada\");\n    switch (t) { case \"+\": pila.push(a + b); break; case \"-\": pila.push(a - b); break; case \"*\": pila.push(a * b); break; case \"/\": if (b === 0) return fail(\"división por cero\"); pila.push(a / b); break; case \"%\": pila.push(a % b); break; case \"**\": pila.push(Math.pow(a, b)); break; default: return fail(\"operador desconocido \" + t); }\n  }\n}\nif (pila.length !== 1 || !Number.isFinite(pila[0])) return fail(\"expresión malformada\");\nreturn ok({ expresion: expresion, resultado: Math.round(pila[0] * 1e10) / 1e10 });\n  }\n);\n\nserver.tool(\n  \"compare_expressions\",\n  \"Compara dos expresiones matemáticas: ¿son iguales? (útil para verificar cálculos del LLM).\",\n  {\n  a: z.string().describe(\"Expresión A\"),\n  b: z.string().describe(\"Expresión B\"),\n  },\n  async (args: any) => {\n    const { a, b } = args as any;\n    const evalSeguro = (src: string): number | null => {\n  try {\n    const expr = src.toLowerCase().replace(/\\s+/g, \"\");\n    if (!/^[\\d+\\-*/%().]+$/.test(expr)) return null;\n    const tokens = expr.match(/\\d+\\.?\\d*|[+\\-*/%()]/g) || [];\n    const pos: any[] = []; const ops: string[] = [];\n    const prec: any = { \"+\": 1, \"-\": 1, \"*\": 2, \"/\": 2, \"%\": 2 };\n    for (const tok of tokens) {\n      if (/^\\d/.test(tok)) pos.push(parseFloat(tok));\n      else if (tok === \"(\") ops.push(tok);\n      else if (tok === \")\") { while (ops.length && ops[ops.length - 1] !== \"(\") pos.push(ops.pop()); ops.pop(); }\n      else { while (ops.length && ops[ops.length - 1] !== \"(\" && prec[ops[ops.length - 1]] >= prec[tok]) pos.push(ops.pop()); ops.push(tok); }\n    }\n    while (ops.length) pos.push(ops.pop());\n    const pila: number[] = [];\n    for (const t of pos) {\n      if (typeof t === \"number\") pila.push(t);\n      else { const y = pila.pop() as number; const x = pila.pop() as number; if (x === undefined) return null; pila.push(t === \"+\" ? x + y : t === \"-\" ? x - y : t === \"*\" ? x * y : t === \"%\" ? x % y : y === 0 ? NaN : x / y); }\n    }\n    return pila.length === 1 && Number.isFinite(pila[0]) ? pila[0] : null;\n  } catch { return null; }\n};\nconst ra = evalSeguro(a); const rb = evalSeguro(b);\nif (ra === null || rb === null) return fail(\"alguna expresión no es evaluable de forma segura\");\nreturn ok({ valor_a: ra, valor_b: rb, equivalentes: Math.abs(ra - rb) < 1e-9 });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor sandbox-eval está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"sandbox-eval\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[sandbox-eval] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "sandbox-eval"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

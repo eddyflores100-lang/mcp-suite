@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-6c42d0",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-canary-deployer",
+  "version": "1.0.0",
+  "description": "Despliega cambios de agente al 10% del tráfico, mide, y decide con datos: promover o revertir Dolor que resuelve: El prompt nuevo se despliega al 100% de golpe: si degrada la calidad, se entera por las quejas de los usuarios con horas de daño. El canary clásico del backend jamás llegó al mundo de los agentes. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "cicd",
+   "canary",
+   "deployment"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only canary-deployer",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-canary-deployer",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "start_canary",
+    "record_result",
+    "evaluate_canary",
+    "close_canary",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only canary-deployer",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-canary-deployer\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-canary-deployer/dist/index.js\"]}}}. Tools disponibles: start_canary, record_result, evaluate_canary, close_canary y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/canary-deployer/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-canary-deployer (start_canary, record_result, evaluate_canary, close_canary). Despliega cambios de agente al 10% del tráfico, mide, y decide con datos: promover o revertir. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/canary-deployer/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/canary-deployer\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Canary Deployer — Despliega cambios de agente al 10% del tráfico, mide, y decide con datos: promover o revertir (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-canary-deployer\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"agent-ci-cd\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Canary Deployer\n\n> Despliega cambios de agente al 10% del tráfico, mide, y decide con datos: promover o revertir\n\n**Categoría:** Agent CI/CD · **ID:** `mcp-canary-deployer`\n\n**Dolor de agente que resuelve:** El prompt nuevo se despliega al 100% de golpe: si degrada la calidad, se entera por las quejas de los usuarios con horas de daño. El canary clásico del backend jamás llegó al mundo de los agentes.\n\n> Estado persistente en `~/.mcp-suite/canary-deployer/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `start_canary`\nInicia un canary: variante A (control) vs B (candidata) con % inicial de tráfico.\n\n**Parámetros:**\n  - `sistema` (string, requerido): Qué se despliega (prompt, herramienta, configuración)\n  - `control` (string, requerido): Identificador de la versión estable (A)\n  - `candidata` (string, requerido): Identificador de la versión nueva (B)\n  - `pct_inicial` (number, opcional): % de tráfico inicial a la candidata\n  - `min_muestras` (number, opcional): Muestras mínimas por variante antes de decidir\n  - `tolerancia_pct` (number, opcional): Pérdida máxima tolerada en la métrica principal\n\n### `record_result`\nRegistra el resultado de una ejecución real bajo una variante.\n\n**Parámetros:**\n  - `id` (string, requerido): Id del canary\n  - `variante` (enum, requerido): Variante que sirvió la ejecución\n  - `exito` (boolean, requerido): ¿La ejecución cumplió su objetivo?\n  - `latencia_ms` (number, opcional): Tiempo total\n  - `calidad` (number, opcional): Score de calidad 0-100 si lo mides\n\n### `evaluate_canary`\nEvalúa el canary con banda de tolerancia: PROMOVER, MANTENER (más muestras) o ABORTAR.\n\n**Parámetros:**\n  - `id` (string, requerido): Id del canary\n  - `auto_escala` (boolean, opcional): Si se mantiene: sugerir subir el % de tráfico\n\n### `close_canary`\nCierra el canary con la decisión final aplicada (promovido o abortado).\n\n**Parámetros:**\n  - `id` (string, requerido): Id del canary\n  - `decision` (enum, requerido): Decisión final\n  - `nota` (string, opcional): Nota de cierre\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"canary-deployer\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-canary-deployer/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/canary-deployer/. Lanzamientos canary con % de tráfico, resultados por variante (éxito, latencia, calidad) y criterio de decisión estadístico (banda de tolerancia) para promover o abortar.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Canary Deployer\n * Despliega cambios de agente al 10% del tráfico, mide, y decide con datos: promover o revertir\n *\n * Dolor que resuelve: El prompt nuevo se despliega al 100% de golpe: si degrada la calidad, se entera por las quejas de los usuarios con horas de daño. El canary clásico del backend jamás llegó al mundo de los agentes.\n * Categoría: Agent CI/CD | Generado por mcp-suite | id: canary-deployer\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/canary-deployer/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"canary-deployer\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"canary-deployer\", version: \"1.0.0\" });\n\nserver.tool(\n  \"start_canary\",\n  \"Inicia un canary: variante A (control) vs B (candidata) con % inicial de tráfico.\",\n  {\n  sistema: z.string().describe(\"Qué se despliega (prompt, herramienta, configuración)\"),\n  control: z.string().describe(\"Identificador de la versión estable (A)\"),\n  candidata: z.string().describe(\"Identificador de la versión nueva (B)\"),\n  pct_inicial: z.number().describe(\"% de tráfico inicial a la candidata\").default(10),\n  min_muestras: z.number().describe(\"Muestras mínimas por variante antes de decidir\").default(30),\n  tolerancia_pct: z.number().describe(\"Pérdida máxima tolerada en la métrica principal\").default(5),\n  },\n  async (args: any) => {\n    const { sistema, control, candidata, pct_inicial, min_muestras, tolerancia_pct } = args as any;\n    const st = store.load();\nst.canaries = st.canaries || [];\nconst activo = st.canaries.find(c => c.sistema === sistema && c.estado === \"ACTIVO\");\nif (activo) return fail(\"ya hay un canary ACTIVO para \" + sistema + \" (id \" + activo.id + \"): ciérralo primero\");\nconst id = \"cny_\" + String(st.canaries.length + 1).padStart(4, \"0\");\nst.canaries.push({ id, sistema, control, candidata, pct: pct_inicial, min_muestras, tolerancia_pct, estado: \"ACTIVO\", resultados: { A: [], B: [] }, decision: null, iniciado: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id, sistema, reparto: { A: 100 - pct_inicial + \"%\", B: pct_inicial + \"%\" }, min_muestras_por_variante: min_muestras, tolerancia: tolerancia_pct + \"% de pérdida máxima\", siguiente: \"envía resultados con record_result etiquetando la variante\" });\n  }\n);\n\nserver.tool(\n  \"record_result\",\n  \"Registra el resultado de una ejecución real bajo una variante.\",\n  {\n  id: z.string().describe(\"Id del canary\"),\n  variante: z.enum([\"A\",\"B\"]).describe(\"Variante que sirvió la ejecución\"),\n  exito: z.boolean().describe(\"¿La ejecución cumplió su objetivo?\"),\n  latencia_ms: z.number().describe(\"Tiempo total\").optional(),\n  calidad: z.number().describe(\"Score de calidad 0-100 si lo mides\").optional(),\n  },\n  async (args: any) => {\n    const { id, variante, exito, latencia_ms, calidad } = args as any;\n    const st = store.load();\nconst c = (st.canaries || []).find(x => x.id === id);\nif (!c) return fail(\"canary no encontrado\");\nif (c.estado !== \"ACTIVO\") return fail(\"canary \" + c.estado + \": no admite resultados\");\nc.resultados[variante].push({ exito, latencia_ms: latencia_ms ?? null, calidad: calidad ?? null, ts: new Date().toISOString() });\nstore.save(st);\nconst nA = c.resultados.A.length, nB = c.resultados.B.length;\nreturn ok({ id, variante, muestras: { A: nA, B: nB }, listas_para_decidir: nA >= c.min_muestras && nB >= c.min_muestras });\n  }\n);\n\nserver.tool(\n  \"evaluate_canary\",\n  \"Evalúa el canary con banda de tolerancia: PROMOVER, MANTENER (más muestras) o ABORTAR.\",\n  {\n  id: z.string().describe(\"Id del canary\"),\n  auto_escala: z.boolean().describe(\"Si se mantiene: sugerir subir el % de tráfico\").default(true),\n  },\n  async (args: any) => {\n    const { id, auto_escala } = args as any;\n    const st = store.load();\nconst c = (st.canaries || []).find(x => x.id === id);\nif (!c) return fail(\"canary no encontrado\");\nconst A = c.resultados.A, B = c.resultados.B;\nif (A.length < c.min_muestras || B.length < c.min_muestras) return ok({ estado: \"MANTENER\", razon: \"muestras insuficientes (A:\" + A.length + \" B:\" + B.length + \" de \" + c.min_muestras + \")\", accion: \"sigue registrando resultados\" });\nconst tasa = (arr) => arr.filter(r => r.exito).length / arr.length;\nconst tA = tasa(A), tB = tasa(B);\nconst deltaRel = tA > 0 ? (tB - tA) / tA * 100 : tB > 0 ? 100 : 0;\nconst latA = A.filter(r => r.latencia_ms).length ? A.filter(r => r.latencia_ms).reduce((s, r) => s + r.latencia_ms, 0) / A.filter(r => r.latencia_ms).length : null;\nconst latB = B.filter(r => r.latencia_ms).length ? B.filter(r => r.latencia_ms).reduce((s, r) => s + r.latencia_ms, 0) / B.filter(r => r.latencia_ms).length : null;\nlet estado, razon, accion;\nif (deltaRel >= 0) { estado = \"PROMOVER\"; razon = \"la candidata mejora la tasa de éxito en \" + Number(deltaRel.toFixed(1)) + \"% (\" + Number((tB * 100).toFixed(1)) + \"% vs \" + Number((tA * 100).toFixed(1)) + \"%)\"; accion = \"sube a 100% con promote\"; }\nelse if (Math.abs(deltaRel) <= c.tolerancia_pct) { estado = \"MANTENER\"; razon = \"pérdida de \" + Number(Math.abs(deltaRel).toFixed(1)) + \"% dentro de la tolerancia de \" + c.tolerancia_pct + \"%\"; accion = auto_escala ? \"sube el tráfico a \" + Math.min(c.pct * 2, 50) + \"% para ganar confianza\" : \"continúa recogiendo muestras\"; }\nelse { estado = \"ABORTAR\"; razon = \"la candidata PEORA la tasa de éxito en \" + Number(Math.abs(deltaRel).toFixed(1)) + \"%, muy por encima de la tolerancia\"; accion = \"vuelve todo el tráfico a A YA y etiqueta la candidata como rechazada\"; }\nreturn ok({ id, sistema: c.sistema, estado, razon, accion, metricas: { tasa_exito_A: Number((tA * 100).toFixed(1)) + \"%\", tasa_exito_B: Number((tB * 100).toFixed(1)) + \"%\", delta_relativo: Number(deltaRel.toFixed(1)) + \"%\", latencia_media_A: latA ? Math.round(latA) + \"ms\" : \"n/d\", latencia_media_B: latB ? Math.round(latB) + \"ms\" : \"n/d\" }, muestras: { A: A.length, B: B.length } });\n  }\n);\n\nserver.tool(\n  \"close_canary\",\n  \"Cierra el canary con la decisión final aplicada (promovido o abortado).\",\n  {\n  id: z.string().describe(\"Id del canary\"),\n  decision: z.enum([\"promovida\",\"abortada\",\"empate_manual\"]).describe(\"Decisión final\"),\n  nota: z.string().describe(\"Nota de cierre\").optional(),\n  },\n  async (args: any) => {\n    const { id, decision, nota } = args as any;\n    const st = store.load();\nconst c = (st.canaries || []).find(x => x.id === id);\nif (!c) return fail(\"canary no encontrado\");\nif (c.estado !== \"ACTIVO\") return fail(\"ya cerrado\");\nc.estado = decision === \"promovida\" ? \"PROMOVIDA\" : decision === \"abortada\" ? \"ABORTADA\" : \"EMPATE\";\nc.decision = { decision, nota: nota || \"\", ts: new Date().toISOString(), muestras_A: c.resultados.A.length, muestras_B: c.resultados.B.length };\nstore.save(st);\nreturn ok({ id, cerrado: true, decision, efecto: decision === \"promovida\" ? \"la candidata \" + c.candidata + \" es la nueva estable\" : decision === \"abortada\" ? \"todo el tráfico vuelve a \" + c.control : \"decisión humana documentada\", leccion: decision === \"abortada\" ? \"registra POR QUÉ falló la candidata: alimenta la próxima iteración\" : null });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor canary-deployer está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"canary-deployer\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[canary-deployer] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "canary-deployer"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

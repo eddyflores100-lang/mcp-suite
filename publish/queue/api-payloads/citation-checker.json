@@ -1,0 +1,63 @@
+{
+ "name": "mcp-citation-checker",
+ "version": "1.0.0",
+ "description": "Extrae, formatea y verifica citas y URLs de cualquier texto Dolor que resuelve: Los LLM inventan URLs y citas (alucinación de fuentes): sin verificación, el usuario propaga información falsa. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Developer Tools",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "quality",
+  "validation",
+  "hallucination"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only citation-checker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-citation-checker",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": true,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "extract_citations",
+   "check_urls",
+   "format_citations",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only citation-checker",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-citation-checker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-citation-checker/dist/index.js\"]}}}. Tools disponibles: extract_citations, check_urls, format_citations y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/citation-checker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-citation-checker (extract_citations, check_urls, format_citations). Extrae, formatea y verifica citas y URLs de cualquier texto. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/citation-checker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/citation-checker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Citation Checker — Extrae, formatea y verifica citas y URLs de cualquier texto (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-citation-checker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Citation Checker\n\n> Extrae, formatea y verifica citas y URLs de cualquier texto\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-citation-checker`\n\n**Dolor de agente que resuelve:** Los LLM inventan URLs y citas (alucinación de fuentes): sin verificación, el usuario propaga información falsa.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (4 incl. health_check)\n\n### `extract_citations`\nExtrae todas las URLs y referencias de un texto, las deduplica y las clasifica (http, dominio, markdown link, DOI).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto con posibles citas\n\n### `check_urls`\nVerifica en vivo (HEAD/GET) si las URLs citadas existen realmente. Devuelve status HTTP por URL.\n\n**Parámetros:**\n  - `urls` (array, requerido): Lista de URLs a verificar\n\n### `format_citations`\nFormatea una lista de referencias en estilo consistente (APA-lite o markdown) a partir de {titulo, url, fecha}.\n\n**Parámetros:**\n  - `referencias` (array, requerido): Lista de {titulo, url, fecha?}\n  - `estilo` (enum, opcional): Estilo\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"citation-checker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-citation-checker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Citation Checker\n * Extrae, formatea y verifica citas y URLs de cualquier texto\n *\n * Dolor que resuelve: Los LLM inventan URLs y citas (alucinación de fuentes): sin verificación, el usuario propaga información falsa.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: citation-checker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/citation-checker\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"citation-checker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"extract_citations\",\n  \"Extrae todas las URLs y referencias de un texto, las deduplica y las clasifica (http, dominio, markdown link, DOI).\",\n  {\n  texto: z.string().describe(\"Texto con posibles citas\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const t = String(texto);\nconst encontradas: string[] = t.match(/https?:\\/\\/[^\\s)\\]<>\"]+/g) || [];\nconst urls = [...new Set(encontradas)].map((u: string) => u.replace(/[.,;:]+$/, \"\"));\nconst dominios = [...new Set(t.match(/\\b[a-z0-9-]+\\.(com|org|net|io|dev|es|ec|edu|gov|co|ai)\\b/gi) || [])];\nconst dois = [...new Set(t.match(/\\b10\\.\\d{4,}\\/[^\\s]+/g) || [])];\nreturn ok({ urls, dominios: dominios.map((d: string) => d.toLowerCase()), doi: dois, total_referencias: urls.length + dominios.length + dois.length });\n  }\n);\n\nserver.tool(\n  \"check_urls\",\n  \"Verifica en vivo (HEAD/GET) si las URLs citadas existen realmente. Devuelve status HTTP por URL.\",\n  {\n  urls: z.array(z.any()).describe(\"Lista de URLs a verificar\"),\n  },\n  async (args: any) => {\n    const { urls } = args as any;\n    const lista = (Array.isArray(urls) ? urls : []).slice(0, 10);\nconst resultados: any[] = [];\nfor (const u of lista) {\n  try {\n    const r = await fetchSmart(u, { timeoutMs: 10000, retries: 1 });\n    resultados.push({ url: u, existe: r.status >= 200 && r.status < 400, http: r.status });\n  } catch (e: any) {\n    resultados.push({ url: u, existe: false, error: (e.message || \"\").slice(0, 80) });\n  }\n}\nreturn ok({ verificadas: resultados.length, vivas: resultados.filter((r) => r.existe).length, resultados });\n  }\n);\n\nserver.tool(\n  \"format_citations\",\n  \"Formatea una lista de referencias en estilo consistente (APA-lite o markdown) a partir de {titulo, url, fecha}.\",\n  {\n  referencias: z.array(z.any()).describe(\"Lista de {titulo, url, fecha?}\"),\n  estilo: z.enum([\"apa\",\"markdown\"]).describe(\"Estilo\").default(\"markdown\"),\n  },\n  async (args: any) => {\n    const { referencias, estilo } = args as any;\n    const refs = Array.isArray(referencias) ? referencias : [];\nconst out = refs.map((r: any) => {\n  if ((estilo || \"markdown\") === \"apa\") return r.titulo + (r.fecha ? \" (\" + r.fecha + \")\" : \" (s.f.)\") + \". \" + (r.url || \"\");\n  return \"- [\" + (r.titulo || \"sin título\") + \"](\" + (r.url || \"\") + \")\" + (r.fecha ? \" — \" + r.fecha : \"\");\n});\nreturn ok({ referencias_formateadas: out });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor citation-checker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"citation-checker\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[citation-checker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

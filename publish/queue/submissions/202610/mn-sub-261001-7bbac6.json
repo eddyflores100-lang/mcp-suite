@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-7bbac6",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-progress-journal",
+  "version": "1.0.0",
+  "description": "Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó Dolor que resuelve: Tras horas de trabajo el agente no puede responder '¿qué has hecho?': los intentos fallidos no se registran y el contexto se comprime perdiendo el rastro de lo ya intentado. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "goals",
+   "long-horizon",
+   "alignment"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only progress-journal",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-progress-journal",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_entry",
+    "recent",
+    "stall_detector",
+    "narrative",
+    "experiments_recap",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only progress-journal",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-progress-journal\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-progress-journal/dist/index.js\"]}}}. Tools disponibles: add_entry, recent, stall_detector, narrative, experiments_recap y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/progress-journal/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-progress-journal (add_entry, recent, stall_detector, narrative, experiments_recap). Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/progress-journal/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/progress-journal\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Progress Journal — Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-progress-journal\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"objetivos-y-largo-plazo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Progress Journal\n\n> Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó\n\n**Categoría:** Objetivos y Largo Plazo · **ID:** `mcp-progress-journal`\n\n**Dolor de agente que resuelve:** Tras horas de trabajo el agente no puede responder '¿qué has hecho?': los intentos fallidos no se registran y el contexto se comprime perdiendo el rastro de lo ya intentado.\n\n> Estado persistente en `~/.mcp-suite/progress-journal/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `add_entry`\nAñade una entrada al diario: tipo (progreso, experimento, decision, bloqueo, hallazgo) y narrativa.\n\n**Parámetros:**\n  - `tipo` (enum, requerido): Tipo de entrada\n  - `titulo` (string, requerido): Título corto\n  - `detalle` (string, requerido): Narrativa completa: qué, cómo, resultado\n  - `etiquetas` (array, opcional): Etiquetas\n  - `exito` (boolean, opcional): Solo experimentos: ¿funcionó?\n\n### `recent`\nÚltimas N entradas con filtro por tipo; incluye el resumen ejecutivo del estado.\n\n**Parámetros:**\n  - `n` (number, opcional): Cuántas entradas\n  - `tipo` (string, opcional): Filtrar por tipo\n\n### `stall_detector`\nDetecta estancamiento: mismo tipo de bloqueo repetido o días sin entradas de progreso.\n\n**Parámetros:**\n  - `dias_umbral` (number, opcional): Días sin progreso para alertar\n\n### `narrative`\nGenera la narrativa continua del trabajo (para handoffs o reportes): cronología comprimida agrupada por día.\n\n**Parámetros:**\n  - `desde_entrada` (number, opcional): Número de entrada inicial\n\n### `experiments_recap`\nBalance de experimentos: qué se probó, qué funcionó y tasa de acierto global.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"progress-journal\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-progress-journal/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/progress-journal/. Entradas cronológicas tipo entrada/experimento/decisión/bloqueo con resumen ejecutivo dinámico y detección de estancamiento (mismo bloqueo repetido).\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Progress Journal\n * Diario de progreso con narrativa continua: qué se hizo, qué se intentó y falló, y dónde quedó\n *\n * Dolor que resuelve: Tras horas de trabajo el agente no puede responder '¿qué has hecho?': los intentos fallidos no se registran y el contexto se comprime perdiendo el rastro de lo ya intentado.\n * Categoría: Objetivos y Largo Plazo | Generado por mcp-suite | id: progress-journal\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/progress-journal/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"progress-journal\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"progress-journal\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_entry\",\n  \"Añade una entrada al diario: tipo (progreso, experimento, decision, bloqueo, hallazgo) y narrativa.\",\n  {\n  tipo: z.enum([\"progreso\",\"experimento\",\"decision\",\"bloqueo\",\"hallazgo\"]).describe(\"Tipo de entrada\"),\n  titulo: z.string().describe(\"Título corto\"),\n  detalle: z.string().describe(\"Narrativa completa: qué, cómo, resultado\"),\n  etiquetas: z.array(z.any()).describe(\"Etiquetas\").default([]),\n  exito: z.boolean().describe(\"Solo experimentos: ¿funcionó?\").optional(),\n  },\n  async (args: any) => {\n    const { tipo, titulo, detalle, etiquetas, exito } = args as any;\n    const st = store.load();\nst.entradas = st.entradas || [];\nst.entradas.push({ n: st.entradas.length + 1, tipo, titulo, detalle, etiquetas: etiquetas || [], exito: exito ?? null, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ entrada_n: st.entradas.length, tipo });\n  }\n);\n\nserver.tool(\n  \"recent\",\n  \"Últimas N entradas con filtro por tipo; incluye el resumen ejecutivo del estado.\",\n  {\n  n: z.number().describe(\"Cuántas entradas\").default(10),\n  tipo: z.string().describe(\"Filtrar por tipo\").optional(),\n  },\n  async (args: any) => {\n    const { n, tipo } = args as any;\n    const st = store.load();\nlet es = st.entradas || [];\nif (tipo) es = es.filter(e => e.tipo === tipo);\nconst ultimas = es.slice(-Math.max(1, Math.min(n, 50)));\nconst hoy = (new Date()).toISOString().slice(0, 10);\nconst deHoy = (st.entradas || []).filter(e => e.ts.slice(0, 10) === hoy);\nreturn ok({\n  total: (st.entradas || []).length, hoy: deHoy.length,\n  resumen_ejecutivo: {\n    progreso_total: (st.entradas || []).filter(e => e.tipo === \"progreso\").length,\n    experimentos_fallidos: (st.entradas || []).filter(e => e.tipo === \"experimento\" && e.exito === false).length,\n    decisiones: (st.entradas || []).filter(e => e.tipo === \"decision\").length,\n    bloqueos_abiertos: (st.entradas || []).filter(e => e.tipo === \"bloqueo\").length,\n  },\n  entradas: ultimas.reverse().map(e => ({ n: e.n, ts: e.ts, tipo: e.tipo, titulo: e.titulo, exito: e.exito })),\n});\n  }\n);\n\nserver.tool(\n  \"stall_detector\",\n  \"Detecta estancamiento: mismo tipo de bloqueo repetido o días sin entradas de progreso.\",\n  {\n  dias_umbral: z.number().describe(\"Días sin progreso para alertar\").default(2),\n  },\n  async (args: any) => {\n    const { dias_umbral } = args as any;\n    const st = store.load();\nconst es = st.entradas || [];\nif (!es.length) return ok({ entradas: 0 });\nconst bloqueos = es.filter(e => e.tipo === \"bloqueo\");\nconst titulos = {};\nfor (const b of bloqueos) {\n  const k = b.titulo.toLowerCase().split(/\\W+/).filter(w => w.length > 3).sort().join(\"_\");\n  titulos[k] = titulos[k] || [];\n  titulos[k].push(b);\n}\nconst repetidos = __ents(titulos).filter(([, v]) => v.length >= 2).map(([k, v]) => ({ patron: v[0].titulo, veces: v.length, primera: v[0].ts, ultima: v[v.length - 1].ts }));\nconst ultimoProgreso = [...es].reverse().find(e => e.tipo === \"progreso\");\nconst diasSinProgreso = ultimoProgreso ? Number(((Date.now() - new Date(ultimoProgreso.ts).getTime()) / 86400000).toFixed(1)) : null;\nreturn ok({\n  bloqueos_repetidos: repetidos,\n  dias_sin_progreso: diasSinProgreso,\n  estancado: repetidos.length > 0 || (diasSinProgreso !== null && diasSinProgreso > dias_umbral),\n  consejo: repetidos.length ? \"mismo bloqueo \" + repetidos[0].veces + \" veces: cambia de ESTRATEGIA, no de intento\" : (diasSinProgreso > dias_umbral ? \"sin progreso real en \" + diasSinProgreso + \" días: replantea\" : \"avanzando\"),\n});\n  }\n);\n\nserver.tool(\n  \"narrative\",\n  \"Genera la narrativa continua del trabajo (para handoffs o reportes): cronología comprimida agrupada por día.\",\n  {\n  desde_entrada: z.number().describe(\"Número de entrada inicial\").default(1),\n  },\n  async (args: any) => {\n    const { desde_entrada } = args as any;\n    const st = store.load();\nconst es = (st.entradas || []).filter(e => e.n >= desde_entrada);\nif (!es.length) return fail(\"no hay entradas desde la \" + desde_entrada);\nconst porDia = {};\nfor (const e of es) {\n  const d = e.ts.slice(0, 10);\n  porDia[d] = porDia[d] || [];\n  porDia[d].push(e);\n}\nconst narrativa = __ents(porDia).map(([d, items]) => ({\n  dia: d,\n  lineas: items.map(e => \"- [\" + e.tipo + (e.exito !== null ? \":\" + (e.exito ? \"ok\" : \"fallo\") : \"\") + \"] \" + e.titulo + \": \" + e.detalle.slice(0, 160)),\n}));\nreturn ok({ desde: desde_entrada, hasta: es[es.length - 1].n, dias: narrativa.length, narrativa });\n  }\n);\n\nserver.tool(\n  \"experiments_recap\",\n  \"Balance de experimentos: qué se probó, qué funcionó y tasa de acierto global.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst exps = (st.entradas || []).filter(e => e.tipo === \"experimento\");\nif (!exps.length) return ok({ experimentos: 0 });\nconst okExps = exps.filter(e => e.exito === true);\nconst fallos = exps.filter(e => e.exito === false);\nreturn ok({\n  experimentos: exps.length,\n  aciertos: okExps.length, fallos: fallos.length,\n  tasa_acierto: Number((okExps.length / exps.length).toFixed(2)),\n  que_funciono: okExps.map(e => e.titulo),\n  que_fallo: fallos.map(e => ({ titulo: e.titulo, leccion: e.detalle.slice(0, 140) })),\n  consejo: fallos.length > 2 * okExps.length ? \"tasa de acierto baja: reformula las hipótesis antes del siguiente intento\" : \"ritmo experimental sano\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor progress-journal está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"progress-journal\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[progress-journal] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "progress-journal"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

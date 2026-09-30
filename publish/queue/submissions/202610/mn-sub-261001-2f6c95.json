@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-2f6c95",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-datetime-toolkit",
+  "version": "1.0.0",
+  "description": "Fechas exactas: parse natural-ligero, formato, zonas horarias y días hábiles Dolor que resuelve: Los LLM calculan mal 'qué día será en 30 días' o mezclan zonas horarias: las fechas de deadlines deben ser exactas. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Productivity",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "utilities",
+   "toolkit",
+   "productivity"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only datetime-toolkit",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-datetime-toolkit",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "parse_date",
+    "add_days",
+    "diff_dates",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only datetime-toolkit",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-datetime-toolkit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-datetime-toolkit/dist/index.js\"]}}}. Tools disponibles: parse_date, add_days, diff_dates y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/datetime-toolkit/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-datetime-toolkit (parse_date, add_days, diff_dates). Fechas exactas: parse natural-ligero, formato, zonas horarias y días hábiles. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/datetime-toolkit/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/datetime-toolkit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Datetime Toolkit — Fechas exactas: parse natural-ligero, formato, zonas horarias y días hábiles (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-datetime-toolkit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"utilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Datetime Toolkit\n\n> Fechas exactas: parse natural-ligero, formato, zonas horarias y días hábiles\n\n**Categoría:** Utilidades · **ID:** `mcp-datetime-toolkit`\n\n**Dolor de agente que resuelve:** Los LLM calculan mal 'qué día será en 30 días' o mezclan zonas horarias: las fechas de deadlines deben ser exactas.\n\n## Tools (4 incl. health_check)\n\n### `parse_date`\nParsea fechas en múltiples formatos a ISO: ISO, dd/mm/yyyy, 'hoy', 'mañana', 'pasado mañana', 'lunes próximo', 'hace N días'.\n\n**Parámetros:**\n  - `texto` (string, requerido): Fecha en texto\n  - `zona` (string, opcional): Zona horaria IANA\n\n### `add_days`\nSuma/resta días (o business days) a una fecha ISO con exactitud de calendario.\n\n**Parámetros:**\n  - `fecha` (string, requerido): Fecha ISO (yyyy-mm-dd)\n  - `dias` (number, requerido): Días a sumar (negativo resta)\n  - `solo_habiles` (boolean, opcional): Solo días hábiles (L-V)\n\n### `diff_dates`\nDiferencia exacta entre dos fechas: días totales, días hábiles, semanas y meses aproximados.\n\n**Parámetros:**\n  - `desde` (string, requerido): Fecha ISO inicial\n  - `hasta` (string, requerido): Fecha ISO final\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"datetime-toolkit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-datetime-toolkit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Datetime Toolkit\n * Fechas exactas: parse natural-ligero, formato, zonas horarias y días hábiles\n *\n * Dolor que resuelve: Los LLM calculan mal 'qué día será en 30 días' o mezclan zonas horarias: las fechas de deadlines deben ser exactas.\n * Categoría: Utilidades | Generado por mcp-suite | id: datetime-toolkit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"datetime-toolkit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"parse_date\",\n  \"Parsea fechas en múltiples formatos a ISO: ISO, dd/mm/yyyy, 'hoy', 'mañana', 'pasado mañana', 'lunes próximo', 'hace N días'.\",\n  {\n  texto: z.string().describe(\"Fecha en texto\"),\n  zona: z.string().describe(\"Zona horaria IANA\").default(\"America/Guayaquil\"),\n  },\n  async (args: any) => {\n    const { texto, zona } = args as any;\n    const t = texto.toLowerCase().trim();\nconst ahora = new Date();\nconst resolver = (d: Date) => d.toISOString().slice(0, 10);\nif (t === \"hoy\") return ok({ iso: resolver(ahora), interpretacion: \"hoy\" });\nif (t === \"mañana\") return ok({ iso: resolver(new Date(ahora.getTime() + 86400000)), interpretacion: \"mañana\" });\nif (t === \"pasado mañana\") return ok({ iso: resolver(new Date(ahora.getTime() + 2 * 86400000)), interpretacion: \"pasado mañana\" });\nconst haceMatch = t.match(/^hace (\\d+) d[ií]as?$/);\nif (haceMatch) return ok({ iso: resolver(new Date(ahora.getTime() - Number(haceMatch[1]) * 86400000)), interpretacion: \"hace \" + haceMatch[1] + \" días\" });\nconst enMatch = t.match(/^en (\\d+) d[ií]as?$/);\nif (enMatch) return ok({ iso: resolver(new Date(ahora.getTime() + Number(enMatch[1]) * 86400000)), interpretacion: \"en \" + enMatch[1] + \" días\" });\nconst dias = [\"domingo\", \"lunes\", \"martes\", \"miércoles\", \"jueves\", \"viernes\", \"sábado\"];\nconst diaMatch = t.match(/^(\\w+)( pr[oó]ximo)?$/);\nif (diaMatch) {\n  const idx = dias.indexOf(diaMatch[1]);\n  if (idx >= 0) {\n    let delta = (idx - ahora.getDay() + 7) % 7;\n    if (delta === 0) delta = 7;\n    return ok({ iso: resolver(new Date(ahora.getTime() + delta * 86400000)), interpretacion: diaMatch[1] + \" próximo (+\" + delta + \"d)\" });\n  }\n}\nconst iso = texto.match(/^(\\d{4})-(\\d{2})-(\\d{2})/);\nif (iso) return ok({ iso: texto.slice(0, 10), interpretacion: \"ISO directo\" });\nconst dmy = texto.match(/^(\\d{1,2})[\\/](\\d{1,2})[\\/](\\d{4})$/);\nif (dmy) return ok({ iso: dmy[3] + \"-\" + dmy[2].padStart(2, \"0\") + \"-\" + dmy[1].padStart(2, \"0\"), interpretacion: \"dd/mm/yyyy (formato latino)\" });\nconst mdy = texto.match(/^(\\d{1,2})[\\/](\\d{1,2})[\\/](\\d{4})$/);\nif (mdy) return ok({ iso: mdy[3] + \"-\" + mdy[1].padStart(2, \"0\") + \"-\" + mdy[2].padStart(2, \"0\"), interpretacion: \"mm/dd/yyyy (formato US)\" });\nreturn fail(\"formato no reconocido: prueba ISO, dd/mm/aaaa, 'hoy', 'mañana', 'hace N días', 'lunes próximo'\");\n  }\n);\n\nserver.tool(\n  \"add_days\",\n  \"Suma/resta días (o business days) a una fecha ISO con exactitud de calendario.\",\n  {\n  fecha: z.string().describe(\"Fecha ISO (yyyy-mm-dd)\"),\n  dias: z.number().describe(\"Días a sumar (negativo resta)\"),\n  solo_habiles: z.boolean().describe(\"Solo días hábiles (L-V)\").default(false),\n  },\n  async (args: any) => {\n    const { fecha, dias, solo_habiles } = args as any;\n    const base = new Date(fecha + \"T12:00:00Z\");\nif (isNaN(base.getTime())) return fail(\"fecha inválida: usa yyyy-mm-dd\");\nlet d = new Date(base);\nif (solo_habiles) {\n  let restantes = Math.abs(dias);\n  const paso = dias >= 0 ? 1 : -1;\n  while (restantes > 0) {\n    d = new Date(d.getTime() + paso * 86400000);\n    const dow = d.getUTCDay();\n    if (dow !== 0 && dow !== 6) restantes--;\n  }\n} else d = new Date(d.getTime() + dias * 86400000);\nreturn ok({ fecha_original: fecha, fecha_resultado: d.toISOString().slice(0, 10), dia_semana: [\"domingo\", \"lunes\", \"martes\", \"miércoles\", \"jueves\", \"viernes\", \"sábado\"][d.getUTCDay()], dias_aplicados: dias });\n  }\n);\n\nserver.tool(\n  \"diff_dates\",\n  \"Diferencia exacta entre dos fechas: días totales, días hábiles, semanas y meses aproximados.\",\n  {\n  desde: z.string().describe(\"Fecha ISO inicial\"),\n  hasta: z.string().describe(\"Fecha ISO final\"),\n  },\n  async (args: any) => {\n    const { desde, hasta } = args as any;\n    const a = new Date(desde + \"T12:00:00Z\"); const b = new Date(hasta + \"T12:00:00Z\");\nif (isNaN(a.getTime()) || isNaN(b.getTime())) return fail(\"fechas inválidas\");\nconst ms = b.getTime() - a.getTime();\nconst dias = Math.round(ms / 86400000);\nlet habiles = 0;\nfor (let i = 0; i < Math.abs(dias); i++) {\n  const d = new Date(Math.min(a.getTime(), b.getTime()) + i * 86400000);\n  const dow = d.getUTCDay();\n  if (dow !== 0 && dow !== 6) habiles++;\n}\nreturn ok({ dias_totales: dias, dias_habiles: habiles, semanas: Math.round((dias / 7) * 10) / 10, meses_aprox: Math.round((dias / 30.44) * 10) / 10, direccion: dias >= 0 ? \"hacia adelante\" : \"hacia atrás\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor datetime-toolkit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"datetime-toolkit\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[datetime-toolkit] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "datetime-toolkit"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

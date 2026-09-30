@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-a743ac",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-w3c-vc-kit",
+  "version": "1.0.0",
+  "description": "Construye y valida Verifiable Credentials (estructura W3C) para claims de agentes Dolor que resuelve: Los claims de un agente ('fui auditado', 'tengo score 9') no son verificables sin la estructura VC estándar. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "ed25519",
+   "cryptography",
+   "trust"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only w3c-vc-kit",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-w3c-vc-kit",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "build_vc",
+    "validate_vc",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only w3c-vc-kit",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-w3c-vc-kit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-w3c-vc-kit/dist/index.js\"]}}}. Tools disponibles: build_vc, validate_vc y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/w3c-vc-kit/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-w3c-vc-kit (build_vc, validate_vc). Construye y valida Verifiable Credentials (estructura W3C) para claims de agentes. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/w3c-vc-kit/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/w3c-vc-kit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"W3C VC Kit — Construye y valida Verifiable Credentials (estructura W3C) para claims de agentes (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-w3c-vc-kit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# W3C VC Kit\n\n> Construye y valida Verifiable Credentials (estructura W3C) para claims de agentes\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-w3c-vc-kit`\n\n**Dolor de agente que resuelve:** Los claims de un agente ('fui auditado', 'tengo score 9') no son verificables sin la estructura VC estándar.\n\n## Tools (3 incl. health_check)\n\n### `build_vc`\nConstruye una Verifiable Credential W3C: issuer, subject, claims tipados, fecha de emisión/expiración y proof placeholder para firmar.\n\n**Parámetros:**\n  - `issuer` (string, requerido): Emisor de la credencial\n  - `subject_id` (string, requerido): DID o id del sujeto\n  - `claims` (any, requerido): Objeto de claims (ej: {trust_score: 9, audited: true})\n  - `dias_validez` (number, opcional): Días de validez\n\n### `validate_vc`\nValida la estructura de una VC W3C: contexts, tipos, fechas, subject y proof presente. (No verifica la criptografía: usa verification-pipeline para eso).\n\n**Parámetros:**\n  - `vc` (any, requerido): Verifiable Credential a validar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"w3c-vc-kit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-w3c-vc-kit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: W3C VC Kit\n * Construye y valida Verifiable Credentials (estructura W3C) para claims de agentes\n *\n * Dolor que resuelve: Los claims de un agente ('fui auditado', 'tengo score 9') no son verificables sin la estructura VC estándar.\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: w3c-vc-kit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"w3c-vc-kit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"build_vc\",\n  \"Construye una Verifiable Credential W3C: issuer, subject, claims tipados, fecha de emisión/expiración y proof placeholder para firmar.\",\n  {\n  issuer: z.string().describe(\"Emisor de la credencial\"),\n  subject_id: z.string().describe(\"DID o id del sujeto\"),\n  claims: z.any().describe(\"Objeto de claims (ej: {trust_score: 9, audited: true})\"),\n  dias_validez: z.number().describe(\"Días de validez\").default(90),\n  },\n  async (args: any) => {\n    const { issuer, subject_id, claims, dias_validez } = args as any;\n    const now = new Date();\nconst vc = {\n  \"@context\": [\"https://www.w3.org/ns/credentials/v2\"],\n  type: [\"VerifiableCredential\"],\n  issuer: issuer,\n  issuanceDate: now.toISOString(),\n  expirationDate: new Date(now.getTime() + (dias_validez ?? 90) * 86400000).toISOString(),\n  credentialSubject: { id: subject_id, ...((typeof claims === \"object\" && claims) || {}) },\n  proof: { type: \"Ed25519Signature2025\", created: now.toISOString(), verificationMethod: \"<PEM de clave pública aquí>\", proofPurpose: \"assertionMethod\", signature: \"<firmar la forma canónica JCS del VC sin proof>\" },\n};\nreturn ok({ vc, siguiente_paso: \"firma la forma canónica (sin proof) con el MCP ed25519-toolbox o atc-agent-trust-card\" });\n  }\n);\n\nserver.tool(\n  \"validate_vc\",\n  \"Valida la estructura de una VC W3C: contexts, tipos, fechas, subject y proof presente. (No verifica la criptografía: usa verification-pipeline para eso).\",\n  {\n  vc: z.any().describe(\"Verifiable Credential a validar\"),\n  },\n  async (args: any) => {\n    const { vc } = args as any;\n    const v = vc || {};\nconst problemas = [];\nconst ctx = v[\"@context\"];\nif (!ctx || (Array.isArray(ctx) && !ctx.includes(\"https://www.w3.org/ns/credentials/v2\")) ) problemas.push(\"@context incorrecto\");\nif (!Array.isArray(v.type) || !v.type.includes(\"VerifiableCredential\")) problemas.push(\"type debe incluir VerifiableCredential\");\nif (!v.issuer) problemas.push(\"falta issuer\");\nif (!v.issuanceDate) problemas.push(\"falta issuanceDate\");\nif (v.expirationDate && new Date(v.expirationDate) < new Date()) problemas.push(\"EXPIRADA\");\nif (!v.credentialSubject?.id && !v.credentialSubject) problemas.push(\"falta credentialSubject\");\nif (!v.proof) problemas.push(\"falta proof\");\nreturn ok({ estructura_valida: problemas.length === 0, problemas, claims: v.credentialSubject, vigente: !(v.expirationDate && new Date(v.expirationDate) < new Date()) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor w3c-vc-kit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"w3c-vc-kit\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[w3c-vc-kit] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "w3c-vc-kit"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

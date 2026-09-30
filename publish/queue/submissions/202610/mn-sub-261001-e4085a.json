@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-e4085a",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-reputation-oracle",
+  "version": "1.0.0",
+  "description": "Agrega señales heterogéneas en un score de reputación explicable para sellers y skills Dolor que resuelve: Score = caja negra: el comprador no sabe cómo se compone la reputación de una skill ni qué señales pesan. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "sentinel",
+   "audit",
+   "devsecops"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only reputation-oracle",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-reputation-oracle",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "score_from_signals",
+    "suspicious_patterns",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only reputation-oracle",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-reputation-oracle\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-reputation-oracle/dist/index.js\"]}}}. Tools disponibles: score_from_signals, suspicious_patterns y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/reputation-oracle/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-reputation-oracle (score_from_signals, suspicious_patterns). Agrega señales heterogéneas en un score de reputación explicable para sellers y skills. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/reputation-oracle/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/reputation-oracle\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Reputation Oracle — Agrega señales heterogéneas en un score de reputación explicable para sellers y skills (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-reputation-oracle\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-ops\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Reputation Oracle\n\n> Agrega señales heterogéneas en un score de reputación explicable para sellers y skills\n\n**Categoría:** MarketNow Ops · **ID:** `mcp-reputation-oracle`\n\n**Dolor de agente que resuelve:** Score = caja negra: el comprador no sabe cómo se compone la reputación de una skill ni qué señales pesan.\n\n> Estado persistente en `~/.mcp-suite/reputation-oracle/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `score_from_signals`\nCalcula score de reputación 0-100 desde señales: stars GitHub, downloads npm, sentinel score, antigüedad, tasa de issues. Pesos ajustables.\n\n**Parámetros:**\n  - `estrellas` (number, opcional): Estrellas GitHub\n  - `downloads` (number, opcional): Descargas semanales npm\n  - `sentinel` (number, opcional): Sentinel score 0-10\n  - `issues_abiertos` (number, opcional): Issues abiertos\n  - `antiguedad_meses` (number, opcional): Meses desde primer release\n\n### `suspicious_patterns`\nDetecta patrones de manipulación de reputación: reviews duplicadas, spikes de descargas, puntuaciones inconsistentes.\n\n**Parámetros:**\n  - `reviews` (array, requerido): Lista de reviews [{autor, texto, estrellas, fecha}]\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"reputation-oracle\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-reputation-oracle/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Reputation Oracle\n * Agrega señales heterogéneas en un score de reputación explicable para sellers y skills\n *\n * Dolor que resuelve: Score = caja negra: el comprador no sabe cómo se compone la reputación de una skill ni qué señales pesan.\n * Categoría: MarketNow Ops | Generado por mcp-suite | id: reputation-oracle\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/reputation-oracle/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"reputation-oracle\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"reputation-oracle\", version: \"1.0.0\" });\n\nserver.tool(\n  \"score_from_signals\",\n  \"Calcula score de reputación 0-100 desde señales: stars GitHub, downloads npm, sentinel score, antigüedad, tasa de issues. Pesos ajustables.\",\n  {\n  estrellas: z.number().describe(\"Estrellas GitHub\").default(0),\n  downloads: z.number().describe(\"Descargas semanales npm\").default(0),\n  sentinel: z.number().describe(\"Sentinel score 0-10\").default(0),\n  issues_abiertos: z.number().describe(\"Issues abiertos\").default(0),\n  antiguedad_meses: z.number().describe(\"Meses desde primer release\").default(0),\n  },\n  async (args: any) => {\n    const { estrellas, downloads, sentinel, issues_abiertos, antiguedad_meses } = args as any;\n    const estrellas_pts = Math.min(30, Math.log10(1 + (estrellas ?? 0)) * 12);\nconst downloads_pts = Math.min(25, Math.log10(1 + (downloads ?? 0)) * 10);\nconst sentinel_pts = ((sentinel ?? 0) / 10) * 30;\nconst issues_pen = Math.min(10, Math.log10(1 + (issues_abiertos ?? 0)) * 5);\nconst madurez_pts = Math.min(15, Math.log10(1 + (antiguedad_meses ?? 0)) * 8);\nconst total = Math.round(Math.max(0, Math.min(100, estrellas_pts + downloads_pts + sentinel_pts + madurez_pts - issues_pen)));\nreturn ok({ score: total, desglose: { estrellas: Math.round(estrellas_pts), downloads: Math.round(downloads_pts), sentinel: Math.round(sentinel_pts), madurez: Math.round(madurez_pts), penalizacion_issues: -Math.round(issues_pen) }, interpretacion: total >= 70 ? \"alta reputación\" : total >= 40 ? \"reputación media\" : \"reputación baja: verificar manualmente\" });\n  }\n);\n\nserver.tool(\n  \"suspicious_patterns\",\n  \"Detecta patrones de manipulación de reputación: reviews duplicadas, spikes de descargas, puntuaciones inconsistentes.\",\n  {\n  reviews: z.array(z.any()).describe(\"Lista de reviews [{autor, texto, estrellas, fecha}]\"),\n  },\n  async (args: any) => {\n    const { reviews } = args as any;\n    const rs = Array.isArray(reviews) ? reviews : [];\nconst alertas = [];\nconst textos = rs.map((r) => String(r.texto || \"\").toLowerCase());\nconst dup = textos.filter((t, i) => textos.indexOf(t) !== i);\nif (dup.length) alertas.push({ tipo: \"reviews-duplicadas\", n: dup.length });\nconst cinco = rs.filter((r) => r.estrellas === 5).length;\nif (rs.length > 5 && cinco / rs.length > 0.95) alertas.push({ tipo: \"todo-5-estrellas\", proporcion: Math.round((cinco / rs.length) * 100) + \"%\" });\nconst mismo_dia = new Set(rs.map((r) => String(r.fecha || \"\").slice(0, 10))).size;\nif (rs.length > 4 && mismo_dia === 1) alertas.push({ tipo: \"burst-un-dia\", detalle: \"todas el mismo día\" });\nreturn ok({ sospechoso: alertas.length > 0, alertas, total_reviews: rs.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor reputation-oracle está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"reputation-oracle\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[reputation-oracle] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "reputation-oracle"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

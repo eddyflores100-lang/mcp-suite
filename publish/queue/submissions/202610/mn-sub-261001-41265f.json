@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-41265f",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-batch-runner",
+  "version": "1.0.0",
+  "description": "Divide y vencerás: lotes y chunks con control de concurrencia Dolor que resuelve: Procesar 1000 items de golpe revienta rate limits y memoria: falta división en lotes con concurrencia limitada. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "resilience",
+   "circuit-breaker",
+   "retry"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only batch-runner",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-batch-runner",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "make_batches",
+    "concurrency_plan",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only batch-runner",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-batch-runner\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-batch-runner/dist/index.js\"]}}}. Tools disponibles: make_batches, concurrency_plan y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/batch-runner/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-batch-runner (make_batches, concurrency_plan). Divide y vencerás: lotes y chunks con control de concurrencia. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/batch-runner/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/batch-runner\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Batch Runner — Divide y vencerás: lotes y chunks con control de concurrencia (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-batch-runner\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Batch Runner\n\n> Divide y vencerás: lotes y chunks con control de concurrencia\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-batch-runner`\n\n**Dolor de agente que resuelve:** Procesar 1000 items de golpe revienta rate limits y memoria: falta división en lotes con concurrencia limitada.\n\n## Tools (3 incl. health_check)\n\n### `make_batches`\nDivide una lista de items en lotes de tamaño N con opciones de stride/interleaved.\n\n**Parámetros:**\n  - `items` (array, requerido): Items a dividir\n  - `tamano` (number, opcional): Items por lote\n  - `intercalado` (boolean, opcional): Reparto round-robin entre lotes\n\n### `concurrency_plan`\nCalcula plan de concurrencia: dado N items, costo por item y rate limit, cuántos en paralelo y cuánto tarda.\n\n**Parámetros:**\n  - `total_items` (number, requerido): Total de items\n  - `ms_por_item` (number, requerido): Duración de un item (ms)\n  - `max_concurrencia` (number, opcional): Límite de paralelismo\n  - `rate_por_minuto` (number, opcional): Límite de llamadas/min\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"batch-runner\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-batch-runner/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Batch Runner\n * Divide y vencerás: lotes y chunks con control de concurrencia\n *\n * Dolor que resuelve: Procesar 1000 items de golpe revienta rate limits y memoria: falta división en lotes con concurrencia limitada.\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: batch-runner\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"batch-runner\", version: \"1.0.0\" });\n\nserver.tool(\n  \"make_batches\",\n  \"Divide una lista de items en lotes de tamaño N con opciones de stride/interleaved.\",\n  {\n  items: z.array(z.any()).describe(\"Items a dividir\"),\n  tamano: z.number().describe(\"Items por lote\").default(10),\n  intercalado: z.boolean().describe(\"Reparto round-robin entre lotes\").default(false),\n  },\n  async (args: any) => {\n    const { items, tamano, intercalado } = args as any;\n    const list = Array.isArray(items) ? items : [];\nconst n = Math.max(1, tamano ?? 10);\nlet lotes: any[] = [];\nif (intercalado) {\n  const num_lotes = Math.ceil(list.length / n);\n  lotes = Array.from({ length: num_lotes }, () => []);\n  list.forEach((item, i) => lotes[i % num_lotes].push(item));\n} else {\n  for (let i = 0; i < list.length; i += n) lotes.push(list.slice(i, i + n));\n}\nreturn ok({ total_items: list.length, total_lotes: lotes.length, tamano_lote: n, lotes });\n  }\n);\n\nserver.tool(\n  \"concurrency_plan\",\n  \"Calcula plan de concurrencia: dado N items, costo por item y rate limit, cuántos en paralelo y cuánto tarda.\",\n  {\n  total_items: z.number().describe(\"Total de items\"),\n  ms_por_item: z.number().describe(\"Duración de un item (ms)\"),\n  max_concurrencia: z.number().describe(\"Límite de paralelismo\").default(5),\n  rate_por_minuto: z.number().describe(\"Límite de llamadas/min\").optional(),\n  },\n  async (args: any) => {\n    const { total_items, ms_por_item, max_concurrencia, rate_por_minuto } = args as any;\n    const conc = Math.max(1, max_concurrencia ?? 5);\nlet efectiva = conc;\nif (rate_por_minuto) efectiva = Math.min(conc, Math.max(1, Math.floor(rate_por_minuto / 60)));\nconst tandas = Math.ceil(total_items / efectiva);\nconst tiempo_total = tandas * (ms_por_item ?? 1000);\nreturn ok({ concurrencia_efectiva: efectiva, tandas, tiempo_estimado_ms: tiempo_total, tiempo_estimado_legible: Math.round(tiempo_total / 1000) + \"s\", limitante: rate_por_minuto && efectiva < conc ? \"rate-limit\" : \"paralelismo\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor batch-runner está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"batch-runner\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[batch-runner] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "batch-runner"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

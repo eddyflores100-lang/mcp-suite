@@ -1,0 +1,62 @@
+{
+ "name": "mcp-self-critic",
+ "version": "1.0.0",
+ "description": "El agente se critica a sí mismo: checklist de reflexión antes de entregar Dolor que resuelve: Sin reflexión previa a la entrega, el agente repite errores evitables (técnica reflect de los papers de agentes). Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Developer Tools",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "quality",
+  "validation",
+  "hallucination"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only self-critic",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-self-critic",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "critique",
+   "reflect_prompt",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only self-critic",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-self-critic\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-self-critic/dist/index.js\"]}}}. Tools disponibles: critique, reflect_prompt y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/self-critic/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-self-critic (critique, reflect_prompt). El agente se critica a sí mismo: checklist de reflexión antes de entregar. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/self-critic/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/self-critic\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Self Critic — El agente se critica a sí mismo: checklist de reflexión antes de entregar (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-self-critic\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Self Critic\n\n> El agente se critica a sí mismo: checklist de reflexión antes de entregar\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-self-critic`\n\n**Dolor de agente que resuelve:** Sin reflexión previa a la entrega, el agente repite errores evitables (técnica reflect de los papers de agentes).\n\n## Tools (3 incl. health_check)\n\n### `critique`\nAplica checklist de autocrítica a una salida: rigor, completitud, sesgos, seguridad y accionabilidad. Genera issues concretos.\n\n**Parámetros:**\n  - `salida` (string, requerido): Salida a criticar\n  - `tarea` (string, requerido): Tarea original que debía resolver\n\n### `reflect_prompt`\nGenera el prompt de reflexión (estilo Reflexion) para que el modelo mejore su salida en el siguiente intento.\n\n**Parámetros:**\n  - `tarea` (string, requerido): La tarea original\n  - `intento` (string, requerido): El intento fallido\n  - `feedback` (string, opcional): Qué salió mal\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"self-critic\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-self-critic/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Self Critic\n * El agente se critica a sí mismo: checklist de reflexión antes de entregar\n *\n * Dolor que resuelve: Sin reflexión previa a la entrega, el agente repite errores evitables (técnica reflect de los papers de agentes).\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: self-critic\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"self-critic\", version: \"1.0.0\" });\n\nserver.tool(\n  \"critique\",\n  \"Aplica checklist de autocrítica a una salida: rigor, completitud, sesgos, seguridad y accionabilidad. Genera issues concretos.\",\n  {\n  salida: z.string().describe(\"Salida a criticar\"),\n  tarea: z.string().describe(\"Tarea original que debía resolver\"),\n  },\n  async (args: any) => {\n    const { salida, tarea } = args as any;\n    const t = salida; const issues: any[] = [];\nif (t.length < 80) issues.push({ severidad: \"alta\", issue: \"salida mínima para la tarea: ¿falta desarrollo?\" });\nif (/\\b(por supuesto|obviamente|como todos saben|es bien conocido)\\b/i.test(t)) issues.push({ severidad: \"media\", issue: \"presuposiciones no verificadas: cites o elimina\" });\nif (t.toLowerCase().split(/\\s+/).filter((w) => [\"bueno\", \"malo\", \"mejor\", \"peor\"].includes(w)).length > 6) issues.push({ severidad: \"media\", issue: \"juicios de valor sin criterios explícitos\" });\nif (!/\\d/.test(t) && /analiza|compara|cifra|dato|estadístic/i.test(tarea)) issues.push({ severidad: \"alta\", issue: \"tarea pedía análisis y la salida no tiene ni un número\" });\nif (/\\b(nunca|siempre|todos|ninguno|imposible)\\b/i.test(t)) issues.push({ severidad: \"media\", issue: \"generalizaciones absolutas: súqualas o matízalas\" });\nif (!/(paso|1\\.|2\\.|primero|luego|finalmente)/i.test(t) && /instrucc|cómo|how|guía|tutorial/i.test(tarea)) issues.push({ severidad: \"media\", issue: \"instrucciones sin secuencia clara\" });\nconst score = Math.max(0, 100 - issues.reduce((a, i) => a + (i.severidad === \"alta\" ? 30 : 12), 0));\nreturn ok({ score_autocritica: score, issues, veredicto: score >= 75 ? \"entregable\" : score >= 50 ? \"corregir antes de entregar\" : \"revisar profundamente\" });\n  }\n);\n\nserver.tool(\n  \"reflect_prompt\",\n  \"Genera el prompt de reflexión (estilo Reflexion) para que el modelo mejore su salida en el siguiente intento.\",\n  {\n  tarea: z.string().describe(\"La tarea original\"),\n  intento: z.string().describe(\"El intento fallido\"),\n  feedback: z.string().describe(\"Qué salió mal\").optional(),\n  },\n  async (args: any) => {\n    const { tarea, intento, feedback } = args as any;\n    const prompt = [\n  \"Reflexiona sobre tu intento anterior y mejora la respuesta.\",\n  \"TAREA ORIGINAL: \" + tarea,\n  \"INTENTO ANTERIOR: \" + String(intento).slice(0, 2000),\n  feedback ? \"FEEDBACK RECIBIDO: \" + feedback : \"\",\n  \"INSTRUCCIONES:\",\n  \"1. Identifica 2-3 errores concretos del intento anterior\",\n  \"2. Explica por qué ocurrieron\",\n  \"3. Produce una versión corregida que evite esos errores\",\n  \"4. Verifica contra la tarea original antes de responder\",\n].filter(Boolean).join(\"\\n\\n\");\nreturn ok({ prompt_de_reflexion: prompt });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor self-critic está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"self-critic\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[self-critic] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

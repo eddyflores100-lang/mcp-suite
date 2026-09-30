@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-f6632f",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-poll-watcher",
+  "version": "1.0.0",
+  "description": "Vigila cambios de cualquier URL: detecta diffs entre visitas Dolor que resuelve: El agente necesita saber cuándo cambia una página/API pero los webhooks no existen en la mayoría de sitios: falta polling con diff. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "resilience",
+   "circuit-breaker",
+   "retry"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only poll-watcher",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-poll-watcher",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": true,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "watch",
+    "list_watches",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only poll-watcher",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-poll-watcher\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-poll-watcher/dist/index.js\"]}}}. Tools disponibles: watch, list_watches y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/poll-watcher/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-poll-watcher (watch, list_watches). Vigila cambios de cualquier URL: detecta diffs entre visitas. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/poll-watcher/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/poll-watcher\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Poll Watcher — Vigila cambios de cualquier URL: detecta diffs entre visitas (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-poll-watcher\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Poll Watcher\n\n> Vigila cambios de cualquier URL: detecta diffs entre visitas\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-poll-watcher`\n\n**Dolor de agente que resuelve:** El agente necesita saber cuándo cambia una página/API pero los webhooks no existen en la mayoría de sitios: falta polling con diff.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n> Estado persistente en `~/.mcp-suite/poll-watcher/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `watch`\nVisita una URL y compara su hash con la última visita: detecta cambios (nuevo/actualizado/sin cambios) y guarda el snapshot.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Alias del watch\n  - `url` (string, requerido): URL a vigilar\n  - `timeout_ms` (number, opcional): Timeout\n\n### `list_watches`\nLista todos los watches con su estado (hash, tamaño, última visita, cambios detectados).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"poll-watcher\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-poll-watcher/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Poll Watcher\n * Vigila cambios de cualquier URL: detecta diffs entre visitas\n *\n * Dolor que resuelve: El agente necesita saber cuándo cambia una página/API pero los webhooks no existen en la mayoría de sitios: falta polling con diff.\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: poll-watcher\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/poll-watcher/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"poll-watcher\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/poll-watcher\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"poll-watcher\", version: \"1.0.0\" });\n\nserver.tool(\n  \"watch\",\n  \"Visita una URL y compara su hash con la última visita: detecta cambios (nuevo/actualizado/sin cambios) y guarda el snapshot.\",\n  {\n  nombre: z.string().describe(\"Alias del watch\"),\n  url: z.string().describe(\"URL a vigilar\"),\n  timeout_ms: z.number().describe(\"Timeout\").default(15000),\n  },\n  async (args: any) => {\n    const { nombre, url, timeout_ms } = args as any;\n    const st = store.load();\nst.watches = st.watches || {};\nconst r = await fetchSmart(url, { timeoutMs: timeout_ms ?? 15000, retries: 1 });\nif (r.status !== 200) return fail(\"HTTP \" + r.status);\nconst hash = createHash(\"sha256\").update(r.text).digest(\"hex\");\nconst prev = st.watches[nombre];\nconst estado = !prev ? \"nuevo\" : prev.hash === hash ? \"sin-cambios\" : \"cambiado\";\nst.watches[nombre] = { url, hash, tamano: r.text.length, ultima_visita: new Date().toISOString(), prev_hash: prev?.hash || null, cambios: ((prev?.cambios || 0)) + (estado === \"cambiado\" ? 1 : 0) };\nstore.save(st);\nreturn ok({ nombre, estado, tamano: r.text.length, cambio_detectado: estado === \"cambiado\", total_cambios: st.watches[nombre].cambios });\n  }\n);\n\nserver.tool(\n  \"list_watches\",\n  \"Lista todos los watches con su estado (hash, tamaño, última visita, cambios detectados).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nreturn ok({ watches: __ents(st.watches || {}).map(([nombre, w]: [string, any]) => ({ nombre, url: w.url, tamano: w.tamano, ultima_visita: w.ultima_visita, cambios: w.cambios })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor poll-watcher está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"poll-watcher\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[poll-watcher] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": [
+    "requires_network: true — accede a APIs públicas (MarketNow) en modo live, sin claves ni secretos"
+   ]
+  },
+  "trust_score_100": 52,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "poll-watcher"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

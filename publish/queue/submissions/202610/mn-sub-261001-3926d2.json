@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-3926d2",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-prompt-self-rewriter",
+  "version": "1.0.0",
+  "description": "Auto-edición de prompts con guardarrailes: el agente propone su propia mejora pero no puede debilitar sus restricciones Dolor que resuelve: El agente 'optimiza' su propio prompt y sin querer borra la línea que prohibía exfiltrar datos: la auto-mejora sin candados es la vía rápida a la auto-anulación de las normas. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "self-improvement",
+   "reflection",
+   "growth"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only prompt-self-rewriter",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-prompt-self-rewriter",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_prompt",
+    "propose_edit",
+    "guardrail_check",
+    "commit_eval",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only prompt-self-rewriter",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-prompt-self-rewriter\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-prompt-self-rewriter/dist/index.js\"]}}}. Tools disponibles: register_prompt, propose_edit, guardrail_check, commit_eval y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/prompt-self-rewriter/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-prompt-self-rewriter (register_prompt, propose_edit, guardrail_check, commit_eval). Auto-edición de prompts con guardarrailes: el agente propone su propia mejora pero no puede debilitar sus restricciones. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/prompt-self-rewriter/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/prompt-self-rewriter\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Prompt Self-Rewriter — Auto-edición de prompts con guardarrailes: el agente propone su propia mejora pero no puede debilitar sus restricciones (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-prompt-self-rewriter\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"auto-mejora\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Prompt Self-Rewriter\n\n> Auto-edición de prompts con guardarrailes: el agente propone su propia mejora pero no puede debilitar sus restricciones\n\n**Categoría:** Auto-Mejora · **ID:** `mcp-prompt-self-rewriter`\n\n**Dolor de agente que resuelve:** El agente 'optimiza' su propio prompt y sin querer borra la línea que prohibía exfiltrar datos: la auto-mejora sin candados es la vía rápida a la auto-anulación de las normas.\n\n> Estado persistente en `~/.mcp-suite/prompt-self-rewriter/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `register_prompt`\nRegistra el prompt actual con su intención y la lista de restricciones intocables.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre del prompt\n  - `contenido` (string, requerido): Texto completo actual\n  - `intencion` (string, requerido): Qué debe lograr el prompt\n  - `restricciones` (array, requerido): Restricciones que NUNCA pueden debilitarse (texto o resumen por línea)\n\n### `propose_edit`\nPropón una edición concreta del prompt con justificación basada en evidencia.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Prompt\n  - `tipo` (enum, requerido): Naturaleza de la edición\n  - `edicion` (string, requerido): El cambio concreto (texto a añadir/quitar/reordenar)\n  - `porque` (string, requerido): Evidencia de que mejora: qué fallo concreto corrige\n\n### `guardrail_check`\nValida una edición propuesta contra las restricciones intocables y la intención del prompt.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Prompt\n  - `indice` (number, requerido): Índice de la edición propuesta (1-based)\n\n### `commit_eval`\nPuerta de evaluación: adoptar una edición exige evidencia de mejora medida, no opinión.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Prompt\n  - `indice` (number, requerido): Edición aprobada\n  - `evidencia_mejora` (string, requerido): Medición de la mejora (A/B, score antes/después)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"prompt-self-rewriter\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-prompt-self-rewriter/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/prompt-self-rewriter/. Prompt actual + intención + restricciones; las ediciones propuestas pasan guardarrailes (no eliminar restricciones, no ampliar alcance) y exigen puerta de evaluación antes de adoptarse.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Prompt Self-Rewriter\n * Auto-edición de prompts con guardarrailes: el agente propone su propia mejora pero no puede debilitar sus restricciones\n *\n * Dolor que resuelve: El agente 'optimiza' su propio prompt y sin querer borra la línea que prohibía exfiltrar datos: la auto-mejora sin candados es la vía rápida a la auto-anulación de las normas.\n * Categoría: Auto-Mejora | Generado por mcp-suite | id: prompt-self-rewriter\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/prompt-self-rewriter/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"prompt-self-rewriter\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"prompt-self-rewriter\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_prompt\",\n  \"Registra el prompt actual con su intención y la lista de restricciones intocables.\",\n  {\n  nombre: z.string().describe(\"Nombre del prompt\"),\n  contenido: z.string().describe(\"Texto completo actual\"),\n  intencion: z.string().describe(\"Qué debe lograr el prompt\"),\n  restricciones: z.array(z.any()).describe(\"Restricciones que NUNCA pueden debilitarse (texto o resumen por línea)\"),\n  },\n  async (args: any) => {\n    const { nombre, contenido, intencion, restricciones } = args as any;\n    const st = store.load();\nst.prompts = st.prompts || {};\nif (st.prompts[nombre]) return fail(\"prompt ya registrado: \" + nombre);\nif (!restricciones || !restricciones.length) return fail(\"SIN restricciones declaradas no hay auto-edición segura: declara al menos las que protegen datos y alcance\");\nst.prompts[nombre] = { nombre, contenido, intencion, restricciones: restricciones.map(String), ediciones: [], adoptadas: 0, rechazadas: 0, registrado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ nombre, restricciones_intocables: restricciones.length, caracteres: contenido.length, nota: \"toda edición pasará por guardrail_check antes de poder adoptarse\" });\n  }\n);\n\nserver.tool(\n  \"propose_edit\",\n  \"Propón una edición concreta del prompt con justificación basada en evidencia.\",\n  {\n  nombre: z.string().describe(\"Prompt\"),\n  tipo: z.enum([\"añadir_instruccion\",\"clarificar_ambiguedad\",\"reordenar\",\"recortar_ruido\",\"añadir_ejemplo\"]).describe(\"Naturaleza de la edición\"),\n  edicion: z.string().describe(\"El cambio concreto (texto a añadir/quitar/reordenar)\"),\n  porque: z.string().describe(\"Evidencia de que mejora: qué fallo concreto corrige\"),\n  },\n  async (args: any) => {\n    const { nombre, tipo, edicion, porque } = args as any;\n    const st = store.load();\nconst p = (st.prompts || {})[nombre];\nif (!p) return fail(\"prompt no registrado\");\nif (!porque || porque.length < 20) return fail(\"la justificación es débil ('\" + (porque || \"vacía\") + \"'): sin evidencia de un fallo concreto, la edición es capricho\");\np.ediciones.push({ tipo, edicion, porque, estado: \"propuesta\", ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ edicion_propuesta: p.ediciones.length, tipo, siguiente: \"pasa guardrail_check antes de tocar el prompt\" });\n  }\n);\n\nserver.tool(\n  \"guardrail_check\",\n  \"Valida una edición propuesta contra las restricciones intocables y la intención del prompt.\",\n  {\n  nombre: z.string().describe(\"Prompt\"),\n  indice: z.number().describe(\"Índice de la edición propuesta (1-based)\"),\n  },\n  async (args: any) => {\n    const { nombre, indice } = args as any;\n    const st = store.load();\nconst p = (st.prompts || {})[nombre];\nif (!p) return fail(\"prompt no registrado\");\nconst ed = p.ediciones[indice - 1];\nif (!ed) return fail(\"edición no encontrada: hay \" + p.ediciones.length + \" propuestas\");\nif (ed.estado !== \"propuesta\") return fail(\"edición ya procesada: \" + ed.estado);\nconst textoEdicion = ed.edicion.toLowerCase();\nconst intencionesPeligrosas = [\n  { patron: /\\b(ignora|omite|salta|desactiva|pasa por alto)\\b.*\\b(restricciones|restriccion|restricci|reglas|regla|limites|límites|límite|limite|seguridad)/, tipo: \"ELUSIÓN_DIRECTA\", detalle: \"la edición pide ignorar restricciones explícitamente\" },\n  { patron: /\\b(sin limites|sin límites|sin limite|sin límite|ilimitad\\w*|todo lo que puedas|máxima libertad|maxima libertad)/, tipo: \"AMPLIACIÓN_DE_ALCANCE\", detalle: \"amplía el alcance permitido\" },\n  { patron: /\\b(no verifiques|no valides|confía en|confia en|asume que es seguro)/, tipo: \"DESACTIVA_VERIFICACIÓN\", detalle: \"propone saltarse verificaciones\" },\n  { patron: /\\b(ignora|olvida)\\b.*\\b(contexto|instrucciones|previo|anterior)\\b/, tipo: \"CORTE_DE_MEMORIA\", detalle: \"pide descartar instrucciones previas: patrón de prompt-injection clásico\" }\n];\nconst violaciones = intencionesPeligrosas.filter(v => v.patron.test(textoEdicion)).map(v => ({ tipo: v.tipo, detalle: v.detalle }));\nconst tocaRestriccion = p.restricciones.some(r => {\n  const tokensR = String(r).toLowerCase().split(/\\s+/).filter(w => w.length > 3);\n  const palabrasEdicion = new Set(textoEdicion.split(/[^a-z0-9áéíóúñ]+/));\n  const solape = tokensR.filter(w => palabrasEdicion.has(w)).length;\n  return solape >= 2 && /\\b(quitar|borrar|elimina|remove|recorta)\\b/.test(textoEdicion);\n});\nif (tocaRestriccion) violaciones.push({ tipo: \"TOCA_RESTRICCIÓN\", detalle: \"la edición recorta texto de una restricción declarada intocable\" });\ned.estado = violaciones.length ? \"bloqueada\" : \"aprobada_por_guardrail\";\nif (violaciones.length) p.rechazadas++; \nstore.save(st);\nreturn ok({ edicion: indice, tipo: ed.tipo, estado: ed.estado, violaciones, siguiente: violaciones.length ? \"NO adoptes esta edición: rediseñala respetando el guardrail\" : \"puede adoptarse TRAS pasar la puerta de evaluación (commit_eval)\" });\n  }\n);\n\nserver.tool(\n  \"commit_eval\",\n  \"Puerta de evaluación: adoptar una edición exige evidencia de mejora medida, no opinión.\",\n  {\n  nombre: z.string().describe(\"Prompt\"),\n  indice: z.number().describe(\"Edición aprobada\"),\n  evidencia_mejora: z.string().describe(\"Medición de la mejora (A/B, score antes/después)\"),\n  },\n  async (args: any) => {\n    const { nombre, indice, evidencia_mejora } = args as any;\n    const st = store.load();\nconst p = (st.prompts || {})[nombre];\nif (!p) return fail(\"prompt no registrado\");\nconst ed = p.ediciones[indice - 1];\nif (!ed) return fail(\"edición no encontrada\");\nif (ed.estado === \"bloqueada\") return fail(\"edición BLOQUEADA por guardrail: inadmisible\");\nif (ed.estado === \"adoptada\") return fail(\"ya adoptada\");\nif (ed.estado !== \"aprobada_por_guardrail\") return fail(\"pasa guardrail_check primero\");\nif (!evidencia_mejora || !/\\d/.test(evidencia_mejora)) return fail(\"la evidencia de mejora debe contener MEDIDAS (números): 'parece mejor' no es evidencia\");\ned.estado = \"adoptada\";\ned.evidencia = evidencia_mejora;\ned.adoptada = new Date().toISOString();\np.adoptadas++;\nstore.save(st);\nreturn ok({ edicion: indice, adoptada: true, ediciones_adoptadas: p.adoptadas, rechazadas: p.rechazadas, disciplina: \"guardrail + medición = las dos llaves: la auto-mejora sin ambas es deriva\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor prompt-self-rewriter está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"prompt-self-rewriter\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[prompt-self-rewriter] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "prompt-self-rewriter"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

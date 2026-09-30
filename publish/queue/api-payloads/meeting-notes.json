@@ -1,0 +1,62 @@
+{
+ "name": "mcp-meeting-notes",
+ "version": "1.0.0",
+ "description": "Estructura notas de reunión: decisiones, acciones con dueño y temas aparcados Dolor que resuelve: Las notas de reunión son ríos de prosa: decisiones y acciones se pierden sin estructura. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Communication",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "human-in-the-loop",
+  "communication",
+  "approvals"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only meeting-notes",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-meeting-notes",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "structure_notes",
+   "action_items",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only meeting-notes",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-meeting-notes\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-meeting-notes/dist/index.js\"]}}}. Tools disponibles: structure_notes, action_items y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/meeting-notes/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-meeting-notes (structure_notes, action_items). Estructura notas de reunión: decisiones, acciones con dueño y temas aparcados. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/meeting-notes/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/meeting-notes\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Meeting Notes — Estructura notas de reunión: decisiones, acciones con dueño y temas aparcados (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-meeting-notes\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comunicaci-n-y-humano\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Meeting Notes\n\n> Estructura notas de reunión: decisiones, acciones con dueño y temas aparcados\n\n**Categoría:** Comunicación y Humano · **ID:** `mcp-meeting-notes`\n\n**Dolor de agente que resuelve:** Las notas de reunión son ríos de prosa: decisiones y acciones se pierden sin estructura.\n\n## Tools (3 incl. health_check)\n\n### `structure_notes`\nEstructura notas crudas de reunión: detecta decisiones, action items (con dueño si aparece) y temas aparcados (parking lot).\n\n**Parámetros:**\n  - `notas` (string, requerido): Notas crudas de la reunión\n  - `reunion` (string, opcional): Título de la reunión\n\n### `action_items`\nExtrae SOLO las action items con su formato estandarizado: qué, quién, cuándo (si aparece).\n\n**Parámetros:**\n  - `notas` (string, requerido): Notas\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"meeting-notes\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-meeting-notes/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Meeting Notes\n * Estructura notas de reunión: decisiones, acciones con dueño y temas aparcados\n *\n * Dolor que resuelve: Las notas de reunión son ríos de prosa: decisiones y acciones se pierden sin estructura.\n * Categoría: Comunicación y Humano | Generado por mcp-suite | id: meeting-notes\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"meeting-notes\", version: \"1.0.0\" });\n\nserver.tool(\n  \"structure_notes\",\n  \"Estructura notas crudas de reunión: detecta decisiones, action items (con dueño si aparece) y temas aparcados (parking lot).\",\n  {\n  notas: z.string().describe(\"Notas crudas de la reunión\"),\n  reunion: z.string().describe(\"Título de la reunión\").default(\"Reunión\"),\n  },\n  async (args: any) => {\n    const { notas, reunion } = args as any;\n    const t = String(notas);\nconst oraciones = t.split(/[\\n.!?]+/).map((s) => s.trim()).filter((s) => s.length > 5);\nconst decisiones = oraciones.filter((o) => /decidimos|acordamos|se aprobó|aprobado|queda definido|vamos con|elegimos|se resolvió/i.test(o));\nconst acciones = oraciones.filter((o) => /va a |hará|se encarga|queda a cargo|action item|to.?do|antes del|para el viernes|para la próxima|enviar|preparar/i.test(o));\nconst parking = oraciones.filter((o) => /lo vemos|más adelante|no es prioritario|lo dejamos|pendiente de|tablero|para otra/i.test(o));\nconst dueños = acciones.map((a) => { const m = a.match(/\\b([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)\\s+(?:va a|hará|se encarga|queda)/); return m ? m[1] : null; });\nreturn ok({ reunion: reunion || \"Reunión\", total_oraciones: oraciones.length, decisiones, acciones: acciones.map((a, i) => ({ accion: a, dueno: dueños[i] || \"sin dueño asignado\" })), parking_lot: parking, proximos_pasos: acciones.length ? \"asigna deadlines a cada acción\" : \"sin acciones detectadas: ¿fue una reunión solo informativa?\" });\n  }\n);\n\nserver.tool(\n  \"action_items\",\n  \"Extrae SOLO las action items con su formato estandarizado: qué, quién, cuándo (si aparece).\",\n  {\n  notas: z.string().describe(\"Notas\"),\n  },\n  async (args: any) => {\n    const { notas } = args as any;\n    const t = String(notas);\nconst lineas = t.split(/[\\n;]+/).map((s) => s.trim()).filter(Boolean);\nconst items: any[] = [];\nfor (const l of lineas) {\n  if (/^(?:-|\\*|\\d+[.)])\\s+/.test(l) || /va a |hará|debe|action|todo|pendiente|encarg/i.test(l)) {\n    const dueño = (l.match(/\\b([A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,})\\b/) || [])[1] || \"sin dueño\";\n    const fecha = (l.match(/\\b(lunes|martes|miércoles|jueves|viernes|sábado|domingo|mañana|pasado mañana|\\d{1,2}[/-]\\d{1,2}|semana que viene|el \\d+\\b)/i) || [])[0] || \"sin fecha\";\n    items.push({ que: l.replace(/^[-*\\d.)\\s]+/, \"\"), quien: dueño, cuando: fecha });\n  }\n}\nreturn ok({ total: items.length, items: items.slice(0, 30), sin_dueño: items.filter((i) => i.quien === \"sin dueño\").length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor meeting-notes está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"meeting-notes\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[meeting-notes] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

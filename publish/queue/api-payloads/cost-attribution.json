@@ -1,0 +1,64 @@
+{
+ "name": "mcp-cost-attribution",
+ "version": "1.0.0",
+ "description": "Atribuye cada dólar a cliente/proyecto/agente: el gasto deja de ser un agujero negro global Dolor que resuelve: El costo de agentes se contabiliza como una sola línea global: ningún cliente/proyecto sabe cuánto consume realmente, así que nadie optimiza y el margen se evapora sin responsable. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "FinTech",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "token-cost",
+  "budget",
+  "economics"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only cost-attribution",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-cost-attribution",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "tag_spend",
+   "attribution_report",
+   "margin_check",
+   "cost_per_deliverable",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only cost-attribution",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-cost-attribution\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-cost-attribution/dist/index.js\"]}}}. Tools disponibles: tag_spend, attribution_report, margin_check, cost_per_deliverable y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/cost-attribution/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-cost-attribution (tag_spend, attribution_report, margin_check, cost_per_deliverable). Atribuye cada dólar a cliente/proyecto/agente: el gasto deja de ser un agujero negro global. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/cost-attribution/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/cost-attribution\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Cost Attribution — Atribuye cada dólar a cliente/proyecto/agente: el gasto deja de ser un agujero negro global (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-cost-attribution\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"econom-a-del-agente\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Cost Attribution\n\n> Atribuye cada dólar a cliente/proyecto/agente: el gasto deja de ser un agujero negro global\n\n**Categoría:** Economía del Agente · **ID:** `mcp-cost-attribution`\n\n**Dolor de agente que resuelve:** El costo de agentes se contabiliza como una sola línea global: ningún cliente/proyecto sabe cuánto consume realmente, así que nadie optimiza y el margen se evapora sin responsable.\n\n> Estado persistente en `~/.mcp-suite/cost-attribution/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `tag_spend`\nRegistra un gasto atribuido: cliente, proyecto, agente, concepto e importe.\n\n**Parámetros:**\n  - `cliente` (string, requerido): Cliente o 'interno'\n  - `proyecto` (string, requerido): Proyecto\n  - `agente` (string, requerido): Agente que gastó\n  - `concepto` (string, requerido): Concepto (llm, tool, api)\n  - `usd` (number, requerido): Importe\n  - `entregable` (string, opcional): Entregable al que contribuye\n\n### `attribution_report`\nReparto del gasto por cliente, proyecto y agente con top consumidores.\n\n**Parámetros:**\n  - `desde` (string, opcional): Fecha ISO de inicio (opcional)\n\n### `margin_check`\nCompara costo atribuido contra ingresos por cliente: ¿a quién le estás perdiendo dinero?\n\n**Parámetros:**\n  - `ingresos` (any, requerido): Mapa {cliente: ingreso_usd}\n\n### `cost_per_deliverable`\nCosto total por entregable (suma de gastos etiquetados) para precio y estimación futura.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"cost-attribution\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-cost-attribution/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/cost-attribution/. Gastos etiquetados por cliente/proyecto/agente con reparto, ranking de consumidores y costo por entregable.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Cost Attribution\n * Atribuye cada dólar a cliente/proyecto/agente: el gasto deja de ser un agujero negro global\n *\n * Dolor que resuelve: El costo de agentes se contabiliza como una sola línea global: ningún cliente/proyecto sabe cuánto consume realmente, así que nadie optimiza y el margen se evapora sin responsable.\n * Categoría: Economía del Agente | Generado por mcp-suite | id: cost-attribution\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/cost-attribution/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"cost-attribution\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"cost-attribution\", version: \"1.0.0\" });\n\nserver.tool(\n  \"tag_spend\",\n  \"Registra un gasto atribuido: cliente, proyecto, agente, concepto e importe.\",\n  {\n  cliente: z.string().describe(\"Cliente o 'interno'\"),\n  proyecto: z.string().describe(\"Proyecto\"),\n  agente: z.string().describe(\"Agente que gastó\"),\n  concepto: z.string().describe(\"Concepto (llm, tool, api)\"),\n  usd: z.number().describe(\"Importe\"),\n  entregable: z.string().describe(\"Entregable al que contribuye\").optional(),\n  },\n  async (args: any) => {\n    const { cliente, proyecto, agente, concepto, usd, entregable } = args as any;\n    const st = store.load();\nst.gastos = st.gastos || [];\nst.gastos.push({ cliente, proyecto, agente, concepto, usd, entregable: entregable || null, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ registrado: true, usd, cliente });\n  }\n);\n\nserver.tool(\n  \"attribution_report\",\n  \"Reparto del gasto por cliente, proyecto y agente con top consumidores.\",\n  {\n  desde: z.string().describe(\"Fecha ISO de inicio (opcional)\").optional(),\n  },\n  async (args: any) => {\n    const { desde } = args as any;\n    const st = store.load();\nlet gs = st.gastos || [];\nif (desde) { const c = new Date(desde).getTime(); if (!isNaN(c)) gs = gs.filter(g => new Date(g.ts).getTime() >= c); }\nif (!gs.length) return ok({ gastos: 0, sugerencia: \"registra gastos con tag_spend\" });\nconst por = (campo) => {\n  const acc = {};\n  for (const g of gs) acc[g[campo]] = Number(((acc[g[campo]] || 0) + g.usd).toFixed(4));\n  return __ents(acc).map(([k, v]) => ({ [campo]: k, usd: Number(v.toFixed(2)) })).sort((a, b) => b.usd - a.usd);\n};\nconst total = gs.reduce((s, g) => s + g.usd, 0);\nreturn ok({\n  total_usd: Number(total.toFixed(2)),\n  por_cliente: por(\"cliente\"),\n  por_proyecto: por(\"proyecto\"),\n  por_agente: por(\"agente\"),\n  por_concepto: por(\"concepto\"),\n  cliente_mas_caro: por(\"cliente\")[0],\n});\n  }\n);\n\nserver.tool(\n  \"margin_check\",\n  \"Compara costo atribuido contra ingresos por cliente: ¿a quién le estás perdiendo dinero?\",\n  {\n  ingresos: z.any().describe(\"Mapa {cliente: ingreso_usd}\"),\n  },\n  async (args: any) => {\n    const { ingresos } = args as any;\n    const st = store.load();\nconst gs = st.gastos || [];\nconst ing = ingresos || {};\nif (typeof ing !== \"object\") return fail(\"ingresos debe ser un mapa {cliente: usd}\");\nconst costos = {};\nfor (const g of gs) costos[g.cliente] = Number(((costos[g.cliente] || 0) + g.usd).toFixed(4));\nconst clientes = [...new Set([...Object.keys(ing), ...Object.keys(costos)])];\nconst filas = clientes.map(c => {\n  const i = Number(ing[c]) || 0;\n  const costo = costos[c] || 0;\n  return { cliente: c, ingreso: i, costo: Number(costo.toFixed(2)), margen: Number((i - costo).toFixed(2)), margen_pct: i ? Number(((i - costo) / i * 100).toFixed(1)) : null };\n}).sort((a, b) => (a.margen ?? -Infinity) - (b.margen ?? -Infinity));\nreturn ok({\n  clientes: filas.length,\n  filas,\n  en_perdida: filas.filter(f => f.margen < 0).map(f => f.cliente),\n  consejo: filas.some(f => f.margen < 0) ? \"hay clientes con costo > ingreso: sube precio, recorta alcance o migra a modelos más baratos (model-router-econ)\" : \"todos contribuyen margen positivo\",\n});\n  }\n);\n\nserver.tool(\n  \"cost_per_deliverable\",\n  \"Costo total por entregable (suma de gastos etiquetados) para precio y estimación futura.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst gs = (st.gastos || []).filter(g => g.entregable);\nif (!gs.length) return ok({ entregables: 0, sugerencia: \"etiqueta gastos con 'entregable' para esta vista\" });\nconst acc = {};\nfor (const g of gs) acc[g.entregable] = Number(((acc[g.entregable] || 0) + g.usd).toFixed(4));\nconst filas = __ents(acc).map(([e, v]) => ({ entregable: e, costo_usd: Number(v.toFixed(2)) })).sort((a, b) => b.costo_usd - a.costo_usd);\nconst media = filas.reduce((s, f) => s + f.costo_usd, 0) / filas.length;\nreturn ok({\n  entregables: filas.length,\n  costo_medio: Number(media.toFixed(2)),\n  filas: filas.slice(0, 15),\n  para_pricing: \"cobra >= 3x el costo de entregable para cubrir overhead y margen\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor cost-attribution está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"cost-attribution\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[cost-attribution] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

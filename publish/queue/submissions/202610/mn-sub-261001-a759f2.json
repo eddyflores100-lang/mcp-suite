@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-a759f2",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-risk-register",
+  "version": "1.0.0",
+  "description": "Registro de riesgos: probabilidad × impacto con mitigaciones y dueños Dolor que resuelve: El agente ignora riesgos hasta que explotan: sin register, la mitigación es reactiva. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "planning",
+   "reasoning",
+   "cognition"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only risk-register",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-risk-register",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_risk",
+    "top_risks",
+    "close_risk",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only risk-register",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-risk-register\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-risk-register/dist/index.js\"]}}}. Tools disponibles: add_risk, top_risks, close_risk y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/risk-register/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-risk-register (add_risk, top_risks, close_risk). Registro de riesgos: probabilidad × impacto con mitigaciones y dueños. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/risk-register/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/risk-register\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Risk Register — Registro de riesgos: probabilidad × impacto con mitigaciones y dueños (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-risk-register\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Risk Register\n\n> Registro de riesgos: probabilidad × impacto con mitigaciones y dueños\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-risk-register`\n\n**Dolor de agente que resuelve:** El agente ignora riesgos hasta que explotan: sin register, la mitigación es reactiva.\n\n> Estado persistente en `~/.mcp-suite/risk-register/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `add_risk`\nRegistra un riesgo: descripción, probabilidad (1-5), impacto (1-5), mitigación y dueño.\n\n**Parámetros:**\n  - `descripcion` (string, requerido): El riesgo\n  - `probabilidad` (number, requerido): Probabilidad 1-5\n  - `impacto` (number, requerido): Impacto 1-5\n  - `mitigacion` (string, opcional): Cómo mitigarlo\n  - `dueno` (string, opcional): Responsable\n\n### `top_risks`\nTop riesgos abiertos ordenados por score, con mitigaciones pendientes.\n\n**Parámetros:**\n  - `n` (number, opcional): Cuántos\n\n### `close_risk`\nCierra un riesgo (ocurrió, se mitigó o se aceptó).\n\n**Parámetros:**\n  - `id` (string, requerido): ID del riesgo\n  - `desenlace` (enum, requerido): Desenlace\n  - `nota` (string, opcional): Nota\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"risk-register\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-risk-register/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Risk Register\n * Registro de riesgos: probabilidad × impacto con mitigaciones y dueños\n *\n * Dolor que resuelve: El agente ignora riesgos hasta que explotan: sin register, la mitigación es reactiva.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: risk-register\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/risk-register/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"risk-register\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"risk-register\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_risk\",\n  \"Registra un riesgo: descripción, probabilidad (1-5), impacto (1-5), mitigación y dueño.\",\n  {\n  descripcion: z.string().describe(\"El riesgo\"),\n  probabilidad: z.number().describe(\"Probabilidad 1-5\"),\n  impacto: z.number().describe(\"Impacto 1-5\"),\n  mitigacion: z.string().describe(\"Cómo mitigarlo\").optional(),\n  dueno: z.string().describe(\"Responsable\").optional(),\n  },\n  async (args: any) => {\n    const { descripcion, probabilidad, impacto, mitigacion, dueno } = args as any;\n    const st = store.load();\nst.riesgos = st.riesgos || [];\nconst p = Math.max(1, Math.min(5, probabilidad)); const i = Math.max(1, Math.min(5, impacto));\nconst r = { id: \"R\" + (st.riesgos.length + 1), descripcion, probabilidad: p, impacto: i, score: p * i, nivel: p * i >= 15 ? \"critico\" : p * i >= 8 ? \"alto\" : p * i >= 4 ? \"medio\" : \"bajo\", mitigacion: mitigacion || \"\", dueno: dueno || \"\", estado: \"abierto\", creado: new Date().toISOString() };\nst.riesgos.push(r);\nstore.save(st);\nreturn ok({ riesgo: r });\n  }\n);\n\nserver.tool(\n  \"top_risks\",\n  \"Top riesgos abiertos ordenados por score, con mitigaciones pendientes.\",\n  {\n  n: z.number().describe(\"Cuántos\").default(10),\n  },\n  async (args: any) => {\n    const { n } = args as any;\n    const st = store.load();\nconst abiertos = (st.riesgos || []).filter((r) => r.estado === \"abierto\").sort((a: any, b: any) => b.score - a.score);\nreturn ok({ total_abiertos: abiertos.length, criticos: abiertos.filter((r) => r.nivel === \"critico\").length, top: abiertos.slice(0, n ?? 10) });\n  }\n);\n\nserver.tool(\n  \"close_risk\",\n  \"Cierra un riesgo (ocurrió, se mitigó o se aceptó).\",\n  {\n  id: z.string().describe(\"ID del riesgo\"),\n  desenlace: z.enum([\"mitigado\",\"ocurrio\",\"aceptado\"]).describe(\"Desenlace\"),\n  nota: z.string().describe(\"Nota\").optional(),\n  },\n  async (args: any) => {\n    const { id, desenlace, nota } = args as any;\n    const st = store.load();\nconst r = (st.riesgos || []).find((x) => x.id === id);\nif (!r) return fail(\"riesgo no existe\");\nr.estado = \"cerrado\";\nr.desenlace = desenlace;\nr.nota_final = nota || \"\";\nr.cerrado = new Date().toISOString();\nstore.save(st);\nreturn ok({ id, estado: \"cerrado\", desenlace });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor risk-register está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"risk-register\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[risk-register] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "risk-register"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

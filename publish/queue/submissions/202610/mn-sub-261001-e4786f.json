@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-e4786f",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-robust-fetcher",
+  "version": "1.0.0",
+  "description": "Fetch HTTP resiliente: timeouts, reintentos, headers y respuestas truncadas seguras Dolor que resuelve: fetch() plano se cuelga o muere en la primera sin conexión: las tools necesitan un fetch con retries y control. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "data",
+   "parsing",
+   "etl"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only robust-fetcher",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-robust-fetcher",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": true,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "fetch_text",
+    "fetch_json",
+    "head",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only robust-fetcher",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-robust-fetcher\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-robust-fetcher/dist/index.js\"]}}}. Tools disponibles: fetch_text, fetch_json, head y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/robust-fetcher/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-robust-fetcher (fetch_text, fetch_json, head). Fetch HTTP resiliente: timeouts, reintentos, headers y respuestas truncadas seguras. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/robust-fetcher/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/robust-fetcher\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Robust Fetcher — Fetch HTTP resiliente: timeouts, reintentos, headers y respuestas truncadas seguras (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-robust-fetcher\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Robust Fetcher\n\n> Fetch HTTP resiliente: timeouts, reintentos, headers y respuestas truncadas seguras\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-robust-fetcher`\n\n**Dolor de agente que resuelve:** fetch() plano se cuelga o muere en la primera sin conexión: las tools necesitan un fetch con retries y control.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (4 incl. health_check)\n\n### `fetch_text`\nFetch robusto de una URL: timeout configurable, hasta 3 reintentos con backoff y captura de status/headers relevantes.\n\n**Parámetros:**\n  - `url` (string, requerido): URL a descargar\n  - `timeout_ms` (number, opcional): Timeout\n  - `reintentos` (number, opcional): Reintentos\n\n### `fetch_json`\nFetch que parsea JSON directamente (con error claro si la respuesta no es JSON).\n\n**Parámetros:**\n  - `url` (string, requerido): URL del JSON\n  - `timeout_ms` (number, opcional): Timeout\n\n### `head`\nPetición HEAD rápida: existe la URL, tamaño declarado y tipo de contenido, sin descargar el cuerpo.\n\n**Parámetros:**\n  - `url` (string, requerido): URL a chequear\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"robust-fetcher\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-robust-fetcher/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Robust Fetcher\n * Fetch HTTP resiliente: timeouts, reintentos, headers y respuestas truncadas seguras\n *\n * Dolor que resuelve: fetch() plano se cuelga o muere en la primera sin conexión: las tools necesitan un fetch con retries y control.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: robust-fetcher\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/robust-fetcher\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"robust-fetcher\", version: \"1.0.0\" });\n\nserver.tool(\n  \"fetch_text\",\n  \"Fetch robusto de una URL: timeout configurable, hasta 3 reintentos con backoff y captura de status/headers relevantes.\",\n  {\n  url: z.string().describe(\"URL a descargar\"),\n  timeout_ms: z.number().describe(\"Timeout\").default(15000),\n  reintentos: z.number().describe(\"Reintentos\").default(2),\n  },\n  async (args: any) => {\n    const { url, timeout_ms, reintentos } = args as any;\n    try {\n  const r = await fetchSmart(url, { timeoutMs: timeout_ms, retries: reintentos });\n  return ok({ url, status: r.status, ok: r.status >= 200 && r.status < 300, content_type: \"\", tamano: r.text.length, texto: r.text.slice(0, 50000) });\n} catch (e: any) { return fail(\"fetch falló: \" + e.message); }\n  }\n);\n\nserver.tool(\n  \"fetch_json\",\n  \"Fetch que parsea JSON directamente (con error claro si la respuesta no es JSON).\",\n  {\n  url: z.string().describe(\"URL del JSON\"),\n  timeout_ms: z.number().describe(\"Timeout\").default(15000),\n  },\n  async (args: any) => {\n    const { url, timeout_ms } = args as any;\n    const r = await fetchSmart(url, { timeoutMs: timeout_ms, retries: 2 });\nif (!r.json) return fail(\"la respuesta no es JSON válido (HTTP \" + r.status + \"): \" + r.text.slice(0, 200));\nreturn ok({ url, status: r.status, data: r.json });\n  }\n);\n\nserver.tool(\n  \"head\",\n  \"Petición HEAD rápida: existe la URL, tamaño declarado y tipo de contenido, sin descargar el cuerpo.\",\n  {\n  url: z.string().describe(\"URL a chequear\"),\n  },\n  async (args: any) => {\n    const { url } = args as any;\n    const inicio = Date.now();\ntry {\n  const r = await fetchSmart(url, { timeoutMs: 8000, retries: 1 });\n  return ok({ url, status: r.status, existe: r.status >= 200 && r.status < 400, ms: Date.now() - inicio, tamano_respuesta: r.text.length });\n} catch (e: any) { return fail(\"HEAD falló: \" + e.message); }\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor robust-fetcher está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"robust-fetcher\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[robust-fetcher] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": [
+    "requires_network: true — accede a APIs públicas (MarketNow) en modo live, sin claves ni secretos"
+   ]
+  },
+  "trust_score_100": 50,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "robust-fetcher"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

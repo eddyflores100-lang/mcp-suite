@@ -1,0 +1,63 @@
+{
+ "name": "mcp-capability-gap-scanner",
+ "version": "1.0.0",
+ "description": "Lo que la tarea EXIGE vs lo que el agente TIENE: gaps de capacidad concretos antes de fallar en producción Dolor que resuelve: El agente descubre que no puede leer PDFs... a mitad de la tarea, cuando ya gastó la mitad del contexto. Nadie compara las demandas de la tarea con el inventario real de capacidades ANTES de empezar. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "self-improvement",
+  "reflection",
+  "growth"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only capability-gap-scanner",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-capability-gap-scanner",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "declare_demands",
+   "declare_inventory",
+   "scan_gaps",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only capability-gap-scanner",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-capability-gap-scanner\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-capability-gap-scanner/dist/index.js\"]}}}. Tools disponibles: declare_demands, declare_inventory, scan_gaps y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/capability-gap-scanner/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-capability-gap-scanner (declare_demands, declare_inventory, scan_gaps). Lo que la tarea EXIGE vs lo que el agente TIENE: gaps de capacidad concretos antes de fallar en producción. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/capability-gap-scanner/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/capability-gap-scanner\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Capability Gap Scanner — Lo que la tarea EXIGE vs lo que el agente TIENE: gaps de capacidad concretos antes de fallar en producción (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-capability-gap-scanner\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"auto-mejora\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Capability Gap Scanner\n\n> Lo que la tarea EXIGE vs lo que el agente TIENE: gaps de capacidad concretos antes de fallar en producción\n\n**Categoría:** Auto-Mejora · **ID:** `mcp-capability-gap-scanner`\n\n**Dolor de agente que resuelve:** El agente descubre que no puede leer PDFs... a mitad de la tarea, cuando ya gastó la mitad del contexto. Nadie compara las demandas de la tarea con el inventario real de capacidades ANTES de empezar.\n\n> Estado persistente en `~/.mcp-suite/capability-gap-scanner/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `declare_demands`\nDeclara qué capacidades exige la tarea entrante.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea a evaluar\n  - `demandas` (array, requerido): Capacidades requeridas {capacidad, criticidad: alta|media|baja}\n\n### `declare_inventory`\nDeclara el inventario de capacidades que realmente tienes (tools, skills, accesos).\n\n**Parámetros:**\n  - `capacidades` (array, requerido): Capacidades disponibles {capacidad, tipo: tool|skill|acceso|humano, nota?}\n\n### `scan_gaps`\nEscanea los gaps: demandas sin cobertura, con severidad y recomendación.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea a escanear\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"capability-gap-scanner\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-capability-gap-scanner/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/capability-gap-scanner/. Demandas declaradas de la tarea vs inventario de capacidades del agente; cobertura, gaps críticos y recomendaciones de adquisición (tool nueva, skill, humano).\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Capability Gap Scanner\n * Lo que la tarea EXIGE vs lo que el agente TIENE: gaps de capacidad concretos antes de fallar en producción\n *\n * Dolor que resuelve: El agente descubre que no puede leer PDFs... a mitad de la tarea, cuando ya gastó la mitad del contexto. Nadie compara las demandas de la tarea con el inventario real de capacidades ANTES de empezar.\n * Categoría: Auto-Mejora | Generado por mcp-suite | id: capability-gap-scanner\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/capability-gap-scanner/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"capability-gap-scanner\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"capability-gap-scanner\", version: \"1.0.0\" });\n\nserver.tool(\n  \"declare_demands\",\n  \"Declara qué capacidades exige la tarea entrante.\",\n  {\n  tarea: z.string().describe(\"Tarea a evaluar\"),\n  demandas: z.array(z.any()).describe(\"Capacidades requeridas {capacidad, criticidad: alta|media|baja}\"),\n  },\n  async (args: any) => {\n    const { tarea, demandas } = args as any;\n    const st = store.load();\nst.tareas = st.tareas || {};\nif (st.tareas[tarea]) return fail(\"tarea ya evaluada: \" + tarea);\nconst limpias = (demandas || []).filter(d => d && d.capacidad).map(d => ({ capacidad: String(d.capacidad).toLowerCase(), criticidad: [\"alta\", \"media\", \"baja\"].includes(d.criticidad) ? d.criticidad : \"media\" }));\nif (!limpias.length) return fail(\"sin demandas declaradas\");\nst.tareas[tarea] = { tarea, demandas: limpias, evaluada: new Date().toISOString() };\nstore.save(st);\nreturn ok({ tarea, demandas: limpias.length, criticas: limpias.filter(d => d.criticidad === \"alta\").length, siguiente: \"registra tu inventario real y escanea\" });\n  }\n);\n\nserver.tool(\n  \"declare_inventory\",\n  \"Declara el inventario de capacidades que realmente tienes (tools, skills, accesos).\",\n  {\n  capacidades: z.array(z.any()).describe(\"Capacidades disponibles {capacidad, tipo: tool|skill|acceso|humano, nota?}\"),\n  },\n  async (args: any) => {\n    const { capacidades } = args as any;\n    const st = store.load();\nconst limpias = (capacidades || []).filter(c => c && c.capacidad).map(c => ({ capacidad: String(c.capacidad).toLowerCase(), tipo: String(c.tipo || \"tool\"), nota: String(c.nota || \"\") }));\nif (!limpias.length) return fail(\"inventario vacío\");\nst.inventario = limpias;\nstore.save(st);\nreturn ok({ inventario: limpias.length, por_tipo: limpias.reduce((acc, c) => { acc[c.tipo] = (acc[c.tipo] || 0) + 1; return acc; }, {}), nota: \"mantenlo honesto: listar lo que NO tienes da gaps falsos de seguridad, omitir lo que tienes genera pañicos innecesarios\" });\n  }\n);\n\nserver.tool(\n  \"scan_gaps\",\n  \"Escanea los gaps: demandas sin cobertura, con severidad y recomendación.\",\n  {\n  tarea: z.string().describe(\"Tarea a escanear\"),\n  },\n  async (args: any) => {\n    const { tarea } = args as any;\n    const st = store.load();\nconst t = (st.tareas || {})[tarea];\nif (!t) return fail(\"tarea no declarada: usa declare_demands\");\nconst inv = new Set<string>((st.inventario || []).map((c: any) => String(c.capacidad)));\nconst sinonimos = { pdf: \"leer pdf\", excel: \"hojas de cálculo\", web: \"navegar\", buscar: \"búsqueda\", fetch: \"web\", http: \"web\", correo: \"email\", email: \"correo\", calculo: \"matemática\", mate: \"matemática\" };\nconst cubre = (demanda: any) => {\n  if (inv.has(demanda)) return \"directa\";\n  for (const [sinon, canon] of __ents(sinonimos)) if (demanda.includes(sinon) && inv.has(canon)) return \"via sinónimo\";\n  for (const cap of inv) if (demanda.includes(cap) || cap.includes(demanda)) return \"parcial\";\n  return null;\n};\nconst evaluadas = t.demandas.map(d => {\n  const c = cubre(d.capacidad);\n  return { ...d, cobertura: c || \"NINGUNA\", estado: c ? \"cubierta\" + (c === \"parcial\" ? \" (parcial)\" : \"\") : \"GAP\" };\n});\nconst gaps = evaluadas.filter(e => e.estado === \"GAP\");\nconst parciales = evaluadas.filter(e => e.cobertura === \"parcial\");\nconst criticosSin = gaps.filter(g => g.criticidad === \"alta\");\nconst cobertura = Number(((evaluadas.length - gaps.length) / evaluadas.length * 100).toFixed(0));\nreturn ok({ tarea, cobertura_pct: cobertura + \"%\", gaps_totales: gaps.length, gaps_criticos: criticosSin.map(g => g.capacidad), evaluacion: evaluadas, veredicto: criticosSin.length ? \"NO EMPIECES: hay \" + criticosSin.length + \" gaps CRÍTICOS (\" + criticosSin.map(g => g.capacidad).join(\", \") + \"): adquiere la capacidad o negocia el alcance AHORA, no a mitad de tarea\" : gaps.length ? \"EMPIEZA CON PLAN B: los gaps (\" + gaps.map(g => g.capacidad).join(\", \") + \") son no-críticos: define el rodeo antes\" : \"cobertura completa: la tarea está dentro de tus capacidades\", parciales_atencion: parciales.length ? parciales.map(p => p.capacidad + \" (parcial: valida que el alcance real alcanza)\") : [] });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor capability-gap-scanner está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"capability-gap-scanner\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[capability-gap-scanner] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-83df31",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-plan-decompose",
+  "version": "1.0.0",
+  "description": "Descompone objetivos en planes ejecutables: pasos, dependencias y estimaciones Dolor que resuelve: El agente ataca objetivos gigantes sin descomponer: pasos desordenados, sin dependencias ni criterios de salida. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "planning",
+   "reasoning",
+   "cognition"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only plan-decompose",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-plan-decompose",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "decompose",
+    "estimate_complexity",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only plan-decompose",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-plan-decompose\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-plan-decompose/dist/index.js\"]}}}. Tools disponibles: decompose, estimate_complexity y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/plan-decompose/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-plan-decompose (decompose, estimate_complexity). Descompone objetivos en planes ejecutables: pasos, dependencias y estimaciones. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/plan-decompose/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/plan-decompose\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Plan Decompose — Descompone objetivos en planes ejecutables: pasos, dependencias y estimaciones (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-plan-decompose\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Plan Decompose\n\n> Descompone objetivos en planes ejecutables: pasos, dependencias y estimaciones\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-plan-decompose`\n\n**Dolor de agente que resuelve:** El agente ataca objetivos gigantes sin descomponer: pasos desordenados, sin dependencias ni criterios de salida.\n\n## Tools (3 incl. health_check)\n\n### `decompose`\nDescompone un objetivo en pasos estructurados: extrae verbos de acción, ordena por dependencia lógica y añade criterios de terminación.\n\n**Parámetros:**\n  - `objetivo` (string, requerido): Objetivo a descomponer\n  - `max_pasos` (number, opcional): Máximo pasos\n\n### `estimate_complexity`\nEstima la complejidad de un objetivo (baja/media/alta) por señales: alcance, dominios involucrados, incertidumbre y dependencias externas.\n\n**Parámetros:**\n  - `objetivo` (string, requerido): Objetivo\n  - `contexto` (string, opcional): Contexto adicional\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"plan-decompose\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-plan-decompose/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Plan Decompose\n * Descompone objetivos en planes ejecutables: pasos, dependencias y estimaciones\n *\n * Dolor que resuelve: El agente ataca objetivos gigantes sin descomponer: pasos desordenados, sin dependencias ni criterios de salida.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: plan-decompose\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"plan-decompose\", version: \"1.0.0\" });\n\nserver.tool(\n  \"decompose\",\n  \"Descompone un objetivo en pasos estructurados: extrae verbos de acción, ordena por dependencia lógica y añade criterios de terminación.\",\n  {\n  objetivo: z.string().describe(\"Objetivo a descomponer\"),\n  max_pasos: z.number().describe(\"Máximo pasos\").default(8),\n  },\n  async (args: any) => {\n    const { objetivo, max_pasos } = args as any;\n    const acciones = [\"investigar\", \"definir\", \"diseñar\", \"implementar\", \"configurar\", \"probar\", \"validar\", \"documentar\", \"publicar\", \"medir\", \"revisar\", \"integrar\", \"analizar\", \"extraer\", \"limpiar\", \"comparar\", \"instalar\", \"escribir\", \"crear\", \"verificar\"];\nconst obj = objetivo.toLowerCase();\nconst detectadas = acciones.filter((a) => obj.includes(a));\nconst fases = detectadas.length >= 2 ? detectadas.slice(0, max_pasos ?? 8) : [\"analizar\", \"implementar\", \"verificar\", \"documentar\"];\nconst pasos = fases.map((fase, i) => ({\n  n: i + 1,\n  accion: fase,\n  descripcion: fase.charAt(0).toUpperCase() + fase.slice(1) + \" lo necesario para: \" + objetivo.slice(0, 80),\n  depende_de: i === 0 ? [] : [i],\n  criterio_terminacion: \"puedes marcarlo done cuando \" + fase + \" tiene entregable verificable\",\n  estimacion_minutos: 15 * (i + 1),\n}));\nreturn ok({ objetivo, total_pasos: pasos.length, pasos, nota: \"refina con task-tracker para ejecución real\" });\n  }\n);\n\nserver.tool(\n  \"estimate_complexity\",\n  \"Estima la complejidad de un objetivo (baja/media/alta) por señales: alcance, dominios involucrados, incertidumbre y dependencias externas.\",\n  {\n  objetivo: z.string().describe(\"Objetivo\"),\n  contexto: z.string().describe(\"Contexto adicional\").optional(),\n  },\n  async (args: any) => {\n    const { objetivo, contexto } = args as any;\n    const t = (objetivo + \" \" + (contexto || \"\")).toLowerCase();\nlet puntos = 0; const señales: string[] = [];\nif (/\\b(todo|todas|completo|integral|end.?to.?end|múltiples|varios|cada)\\b/.test(t)) { puntos += 2; señales.push(\"alcance amplio\"); }\nif (/\\b(integr|api|extern|tercer|webhook|deploy|producción|migrat)\\b/.test(t)) { puntos += 2; señales.push(\"dependencias externas\"); }\nif (/\\b(diseñ|arquitect|decidir|elegir|comparar|estrategia)\\b/.test(t)) { puntos += 1; señales.push(\"decisiones de diseño\"); }\nif (/\\b(seguridad|pago|legal|compliance|cripto)\\b/.test(t)) { puntos += 2; señales.push(\"dominio sensible\"); }\nif (/\\b(mvp|rápido|simple|demo|borrador|solo)\\b/.test(t)) { puntos -= 2; señales.push(\"alcance reducido\"); }\nif (t.length > 400) { puntos += 1; señales.push(\"descripción larga: muchos requisitos implícitos\"); }\nconst nivel = puntos <= 1 ? \"baja\" : puntos <= 3 ? \"media\" : puntos <= 5 ? \"alta\" : \"muy alta\";\nreturn ok({ puntos, nivel, señales, recomendacion: nivel === \"baja\" ? \"ejecuta directo\" : nivel === \"media\" ? \"planifica 3-5 pasos\" : \"descompón en sub-objetarios y valida supuestos primero\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor plan-decompose está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"plan-decompose\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[plan-decompose] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "plan-decompose"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

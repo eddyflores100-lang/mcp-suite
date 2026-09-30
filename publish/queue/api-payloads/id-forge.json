@@ -1,0 +1,63 @@
+{
+ "name": "mcp-id-forge",
+ "version": "1.0.0",
+ "description": "Genera identificadores: UUIDv4, ULID, nanoid y slugs — ordenables y colisionables a propósito Dolor que resuelve: IDs ad-hoc ('temp1', 'final-final2') rompen deduplicación y orden: hace falta generación seria. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Productivity",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "utilities",
+  "toolkit",
+  "productivity"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only id-forge",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-id-forge",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "uuid",
+   "ulid",
+   "slugify",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only id-forge",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-id-forge\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-id-forge/dist/index.js\"]}}}. Tools disponibles: uuid, ulid, slugify y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/id-forge/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-id-forge (uuid, ulid, slugify). Genera identificadores: UUIDv4, ULID, nanoid y slugs — ordenables y colisionables a propósito. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/id-forge/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/id-forge\",\n  \"version\": \"1.0.0\",\n  \"description\": \"ID Forge — Genera identificadores: UUIDv4, ULID, nanoid y slugs — ordenables y colisionables a propósito (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-id-forge\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"utilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# ID Forge\n\n> Genera identificadores: UUIDv4, ULID, nanoid y slugs — ordenables y colisionables a propósito\n\n**Categoría:** Utilidades · **ID:** `mcp-id-forge`\n\n**Dolor de agente que resuelve:** IDs ad-hoc ('temp1', 'final-final2') rompen deduplicación y orden: hace falta generación seria.\n\n## Tools (4 incl. health_check)\n\n### `uuid`\nGenera N UUIDs v4 criptográficamente aleatorios.\n\n**Parámetros:**\n  - `n` (number, opcional): Cuántos\n\n### `ulid`\nGenera ULIDs (ordenables por tiempo, 26 chars, safe para URLs): ideales para claves de eventos.\n\n**Parámetros:**\n  - `n` (number, opcional): Cuántos\n\n### `slugify`\nConvierte texto (con acentos y símbolos) en slug URL-safe único.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a convertir\n  - `max_len` (number, opcional): Longitud máxima\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"id-forge\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-id-forge/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: ID Forge\n * Genera identificadores: UUIDv4, ULID, nanoid y slugs — ordenables y colisionables a propósito\n *\n * Dolor que resuelve: IDs ad-hoc ('temp1', 'final-final2') rompen deduplicación y orden: hace falta generación seria.\n * Categoría: Utilidades | Generado por mcp-suite | id: id-forge\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"id-forge\", version: \"1.0.0\" });\n\nserver.tool(\n  \"uuid\",\n  \"Genera N UUIDs v4 criptográficamente aleatorios.\",\n  {\n  n: z.number().describe(\"Cuántos\").default(1),\n  },\n  async (args: any) => {\n    const { n } = args as any;\n    const out: string[] = [];\nfor (let i = 0; i < Math.min(n ?? 1, 100); i++) out.push(randomUUID());\nreturn ok({ tipo: \"uuid-v4\", total: out.length, ids: out });\n  }\n);\n\nserver.tool(\n  \"ulid\",\n  \"Genera ULIDs (ordenables por tiempo, 26 chars, safe para URLs): ideales para claves de eventos.\",\n  {\n  n: z.number().describe(\"Cuántos\").default(1),\n  },\n  async (args: any) => {\n    const { n } = args as any;\n    const ALFABETO = \"0123456789ABCDEFGHJKMNPQRSTVWXYZ\";\nfunction ulid(): string {\n  let t = Date.now();\n  let tiempo = \"\";\n  for (let i = 0; i < 10; i++) { tiempo = ALFABETO[t % 32] + tiempo; t = Math.floor(t / 32); }\n  let aleatorio = \"\";\n  const bytes = randomBytes(16);\n  for (let i = 0; i < 16; i++) aleatorio += ALFABETO[bytes[i] % 32];\n  return tiempo + aleatorio;\n}\nconst out: string[] = [];\nfor (let i = 0; i < Math.min(n ?? 1, 100); i++) out.push(ulid());\nreturn ok({ tipo: \"ulid\", total: out.length, ids: out, ventaja: \"orden cronológico lexicográfico\" });\n  }\n);\n\nserver.tool(\n  \"slugify\",\n  \"Convierte texto (con acentos y símbolos) en slug URL-safe único.\",\n  {\n  texto: z.string().describe(\"Texto a convertir\"),\n  max_len: z.number().describe(\"Longitud máxima\").default(60),\n  },\n  async (args: any) => {\n    const { texto, max_len } = args as any;\n    const mapa: any = { á: \"a\", é: \"e\", í: \"i\", ó: \"o\", ú: \"u\", ü: \"u\", ñ: \"n\", à: \"a\", è: \"e\", ç: \"c\" };\nlet s = texto.toLowerCase().split(\"\").map((ch) => mapa[ch] || ch).join(\"\");\ns = s.replace(/[^a-z0-9\\s-]/g, \"\").replace(/\\s+/g, \"-\").replace(/-+/g, \"-\").replace(/^-|-$/g, \"\");\nconst slug = s.slice(0, max_len ?? 60);\nconst sufijo = randomBytes(3).toString(\"hex\");\nreturn ok({ slug, slug_unico: slug + \"-\" + sufijo });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor id-forge está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"id-forge\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[id-forge] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

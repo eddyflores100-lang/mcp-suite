@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-f2e331",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-precondition-checker",
+  "version": "1.0.0",
+  "description": "Puerta de arranque: todas las precondiciones del plan verificadas con evidencia antes de gastar un solo token Dolor que resuelve: El agente arranca una tarea de 40 pasos y en el 35 descubre que le faltaba una credencial que se pide en el paso 1: media hora y un montón de tokens tirados a la basura por no chequear antes. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "preflight",
+   "readiness",
+   "checklist"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only precondition-checker",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-precondition-checker",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "define_checks",
+    "check_all",
+    "gate_report",
+    "fail_stats",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only precondition-checker",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-precondition-checker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-precondition-checker/dist/index.js\"]}}}. Tools disponibles: define_checks, check_all, gate_report, fail_stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/precondition-checker/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-precondition-checker (define_checks, check_all, gate_report, fail_stats). Puerta de arranque: todas las precondiciones del plan verificadas con evidencia antes de gastar un solo token. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/precondition-checker/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/precondition-checker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Precondition Checker — Puerta de arranque: todas las precondiciones del plan verificadas con evidencia antes de gastar un solo token (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-precondition-checker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"pre-vuelo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Precondition Checker\n\n> Puerta de arranque: todas las precondiciones del plan verificadas con evidencia antes de gastar un solo token\n\n**Categoría:** Pre-Vuelo · **ID:** `mcp-precondition-checker`\n\n**Dolor de agente que resuelve:** El agente arranca una tarea de 40 pasos y en el 35 descubre que le faltaba una credencial que se pide en el paso 1: media hora y un montón de tokens tirados a la basura por no chequear antes.\n\n> Estado persistente en `~/.mcp-suite/precondition-checker/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `define_checks`\nDeclara las precondiciones de una tarea: qué verificar y cómo se comprueba.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea/plan que quieres ejecutar\n  - `checks` (array, requerido): Checks {nombre, tipo: estado|permiso|dato|conexion|tiempo, como_verificar}\n\n### `check_all`\nEvalúa cada check con tu observación real y emite el veredicto de arranque (GO/NO-GO/GO-CON-RIESGO).\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea a evaluar\n  - `resultados` (array, requerido): Resultados {nombre, observado, cumple: true|false|desconocido}\n\n### `gate_report`\nÚltimo gate de una tarea: estado consolidado y qué camino tomar.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea\n\n### `fail_stats`\nEstadística de qué precondiciones fallan más: dónde poner automatización.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"precondition-checker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-precondition-checker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/precondition-checker/. Cada tarea declara checks (estado, permiso, dato, conexión); el gate evalúa cada uno con evidencia y emite GO / NO-GO / GO-CON-RIESGO.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Precondition Checker\n * Puerta de arranque: todas las precondiciones del plan verificadas con evidencia antes de gastar un solo token\n *\n * Dolor que resuelve: El agente arranca una tarea de 40 pasos y en el 35 descubre que le faltaba una credencial que se pide en el paso 1: media hora y un montón de tokens tirados a la basura por no chequear antes.\n * Categoría: Pre-Vuelo | Generado por mcp-suite | id: precondition-checker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/precondition-checker/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"precondition-checker\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"precondition-checker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"define_checks\",\n  \"Declara las precondiciones de una tarea: qué verificar y cómo se comprueba.\",\n  {\n  tarea: z.string().describe(\"Tarea/plan que quieres ejecutar\"),\n  checks: z.array(z.any()).describe(\"Checks {nombre, tipo: estado|permiso|dato|conexion|tiempo, como_verificar}\"),\n  },\n  async (args: any) => {\n    const { tarea, checks } = args as any;\n    const st = store.load();\nst.tareas = st.tareas || {};\nconst limpios = (checks || []).map((c, i) => ({ nombre: String(c.nombre || (\"check_\" + (i + 1))), tipo: String(c.tipo || \"estado\"), como_verificar: String(c.como_verificar || \"verificar manualmente\"), estado: \"pendiente\" }));\nif (!limpios.length) return fail(\"sin checks declarados\");\nst.tareas[tarea] = { tarea, checks: limpios, creado: new Date().toISOString(), gates: 0 };\nstore.save(st);\nreturn ok({ tarea, checks: limpios.length, por_tipo: limpios.reduce((acc, c) => { acc[c.tipo] = (acc[c.tipo] || 0) + 1; return acc; }, {}), siguiente: \"ejecuta check_all con las observaciones reales\" });\n  }\n);\n\nserver.tool(\n  \"check_all\",\n  \"Evalúa cada check con tu observación real y emite el veredicto de arranque (GO/NO-GO/GO-CON-RIESGO).\",\n  {\n  tarea: z.string().describe(\"Tarea a evaluar\"),\n  resultados: z.array(z.any()).describe(\"Resultados {nombre, observado, cumple: true|false|desconocido}\"),\n  },\n  async (args: any) => {\n    const { tarea, resultados } = args as any;\n    const st = store.load();\nconst t = (st.tareas || {})[tarea];\nif (!t) return fail(\"tarea no definida: \" + tarea + \" (usa define_checks primero)\");\nt.gates = (t.gates || 0) + 1;\nconst obsMap = new Map<any, any>((resultados || []).map(r => [String(r.nombre), r]));\nconst evaluados = t.checks.map(c => {\n  const r = obsMap.get(c.nombre);\n  if (!r) return { ...c, estado: \"sin_evaluar\", evidencia: null };\n  const cumple = r.cumple === true ? \"pasa\" : r.cumple === false ? \"falla\" : \"desconocido\";\n  return { ...c, estado: cumple, evidencia: String(r.observado || \"\").slice(0, 120), verificado_ts: new Date().toISOString() };\n});\nconst fallan = evaluados.filter(e => e.estado === \"falla\");\nconst desconocidos = evaluados.filter(e => e.estado === \"desconocido\" || e.estado === \"sin_evaluar\");\nconst bloqueantes = fallan.filter(e => e.tipo === \"permiso\" || e.tipo === \"conexion\" || e.tipo === \"estado\");\nconst veredicto = bloqueantes.length ? \"NO-GO: hay checks bloqueantes en rojo. Arrancar garantiza fallo a mitad de camino\" : fallan.length === 0 && desconocidos.length === 0 ? \"GO: todas las precondiciones verificadas\" : desconocidos.length > evaluados.length / 3 ? \"NO-GO-INFO: más de un tercio sin evaluar: verifica antes de arrancar\" : \"GO-CON-RIESGO: hay fallas no bloqueantes (\" + fallan.length + \") y desconocidos (\" + desconocidos.length + \"): el plan puede avanzar con contingencias\";\nt.checks = evaluados;\nt.ultimo_gate = { veredicto, ts: new Date().toISOString(), fallan: fallan.length, desconocidos: desconocidos.length };\nstore.save(st);\nreturn ok({ tarea, gate_numero: t.gates, resumen: { total: evaluados.length, pasan: evaluados.filter(e => e.estado === \"pasa\").length, fallan: fallan.length, desconocidos: desconocidos.length }, checks: evaluados, veredicto });\n  }\n);\n\nserver.tool(\n  \"gate_report\",\n  \"Último gate de una tarea: estado consolidado y qué camino tomar.\",\n  {\n  tarea: z.string().describe(\"Tarea\"),\n  },\n  async (args: any) => {\n    const { tarea } = args as any;\n    const st = store.load();\nconst t = (st.tareas || {})[tarea];\nif (!t) return fail(\"tarea no definida\");\nconst g = t.ultimo_gate;\nif (!g) return ok({ tarea, gates: 0, mensaje: \"nunca se ha corrido el gate: corre check_all\" });\nreturn ok({ tarea, gates_corridos: t.gates, ultimo_veredicto: g.veredicto, cuando: g.ts, pendientes_arreglar: t.checks.filter(c => c.estado === \"falla\").map(c => c.nombre), camino: g.veredicto.startsWith(\"NO-GO\") ? \"corrige los checks en rojo y re-corre el gate: no arrancques\" : g.veredicto === \"GO-CON-RIESGO\" ? \"arranca con plan de contingencia documentado para los checks amarillos\" : \"arranca\" });\n  }\n);\n\nserver.tool(\n  \"fail_stats\",\n  \"Estadística de qué precondiciones fallan más: dónde poner automatización.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst tareas = __vals(st.tareas || {});\nconst todas = [];\ntareas.forEach(t => (t.checks || []).forEach(c => todas.push({ tarea: t.tarea, nombre: c.nombre, tipo: c.tipo, estado: c.estado })));\nif (!todas.length) return ok({ checks: 0, mensaje: \"sin datos aún\" });\nconst porNombre = {};\ntodas.forEach(c => { porNombre[c.nombre] = porNombre[c.nombre] || { nombre: c.nombre, tipo: c.tipo, fallas: 0, total: 0 }; porNombre[c.nombre].total++; if (c.estado === \"falla\") porNombre[c.nombre].fallas++; });\nconst ranking = __vals(porNombre).map(x => ({ ...x, tasa_fallo: Number((x.fallas / x.total * 100).toFixed(0)) + \"%\" })).sort((a, b) => b.fallas - a.fallas);\nconst peor = ranking[0];\nreturn ok({ checks_evaluados: todas.length, top_fallidos: ranking.slice(0, 5), recomendacion: peor && peor.tasa_fallo === \"100%\" ? \"el check '\" + peor.nombre + \"' falla SIEMPRE: automatízalo o elimínalo de la definición\" : \"monitoriza los checks con mayor tasa de fallo\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor precondition-checker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"precondition-checker\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[precondition-checker] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "precondition-checker"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

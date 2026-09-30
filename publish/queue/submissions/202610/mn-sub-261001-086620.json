@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-086620",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-tool-router",
+  "version": "1.0.0",
+  "description": "Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo Dolor que resuelve: Con 100+ tools disponibles el LLM elige mal o llama la incorrecta (dolor #1 reportado por merge.dev sobre MCP). Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "resilience",
+   "circuit-breaker",
+   "retry"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only tool-router",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tool-router",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_route",
+    "route",
+    "stats",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only tool-router",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-tool-router\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-tool-router/dist/index.js\"]}}}. Tools disponibles: add_route, route, stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/tool-router/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-tool-router (add_route, route, stats). Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/tool-router/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/tool-router\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Tool Router — Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-tool-router\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Tool Router\n\n> Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-tool-router`\n\n**Dolor de agente que resuelve:** Con 100+ tools disponibles el LLM elige mal o llama la incorrecta (dolor #1 reportado por merge.dev sobre MCP).\n\n> Estado persistente en `~/.mcp-suite/tool-router/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `add_route`\nDefine una regla de ruteo: patrón de intención → tool concreta (con prioridad).\n\n**Parámetros:**\n  - `intencion` (string, requerido): Patrón de intención (ej: leer página web)\n  - `tool` (string, requerido): Tool a enrutar\n  - `prioridad` (number, opcional): Prioridad (mayor = primero)\n\n### `route`\nDada una intención en texto, devuelve la tool recomendada (match por similitud de intención) y registra el uso.\n\n**Parámetros:**\n  - `intencion` (string, requerido): Qué se quiere hacer\n\n### `stats`\nEstadísticas de ruteo: qué rutas se usan más (para ajustar prioridades).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"tool-router\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-tool-router/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Tool Router\n * Enruta cada intención a la mejor tool: menos decisiones erróneas del modelo\n *\n * Dolor que resuelve: Con 100+ tools disponibles el LLM elige mal o llama la incorrecta (dolor #1 reportado por merge.dev sobre MCP).\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: tool-router\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/tool-router/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"tool-router\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"tool-router\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_route\",\n  \"Define una regla de ruteo: patrón de intención → tool concreta (con prioridad).\",\n  {\n  intencion: z.string().describe(\"Patrón de intención (ej: leer página web)\"),\n  tool: z.string().describe(\"Tool a enrutar\"),\n  prioridad: z.number().describe(\"Prioridad (mayor = primero)\").default(1),\n  },\n  async (args: any) => {\n    const { intencion, tool, prioridad } = args as any;\n    const st = store.load();\nst.rutas = st.rutas || [];\nst.rutas.push({ intencion, tool, prioridad: prioridad ?? 1, usos: 0 });\nst.rutas.sort((a: any, b: any) => b.prioridad - a.prioridad);\nstore.save(st);\nreturn ok({ rutas: st.rutas.length });\n  }\n);\n\nserver.tool(\n  \"route\",\n  \"Dada una intención en texto, devuelve la tool recomendada (match por similitud de intención) y registra el uso.\",\n  {\n  intencion: z.string().describe(\"Qué se quiere hacer\"),\n  },\n  async (args: any) => {\n    const { intencion } = args as any;\n    const st = store.load();\nconst rutas: any[] = st.rutas || [];\nif (!rutas.length) return fail(\"sin rutas definidas: add_route primero\");\nconst q = intencion.toLowerCase();\nconst words = q.split(/\\s+/).filter((w) => w.length > 3);\nconst scored = rutas.map((r) => {\n  const rtext = r.intencion.toLowerCase();\n  const hits = words.filter((w) => rtext.includes(w)).length;\n  return { r, score: hits + r.prioridad * 0.1 };\n}).sort((a, b) => b.score - a.score);\nconst mejor = scored[0];\nif (mejor.score <= 0) return ok({ tool: null, razon: \"ninguna ruta matchea; define con add_route\" });\nmejor.r.usos = (mejor.r.usos || 0) + 1;\nstore.save(st);\nreturn ok({ tool: mejor.r.tool, intencion_detectada: mejor.r.intencion, score: Math.round(mejor.score * 10) / 10, alternativas: scored.slice(1, 3).map((s) => s.r.tool) });\n  }\n);\n\nserver.tool(\n  \"stats\",\n  \"Estadísticas de ruteo: qué rutas se usan más (para ajustar prioridades).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst rutas = (st.rutas || []).map((r: any) => ({ intencion: r.intencion, tool: r.tool, usos: r.usos || 0, prioridad: r.prioridad }));\nreturn ok({ rutas, total_usos: rutas.reduce((a: number, r: any) => a + r.usos, 0) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor tool-router está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"tool-router\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[tool-router] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "tool-router"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

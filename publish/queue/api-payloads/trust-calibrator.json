@@ -1,0 +1,64 @@
+{
+ "name": "mcp-trust-calibrator",
+ "version": "1.0.0",
+ "description": "Calibra la confianza humano→agente por dominio: dónde te dejan solo y dónde exigen revisión Dolor que resuelve: La confianza es global, no calibrada: el humano revisa todo lo que el agente ya domina (desperdicio) O deja pasar lo que el agente still rompe (desastre). Falta trust por dominio con evidencia. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Productivity",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "human-approval",
+  "escalation",
+  "consent"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only trust-calibrator",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-trust-calibrator",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "set_trust",
+   "record_outcome",
+   "recalibrate",
+   "trust_map",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only trust-calibrator",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-trust-calibrator\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-trust-calibrator/dist/index.js\"]}}}. Tools disponibles: set_trust, record_outcome, recalibrate, trust_map y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/trust-calibrator/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-trust-calibrator (set_trust, record_outcome, recalibrate, trust_map). Calibra la confianza humano→agente por dominio: dónde te dejan solo y dónde exigen revisión. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/trust-calibrator/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/trust-calibrator\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Trust Calibrator — Calibra la confianza humano→agente por dominio: dónde te dejan solo y dónde exigen revisión (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-trust-calibrator\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"humano-en-el-bucle\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Trust Calibrator\n\n> Calibra la confianza humano→agente por dominio: dónde te dejan solo y dónde exigen revisión\n\n**Categoría:** Humano en el Bucle · **ID:** `mcp-trust-calibrator`\n\n**Dolor de agente que resuelve:** La confianza es global, no calibrada: el humano revisa todo lo que el agente ya domina (desperdicio) O deja pasar lo que el agente still rompe (desastre). Falta trust por dominio con evidencia.\n\n> Estado persistente en `~/.mcp-suite/trust-calibrator/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `set_trust`\nEstablece el nivel de confianza del humano en un dominio (0=ninguna, 4=autonomía total) con justificación.\n\n**Parámetros:**\n  - `dominio` (string, requerido): Dominio de trabajo (ej: sql, redaccion, pagos)\n  - `nivel` (number, requerido): 0-4: 0 revisar todo, 1 asistir, 2 proponer, 3 ejecutar e informar, 4 autónomo\n  - `justificacion` (string, requerido): Por qué este nivel\n\n### `record_outcome`\nRegistra un acierto o fallo del agente en el dominio: alimenta la recalibración.\n\n**Parámetros:**\n  - `dominio` (string, requerido): Dominio\n  - `exito` (boolean, requerido): ¿Salió bien sin intervención?\n  - `detalle` (string, opcional): Qué pasó\n\n### `recalibrate`\nRecomienda ajustar el nivel de trust según la evidencia acumulada (con histórico de ajustes).\n\n### `trust_map`\nMapa de confianza completo: qué puede hacer solo el agente hoy, resumido.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"trust-calibrator\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-trust-calibrator/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/trust-calibrator/. Nivel de confianza por dominio (0-4) con historial de aciertos/errores que lo justifica; recomienda subir/bajar el nivel según evidencia reciente.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Trust Calibrator\n * Calibra la confianza humano→agente por dominio: dónde te dejan solo y dónde exigen revisión\n *\n * Dolor que resuelve: La confianza es global, no calibrada: el humano revisa todo lo que el agente ya domina (desperdicio) O deja pasar lo que el agente still rompe (desastre). Falta trust por dominio con evidencia.\n * Categoría: Humano en el Bucle | Generado por mcp-suite | id: trust-calibrator\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/trust-calibrator/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"trust-calibrator\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"trust-calibrator\", version: \"1.0.0\" });\n\nserver.tool(\n  \"set_trust\",\n  \"Establece el nivel de confianza del humano en un dominio (0=ninguna, 4=autonomía total) con justificación.\",\n  {\n  dominio: z.string().describe(\"Dominio de trabajo (ej: sql, redaccion, pagos)\"),\n  nivel: z.number().describe(\"0-4: 0 revisar todo, 1 asistir, 2 proponer, 3 ejecutar e informar, 4 autónomo\"),\n  justificacion: z.string().describe(\"Por qué este nivel\"),\n  },\n  async (args: any) => {\n    const { dominio, nivel, justificacion } = args as any;\n    if (nivel < 0 || nivel > 4) return fail(\"nivel 0-4\");\nconst st = store.load();\nst.trust = st.trust || {};\nst.trust[dominio] = { dominio, nivel, justificacion, exitos: st.trust[dominio]?.exitos || 0, fallos: st.trust[dominio]?.fallos || 0, ajustes: st.trust[dominio]?.ajustes || [], seteado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ dominio, nivel, descripcion: [\"revisar TODO lo que haga\", \"asistir: solo tareas guiadas\", \"proponer: ejecuta tras aprobación\", \"ejecutar e informar después\", \"autónomo sin revisiones\"][nivel] });\n  }\n);\n\nserver.tool(\n  \"record_outcome\",\n  \"Registra un acierto o fallo del agente en el dominio: alimenta la recalibración.\",\n  {\n  dominio: z.string().describe(\"Dominio\"),\n  exito: z.boolean().describe(\"¿Salió bien sin intervención?\"),\n  detalle: z.string().describe(\"Qué pasó\").optional(),\n  },\n  async (args: any) => {\n    const { dominio, exito, detalle } = args as any;\n    const st = store.load();\nconst t = (st.trust || {})[dominio];\nif (!t) return fail(\"dominio sin trust definido: usa set_trust\");\nif (exito) t.exitos++; else t.fallos++;\nt.historial = t.historial || [];\nt.historial.push({ exito, detalle: detalle || null, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ dominio, exitos: t.exitos, fallos: t.fallos, tasa: Number((t.exitos / (t.exitos + t.fallos)).toFixed(2)) });\n  }\n);\n\nserver.tool(\n  \"recalibrate\",\n  \"Recomienda ajustar el nivel de trust según la evidencia acumulada (con histórico de ajustes).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst dominios = __vals(st.trust || {});\nif (!dominios.length) return ok({ dominios: 0, sugerencia: \"set_trust primero\" });\nconst recomendaciones = dominios.map(t => {\n  const total = t.exitos + t.fallos;\n  let sugerido = null;\n  if (total >= 8) {\n    const tasa = t.exitos / total;\n    if (tasa >= 0.95 && t.nivel < 4) sugerido = t.nivel + 1;\n    else if (tasa < 0.7 && t.nivel > 0) sugerido = t.nivel - 1;\n  }\n  return {\n    dominio: t.dominio, nivel_actual: t.nivel, exitos: t.exitos, fallos: t.fallos,\n    tasa: total ? Number((t.exitos / total).toFixed(2)) : null,\n    nivel_sugerido: sugerido,\n    accion: sugerido === null ? \"mantener\" : sugerido > t.nivel ? \"SUBIR: la evidencia justifica más autonomía (propón al humano)\" : \"BAJAR: demasiados fallos para este nivel de autonomía\",\n  };\n});\nreturn ok({\n  dominios: recomendaciones.length,\n  recomendaciones,\n  subibles: recomendaciones.filter(r => r.nivel_sugerido !== null && r.nivel_sugerido > r.nivel_actual).map(r => r.dominio),\n  bajables: recomendaciones.filter(r => r.nivel_sugerido !== null && r.nivel_sugerido < r.nivel_actual).map(r => r.dominio),\n});\n  }\n);\n\nserver.tool(\n  \"trust_map\",\n  \"Mapa de confianza completo: qué puede hacer solo el agente hoy, resumido.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst dominios = __vals(st.trust || {});\nif (!dominios.length) return ok({ dominios: 0 });\nconst porNivel = {};\nfor (const t of dominios) porNivel[t.nivel] = (porNivel[t.nivel] || 0) + 1;\nreturn ok({\n  por_nivel: porNivel,\n  autonomia_total: dominios.filter(t => t.nivel === 4).map(t => t.dominio),\n  revision_total: dominios.filter(t => t.nivel === 0).map(t => t.dominio),\n  balance: dominios.filter(t => t.nivel >= 3).length + \" de \" + dominios.length + \" dominios con autonomía alta\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor trust-calibrator está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"trust-calibrator\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[trust-calibrator] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-f5a0b2",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-hash-toolkit",
+  "version": "1.0.0",
+  "description": "Hashing y encoding exacto: sha256, hmac, base64, hex y checksums Dolor que resuelve: Verificar integridad o firmar un payload exige hashing exacto: 'calcular' un sha256 de cabeza es imposible. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Productivity",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "utilities",
+   "toolkit",
+   "productivity"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only hash-toolkit",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-hash-toolkit",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "hash",
+    "hmac",
+    "encode_decode",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only hash-toolkit",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-hash-toolkit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-hash-toolkit/dist/index.js\"]}}}. Tools disponibles: hash, hmac, encode_decode y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/hash-toolkit/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-hash-toolkit (hash, hmac, encode_decode). Hashing y encoding exacto: sha256, hmac, base64, hex y checksums. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/hash-toolkit/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/hash-toolkit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Hash Toolkit — Hashing y encoding exacto: sha256, hmac, base64, hex y checksums (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-hash-toolkit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"utilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Hash Toolkit\n\n> Hashing y encoding exacto: sha256, hmac, base64, hex y checksums\n\n**Categoría:** Utilidades · **ID:** `mcp-hash-toolkit`\n\n**Dolor de agente que resuelve:** Verificar integridad o firmar un payload exige hashing exacto: 'calcular' un sha256 de cabeza es imposible.\n\n## Tools (4 incl. health_check)\n\n### `hash`\nCalcula el hash de un texto en md5/sha1/sha256/sha512 (hex o base64).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a hashear\n  - `algoritmo` (enum, opcional): Algoritmo\n  - `encoding` (enum, opcional): Salida\n\n### `hmac`\nCalcula HMAC (sha256 por defecto) de un mensaje con un secreto — para firmar webhooks y payloads.\n\n**Parámetros:**\n  - `mensaje` (string, requerido): Mensaje\n  - `secreto` (string, requerido): Secreto compartido\n  - `algoritmo` (enum, opcional): Algoritmo\n\n### `encode_decode`\nCodifica/decodifica base64, base64url y hex con detección automática de la operación.\n\n**Parámetros:**\n  - `operacion` (enum, requerido): Operación\n  - `formato` (enum, opcional): Formato\n  - `dato` (string, requerido): Dato a transformar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"hash-toolkit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-hash-toolkit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Hash Toolkit\n * Hashing y encoding exacto: sha256, hmac, base64, hex y checksums\n *\n * Dolor que resuelve: Verificar integridad o firmar un payload exige hashing exacto: 'calcular' un sha256 de cabeza es imposible.\n * Categoría: Utilidades | Generado por mcp-suite | id: hash-toolkit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"hash-toolkit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"hash\",\n  \"Calcula el hash de un texto en md5/sha1/sha256/sha512 (hex o base64).\",\n  {\n  texto: z.string().describe(\"Texto a hashear\"),\n  algoritmo: z.enum([\"md5\",\"sha1\",\"sha256\",\"sha512\"]).describe(\"Algoritmo\").default(\"sha256\"),\n  encoding: z.enum([\"hex\",\"base64\"]).describe(\"Salida\").default(\"hex\"),\n  },\n  async (args: any) => {\n    const { texto, algoritmo, encoding } = args as any;\n    const h = createHash(algoritmo || \"sha256\").update(String(texto), \"utf8\").digest(encoding === \"base64\" ? \"base64\" : \"hex\");\nreturn ok({ algoritmo, encoding: encoding || \"hex\", hash: h, longitud: h.length });\n  }\n);\n\nserver.tool(\n  \"hmac\",\n  \"Calcula HMAC (sha256 por defecto) de un mensaje con un secreto — para firmar webhooks y payloads.\",\n  {\n  mensaje: z.string().describe(\"Mensaje\"),\n  secreto: z.string().describe(\"Secreto compartido\"),\n  algoritmo: z.enum([\"sha256\",\"sha1\",\"sha512\"]).describe(\"Algoritmo\").default(\"sha256\"),\n  },\n  async (args: any) => {\n    const { mensaje, secreto, algoritmo } = args as any;\n    const mac = createHmac(algoritmo || \"sha256\", String(secreto)).update(String(mensaje), \"utf8\").digest(\"hex\");\nreturn ok({ algoritmo: algoritmo || \"sha256\", hmac: mac, nota: \"compara siempre en tiempo constante (timingSafeEqual) en producción\" });\n  }\n);\n\nserver.tool(\n  \"encode_decode\",\n  \"Codifica/decodifica base64, base64url y hex con detección automática de la operación.\",\n  {\n  operacion: z.enum([\"encode\",\"decode\"]).describe(\"Operación\"),\n  formato: z.enum([\"base64\",\"base64url\",\"hex\"]).describe(\"Formato\").default(\"base64\"),\n  dato: z.string().describe(\"Dato a transformar\"),\n  },\n  async (args: any) => {\n    const { operacion, formato, dato } = args as any;\n    try {\n  if (operacion === \"encode\") {\n    if (formato === \"hex\") return ok({ resultado: Buffer.from(dato, \"utf8\").toString(\"hex\") });\n    if (formato === \"base64url\") return ok({ resultado: Buffer.from(dato, \"utf8\").toString(\"base64url\") });\n    return ok({ resultado: Buffer.from(dato, \"utf8\").toString(\"base64\") });\n  }\n  if (formato === \"hex\") return ok({ resultado: Buffer.from(dato, \"hex\").toString(\"utf8\") });\n  if (formato === \"base64url\") return ok({ resultado: Buffer.from(dato, \"base64url\").toString(\"utf8\") });\n  return ok({ resultado: Buffer.from(dato, \"base64\").toString(\"utf8\") });\n} catch (e: any) { return fail(\"dato inválido para el formato: \" + e.message); }\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor hash-toolkit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"hash-toolkit\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[hash-toolkit] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "hash-toolkit"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

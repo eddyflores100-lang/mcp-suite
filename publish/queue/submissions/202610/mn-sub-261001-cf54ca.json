@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-cf54ca",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-dispute-resolver",
+  "version": "1.0.0",
+  "description": "Carpeta de disputas con evidencias ponderadas, posiciones enfrentadas y vías de resolución propuestas Dolor que resuelve: Cuando dos agentes discrepan (entrega mala, dato incorrecto, pago no reflejado) no hay dónde registrar la disputa con estructura: la 'resolución' es un pulso de quién insiste más, sin evidencia ni trazabilidad. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "FinTech",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "a2a",
+   "payments",
+   "escrow"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only dispute-resolver",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-dispute-resolver",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "open_case",
+    "add_evidence",
+    "analyze_positions",
+    "propose_resolution",
+    "close_case",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only dispute-resolver",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-dispute-resolver\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-dispute-resolver/dist/index.js\"]}}}. Tools disponibles: open_case, add_evidence, analyze_positions, propose_resolution, close_case y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/dispute-resolver/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-dispute-resolver (open_case, add_evidence, analyze_positions, propose_resolution, close_case). Carpeta de disputas con evidencias ponderadas, posiciones enfrentadas y vías de resolución propuestas. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/dispute-resolver/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/dispute-resolver\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Dispute Resolver — Carpeta de disputas con evidencias ponderadas, posiciones enfrentadas y vías de resolución propuestas (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-dispute-resolver\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comercio-a2a\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Dispute Resolver\n\n> Carpeta de disputas con evidencias ponderadas, posiciones enfrentadas y vías de resolución propuestas\n\n**Categoría:** Comercio A2A · **ID:** `mcp-dispute-resolver`\n\n**Dolor de agente que resuelve:** Cuando dos agentes discrepan (entrega mala, dato incorrecto, pago no reflejado) no hay dónde registrar la disputa con estructura: la 'resolución' es un pulso de quién insiste más, sin evidencia ni trazabilidad.\n\n> Estado persistente en `~/.mcp-suite/dispute-resolver/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `open_case`\nAbre una disputa estructurada: quién, contra quién, qué se exige y bajo qué acuerdo.\n\n**Parámetros:**\n  - `reclamante` (string, requerido): Agente que reclama\n  - `reclamado` (string, requerido): Agente reclamado\n  - `pretension` (string, requerido): Qué se exige exactamente (reembolso, corrección, entrega, disculpa)\n  - `acuerdo_violado` (string, requerido): Acuerdo/contrato/término supuestamente incumplido\n  - `monto_en_juego` (number, opcional): Valor económico implicado si aplica (0 si no)\n\n### `add_evidence`\nAñade evidencia a la disputa: qué demuestra, quién la aporta y su fuerza.\n\n**Parámetros:**\n  - `id` (string, requerido): Id de la disputa\n  - `parte` (string, requerido): Parte que la aporta\n  - `demuestra` (string, requerido): Qué hecho concreto demuestra\n  - `tipo` (enum, requerido): Naturaleza de la evidencia\n  - `peso` (enum, opcional): Fuerza probatoria\n\n### `analyze_positions`\nAnaliza el equilibrio probatorio: peso por parte, hechos no disputados y qué falta demostrar.\n\n**Parámetros:**\n  - `id` (string, requerido): Id de la disputa\n\n### `propose_resolution`\nPropone la vía de cierre más eficiente según monto, equilibrio probatorio y coste de escalado.\n\n**Parámetros:**\n  - `id` (string, requerido): Id de la disputa\n\n### `close_case`\nCierra la disputa con la resolución aplicada y lecciones extraídas.\n\n**Parámetros:**\n  - `id` (string, requerido): Id de la disputa\n  - `resolucion` (string, requerido): Cómo se resolvió de verdad\n  - `satisface_a` (enum, requerido): Quien queda satisfecho\n  - `leccion` (string, opcional): Qué cambiar para evitar repetir esta disputa\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"dispute-resolver\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-dispute-resolver/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/dispute-resolver/. Disputas con reclamante/respondedor, pretensión, evidencias con peso, y análisis de brecha entre lo pedido y lo demostrado; propone la vía de cierre más barata.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Dispute Resolver\n * Carpeta de disputas con evidencias ponderadas, posiciones enfrentadas y vías de resolución propuestas\n *\n * Dolor que resuelve: Cuando dos agentes discrepan (entrega mala, dato incorrecto, pago no reflejado) no hay dónde registrar la disputa con estructura: la 'resolución' es un pulso de quién insiste más, sin evidencia ni trazabilidad.\n * Categoría: Comercio A2A | Generado por mcp-suite | id: dispute-resolver\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/dispute-resolver/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"dispute-resolver\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"dispute-resolver\", version: \"1.0.0\" });\n\nserver.tool(\n  \"open_case\",\n  \"Abre una disputa estructurada: quién, contra quién, qué se exige y bajo qué acuerdo.\",\n  {\n  reclamante: z.string().describe(\"Agente que reclama\"),\n  reclamado: z.string().describe(\"Agente reclamado\"),\n  pretension: z.string().describe(\"Qué se exige exactamente (reembolso, corrección, entrega, disculpa)\"),\n  acuerdo_violado: z.string().describe(\"Acuerdo/contrato/término supuestamente incumplido\"),\n  monto_en_juego: z.number().describe(\"Valor económico implicado si aplica (0 si no)\").default(0),\n  },\n  async (args: any) => {\n    const { reclamante, reclamado, pretension, acuerdo_violado, monto_en_juego } = args as any;\n    const st = store.load();\nst.casos = st.casos || [];\nconst id = \"dsp_\" + String(st.casos.length + 1).padStart(4, \"0\");\nst.casos.push({ id, reclamante, reclamado, pretension, acuerdo_violado, monto_en_juego, estado: \"ABIERTO\", evidencias: [], propuesta_resolucion: null, creado: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id, estado: \"ABIERTO\", siguiente: \"aporta evidencia con add_evidence (ambas partes pueden)\" });\n  }\n);\n\nserver.tool(\n  \"add_evidence\",\n  \"Añade evidencia a la disputa: qué demuestra, quién la aporta y su fuerza.\",\n  {\n  id: z.string().describe(\"Id de la disputa\"),\n  parte: z.string().describe(\"Parte que la aporta\"),\n  demuestra: z.string().describe(\"Qué hecho concreto demuestra\"),\n  tipo: z.enum([\"documento\",\"log\",\"captura\",\"testimonio\",\"metrica\",\"contrato\"]).describe(\"Naturaleza de la evidencia\"),\n  peso: z.enum([\"debil\",\"media\",\"fuerte\"]).describe(\"Fuerza probatoria\").default(\"media\"),\n  },\n  async (args: any) => {\n    const { id, parte, demuestra, tipo, peso } = args as any;\n    const st = store.load();\nconst c = (st.casos || []).find(x => x.id === id);\nif (!c) return fail(\"disputa no encontrada: \" + id);\nif (c.estado !== \"ABIERTO\") return fail(\"disputa ya resuelta\");\nc.evidencias.push({ parte, demuestra, tipo, peso, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id, evidencias: c.evidencias.length, recuento_por_parte: c.evidencias.reduce((acc, e) => { acc[e.parte] = (acc[e.parte] || 0) + 1; return acc; }, {}) });\n  }\n);\n\nserver.tool(\n  \"analyze_positions\",\n  \"Analiza el equilibrio probatorio: peso por parte, hechos no disputados y qué falta demostrar.\",\n  {\n  id: z.string().describe(\"Id de la disputa\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst c = (st.casos || []).find(x => x.id === id);\nif (!c) return fail(\"disputa no encontrada\");\nif (!c.evidencias.length) return fail(\"sin evidencias: añade con add_evidence\");\nconst pesos = { fuerte: 3, media: 2, debil: 1 };\nconst porParte = {};\nc.evidencias.forEach(e => { porParte[e.parte] = (porParte[e.parte] || 0) + (pesos[e.peso] || 2); });\nconst partes = [c.reclamante, c.reclamado];\nconst pR = porParte[c.reclamante] || 0, pD = porParte[c.reclamado] || 0;\nconst ventaja = pR > pD * 1.5 ? \"claramente \" + c.reclamante : pD > pR * 1.5 ? \"claramente \" + c.reclamado : \"equilibrada\";\nconst tiposPresentes = [...new Set(c.evidencias.map(e => e.tipo))];\nconst faltaContractual = !tiposPresentes.includes(\"contrato\");\nconst faltaMetrica = c.pretension.toLowerCase().includes(\"reem\") || c.pretension.toLowerCase().includes(\"monto\") ? !tiposPresentes.includes(\"metrica\") : false;\nreturn ok({ id, peso_por_parte: porParte, ventaja_probatoria: ventaja, ratio: pR + \":\" + pD, evidencias_totales: c.evidencias.length, tipos_presentes: tiposPresentes, huecos: { sin_prueba_del_acuerdo: faltaContractual ? \"nadie aportó el contrato/acuerdo original: pídelo antes de decidir\" : null, sin_cuantificacion: faltaMetrica ? \"la pretensión es económica y no hay métrica que la cuantifique\" : null }, lectura: \"la pretensión '\" + c.pretension.slice(0, 80) + \"' requiere que \" + c.reclamante + \" demuestre el daño y que \" + c.reclamado + \" demuestre cumplimiento o fuerza mayor\" });\n  }\n);\n\nserver.tool(\n  \"propose_resolution\",\n  \"Propone la vía de cierre más eficiente según monto, equilibrio probatorio y coste de escalado.\",\n  {\n  id: z.string().describe(\"Id de la disputa\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst c = (st.casos || []).find(x => x.id === id);\nif (!c) return fail(\"disputa no encontrada\");\nconst pesos = { fuerte: 3, media: 2, debil: 1 };\nconst pR = c.evidencias.filter(e => e.parte === c.reclamante).reduce((a, e) => a + (pesos[e.peso] || 2), 0);\nconst pD = c.evidencias.filter(e => e.parte === c.reclamado).reduce((a, e) => a + (pesos[e.peso] || 2), 0);\nconst vias = [\n  { via: \"acuerdo_directo\", coste: 1, requiere: \"ambas partes aceptan una lectura compartible de los hechos\", aplica: Math.abs(pR - pD) <= 2 || c.evidencias.length <= 3 },\n  { via: \"mediacion_tercero\", coste: 3, requiere: \"un tercer agente neutral propuesto por ambos\", aplica: Math.abs(pR - pD) > 2 && c.evidencias.length > 3 },\n  { via: \"reembolso_parcial_sin_reconocer_culpa\", coste: Math.min(c.monto_en_juego * 0.5, 10), requiere: \"el monto (\" + c.monto_en_juego + \") hace más caro discutir que pagar\", aplica: c.monto_en_juego > 0 && c.monto_en_juego < 50 },\n  { via: \"arbitraje_vinculante\", coste: 10 + c.monto_en_juego * 0.05, requiere: \"acuerdo de arbitraje previo\", aplica: c.monto_en_juego >= 50 }\n];\nconst aplicables = vias.filter(v => v.aplica).sort((a, b) => a.coste - b.coste);\nif (!aplicables.length) aplicables.push({ via: \"escalado_humano\", coste: 999, requiere: \"operador humano revisa el expediente\", aplica: true });\nc.propuesta_resolucion = { via_recomendada: aplicables[0].via, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({ id, vias_ordenadas_por_coste: aplicables, recomendada: aplicables[0].via, razon: \"coste total estimado \" + Number(aplicables[0].coste.toFixed(2)) + \" frente a monto en juego \" + c.monto_en_juego, expediente: { evidencias: c.evidencias.length, pretension: c.pretension } });\n  }\n);\n\nserver.tool(\n  \"close_case\",\n  \"Cierra la disputa con la resolución aplicada y lecciones extraídas.\",\n  {\n  id: z.string().describe(\"Id de la disputa\"),\n  resolucion: z.string().describe(\"Cómo se resolvió de verdad\"),\n  satisface_a: z.enum([\"reclamante\",\"reclamado\",\"ambos\",\"ninguno\"]).describe(\"Quien queda satisfecho\"),\n  leccion: z.string().describe(\"Qué cambiar para evitar repetir esta disputa\").optional(),\n  },\n  async (args: any) => {\n    const { id, resolucion, satisface_a, leccion } = args as any;\n    const st = store.load();\nconst c = (st.casos || []).find(x => x.id === id);\nif (!c) return fail(\"disputa no encontrada\");\nif (c.estado !== \"ABIERTO\") return fail(\"ya cerrada\");\nc.estado = \"CERRADO\";\nc.cierre = { resolucion, satisface_a, leccion: leccion || \"\", dias_abierto: Number(((Date.now() - new Date(c.creado).getTime()) / 86400000).toFixed(2)), ts: new Date().toISOString() };\nstore.save(st);\nconst patrones = (st.casos || []).filter(x => x.cierre && x.acuerdo_violado === c.acuerdo_violado).length;\nreturn ok({ id, cerrada: true, satisface_a, dias_abierto: c.cierre.dias_abierto, patrón_detectado: patrones > 1 ? \"esta es la disputa #\" + patrones + \" sobre el mismo tipo de acuerdo: cambia el acuerdo de raíz\" : \"primera disputa de este tipo\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor dispute-resolver está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"dispute-resolver\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[dispute-resolver] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "dispute-resolver"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

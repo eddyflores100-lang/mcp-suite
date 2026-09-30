@@ -1,0 +1,62 @@
+{
+ "name": "mcp-consensus-voter",
+ "version": "1.0.0",
+ "description": "Votación entre N respuestas del mismo prompt: self-consistency sin infraestructura Dolor que resuelve: Una sola pasada del LLM puede ser un outlier: self-consistency (votar entre N muestras) mejora precisión pero falta tooling. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Developer Tools",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "quality",
+  "validation",
+  "hallucination"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only consensus-voter",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-consensus-voter",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add_answer",
+   "vote",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only consensus-voter",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-consensus-voter\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-consensus-voter/dist/index.js\"]}}}. Tools disponibles: add_answer, vote y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/consensus-voter/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-consensus-voter (add_answer, vote). Votación entre N respuestas del mismo prompt: self-consistency sin infraestructura. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/consensus-voter/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/consensus-voter\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Consensus Voter — Votación entre N respuestas del mismo prompt: self-consistency sin infraestructura (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-consensus-voter\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Consensus Voter\n\n> Votación entre N respuestas del mismo prompt: self-consistency sin infraestructura\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-consensus-voter`\n\n**Dolor de agente que resuelve:** Una sola pasada del LLM puede ser un outlier: self-consistency (votar entre N muestras) mejora precisión pero falta tooling.\n\n> Estado persistente en `~/.mcp-suite/consensus-voter/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `add_answer`\nAñade una respuesta candidata (de una pasada distinta) a la pregunta activa.\n\n**Parámetros:**\n  - `pregunta` (string, requerido): La pregunta (misma para todas)\n  - `respuesta` (string, requerido): Respuesta candidata\n\n### `vote`\nCalcula el consenso: agrupa respuestas por similitud (números clave + Jaccard) y devuelve la ganadora con nivel de acuerdo.\n\n**Parámetros:**\n  - `pregunta` (string, requerido): La pregunta de la ronda\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"consensus-voter\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-consensus-voter/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Consensus Voter\n * Votación entre N respuestas del mismo prompt: self-consistency sin infraestructura\n *\n * Dolor que resuelve: Una sola pasada del LLM puede ser un outlier: self-consistency (votar entre N muestras) mejora precisión pero falta tooling.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: consensus-voter\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/consensus-voter/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"consensus-voter\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"consensus-voter\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_answer\",\n  \"Añade una respuesta candidata (de una pasada distinta) a la pregunta activa.\",\n  {\n  pregunta: z.string().describe(\"La pregunta (misma para todas)\"),\n  respuesta: z.string().describe(\"Respuesta candidata\"),\n  },\n  async (args: any) => {\n    const { pregunta, respuesta } = args as any;\n    const st = store.load();\nst.rondas = st.rondas || {};\nconst k = pregunta.slice(0, 150);\nst.rondas[k] = st.rondas[k] || { pregunta: k, respuestas: [] };\nst.rondas[k].respuestas.push({ texto: respuesta, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ pregunta: k, total_respuestas: st.rondas[k].respuestas.length });\n  }\n);\n\nserver.tool(\n  \"vote\",\n  \"Calcula el consenso: agrupa respuestas por similitud (números clave + Jaccard) y devuelve la ganadora con nivel de acuerdo.\",\n  {\n  pregunta: z.string().describe(\"La pregunta de la ronda\"),\n  },\n  async (args: any) => {\n    const { pregunta } = args as any;\n    const st = store.load();\nconst k = pregunta.slice(0, 150);\nconst ronda = st.rondas?.[k];\nif (!ronda?.respuestas?.length) return fail(\"sin respuestas registradas: add_answer primero\");\nconst resp = ronda.respuestas.map((r: any) => String(r.texto));\nconst clusters: any[] = [];\nfor (const texto of resp) {\n  const nums = (texto.match(/\\d+(\\.\\d+)?/g) || []).sort().join(\",\");\n  const words = new Set(texto.toLowerCase().split(/\\s+/).filter((w) => w.length > 3));\n  const cluster = clusters.find((c) => {\n    const inter = [...words].filter((w) => c.words.has(w)).length;\n    const sim = inter / (words.size + c.words.size - inter || 1);\n    const sameNums = nums && nums === c.nums;\n    return sim > 0.55 || (sameNums && sim > 0.3);\n  });\n  if (cluster) { cluster.miembros.push(texto); } else clusters.push({ nums, words, miembros: [texto] });\n}\nclusters.sort((a, b) => b.miembros.length - a.miembros.length);\nconst ganador = clusters[0];\nconst acuerdo = Math.round((ganador.miembros.length / resp.length) * 100);\nreturn ok({ total_respuestas: resp.length, clusters: clusters.map((c) => ({ votos: c.miembros.length, ejemplo: c.miembros[0].slice(0, 150) })), respuesta_consenso: ganador.miembros[0], acuerdo: acuerdo + \"%\", fuerte: acuerdo >= 70 });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor consensus-voter está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"consensus-voter\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[consensus-voter] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

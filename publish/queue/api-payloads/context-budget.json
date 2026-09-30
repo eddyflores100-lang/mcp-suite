@@ -1,0 +1,62 @@
+{
+ "name": "mcp-context-budget",
+ "version": "1.0.0",
+ "description": "Presupuesto de tokens por sección: qué entra al prompt y qué se queda fuera Dolor que resuelve: Sin presupuesto, el agente mete todo al prompt hasta chocar con el límite (issue #58 del spec MCP: responses too big). Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "memory",
+  "context",
+  "retrieval"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only context-budget",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-context-budget",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "check_fit",
+   "plan_sections",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only context-budget",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-context-budget\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-context-budget/dist/index.js\"]}}}. Tools disponibles: check_fit, plan_sections y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/context-budget/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-context-budget (check_fit, plan_sections). Presupuesto de tokens por sección: qué entra al prompt y qué se queda fuera. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/context-budget/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/context-budget\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Context Budget — Presupuesto de tokens por sección: qué entra al prompt y qué se queda fuera (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-context-budget\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Context Budget\n\n> Presupuesto de tokens por sección: qué entra al prompt y qué se queda fuera\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-context-budget`\n\n**Dolor de agente que resuelve:** Sin presupuesto, el agente mete todo al prompt hasta chocar con el límite (issue #58 del spec MCP: responses too big).\n\n## Tools (3 incl. health_check)\n\n### `check_fit`\nCalcula si una lista de secciones {nombre, texto} cabe en el presupuesto de tokens del modelo (con margen para respuesta).\n\n**Parámetros:**\n  - `secciones` (array, requerido): Lista de {nombre, texto}\n  - `presupuesto_tokens` (number, opcional): Límite del modelo\n  - `margen_respuesta` (number, opcional): Tokens reservados para la respuesta\n\n### `plan_sections`\nDado un presupuesto y secciones priorizadas, decide cuáles entran completas, cuáles recortadas y cuáles fuera.\n\n**Parámetros:**\n  - `secciones` (array, requerido): Lista de {nombre, texto, prioridad 1-5}\n  - `presupuesto_tokens` (number, opcional): Presupuesto\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"context-budget\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-context-budget/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Context Budget\n * Presupuesto de tokens por sección: qué entra al prompt y qué se queda fuera\n *\n * Dolor que resuelve: Sin presupuesto, el agente mete todo al prompt hasta chocar con el límite (issue #58 del spec MCP: responses too big).\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: context-budget\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"context-budget\", version: \"1.0.0\" });\n\nserver.tool(\n  \"check_fit\",\n  \"Calcula si una lista de secciones {nombre, texto} cabe en el presupuesto de tokens del modelo (con margen para respuesta).\",\n  {\n  secciones: z.array(z.any()).describe(\"Lista de {nombre, texto}\"),\n  presupuesto_tokens: z.number().describe(\"Límite del modelo\").default(128000),\n  margen_respuesta: z.number().describe(\"Tokens reservados para la respuesta\").default(4000),\n  },\n  async (args: any) => {\n    const { secciones, presupuesto_tokens, margen_respuesta } = args as any;\n    const items = Array.isArray(secciones) ? secciones : [];\nconst disp = presupuesto_tokens - margen_respuesta;\nlet acumulado = 0;\nconst analisis = items.map((s: any) => {\n  const tokens = Math.ceil(String(s.texto || \"\").length / 4);\n  acumulado += tokens;\n  return { nombre: s.nombre, tokens, acumulado, cabe: acumulado <= disp };\n});\nreturn ok({ disponible: disp, total_secciones: acumulado, excede: acumulado > disp, sobra: disp - acumulado, analisis, recomendacion: acumulado > disp ? \"recorta secciones de menor prioridad o usa context-compressor\" : \"todo cabe\" });\n  }\n);\n\nserver.tool(\n  \"plan_sections\",\n  \"Dado un presupuesto y secciones priorizadas, decide cuáles entran completas, cuáles recortadas y cuáles fuera.\",\n  {\n  secciones: z.array(z.any()).describe(\"Lista de {nombre, texto, prioridad 1-5}\"),\n  presupuesto_tokens: z.number().describe(\"Presupuesto\").default(32000),\n  },\n  async (args: any) => {\n    const { secciones, presupuesto_tokens } = args as any;\n    const items = (Array.isArray(secciones) ? secciones : []).map((s: any) => ({ ...s, tokens: Math.ceil(String(s.texto || \"\").length / 4) }));\nitems.sort((a: any, b: any) => (b.prioridad || 3) - (a.prioridad || 3));\nlet restante = presupuesto_tokens ?? 32000;\nconst plan: any[] = [];\nfor (const s of items) {\n  if (s.tokens <= restante) { plan.push({ nombre: s.nombre, modo: \"completo\", tokens: s.tokens }); restante -= s.tokens; }\n  else if (restante > 500) { plan.push({ nombre: s.nombre, modo: \"recortado\", tokens_originales: s.tokens, tokens: restante }); restante = 0; }\n  else plan.push({ nombre: s.nombre, modo: \"fuera\", tokens: s.tokens });\n}\nreturn ok({ presupuesto: presupuesto_tokens, plan });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor context-budget está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"context-budget\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[context-budget] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

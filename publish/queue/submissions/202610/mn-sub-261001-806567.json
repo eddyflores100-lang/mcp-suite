@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-806567",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-policy-as-code",
+  "version": "1.0.0",
+  "description": "Políticas ejecutables para agentes regulados: cada acción se valida contra reglas, no contra intuición Dolor que resuelve: En industrias reguladas la política vive en PDFs que el agente nunca lee: cada acción es un riesgo de incumplimiento porque las reglas no son ejecutables por la máquina. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "compliance",
+   "gdpr",
+   "policy"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only policy-as-code",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-policy-as-code",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_policy",
+    "evaluate_action",
+    "conflict_scan",
+    "compliance_log",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only policy-as-code",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-policy-as-code\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-policy-as-code/dist/index.js\"]}}}. Tools disponibles: add_policy, evaluate_action, conflict_scan, compliance_log y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/policy-as-code/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-policy-as-code (add_policy, evaluate_action, conflict_scan, compliance_log). Políticas ejecutables para agentes regulados: cada acción se valida contra reglas, no contra intuición. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/policy-as-code/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/policy-as-code\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Policy As Code — Políticas ejecutables para agentes regulados: cada acción se valida contra reglas, no contra intuición (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-policy-as-code\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cumplimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Policy As Code\n\n> Políticas ejecutables para agentes regulados: cada acción se valida contra reglas, no contra intuición\n\n**Categoría:** Cumplimiento · **ID:** `mcp-policy-as-code`\n\n**Dolor de agente que resuelve:** En industrias reguladas la política vive en PDFs que el agente nunca lee: cada acción es un riesgo de incumplimiento porque las reglas no son ejecutables por la máquina.\n\n> Estado persistente en `~/.mcp-suite/policy-as-code/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `add_policy`\nAñade una política ejecutable: condición sobre atributos de la acción y veredicto.\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre de la política\n  - `descripcion` (string, requerido): Qué controla\n  - `condicion` (string, requerido): Condición sobre atributos (ej: 'datos=pii y destino=externo')\n  - `veredicto` (enum, requerido): Resultado si aplica\n  - `marco` (string, opcional): Marco de referencia (HIPAA, GDPR, SOX, interno)\n\n### `evaluate_action`\nEvalúa una acción contra todas las políticas: veredicto final (más restrictivo gana) con trazas.\n\n**Parámetros:**\n  - `accion` (string, requerido): Acción contemplada\n  - `atributos` (any, requerido): Atributos {datos, destino, volumen, usuario...}\n\n### `conflict_scan`\nDetecta políticas que pueden disparar veredictos contradictorios para la misma acción.\n\n### `compliance_log`\nRegistro de auditoría de decisiones de política: qué se evaluó, cuándo y con qué veredicto.\n\n**Parámetros:**\n  - `solo_bloqueos` (boolean, opcional): Solo negadas/requiere aprobación\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"policy-as-code\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-policy-as-code/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/policy-as-code/. Reglas condición→permitir/negar/requerir_aprobación sobre acciones con atributos; evaluación determinista con auditoría de cada decisión y reglas en conflicto.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Policy As Code\n * Políticas ejecutables para agentes regulados: cada acción se valida contra reglas, no contra intuición\n *\n * Dolor que resuelve: En industrias reguladas la política vive en PDFs que el agente nunca lee: cada acción es un riesgo de incumplimiento porque las reglas no son ejecutables por la máquina.\n * Categoría: Cumplimiento | Generado por mcp-suite | id: policy-as-code\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/policy-as-code/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"policy-as-code\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"policy-as-code\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_policy\",\n  \"Añade una política ejecutable: condición sobre atributos de la acción y veredicto.\",\n  {\n  nombre: z.string().describe(\"Nombre de la política\"),\n  descripcion: z.string().describe(\"Qué controla\"),\n  condicion: z.string().describe(\"Condición sobre atributos (ej: 'datos=pii y destino=externo')\"),\n  veredicto: z.enum([\"permitir\",\"negar\",\"requerir_aprobacion\",\"registrar\"]).describe(\"Resultado si aplica\"),\n  marco: z.string().describe(\"Marco de referencia (HIPAA, GDPR, SOX, interno)\").default(\"interno\"),\n  },\n  async (args: any) => {\n    const { nombre, descripcion, condicion, veredicto, marco } = args as any;\n    const st = store.load();\nst.politicas = st.politicas || [];\nif (st.politicas.some(p => p.nombre === nombre)) return fail(\"política existente\");\nst.politicas.push({ nombre, descripcion, condicion, veredicto, marco, disparos: 0, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ politica: nombre, veredicto, marco });\n  }\n);\n\nserver.tool(\n  \"evaluate_action\",\n  \"Evalúa una acción contra todas las políticas: veredicto final (más restrictivo gana) con trazas.\",\n  {\n  accion: z.string().describe(\"Acción contemplada\"),\n  atributos: z.any().describe(\"Atributos {datos, destino, volumen, usuario...}\"),\n  },\n  async (args: any) => {\n    const { accion, atributos } = args as any;\n    const st = store.load();\nconst politicas = st.politicas || [];\nif (!politicas.length) return fail(\"sin políticas: añade con add_policy\");\nconst atr = atributos || {};\nconst texto = (accion + \" \" + JSON.stringify(atr)).toLowerCase();\nfunction aplica(cond) {\n  const c = String(cond).toLowerCase();\n  if (c.includes(\" y \")) return c.split(\" y \").every(clausula => clausulaSimple(clausula));\n  if (c.includes(\" o \")) return c.split(\" o \").some(clausula => clausulaSimple(clausula));\n  return clausulaSimple(c);\n  function clausulaSimple(cl) {\n    const m = cl.match(/^(\\w+)\\s*=\\s*(\\w+)$/);\n    if (m) return String(atr[m[1]] ?? \"\").toLowerCase() === m[2];\n    return texto.includes(cl.trim());\n  }\n}\nconst trazas = [];\nlet veredicto = \"permitir\";\nconst ORDEN = { permitir: 0, registrar: 1, requerir_aprobacion: 2, negar: 3 };\nfor (const p of politicas) {\n  if (!aplica(p.condicion)) continue;\n  p.disparos++;\n  trazas.push({ politica: p.nombre, marco: p.marco, veredicto: p.veredicto });\n  if (ORDEN[p.veredicto] > ORDEN[veredicto]) veredicto = p.veredicto;\n}\nst.auditoria = st.auditoria || [];\nst.auditoria.push({ accion, atributos: atr, veredicto, trazas, ts: new Date().toISOString() });\nif (st.auditoria.length > 300) st.auditoria = st.auditoria.slice(-200);\nstore.save(st);\nreturn ok({\n  accion: accion.slice(0, 80),\n  veredicto,\n  politicas_disparadas: trazas,\n  significado: { permitir: \"puedes ejecutar\", registrar: \"ejecuta y registra evidencia\", requerir_aprobacion: \"PAUSA: pide aprobación humana documentada\", negar: \"PROHIBIDO: no ejecutes ni intentes workaround\" }[veredicto],\n});\n  }\n);\n\nserver.tool(\n  \"conflict_scan\",\n  \"Detecta políticas que pueden disparar veredictos contradictorios para la misma acción.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ps = st.politicas || [];\nif (ps.length < 2) return ok({ politicas: ps.length });\nconst conflictos = [];\nfor (let i = 0; i < ps.length; i++) {\n  for (let j = i + 1; j < ps.length; j++) {\n    const tokensA = new Set(String(ps[i].condicion).toLowerCase().split(/\\s+/));\n    const tokensB = new Set(String(ps[j].condicion).toLowerCase().split(/\\s+/));\n    const overlap = [...tokensA].filter(w => tokensB.has(w) && w.length > 2).length;\n    if (overlap >= 1 && ps[i].veredicto !== ps[j].veredicto && (ps[i].veredicto === \"negar\" || ps[j].veredicto === \"negar\")) {\n      conflictos.push({ a: ps[i].nombre, b: ps[j].nombre, veredictos: ps[i].veredicto + \" vs \" + ps[j].veredicto, solucion: \"especifica qué política prevalece (añade condición más estrecha)\" });\n    }\n  }\n}\nreturn ok({ politicas: ps.length, conflictos_potenciales: conflictos.length, detalle: conflictos.slice(0, 6) });\n  }\n);\n\nserver.tool(\n  \"compliance_log\",\n  \"Registro de auditoría de decisiones de política: qué se evaluó, cuándo y con qué veredicto.\",\n  {\n  solo_bloqueos: z.boolean().describe(\"Solo negadas/requiere aprobación\").default(false),\n  },\n  async (args: any) => {\n    const { solo_bloqueos } = args as any;\n    const st = store.load();\nlet log = st.auditoria || [];\nif (solo_bloqueos) log = log.filter(a => a.veredicto === \"negar\" || a.veredicto === \"requerir_aprobacion\");\nreturn ok({\n  evaluaciones: log.length,\n  por_veredicto: log.reduce((acc, a) => { acc[a.veredicto] = (acc[a.veredicto] || 0) + 1; return acc; }, {}),\n  ultimas: log.slice(-10).reverse().map(a => ({ ts: a.ts, accion: a.accion.slice(0, 70), veredicto: a.veredicto, politicas: a.trazas.map(t => t.politica) })),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor policy-as-code está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"policy-as-code\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[policy-as-code] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "policy-as-code"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

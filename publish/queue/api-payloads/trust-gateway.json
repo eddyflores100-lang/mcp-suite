@@ -1,0 +1,63 @@
+{
+ "name": "mcp-trust-gateway",
+ "version": "1.0.0",
+ "description": "Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad Dolor que resuelve: Cada tool decide confianza por su cuenta: faltan políticas centrales (score mínimo, scopes, deny-list) con decisiones explicables. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "ed25519",
+  "cryptography",
+  "trust"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only trust-gateway",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-trust-gateway",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 9.99,
+  "currency": "USD",
+  "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+ },
+ "price": 9.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "set_policy",
+   "decide",
+   "decision_log",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only trust-gateway",
+   "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-trust-gateway\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-trust-gateway/dist/index.js\"]}}}. Tools disponibles: set_policy, decide, decision_log y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/trust-gateway/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-trust-gateway (set_policy, decide, decision_log). Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/trust-gateway/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/trust-gateway\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Trust Gateway — Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-trust-gateway\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Trust Gateway\n\n> Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-trust-gateway`\n\n**Dolor de agente que resuelve:** Cada tool decide confianza por su cuenta: faltan políticas centrales (score mínimo, scopes, deny-list) con decisiones explicables.\n\n> Estado persistente en `~/.mcp-suite/trust-gateway/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `set_policy`\nDefine la política de confianza local: score mínimo, tiers permitidos, formatos aceptados y deny-list de emisores.\n\n**Parámetros:**\n  - `min_score` (number, opcional): Score mínimo global\n  - `tiers_permitidos` (array, opcional): Tiers permitidos (safe/caution)\n  - `deny_issuers` (array, opcional): Emisores prohibidos\n\n### `decide`\nEvalúa una skill/credencial contra la política local: ALLOW/DENY con razones. Si no hay política, usa defaults prudentes (score>=7).\n\n**Parámetros:**\n  - `identificador` (string, requerido): Identificador de la skill/credencial\n  - `score` (number, opcional): Trust/sentinel score (0-10)\n  - `issuer` (string, opcional): Emisor\n\n### `decision_log`\nHistorial de decisiones tomadas por el gateway (últimas 50) para auditoría.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"trust-gateway\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-trust-gateway/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Trust Gateway\n * Toma decisiones de confianza centralizadas: políticas, scores y explicabilidad\n *\n * Dolor que resuelve: Cada tool decide confianza por su cuenta: faltan políticas centrales (score mínimo, scopes, deny-list) con decisiones explicables.\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: trust-gateway\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/trust-gateway/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"trust-gateway\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"trust-gateway\", version: \"1.0.0\" });\n\nserver.tool(\n  \"set_policy\",\n  \"Define la política de confianza local: score mínimo, tiers permitidos, formatos aceptados y deny-list de emisores.\",\n  {\n  min_score: z.number().describe(\"Score mínimo global\").default(7),\n  tiers_permitidos: z.array(z.any()).describe(\"Tiers permitidos (safe/caution)\").optional(),\n  deny_issuers: z.array(z.any()).describe(\"Emisores prohibidos\").optional(),\n  },\n  async (args: any) => {\n    const { min_score, tiers_permitidos, deny_issuers } = args as any;\n    const st = store.load();\nst.policy = { min_score: min_score ?? 7, tiers: Array.isArray(tiers_permitidos) ? tiers_permitidos : [\"safe\", \"caution\"], deny: Array.isArray(deny_issuers) ? deny_issuers : [], actualizada: new Date().toISOString() };\nstore.save(st);\nreturn ok({ politica: st.policy });\n  }\n);\n\nserver.tool(\n  \"decide\",\n  \"Evalúa una skill/credencial contra la política local: ALLOW/DENY con razones. Si no hay política, usa defaults prudentes (score>=7).\",\n  {\n  identificador: z.string().describe(\"Identificador de la skill/credencial\"),\n  score: z.number().describe(\"Trust/sentinel score (0-10)\").optional(),\n  issuer: z.string().describe(\"Emisor\").optional(),\n  },\n  async (args: any) => {\n    const { identificador, score, issuer } = args as any;\n    const st = store.load();\nconst pol = st.policy || { min_score: 7, tiers: [\"safe\", \"caution\"], deny: [] };\nconst sc = score ?? 0;\nconst razones = [];\nlet decision = \"ALLOW\";\nif (sc < pol.min_score) { decision = \"DENY\"; razones.push(\"score \" + sc + \" < mínimo \" + pol.min_score); }\nif (issuer && pol.deny.includes(issuer)) { decision = \"DENY\"; razones.push(\"emisor en deny-list\"); }\nconst tier = sc >= 8 ? \"safe\" : sc >= 5 ? \"caution\" : sc >= 3 ? \"risky\" : \"dangerous\";\nif (!pol.tiers.includes(tier)) { decision = \"DENY\"; razones.push(\"tier \" + tier + \" no permitido\"); }\nst.decisiones = st.decisiones || [];\nst.decisiones.push({ ts: new Date().toISOString(), identificador, decision, score: sc, razones });\nstore.save(st);\nreturn ok({ decision, razones, tier, politica_aplicada: { min_score: pol.min_score, tiers: pol.tiers } });\n  }\n);\n\nserver.tool(\n  \"decision_log\",\n  \"Historial de decisiones tomadas por el gateway (últimas 50) para auditoría.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nreturn ok({ decisiones: (st.decisiones || []).slice(-50), total: (st.decisiones || []).length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor trust-gateway está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"trust-gateway\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[trust-gateway] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

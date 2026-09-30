@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-750ad7",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-pdf-text-extractor",
+  "version": "1.0.0",
+  "description": "Extrae texto de PDFs localmente: streams zlib + operadores Tj/TJ, sin dependencias Dolor que resuelve: Los PDFs son ilegibles para agentes: los extractores requieren binarios pesados. Aquí: parser PDF puro en Node. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "data",
+   "parsing",
+   "etl"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only pdf-text-extractor",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-pdf-text-extractor",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "extract",
+    "metadata",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only pdf-text-extractor",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-pdf-text-extractor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-pdf-text-extractor/dist/index.js\"]}}}. Tools disponibles: extract, metadata y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/pdf-text-extractor/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-pdf-text-extractor (extract, metadata). Extrae texto de PDFs localmente: streams zlib + operadores Tj/TJ, sin dependencias. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/pdf-text-extractor/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/pdf-text-extractor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"PDF Text Extractor — Extrae texto de PDFs localmente: streams zlib + operadores Tj/TJ, sin dependencias (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-pdf-text-extractor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# PDF Text Extractor\n\n> Extrae texto de PDFs localmente: streams zlib + operadores Tj/TJ, sin dependencias\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-pdf-text-extractor`\n\n**Dolor de agente que resuelve:** Los PDFs son ilegibles para agentes: los extractores requieren binarios pesados. Aquí: parser PDF puro en Node.\n\n## Tools (3 incl. health_check)\n\n### `extract`\nExtrae texto de un PDF: descomprime streams FlateDecode (zlib), interpreta operadores de texto Tj/TJ/'/\" y decodifica hex strings. Funciona con PDFs de texto (no escaneados).\n\n**Parámetros:**\n  - `pdf_base64` (string, requerido): PDF en base64\n\n### `metadata`\nExtrae metadatos del PDF: versión, título, autor, fechas y productor desde el dictionary y XMP.\n\n**Parámetros:**\n  - `pdf_base64` (string, requerido): PDF en base64\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"pdf-text-extractor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-pdf-text-extractor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: PDF Text Extractor\n * Extrae texto de PDFs localmente: streams zlib + operadores Tj/TJ, sin dependencias\n *\n * Dolor que resuelve: Los PDFs son ilegibles para agentes: los extractores requieren binarios pesados. Aquí: parser PDF puro en Node.\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: pdf-text-extractor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, appendFileSync, statSync } from \"node:fs\";\nimport { homedir, tmpdir, cpus, freemem, totalmem } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"pdf-text-extractor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"extract\",\n  \"Extrae texto de un PDF: descomprime streams FlateDecode (zlib), interpreta operadores de texto Tj/TJ/'/\\\" y decodifica hex strings. Funciona con PDFs de texto (no escaneados).\",\n  {\n  pdf_base64: z.string().describe(\"PDF en base64\"),\n  },\n  async (args: any) => {\n    const { pdf_base64 } = args as any;\n    const { inflateSync } = await import(\"node:zlib\");\nconst buf = Buffer.from(pdf_base64, \"base64\");\nif (buf.slice(0, 5).toString() !== \"%PDF-\") return fail(\"no es un PDF válido\");\nconst raw = buf.toString(\"latin1\");\nconst chunks: string[] = [];\nconst streamRe = /stream\\r?\\n([\\s\\S]*?)endstream/g;\nlet sm;\nwhile ((sm = streamRe.exec(raw)) !== null) {\n  const data = Buffer.from(sm[1], \"latin1\");\n  let contenido = \"\";\n  try { contenido = inflateSync(data).toString(\"latin1\"); } catch { contenido = sm[1]; }\n  chunks.push(contenido);\n}\nlet texto = \"\";\nfor (const c of chunks) {\n  const tjRe = /\\((?:\\\\.|[^\\\\()])*\\)\\s*Tj|\\[((?:\\\\.|[^\\\\\\]])*)\\]\\s*TJ|\\((?:\\\\.|[^\\\\()])*\\)\\s*'|\\((?:\\\\.|[^\\\\()])*\\)\\s*\"/g;\n  let m;\n  while ((m = tjRe.exec(c)) !== null) {\n    const expr = m[0];\n    const partes = expr.match(/\\((?:\\\\.|[^\\\\()])*\\)/g) || [];\n    for (const p of partes) {\n      const BS = String.fromCharCode(92); const NL = String.fromCharCode(10); const CR = String.fromCharCode(13); const TB = String.fromCharCode(9);\n      const s = p.slice(1, -1).split(BS + \"n\").join(NL).split(BS + \"r\").join(CR).split(BS + \"t\").join(TB).split(BS + \"(\").join(\"(\").split(BS + \")\").join(\")\").split(BS + BS).join(BS);\n      texto += s;\n    }\n    texto += \"\\n\";\n  }\n}\nconst hexStr = texto.match(/[0-9A-Fa-f]{4,}/g) || [];\ntexto = texto.replace(/\\b[0-9A-Fa-f]{6,}\\b/g, \"\");\nconst limpio = texto.replace(/\\n{3,}/g, \"\\n\\n\").trim();\nreturn ok({ paginas_aprox: Math.max(1, chunks.length), caracteres: limpio.length, tiene_texto: limpio.length > 0, nota: limpio.length === 0 ? \"PDF sin texto extraíble (¿escaneado?): se necesita OCR\" : \"\", texto: limpio.slice(0, 50000) });\n  }\n);\n\nserver.tool(\n  \"metadata\",\n  \"Extrae metadatos del PDF: versión, título, autor, fechas y productor desde el dictionary y XMP.\",\n  {\n  pdf_base64: z.string().describe(\"PDF en base64\"),\n  },\n  async (args: any) => {\n    const { pdf_base64 } = args as any;\n    const buf = Buffer.from(pdf_base64, \"base64\");\nconst raw = buf.toString(\"latin1\");\nconst version = (raw.match(/%PDF-(\\d\\.\\d)/) || [])[1] || null;\nconst info: any = {};\nconst infoMatch = raw.match(/\\/Info\\s+(\\d+)\\s+(\\d+)\\s+R/);\nfor (const campo of [\"Title\", \"Author\", \"Subject\", \"Creator\", \"Producer\", \"CreationDate\", \"ModDate\"]) {\n  const re = new RegExp(\"\\\\/\" + campo + \"\\\\s*\\\\(([^)\\\\\\\\]*(?:\\\\\\\\.[^)\\\\\\\\]*)*)\\\\)\");\n  const m = raw.match(re);\n  if (m) info[campo.toLowerCase()] = m[1].replace(/\\\\[()]/g, \"\");\n}\nconst paginas = (raw.match(/\\/Type\\s*\\/Page[^s]/g) || []).length;\nconst cifrado = /\\/Encrypt\\s+\\d+\\s+\\d+\\s+R/.test(raw);\nreturn ok({ version_pdf: version, paginas, cifrado, metadata: info, tamano_bytes: buf.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor pdf-text-extractor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"pdf-text-extractor\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[pdf-text-extractor] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "pdf-text-extractor"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

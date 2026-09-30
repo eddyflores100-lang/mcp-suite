@@ -1,0 +1,63 @@
+{
+ "name": "mcp-human-approval",
+ "version": "1.0.0",
+ "description": "Flujo de aprobación humana: solicitudes, vencimientos y registro Dolor que resuelve: Las acciones críticas se ejecutan sin visto bueno: human-in-the-loop es promesa, no práctica. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Communication",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "human-in-the-loop",
+  "communication",
+  "approvals"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only human-approval",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-human-approval",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "request_approval",
+   "respond_approval",
+   "pending_approvals",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only human-approval",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-human-approval\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-human-approval/dist/index.js\"]}}}. Tools disponibles: request_approval, respond_approval, pending_approvals y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/human-approval/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-human-approval (request_approval, respond_approval, pending_approvals). Flujo de aprobación humana: solicitudes, vencimientos y registro. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/human-approval/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/human-approval\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Human Approval — Flujo de aprobación humana: solicitudes, vencimientos y registro (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-human-approval\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comunicaci-n-y-humano\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Human Approval\n\n> Flujo de aprobación humana: solicitudes, vencimientos y registro\n\n**Categoría:** Comunicación y Humano · **ID:** `mcp-human-approval`\n\n**Dolor de agente que resuelve:** Las acciones críticas se ejecutan sin visto bueno: human-in-the-loop es promesa, no práctica.\n\n> Estado persistente en `~/.mcp-suite/human-approval/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `request_approval`\nSolicita aprobación para una acción: contexto, riesgo y qué pasa si no se aprueba. Vence en N horas.\n\n**Parámetros:**\n  - `accion` (string, requerido): Acción que requiere aprobación\n  - `contexto` (string, requerido): Por qué se propone\n  - `riesgo_si_rechaza` (string, opcional): Riesgo de NO aprobar\n  - `vence_horas` (number, opcional): Vencimiento en horas\n\n### `respond_approval`\nResuelve una aprobación: aprobar, rechazar (con motivo) o pedir más info.\n\n**Parámetros:**\n  - `id` (string, requerido): ID de aprobación\n  - `decision` (enum, requerido): Decisión\n  - `motivo` (string, opcional): Motivo\n\n### `pending_approvals`\nLista aprobaciones pendientes con sus vencimientos (marca las vencidas).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"human-approval\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-human-approval/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Human Approval\n * Flujo de aprobación humana: solicitudes, vencimientos y registro\n *\n * Dolor que resuelve: Las acciones críticas se ejecutan sin visto bueno: human-in-the-loop es promesa, no práctica.\n * Categoría: Comunicación y Humano | Generado por mcp-suite | id: human-approval\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/human-approval/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"human-approval\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"human-approval\", version: \"1.0.0\" });\n\nserver.tool(\n  \"request_approval\",\n  \"Solicita aprobación para una acción: contexto, riesgo y qué pasa si no se aprueba. Vence en N horas.\",\n  {\n  accion: z.string().describe(\"Acción que requiere aprobación\"),\n  contexto: z.string().describe(\"Por qué se propone\"),\n  riesgo_si_rechaza: z.string().describe(\"Riesgo de NO aprobar\").optional(),\n  vence_horas: z.number().describe(\"Vencimiento en horas\").default(24),\n  },\n  async (args: any) => {\n    const { accion, contexto, riesgo_si_rechaza, vence_horas } = args as any;\n    const st = store.load();\nst.aprobaciones = st.aprobaciones || [];\nst.seq = (st.seq || 0) + 1;\nconst req = { id: \"A\" + st.seq, accion, contexto, riesgo_si_rechaza: riesgo_si_rechaza || \"\", estado: \"pendiente\", solicitada: new Date().toISOString(), vence: new Date(Date.now() + (vence_horas ?? 24) * 3600000).toISOString() };\nst.aprobaciones.push(req);\nstore.save(st);\nreturn ok({ aprobacion_id: req.id, vence: req.vence, mensaje_para_humano: \"APROBACIÓN REQUERIDA: \" + accion + \"\\nContexto: \" + contexto + \"\\nResponde con respond_approval.\" });\n  }\n);\n\nserver.tool(\n  \"respond_approval\",\n  \"Resuelve una aprobación: aprobar, rechazar (con motivo) o pedir más info.\",\n  {\n  id: z.string().describe(\"ID de aprobación\"),\n  decision: z.enum([\"aprobar\",\"rechazar\",\"mas-info\"]).describe(\"Decisión\"),\n  motivo: z.string().describe(\"Motivo\").optional(),\n  },\n  async (args: any) => {\n    const { id, decision, motivo } = args as any;\n    const st = store.load();\nconst req = (st.aprobaciones || []).find((a) => a.id === id);\nif (!req) return fail(\"aprobación no existe\");\nif (req.estado !== \"pendiente\") return fail(\"ya resuelta: \" + req.estado);\nreq.estado = decision;\nreq.motivo = motivo || \"\";\nreq.resuelta = new Date().toISOString();\nstore.save(st);\nreturn ok({ id, estado: decision, accion_autorizada: decision === \"aprobar\" });\n  }\n);\n\nserver.tool(\n  \"pending_approvals\",\n  \"Lista aprobaciones pendientes con sus vencimientos (marca las vencidas).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst pend = (st.aprobaciones || []).filter((a) => a.estado === \"pendiente\");\nconst ahora = new Date();\nreturn ok({ pendientes: pend.length, vencidas: pend.filter((a) => new Date(a.vence) < ahora).length, items: pend.map((a) => ({ id: a.id, accion: a.accion, vence: a.vence, vencida: new Date(a.vence) < ahora })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor human-approval está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"human-approval\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[human-approval] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

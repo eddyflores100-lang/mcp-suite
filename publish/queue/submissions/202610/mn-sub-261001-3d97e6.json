@@ -1,0 +1,91 @@
+{
+ "id": "mn-sub-261001-3d97e6",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-marketnow-search",
+  "version": "1.0.0",
+  "description": "Busca entre los 66.496 skills MCP del catálogo de MarketNow con índice local + modo en vivo Dolor que resuelve: Descubrir skills MCP confiables es difícil: el registro MCP, Smithery y Glama resolvieron discovery, pero el agente necesita buscar/filtrar por score de seguridad y categoría. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "marketnow",
+   "skill-marketplace",
+   "trust-layer"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-search",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-search",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": true,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "search_skills",
+    "get_skill",
+    "list_categories",
+    "search_live",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-search",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-marketnow-search\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-marketnow-search/dist/index.js\"]}}}. Tools disponibles: search_skills, get_skill, list_categories, search_live y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/marketnow-search/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-marketnow-search (search_skills, get_skill, list_categories, search_live). Busca entre los 66.496 skills MCP del catálogo de MarketNow con índice local + modo en vivo. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/marketnow-search/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/marketnow-search\",\n  \"version\": \"1.0.0\",\n  \"description\": \"MarketNow · Skill Search — Busca entre los 66.496 skills MCP del catálogo de MarketNow con índice local + modo en vivo (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-marketnow-search\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# MarketNow · Skill Search\n\n> Busca entre los 66.496 skills MCP del catálogo de MarketNow con índice local + modo en vivo\n\n**Categoría:** MarketNow · **ID:** `mcp-marketnow-search`\n\n**Dolor de agente que resuelve:** Descubrir skills MCP confiables es difícil: el registro MCP, Smithery y Glama resolvieron discovery, pero el agente necesita buscar/filtrar por score de seguridad y categoría.\n\n> Este servidor incluye datos embebidos en `data/` (no requiere conexión para operar).\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n> Estado persistente en `~/.mcp-suite/marketnow-search/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `search_skills`\nBusca skills en el snapshot local (instantáneo, offline): filtra por texto (nombre/desc/tags), categoría, sentinel_score mínimo y precio. Devuelve hasta 20 resultados con install command y score.\n\n**Parámetros:**\n  - `q` (string, opcional): Texto a buscar (nombre, descripción o tags)\n  - `categoria` (string, opcional): Categoría exacta (ej: Developer Tools, Security, AI/ML)\n  - `min_score` (number, opcional): Sentinel score mínimo (0-10)\n  - `solo_gratis` (boolean, opcional): Solo skills gratuitas\n  - `limite` (number, opcional): Máximo de resultados\n\n### `get_skill`\nObtiene el detalle completo de una skill del snapshot local por id, slug o nombre: install, author, licencia, capacidades y source.\n\n**Parámetros:**\n  - `identificador` (string, requerido): id, slug o name de la skill\n\n### `list_categories`\nLista las 16 categorías del catálogo de MarketNow con conteo real de skills por categoría (del snapshot + stats del catálogo completo).\n\n### `search_live`\nBúsqueda en vivo sobre el catálogo COMPLETO (66.496 skills): descarga ~94MB la primera vez, cachea 7 días en ~/.mcp-suite/ y luego filtra localmente. Úsalo cuando el snapshot no baste.\n\n**Parámetros:**\n  - `q` (string, requerido): Texto a buscar\n  - `min_score` (number, opcional): Sentinel score mínimo\n  - `limite` (number, opcional): Máximo resultados\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"marketnow-search\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-marketnow-search/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nFunciona offline con un snapshot embebido de 500 skills top (generado del catálogo real de 66.496). El modo live (search_live) descarga el catálogo completo (~94MB) una vez y lo cachea 7 días en ~/.mcp-suite/marketnow-search/.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: MarketNow · Skill Search\n * Busca entre los 66.496 skills MCP del catálogo de MarketNow con índice local + modo en vivo\n *\n * Dolor que resuelve: Descubrir skills MCP confiables es difícil: el registro MCP, Smithery y Glama resolvieron discovery, pero el agente necesita buscar/filtrar por score de seguridad y categoría.\n * Categoría: MarketNow | Generado por mcp-suite | id: marketnow-search\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { fileURLToPath } from \"node:url\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/marketnow-search/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"marketnow-search\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/marketnow-search\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\n// ——— datos embebidos (carpeta data/) ———\nfunction loadData(name: string): any {\n  const p = fileURLToPath(new URL(\"../data/\" + name, import.meta.url));\n  return JSON.parse(readFileSync(p, \"utf8\"));\n}\n\nconst server = new McpServer({ name: \"marketnow-search\", version: \"1.0.0\" });\n\nserver.tool(\n  \"search_skills\",\n  \"Busca skills en el snapshot local (instantáneo, offline): filtra por texto (nombre/desc/tags), categoría, sentinel_score mínimo y precio. Devuelve hasta 20 resultados con install command y score.\",\n  {\n  q: z.string().describe(\"Texto a buscar (nombre, descripción o tags)\").optional(),\n  categoria: z.string().describe(\"Categoría exacta (ej: Developer Tools, Security, AI/ML)\").optional(),\n  min_score: z.number().describe(\"Sentinel score mínimo (0-10)\").default(7),\n  solo_gratis: z.boolean().describe(\"Solo skills gratuitas\").default(false),\n  limite: z.number().describe(\"Máximo de resultados\").default(10),\n  },\n  async (args: any) => {\n    const { q, categoria, min_score, solo_gratis, limite } = args as any;\n    const snap = loadData(\"skills-snapshot.json\");\nlet items = snap.skills;\nif (q) { const ql = q.toLowerCase(); items = items.filter(s => (s.name + \" \" + s.description + \" \" + (s.tags || []).join(\" \")).toLowerCase().includes(ql)); }\nif (categoria) items = items.filter(s => s.category === categoria);\nitems = items.filter(s => (s.sentinel_score || 0) >= (min_score ?? 7));\nif (solo_gratis) items = items.filter(s => (s.price ?? 0) === 0);\nitems = items.slice(0, Math.min(limite ?? 10, 20));\nreturn ok({ total_snapshot: snap.snapshot_size, total_catalogo_real: snap.total_catalog, resultados: items.map(s => ({ id: s.id, name: s.name, score: s.sentinel_score, categoria: s.category, install: s.install, price: s.price, verified: s.verified, desc: s.description })) });\n  }\n);\n\nserver.tool(\n  \"get_skill\",\n  \"Obtiene el detalle completo de una skill del snapshot local por id, slug o nombre: install, author, licencia, capacidades y source.\",\n  {\n  identificador: z.string().describe(\"id, slug o name de la skill\"),\n  },\n  async (args: any) => {\n    const { identificador } = args as any;\n    const snap = loadData(\"skills-snapshot.json\");\nconst key = identificador.toLowerCase();\nconst s = snap.skills.find(x => (x.id || \"\").toLowerCase() === key || (x.slug || \"\").toLowerCase() === key || (x.name || \"\").toLowerCase() === key);\nif (!s) return fail(\"skill no encontrada en el snapshot local. Usa search_skills o search_live para el catálogo completo.\");\nreturn ok(s);\n  }\n);\n\nserver.tool(\n  \"list_categories\",\n  \"Lista las 16 categorías del catálogo de MarketNow con conteo real de skills por categoría (del snapshot + stats del catálogo completo).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const snap = loadData(\"skills-snapshot.json\");\nreturn ok({ total_catalogo: snap.total_catalog, categorias: snap.categories.map(([name, count]) => ({ name, count })), nota: \"Conteos del catálogo real (66.496 skills)\" });\n  }\n);\n\nserver.tool(\n  \"search_live\",\n  \"Búsqueda en vivo sobre el catálogo COMPLETO (66.496 skills): descarga ~94MB la primera vez, cachea 7 días en ~/.mcp-suite/ y luego filtra localmente. Úsalo cuando el snapshot no baste.\",\n  {\n  q: z.string().describe(\"Texto a buscar\"),\n  min_score: z.number().describe(\"Sentinel score mínimo\").default(0),\n  limite: z.number().describe(\"Máximo resultados\").default(20),\n  },\n  async (args: any) => {\n    const { q, min_score, limite } = args as any;\n    const CACHE_TTL = 7 * 24 * 3600 * 1000;\nconst st = store.load();\nlet catalogo = null;\nif (st.catalogo && Date.now() - st.catalogo_ts < CACHE_TTL) {\n  catalogo = true;\n} else {\n  const r = await fetchSmart(\"https://marketnow.site/api/skills.json\", { timeoutMs: 180000, retries: 0 });\n  if (!r.json || !Array.isArray(r.json)) return fail(\"no se pudo descargar el catálogo completo (HTTP \" + r.status + \")\");\n  st.catalogo_file = \"descargado\";\n  st.catalogo_ts = Date.now();\n  st.total = r.json.length;\n  store.save(st);\n  // guardamos el catálogo completo en un archivo aparte para no inflar state.json\n  const { writeFileSync, mkdirSync, readFileSync, existsSync } = await import(\"node:fs\");\n  const { homedir } = await import(\"node:os\");\n  const { join } = await import(\"node:path\");\n  const dir = join(homedir(), \".mcp-suite\", \"marketnow-search\");\n  mkdirSync(dir, { recursive: true });\n  writeFileSync(join(dir, \"catalog.json\"), r.text);\n  catalogo = true;\n}\nconst { readFileSync, existsSync } = await import(\"node:fs\");\nconst { homedir } = await import(\"node:os\");\nconst { join } = await import(\"node:path\");\nconst file = join(homedir(), \".mcp-suite\", \"marketnow-search\", \"catalog.json\");\nif (!existsSync(file)) return fail(\"catálogo cacheado no existe; reejecuta search_live\");\nconst all = JSON.parse(readFileSync(file, \"utf8\"));\nconst ql = (q || \"\").toLowerCase();\nconst res = all.filter(s => !ql || ((s.name || \"\") + \" \" + (s.description || \"\") + \" \" + (s.tags || []).join(\" \")).toLowerCase().includes(ql))\n  .filter(s => (s.sentinel_score ?? 0) >= (min_score ?? 0))\n  .sort((a, b) => (b.sentinel_score ?? 0) - (a.sentinel_score ?? 0))\n  .slice(0, Math.min(limite ?? 20, 50));\nreturn ok({ total_en_cache: all.length, resultados: res.map(s => ({ id: s.id, name: s.name, score: s.sentinel_score, categoria: s.category, install: s.install, price: s.price, desc: (s.description || \"\").slice(0, 150) })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor marketnow-search está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"marketnow-search\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[marketnow-search] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": [
+    "requires_network: true — accede a APIs públicas (MarketNow) en modo live, sin claves ni secretos"
+   ]
+  },
+  "trust_score_100": 52,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "marketnow-search"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

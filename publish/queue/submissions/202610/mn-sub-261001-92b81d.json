@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-92b81d",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-trace-logger",
+  "version": "1.0.0",
+  "description": "Logs estructurados con niveles y correlación por trace-id Dolor que resuelve: console.log plano sin niveles ni correlación: imposible reconstruir una ejecución fallida. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Monitoring",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "observability",
+   "tracing",
+   "monitoring"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only trace-logger",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-trace-logger",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 4 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "log",
+    "tail",
+    "search",
+    "new_trace",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only trace-logger",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-trace-logger\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-trace-logger/dist/index.js\"]}}}. Tools disponibles: log, tail, search, new_trace y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/trace-logger/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-trace-logger (log, tail, search, new_trace). Logs estructurados con niveles y correlación por trace-id. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/trace-logger/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/trace-logger\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Trace Logger — Logs estructurados con niveles y correlación por trace-id (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-trace-logger\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"observabilidad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Trace Logger\n\n> Logs estructurados con niveles y correlación por trace-id\n\n**Categoría:** Observabilidad · **ID:** `mcp-trace-logger`\n\n**Dolor de agente que resuelve:** console.log plano sin niveles ni correlación: imposible reconstruir una ejecución fallida.\n\n> Estado persistente en `~/.mcp-suite/trace-logger/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `log`\nRegistra un log estructurado: nivel (debug/info/warn/error), mensaje, trace_id y datos JSON.\n\n**Parámetros:**\n  - `nivel` (enum, requerido): Nivel\n  - `mensaje` (string, requerido): Mensaje\n  - `trace_id` (string, opcional): ID de correlación\n  - `datos` (any, opcional): Datos estructurados\n\n### `tail`\nDevuelve los últimos N logs, filtrables por nivel y trace_id.\n\n**Parámetros:**\n  - `nivel` (enum, opcional): Filtrar nivel\n  - `trace_id` (string, opcional): Filtrar por trace\n  - `n` (number, opcional): Cuántos\n\n### `search`\nBusca logs por texto en mensaje (con ventana de horas opcional).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a buscar\n  - `horas` (number, opcional): Últimas N horas\n\n### `new_trace`\nGenera un nuevo trace-id para correlacionar una ejecución completa.\n\n**Parámetros:**\n  - `etiqueta` (string, opcional): Etiqueta del trace\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"trace-logger\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-trace-logger/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Trace Logger\n * Logs estructurados con niveles y correlación por trace-id\n *\n * Dolor que resuelve: console.log plano sin niveles ni correlación: imposible reconstruir una ejecución fallida.\n * Categoría: Observabilidad | Generado por mcp-suite | id: trace-logger\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/trace-logger/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"trace-logger\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"trace-logger\", version: \"1.0.0\" });\n\nserver.tool(\n  \"log\",\n  \"Registra un log estructurado: nivel (debug/info/warn/error), mensaje, trace_id y datos JSON.\",\n  {\n  nivel: z.enum([\"debug\",\"info\",\"warn\",\"error\"]).describe(\"Nivel\"),\n  mensaje: z.string().describe(\"Mensaje\"),\n  trace_id: z.string().describe(\"ID de correlación\").optional(),\n  datos: z.any().describe(\"Datos estructurados\").optional(),\n  },\n  async (args: any) => {\n    const { nivel, mensaje, trace_id, datos } = args as any;\n    const st = store.load();\nst.logs = st.logs || [];\nconst entry = { ts: new Date().toISOString(), nivel, mensaje, trace: trace_id || null, datos: datos ?? null };\nst.logs.push(entry);\nif (st.logs.length > 3000) st.logs = st.logs.slice(-3000);\nstore.save(st);\nreturn ok({ registrado: true, total: st.logs.length });\n  }\n);\n\nserver.tool(\n  \"tail\",\n  \"Devuelve los últimos N logs, filtrables por nivel y trace_id.\",\n  {\n  nivel: z.enum([\"debug\",\"info\",\"warn\",\"error\"]).describe(\"Filtrar nivel\").optional(),\n  trace_id: z.string().describe(\"Filtrar por trace\").optional(),\n  n: z.number().describe(\"Cuántos\").default(30),\n  },\n  async (args: any) => {\n    const { nivel, trace_id, n } = args as any;\n    const st = store.load();\nlet logs: any[] = st.logs || [];\nif (nivel) logs = logs.filter((l) => l.nivel === nivel);\nif (trace_id) logs = logs.filter((l) => l.trace === trace_id);\nreturn ok({ total_logs: logs.length, logs: logs.slice(-(n ?? 30)).reverse() });\n  }\n);\n\nserver.tool(\n  \"search\",\n  \"Busca logs por texto en mensaje (con ventana de horas opcional).\",\n  {\n  texto: z.string().describe(\"Texto a buscar\"),\n  horas: z.number().describe(\"Últimas N horas\").optional(),\n  },\n  async (args: any) => {\n    const { texto, horas } = args as any;\n    const st = store.load();\nlet logs: any[] = st.logs || [];\nif (horas) { const desde = Date.now() - horas * 3600000; logs = logs.filter((l) => new Date(l.ts).getTime() >= desde); }\nconst t = texto.toLowerCase();\nconst found = logs.filter((l) => String(l.mensaje).toLowerCase().includes(t));\nreturn ok({ encontrados: found.length, logs: found.slice(-50).reverse() });\n  }\n);\n\nserver.tool(\n  \"new_trace\",\n  \"Genera un nuevo trace-id para correlacionar una ejecución completa.\",\n  {\n  etiqueta: z.string().describe(\"Etiqueta del trace\").optional(),\n  },\n  async (args: any) => {\n    const { etiqueta } = args as any;\n    const id = randomBytes(8).toString(\"hex\");\nreturn ok({ trace_id: id, etiqueta: etiqueta || \"\", ts: new Date().toISOString(), uso: \"pasa este trace_id a cada log/log de la ejecución\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor trace-logger está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"trace-logger\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[trace-logger] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "trace-logger"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

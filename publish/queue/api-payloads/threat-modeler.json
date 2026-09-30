@@ -1,0 +1,62 @@
+{
+ "name": "mcp-threat-modeler",
+ "version": "1.0.0",
+ "description": "Modelado de amenazas STRIDE para tus tools y flujos de agente Dolor que resuelve: Nadie modela amenazas antes de exponer una tool MCP: spoofing y tampering de tools son triviales sin análisis. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "security",
+  "prompt-injection",
+  "hardening"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only threat-modeler",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-threat-modeler",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "enumerate",
+   "assess",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only threat-modeler",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-threat-modeler\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-threat-modeler/dist/index.js\"]}}}. Tools disponibles: enumerate, assess y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/threat-modeler/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-threat-modeler (enumerate, assess). Modelado de amenazas STRIDE para tus tools y flujos de agente. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/threat-modeler/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/threat-modeler\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Threat Modeler — Modelado de amenazas STRIDE para tus tools y flujos de agente (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-threat-modeler\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"seguridad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Threat Modeler\n\n> Modelado de amenazas STRIDE para tus tools y flujos de agente\n\n**Categoría:** Seguridad · **ID:** `mcp-threat-modeler`\n\n**Dolor de agente que resuelve:** Nadie modela amenazas antes de exponer una tool MCP: spoofing y tampering de tools son triviales sin análisis.\n\n## Tools (3 incl. health_check)\n\n### `enumerate`\nEnumera amenazas STRIDE (Spoofing, Tampering, Repudio, Info disclosure, DoS, Elevation) para un componente/flujo descrito.\n\n**Parámetros:**\n  - `componente` (string, requerido): Componente o flujo a modelar\n\n### `assess`\nPuntúa el riesgo de un flujo según controles presentes: devuelve brechas de mitigación priorizadas.\n\n**Parámetros:**\n  - `flujo` (string, requerido): Descripción del flujo\n  - `controles_presentes` (array, requerido): Controles ya implementados (ej: auth, tls, rate-limit, audit, pii-redaction, sandbox)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"threat-modeler\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-threat-modeler/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Threat Modeler\n * Modelado de amenazas STRIDE para tus tools y flujos de agente\n *\n * Dolor que resuelve: Nadie modela amenazas antes de exponer una tool MCP: spoofing y tampering de tools son triviales sin análisis.\n * Categoría: Seguridad | Generado por mcp-suite | id: threat-modeler\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"threat-modeler\", version: \"1.0.0\" });\n\nserver.tool(\n  \"enumerate\",\n  \"Enumera amenazas STRIDE (Spoofing, Tampering, Repudio, Info disclosure, DoS, Elevation) para un componente/flujo descrito.\",\n  {\n  componente: z.string().describe(\"Componente o flujo a modelar\"),\n  },\n  async (args: any) => {\n    const { componente } = args as any;\n    const stride = [\n  { tipo: \"Spoofing\", pregunta: \"¿quién puede suplantar al llamador?\", mitigacion: \"auth por token/API key + ATC firmada\" },\n  { tipo: \"Tampering\", pregunta: \"¿quién puede alterar datos en tránsito o en store?\", mitigacion: \"TLS + hash de integridad (audit-log)\" },\n  { tipo: \"Repudio\", pregunta: \"¿puede el actor negar haber llamado?\", mitigacion: \"bitácora inmutable encadenada\" },\n  { tipo: \"Info disclosure\", pregunta: \"¿qué secretos/PII puede filtrar?\", mitigacion: \"pii-redactor + secrets-audit antes de salida\" },\n  { tipo: \"Denial of Service\", pregunta: \"¿cómo pueden tumbar la tool?\", mitigacion: \"rate-limiter + timeout-guard\" },\n  { tipo: \"Elevation of privilege\", pregunta: \"¿puede escalar a ejecutar comandos?\", mitigacion: \"runtime-interceptor + permission-gate\" },\n];\nreturn ok({ componente, amenazas: stride.map((s) => ({ ...s, aplicacion: \"analiza: \" + s.pregunta + \" en el contexto de \" + componente })) });\n  }\n);\n\nserver.tool(\n  \"assess\",\n  \"Puntúa el riesgo de un flujo según controles presentes: devuelve brechas de mitigación priorizadas.\",\n  {\n  flujo: z.string().describe(\"Descripción del flujo\"),\n  controles_presentes: z.array(z.any()).describe(\"Controles ya implementados (ej: auth, tls, rate-limit, audit, pii-redaction, sandbox)\"),\n  },\n  async (args: any) => {\n    const { flujo, controles_presentes } = args as any;\n    const controles = new Set((Array.isArray(controles_presentes) ? controles_presentes : []).map((c) => String(c).toLowerCase()));\nconst requeridos: Array<[string, number, string]> = [\n  [\"auth\", 30, \"sin autenticación cualquiera llama la tool\"],\n  [\"tls\", 15, \"tráfico sin cifrar\"],\n  [\"rate-limit\", 15, \"DoS trivial\"],\n  [\"audit\", 15, \"sin trazabilidad\"],\n  [\"input-validation\", 10, \"inputs hostiles\"],\n  [\"pii-redaction\", 10, \"fuga de datos personales\"],\n  [\"sandbox\", 5, \"ejecución sin aislamiento\"],\n];\nconst faltantes = requeridos.filter(([c]) => !controles.has(c));\nconst riesgo = faltantes.reduce((a, [, pts]) => a + pts, 0);\nreturn ok({ flujo: flujo.slice(0, 100), riesgo_acumulado: riesgo, nivel: riesgo >= 60 ? \"CRÍTICO: no exponer\" : riesgo >= 30 ? \"ALTO: mitigar antes de producción\" : \"aceptable con monitoreo\", brechas: faltantes.map(([c, pts, desc]) => ({ control: c, peso: pts, descripcion: desc })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor threat-modeler está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"threat-modeler\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[threat-modeler] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

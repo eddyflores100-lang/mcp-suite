@@ -1,0 +1,91 @@
+{
+ "id": "mn-sub-261001-c4ff56",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-agent-supervisor",
+  "version": "1.0.0",
+  "description": "Supervisión de sub-agentes: liveness, presupuesto, rendimiento y decisión de reinicio/escalamiento Dolor que resuelve: Los orquestadores lanzan sub-agentes y los olvidan: sin heartbeat ni presupuesto, un sub-agente bucle infinito quema tokens toda la noche y nadie lo mata. Incluye 7 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "multi-agent",
+   "orchestration",
+   "coordination"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only agent-supervisor",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-agent-supervisor",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (6 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "spawn_registration",
+    "check_in",
+    "report_result",
+    "kill",
+    "supervision_dashboard",
+    "retry_policy",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only agent-supervisor",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-agent-supervisor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-agent-supervisor/dist/index.js\"]}}}. Tools disponibles: spawn_registration, check_in, report_result, kill, supervision_dashboard, retry_policy y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/agent-supervisor/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-agent-supervisor (spawn_registration, check_in, report_result, kill, supervision_dashboard, retry_policy). Supervisión de sub-agentes: liveness, presupuesto, rendimiento y decisión de reinicio/escalamiento. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/agent-supervisor/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/agent-supervisor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Agent Supervisor — Supervisión de sub-agentes: liveness, presupuesto, rendimiento y decisión de reinicio/escalamiento (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-agent-supervisor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"multi-agente-y-coordinaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 7\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Agent Supervisor\n\n> Supervisión de sub-agentes: liveness, presupuesto, rendimiento y decisión de reinicio/escalamiento\n\n**Categoría:** Multi-Agente y Coordinación · **ID:** `mcp-agent-supervisor`\n\n**Dolor de agente que resuelve:** Los orquestadores lanzan sub-agentes y los olvidan: sin heartbeat ni presupuesto, un sub-agente bucle infinito quema tokens toda la noche y nadie lo mata.\n\n> Estado persistente en `~/.mcp-suite/agent-supervisor/state.json` (local, privado, tuya la data).\n\n## Tools (7 incl. health_check)\n\n### `spawn_registration`\nRegistra un sub-agente lanzado con sus límites: presupuesto de tokens, deadline y máximos reintentos.\n\n**Parámetros:**\n  - `sub_agente` (string, requerido): ID del sub-agente\n  - `tarea` (string, requerido): Tarea asignada\n  - `presupuesto_tokens` (number, opcional): Límite de tokens\n  - `deadline_minutos` (number, opcional): Minutos de plazo\n  - `max_reintentos` (number, opcional): Reintentos permitidos\n\n### `check_in`\nEl sub-agente reporta progreso y tokens consumidos; el supervisor evalúa límites y devuelve directiva (seguir, parar, escalar).\n\n**Parámetros:**\n  - `sub_agente` (string, requerido): ID del sub-agente\n  - `progreso_pct` (number, requerido): Avance 0-100\n  - `tokens_delta` (number, opcional): Tokens consumidos desde el último check-in\n  - `nota` (string, opcional): Qué está pasando\n\n### `report_result`\nEl sub-agente entrega resultado final; el supervisor cierra su registro y archiva métricas.\n\n**Parámetros:**\n  - `sub_agente` (string, requerido): ID del sub-agente\n  - `exito` (boolean, requerido): ¿Completó la tarea?\n  - `resultado` (string, opcional): Resumen del resultado\n\n### `kill`\nDetiene formalmente un sub-agente (bucle, desviación o presupuesto) y registra el motivo.\n\n**Parámetros:**\n  - `sub_agente` (string, requerido): ID del sub-agente\n  - `motivo` (string, requerido): Por qué se detiene\n\n### `supervision_dashboard`\nPanel de supervisión: quién corre, quién excede presupuesto, quién no reporta y tasas de éxito.\n\n### `retry_policy`\nConsulta la política de reintento para un sub-agente fallido: cuántos quedan y con qué ajustes relanzar.\n\n**Parámetros:**\n  - `sub_agente` (string, requerido): ID del sub-agente\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"agent-supervisor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-agent-supervisor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/agent-supervisor/. Registra sub-agentes con límites (tiempo, tokens, reintentos), recibe check-ins y decide matar/reintentar/escalar según política.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Agent Supervisor\n * Supervisión de sub-agentes: liveness, presupuesto, rendimiento y decisión de reinicio/escalamiento\n *\n * Dolor que resuelve: Los orquestadores lanzan sub-agentes y los olvidan: sin heartbeat ni presupuesto, un sub-agente bucle infinito quema tokens toda la noche y nadie lo mata.\n * Categoría: Multi-Agente y Coordinación | Generado por mcp-suite | id: agent-supervisor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/agent-supervisor/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"agent-supervisor\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"agent-supervisor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"spawn_registration\",\n  \"Registra un sub-agente lanzado con sus límites: presupuesto de tokens, deadline y máximos reintentos.\",\n  {\n  sub_agente: z.string().describe(\"ID del sub-agente\"),\n  tarea: z.string().describe(\"Tarea asignada\"),\n  presupuesto_tokens: z.number().describe(\"Límite de tokens\").optional(),\n  deadline_minutos: z.number().describe(\"Minutos de plazo\").optional(),\n  max_reintentos: z.number().describe(\"Reintentos permitidos\").default(1),\n  },\n  async (args: any) => {\n    const { sub_agente, tarea, presupuesto_tokens, deadline_minutos, max_reintentos } = args as any;\n    const st = store.load();\nst.sups = st.sups || {};\nconst prev = st.sups[sub_agente];\nst.sups[sub_agente] = {\n  sub_agente, tarea, presupuesto_tokens: presupuesto_tokens || null,\n  deadline: deadline_minutos ? new Date(Date.now() + deadline_minutos * 60000).toISOString() : null,\n  max_reintentos, reintentos: prev?.reintentos || 0,\n  tokens_usados: 0, checkins: 0, ultimo_checkin: null,\n  estado: \"corriendo\", eventos: prev?.eventos || [],\n  lanzado: new Date().toISOString(),\n};\nstore.save(st);\nreturn ok({ sub_agente, estado: \"corriendo\", presupuesto: st.sups[sub_agente].presupuesto_tokens, deadline: st.sups[sub_agente].deadline });\n  }\n);\n\nserver.tool(\n  \"check_in\",\n  \"El sub-agente reporta progreso y tokens consumidos; el supervisor evalúa límites y devuelve directiva (seguir, parar, escalar).\",\n  {\n  sub_agente: z.string().describe(\"ID del sub-agente\"),\n  progreso_pct: z.number().describe(\"Avance 0-100\"),\n  tokens_delta: z.number().describe(\"Tokens consumidos desde el último check-in\").default(0),\n  nota: z.string().describe(\"Qué está pasando\").optional(),\n  },\n  async (args: any) => {\n    const { sub_agente, progreso_pct, tokens_delta, nota } = args as any;\n    const st = store.load();\nconst s = (st.sups || {})[sub_agente];\nif (!s) return fail(\"sub-agente no registrado: usa spawn_registration\");\nif (s.estado !== \"corriendo\") return fail(\"sub-agente en estado \" + s.estado);\ns.checkins++;\ns.ultimo_checkin = new Date().toISOString();\ns.tokens_usados += tokens_delta || 0;\ns.ultimo_progreso = progreso_pct;\nif (nota) { s.eventos = s.eventos || []; s.eventos.push({ nota, progreso_pct, ts: s.ultimo_checkin }); if (s.eventos.length > 50) s.eventos = s.eventos.slice(-30); }\nstore.save(st);\nconst alerts = [];\nif (s.presupuesto_tokens && s.tokens_usados > s.presupuesto_tokens) alerts.push(\"PRESUPUESTO_EXCEDIDO: \" + s.tokens_usados + \"/\" + s.presupuesto_tokens);\nif (s.deadline && new Date(s.deadline) < new Date()) alerts.push(\"DEADLINE_VENCIDO\");\nif (progreso_pct === 0 && s.checkins >= 3) alerts.push(\"SIN_PROGRESO tras \" + s.checkins + \" check-ins\");\nconst directiva = alerts.some(a => a.startsWith(\"PRESUPUESTO\") || a.startsWith(\"DEADLINE\"))\n  ? (s.reintentos < s.max_reintentos ? \"REINTENTAR\" : \"ESCALAR_HUMANO\")\n  : alerts.includes(\"SIN_PROGRESO tras \" + s.checkins + \" check-ins\") ? \"PROBAR_ALTERNATIVA\" : \"SEGUIR\";\nif (directiva !== \"SEGUIR\") { s.estado = directiva === \"REINTENTAR\" ? \"reintentar\" : s.estado; if (directiva === \"REINTENTAR\") s.reintentos++; store.save(st); }\nreturn ok({ directiva, alerts, tokens_usados: s.tokens_usados, presupuesto: s.presupuesto_tokens, checkins: s.checkins });\n  }\n);\n\nserver.tool(\n  \"report_result\",\n  \"El sub-agente entrega resultado final; el supervisor cierra su registro y archiva métricas.\",\n  {\n  sub_agente: z.string().describe(\"ID del sub-agente\"),\n  exito: z.boolean().describe(\"¿Completó la tarea?\"),\n  resultado: z.string().describe(\"Resumen del resultado\").optional(),\n  },\n  async (args: any) => {\n    const { sub_agente, exito, resultado } = args as any;\n    const st = store.load();\nconst s = (st.sups || {})[sub_agente];\nif (!s) return fail(\"sub-agente no registrado\");\ns.estado = exito ? \"completado\" : \"fallido\";\ns.resultado = resultado || null;\ns.terminado = new Date().toISOString();\ns.duracion_min = Number(((Date.now() - new Date(s.lanzado).getTime()) / 60000).toFixed(1));\nstore.save(st);\nreturn ok({ sub_agente, estado: s.estado, duracion_min: s.duracion_min, tokens: s.tokens_usados, checkins: s.checkins, sobre_presupuesto: s.presupuesto_tokens ? s.tokens_usados > s.presupuesto_tokens : false });\n  }\n);\n\nserver.tool(\n  \"kill\",\n  \"Detiene formalmente un sub-agente (bucle, desviación o presupuesto) y registra el motivo.\",\n  {\n  sub_agente: z.string().describe(\"ID del sub-agente\"),\n  motivo: z.string().describe(\"Por qué se detiene\"),\n  },\n  async (args: any) => {\n    const { sub_agente, motivo } = args as any;\n    const st = store.load();\nconst s = (st.sups || {})[sub_agente];\nif (!s) return fail(\"sub-agente no registrado\");\nif (s.estado !== \"corriendo\") return ok({ ya_finalizado: s.estado });\ns.estado = \"detenido\";\ns.killed = { motivo, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({ sub_agente, estado: \"detenido\", motivo, tokens_hasta_el_momento: s.tokens_usados, limpieza: \"libera sus recursos en blackboard-shared y su estado en deadlock-detector\" });\n  }\n);\n\nserver.tool(\n  \"supervision_dashboard\",\n  \"Panel de supervisión: quién corre, quién excede presupuesto, quién no reporta y tasas de éxito.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst sups = __vals(st.sups || {});\nif (!sups.length) return ok({ registrados: 0, sugerencia: \"registra sub-agentes con spawn_registration\" });\nconst corriendo = sups.filter(s => s.estado === \"corriendo\");\nconst sinReporte = corriendo.filter(s => !s.ultimo_checkin || (Date.now() - new Date(s.ultimo_checkin).getTime()) > 15 * 60000);\nconst excedidos = corriendo.filter(s => s.presupuesto_tokens && s.tokens_usados > s.presupuesto_tokens);\nconst completados = sups.filter(s => s.estado === \"completado\").length;\nconst fallidos = sups.filter(s => [\"fallido\", \"detenido\"].includes(s.estado)).length;\nreturn ok({\n  registrados: sups.length, corriendo: corriendo.length,\n  alertas: {\n    sin_reporte_15min: sinReporte.map(s => s.sub_agente),\n    presupuesto_excedido: excedidos.map(s => ({ sub: s.sub_agente, usados: s.tokens_usados, tope: s.presupuesto_tokens })),\n  },\n  rendimiento: {\n    completados, fallidos,\n    tasa_exito: (completados + fallidos) ? Number((completados / (completados + fallidos)).toFixed(2)) : null,\n    tokens_totales: sups.reduce((s, x) => s + (x.tokens_usados || 0), 0),\n  },\n  corriendo_detalle: corriendo.map(s => ({ sub: s.sub_agente, tarea: s.tarea.slice(0, 60), checkins: s.checkins, tokens: s.tokens_usados, tope: s.presupuesto_tokens, ultimo_checkin: s.ultimo_checkin })),\n});\n  }\n);\n\nserver.tool(\n  \"retry_policy\",\n  \"Consulta la política de reintento para un sub-agente fallido: cuántos quedan y con qué ajustes relanzar.\",\n  {\n  sub_agente: z.string().describe(\"ID del sub-agente\"),\n  },\n  async (args: any) => {\n    const { sub_agente } = args as any;\n    const st = store.load();\nconst s = (st.sups || {})[sub_agente];\nif (!s) return fail(\"sub-agente no registrado\");\nconst quedan = Math.max(0, s.max_reintentos - s.reintentos);\nreturn ok({\n  sub_agente, reintentos_usados: s.reintentos, reintentos_quedan: quedan,\n  recomendacion: quedan > 0\n    ? { relanzar: true, ajustes: [\"reduce el alcance de la tarea\", \"duplica deadline si falló por tiempo\", \"bisagra el presupuesto si falló por tokens\"][s.reintentos % 3], presupuesto_sugerido: s.presupuesto_tokens ? Math.round(s.presupuesto_tokens * 1.5) : null }\n    : { relanzar: false, alternativa: \"decompón la tarea (plan-decompose) y delega por partes o escala a humano\" },\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor agent-supervisor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"agent-supervisor\", tools: 7, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[agent-supervisor] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "agent-supervisor"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

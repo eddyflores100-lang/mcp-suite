@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-f156a6",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-blast-radius-estimator",
+  "version": "1.0.0",
+  "description": "Antes de ejecutar una acción: estima cuántos sistemas, datos y usuarios quedan dentro del radio de impacto Dolor que resuelve: El agente borra una tabla 'inocente' y descubre que alimentaba 3 servicios: nadie le dijo que estimara el radio de explosión de sus acciones antes de pulsar el botón. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "preflight",
+   "readiness",
+   "checklist"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only blast-radius-estimator",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-blast-radius-estimator",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_system",
+    "add_dependency",
+    "estimate",
+    "blast_history",
+    "coverage_report",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only blast-radius-estimator",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-blast-radius-estimator\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-blast-radius-estimator/dist/index.js\"]}}}. Tools disponibles: register_system, add_dependency, estimate, blast_history, coverage_report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/blast-radius-estimator/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-blast-radius-estimator (register_system, add_dependency, estimate, blast_history, coverage_report). Antes de ejecutar una acción: estima cuántos sistemas, datos y usuarios quedan dentro del radio de impacto. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/blast-radius-estimator/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/blast-radius-estimator\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Blast Radius Estimator — Antes de ejecutar una acción: estima cuántos sistemas, datos y usuarios quedan dentro del radio de impacto (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-blast-radius-estimator\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"pre-vuelo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Blast Radius Estimator\n\n> Antes de ejecutar una acción: estima cuántos sistemas, datos y usuarios quedan dentro del radio de impacto\n\n**Categoría:** Pre-Vuelo · **ID:** `mcp-blast-radius-estimator`\n\n**Dolor de agente que resuelve:** El agente borra una tabla 'inocente' y descubre que alimentaba 3 servicios: nadie le dijo que estimara el radio de explosión de sus acciones antes de pulsar el botón.\n\n> Estado persistente en `~/.mcp-suite/blast-radius-estimator/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `register_system`\nRegistra un sistema/recurso del entorno con criticidad y dependientes directos.\n\n**Parámetros:**\n  - `sistema` (string, requerido): Nombre del sistema/recurso (ej: db-usuarios)\n  - `criticidad` (enum, requerido): Criticidad del sistema\n  - `descripcion` (string, opcional): Qué es y para qué sirve\n  - `dependientes` (array, opcional): Sistemas que dependen de este {sistema, porque}\n\n### `add_dependency`\nAñade una dependencia: 'consumidor' depende de 'proveedor'. Alimenta la propagación del radio.\n\n**Parámetros:**\n  - `proveedor` (string, requerido): Sistema del que se depende\n  - `consumidor` (string, requerido): Sistema que depende del proveedor\n  - `porque` (string, requerido): Por qué depende (dato, servicio, colateral)\n\n### `estimate`\nCalcula el blast radius de una acción: propagación transitiva por el grafo con pesos y veredicto de aprobación.\n\n**Parámetros:**\n  - `accion` (string, requerido): Acción a evaluar (ej: DROP TABLE usuarios)\n  - `objetivos` (array, requerido): Sistemas/recursos que la acción toca directamente\n  - `modo` (enum, requerido): Modo de acceso\n\n### `blast_history`\nHistorial de estimaciones: qué acciones tuvieron mayor radio estimado.\n\n**Parámetros:**\n  - `limite` (number, opcional): Máximo a mostrar\n\n### `coverage_report`\nQué parte del entorno real está modelado en el grafo (anti-puntos-ciegos).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"blast-radius-estimator\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-blast-radius-estimator/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/blast-radius-estimator/. Grafo de sistemas con dependencias y criticidad; la propagación transitiva calcula el radio de impacto real de una acción.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Blast Radius Estimator\n * Antes de ejecutar una acción: estima cuántos sistemas, datos y usuarios quedan dentro del radio de impacto\n *\n * Dolor que resuelve: El agente borra una tabla 'inocente' y descubre que alimentaba 3 servicios: nadie le dijo que estimara el radio de explosión de sus acciones antes de pulsar el botón.\n * Categoría: Pre-Vuelo | Generado por mcp-suite | id: blast-radius-estimator\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/blast-radius-estimator/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"blast-radius-estimator\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"blast-radius-estimator\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_system\",\n  \"Registra un sistema/recurso del entorno con criticidad y dependientes directos.\",\n  {\n  sistema: z.string().describe(\"Nombre del sistema/recurso (ej: db-usuarios)\"),\n  criticidad: z.enum([\"baja\",\"media\",\"alta\",\"critica\"]).describe(\"Criticidad del sistema\"),\n  descripcion: z.string().describe(\"Qué es y para qué sirve\").optional(),\n  dependientes: z.array(z.any()).describe(\"Sistemas que dependen de este {sistema, porque}\").optional(),\n  },\n  async (args: any) => {\n    const { sistema, criticidad, descripcion, dependientes } = args as any;\n    const st = store.load();\nst.sistemas = st.sistemas || {};\nif (st.sistemas[sistema]) return fail(\"sistema ya registrado: \" + sistema + \" (usa add_dependency para extenderlo)\");\nconst pesos = { baja: 1, media: 2, alta: 3, critica: 5 };\nst.sistemas[sistema] = { sistema, criticidad, peso: pesos[criticidad] || 2, descripcion: descripcion || \"\", dependientes: (dependientes || []).map(d => ({ sistema: String(d.sistema || d), porque: String(d.porque || \"dependencia no documentada\") })), creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ sistema, criticidad, dependientes_registrados: st.sistemas[sistema].dependientes.length });\n  }\n);\n\nserver.tool(\n  \"add_dependency\",\n  \"Añade una dependencia: 'consumidor' depende de 'proveedor'. Alimenta la propagación del radio.\",\n  {\n  proveedor: z.string().describe(\"Sistema del que se depende\"),\n  consumidor: z.string().describe(\"Sistema que depende del proveedor\"),\n  porque: z.string().describe(\"Por qué depende (dato, servicio, colateral)\"),\n  },\n  async (args: any) => {\n    const { proveedor, consumidor, porque } = args as any;\n    const st = store.load();\nst.sistemas = st.sistemas || {};\nif (!st.sistemas[proveedor]) return fail(\"proveedor no registrado: \" + proveedor + \" (regístralo primero con register_system)\");\nif (!st.sistemas[consumidor]) return fail(\"consumidor no registrado: \" + consumidor);\nst.sistemas[proveedor].dependientes.push({ sistema: consumidor, porque });\nstore.save(st);\nreturn ok({ edge: consumidor + \" -> \" + proveedor, porque, total_dependientes: st.sistemas[proveedor].dependientes.length });\n  }\n);\n\nserver.tool(\n  \"estimate\",\n  \"Calcula el blast radius de una acción: propagación transitiva por el grafo con pesos y veredicto de aprobación.\",\n  {\n  accion: z.string().describe(\"Acción a evaluar (ej: DROP TABLE usuarios)\"),\n  objetivos: z.array(z.any()).describe(\"Sistemas/recursos que la acción toca directamente\"),\n  modo: z.enum([\"lectura\",\"escritura\",\"borrado\",\"configuracion\"]).describe(\"Modo de acceso\"),\n  },\n  async (args: any) => {\n    const { accion, objetivos, modo } = args as any;\n    const st = store.load();\nconst sis = st.sistemas || {};\nif (!Object.keys(sis).length) return fail(\"grafo vacío: registra sistemas con register_system\");\nconst objetivosValidos = (objetivos || []).filter(o => sis[String(o)]);\nconst desconocidos = (objetivos || []).filter(o => !sis[String(o)]).map(String);\nif (!objetivosValidos.length) return fail(\"ningún objetivo está en el grafo\" + (desconocidos.length ? \" (desconocidos: \" + desconocidos.join(\", \") + \")\" : \"\"));\nconst multi = { lectura: 0.3, escritura: 1, borrado: 1.6, configuracion: 1.3 };\nconst factor = multi[modo] || 1;\nconst afectados = {};\nconst cola = objetivosValidos.map(o => String(o));\nlet profundidad = 0;\nwhile (cola.length && profundidad < 6) {\n  const actual = cola.shift();\n  if (afectados[actual] !== undefined) continue;\n  afectados[actual] = profundidad;\n  const deps = (sis[actual].dependientes || []).map(d => d.sistema).filter(s => sis[s] && afectados[s] === undefined);\n  deps.forEach(d => cola.push(d));\n  profundidad++;\n}\nconst lista = Object.keys(afectados).map(s => ({ sistema: s, criticidad: sis[s].criticidad, nivel_propagacion: afectados[s], por_que: afectados[s] === 0 ? \"objetivo directo\" : \"depende de nivel \" + (afectados[s] - 1) }));\nconst score = Math.round(lista.reduce((acc, a) => acc + sis[a.sistema].peso * (1 + 0.4 / (a.nivel_propagacion + 1)), 0) * factor);\nconst criticos = lista.filter(a => a.criticidad === \"critica\" || a.criticidad === \"alta\");\nconst veredicto = score >= 40 || criticos.some(c => c.nivel_propagacion === 0) ? \"BLOQUEAR: requiere aprobación humana explícita antes de ejecutar\" : score >= 15 ? \"PRECAUCIÓN: notifica a los sistemas afectados y captura punto de restauración\" : \"BAJO: procede con registro de efectos en side-effect-ledger\";\nst.historial = st.historial || [];\nst.historial.push({ accion, objetivos: objetivosValidos.map(String), modo, score, veredicto, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ accion, modo, factor_amplificacion: factor, sistemas_en_radio: lista.length, radio: lista, score_impacto: score, sistemas_criticos_alcanzados: criticos, objetivos_fuera_del_grafo: desconocidos, veredicto });\n  }\n);\n\nserver.tool(\n  \"blast_history\",\n  \"Historial de estimaciones: qué acciones tuvieron mayor radio estimado.\",\n  {\n  limite: z.number().describe(\"Máximo a mostrar\").default(10),\n  },\n  async (args: any) => {\n    const { limite } = args as any;\n    const st = store.load();\nconst h = (st.historial || []).slice().sort((a, b) => b.score - a.score).slice(0, limite);\nreturn ok({ estimaciones: (st.historial || []).length, top_estimaciones: h });\n  }\n);\n\nserver.tool(\n  \"coverage_report\",\n  \"Qué parte del entorno real está modelado en el grafo (anti-puntos-ciegos).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst sis = st.sistemas || {};\nconst nombres = Object.keys(sis);\nif (!nombres.length) return ok({ modelados: 0, aviso: \"grafo vacío: todo es punto ciego\" });\nconst sinDependientes = nombres.filter(n => !(sis[n].dependientes || []).length);\nconst huerfanos = nombres.filter(n => !nombres.some(m => (sis[m].dependientes || []).some(d => d.sistema === n)));\nreturn ok({ sistemas_modelados: nombres.length, por_criticidad: { critica: nombres.filter(n => sis[n].criticidad === \"critica\").length, alta: nombres.filter(n => sis[n].criticidad === \"alta\").length }, sin_dependientes_declarados: sinDependientes, huerfanos_nadie_depende: huerfanos, aviso: huerfanos.length > nombres.length / 2 ? \"más de la mitad del grafo está aislado: el radio se subestima, completa las dependencias\" : \"grafo razonablemente conectado\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor blast-radius-estimator está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"blast-radius-estimator\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[blast-radius-estimator] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "blast-radius-estimator"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

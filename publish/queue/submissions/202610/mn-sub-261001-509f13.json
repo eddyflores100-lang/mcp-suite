@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-509f13",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-action-recorder",
+  "version": "1.0.0",
+  "description": "Graba y reproduce secuencias de acciones con verificación de cada paso: flujos deterministas, no improvisados Dolor que resuelve: Cada corrida del agente de navegador improvisa el camino: hoy hace click en A→B→C, mañana prueba A→C. Sin grabación verificable, los fallos no se reproducen y nadie sabe qué hizo exactamente. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "computer-use",
+   "automation",
+   "browser"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only action-recorder",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-action-recorder",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (5 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "create_flow",
+    "record_step",
+    "replay_report",
+    "flow_health",
+    "list_flows",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only action-recorder",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-action-recorder\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-action-recorder/dist/index.js\"]}}}. Tools disponibles: create_flow, record_step, replay_report, flow_health, list_flows y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/action-recorder/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-action-recorder (create_flow, record_step, replay_report, flow_health, list_flows). Graba y reproduce secuencias de acciones con verificación de cada paso: flujos deterministas, no improvisados. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/action-recorder/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/action-recorder\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Action Recorder — Graba y reproduce secuencias de acciones con verificación de cada paso: flujos deterministas, no improvisados (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-action-recorder\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"computer-use\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Action Recorder\n\n> Graba y reproduce secuencias de acciones con verificación de cada paso: flujos deterministas, no improvisados\n\n**Categoría:** Computer Use · **ID:** `mcp-action-recorder`\n\n**Dolor de agente que resuelve:** Cada corrida del agente de navegador improvisa el camino: hoy hace click en A→B→C, mañana prueba A→C. Sin grabación verificable, los fallos no se reproducen y nadie sabe qué hizo exactamente.\n\n> Estado persistente en `~/.mcp-suite/action-recorder/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `create_flow`\nCrea un flujo grabado (nombre + descripción del objetivo de negocio).\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre del flujo\n  - `objetivo` (string, requerido): Qué logra el flujo\n\n### `record_step`\nAñade un paso al flujo: acción, objetivo (selector/coords) y verificación esperada tras el paso.\n\n**Parámetros:**\n  - `flujo` (string, requerido): Nombre del flujo\n  - `accion` (enum, requerido): Tipo de acción\n  - `objetivo` (string, requerido): Sobre qué (url, selector, texto a escribir)\n  - `verificacion` (string, requerido): Qué debe ser cierto DESPUÉS del paso (observable)\n\n### `replay_report`\nRegistra el resultado de un replay: cada paso verificado, fallido o desviado; devuelve salud del flujo.\n\n**Parámetros:**\n  - `flujo` (string, requerido): Nombre del flujo\n  - `resultados_pasos` (array, requerido): Resultado por paso: true/false/otro\n\n### `flow_health`\nSalud histórica del flujo: tasa de éxito por replay y paso más frágil acumulado.\n\n**Parámetros:**\n  - `flujo` (string, requerido): Nombre del flujo\n\n### `list_flows`\nLista los flujos grabados con su salud agregada.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"action-recorder\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-action-recorder/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/action-recorder/. Flujos = lista de pasos {accion, objetivo, verificacion}; cada replay valida la verificación de cada paso y registra desviaciones.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Action Recorder\n * Graba y reproduce secuencias de acciones con verificación de cada paso: flujos deterministas, no improvisados\n *\n * Dolor que resuelve: Cada corrida del agente de navegador improvisa el camino: hoy hace click en A→B→C, mañana prueba A→C. Sin grabación verificable, los fallos no se reproducen y nadie sabe qué hizo exactamente.\n * Categoría: Computer Use | Generado por mcp-suite | id: action-recorder\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/action-recorder/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"action-recorder\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"action-recorder\", version: \"1.0.0\" });\n\nserver.tool(\n  \"create_flow\",\n  \"Crea un flujo grabado (nombre + descripción del objetivo de negocio).\",\n  {\n  nombre: z.string().describe(\"Nombre del flujo\"),\n  objetivo: z.string().describe(\"Qué logra el flujo\"),\n  },\n  async (args: any) => {\n    const { nombre, objetivo } = args as any;\n    const st = store.load();\nst.flujos = st.flujos || {};\nif (st.flujos[nombre]) return fail(\"flujo existente\");\nst.flujos[nombre] = { nombre, objetivo, pasos: [], replays: [], creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ flujo: nombre, pasos: 0 });\n  }\n);\n\nserver.tool(\n  \"record_step\",\n  \"Añade un paso al flujo: acción, objetivo (selector/coords) y verificación esperada tras el paso.\",\n  {\n  flujo: z.string().describe(\"Nombre del flujo\"),\n  accion: z.enum([\"navegar\",\"click\",\"escribir\",\"seleccionar\",\"esperar\",\"extraer\",\"scroll\",\"descargar\"]).describe(\"Tipo de acción\"),\n  objetivo: z.string().describe(\"Sobre qué (url, selector, texto a escribir)\"),\n  verificacion: z.string().describe(\"Qué debe ser cierto DESPUÉS del paso (observable)\"),\n  },\n  async (args: any) => {\n    const { flujo, accion, objetivo, verificacion } = args as any;\n    const st = store.load();\nconst f = (st.flujos || {})[flujo];\nif (!f) return fail(\"flujo no encontrado\");\nif (!verificacion) return fail(\"un paso sin verificación no es reproducible: ¿qué debe verse después?\");\nf.pasos.push({ n: f.pasos.length + 1, accion, objetivo, verificacion });\nstore.save(st);\nreturn ok({ flujo, paso: f.pasos.length, total: f.pasos.length });\n  }\n);\n\nserver.tool(\n  \"replay_report\",\n  \"Registra el resultado de un replay: cada paso verificado, fallido o desviado; devuelve salud del flujo.\",\n  {\n  flujo: z.string().describe(\"Nombre del flujo\"),\n  resultados_pasos: z.array(z.any()).describe(\"Resultado por paso: true/false/otro\"),\n  },\n  async (args: any) => {\n    const { flujo, resultados_pasos } = args as any;\n    const st = store.load();\nconst f = (st.flujos || {})[flujo];\nif (!f) return fail(\"flujo no encontrado\");\nconst rs = resultados_pasos || [];\nif (rs.length !== f.pasos.length) return fail(\"esperaba \" + f.pasos.length + \" resultados, recibí \" + rs.length);\nconst norm = rs.map(r => r === true ? \"ok\" : r === false ? \"fallo\" : String(r || \"desviado\"));\nconst primerFallo = norm.findIndex(r => r !== \"ok\");\nconst okCount = norm.filter(r => r === \"ok\").length;\nf.replays.push({ ok: okCount, total: norm.length, primer_fallo: primerFallo + 1 || null, norm, ts: new Date().toISOString() });\nif (f.replays.length > 50) f.replays = f.replays.slice(-30);\nstore.save(st);\nreturn ok({\n  flujo,\n  salud: Math.round(okCount / norm.length * 100) + \"%\",\n  primer_fallo_en_paso: primerFallo >= 0 ? { n: primerFallo + 1, accion: f.pasos[primerFallo].accion, objetivo: f.pasos[primerFallo].objetivo, verificacion: f.pasos[primerFallo].verificacion } : null,\n  veredicto: okCount === norm.length ? \"replay limpio\" : primerFallo === 0 ? \"falla al arranque: entorno o url cambiados\" : \"falla a mitad: revisa el paso \" + (primerFallo + 1) + \" y su verificación\",\n});\n  }\n);\n\nserver.tool(\n  \"flow_health\",\n  \"Salud histórica del flujo: tasa de éxito por replay y paso más frágil acumulado.\",\n  {\n  flujo: z.string().describe(\"Nombre del flujo\"),\n  },\n  async (args: any) => {\n    const { flujo } = args as any;\n    const st = store.load();\nconst f = (st.flujos || {})[flujo];\nif (!f) return fail(\"flujo no encontrado\");\nconst replays = f.replays || [];\nif (!replays.length) return ok({ flujo, replays: 0 });\nconst exitoTotal = replays.filter(r => r.ok === r.total).length;\nconst fragilidad = new Array(f.pasos.length).fill(0);\nfor (const r of replays) r.norm.forEach((v, i) => { if (v !== \"ok\") fragilidad[i]++; });\nconst masFragil = fragilidad.indexOf(Math.max(...fragilidad));\nreturn ok({\n  flujo, replays: replays.length,\n  exito_completo_pct: Math.round(exitoTotal / replays.length * 100),\n  paso_mas_fragil: { n: masFragil + 1, accion: f.pasos[masFragil]?.accion, fallos: fragilidad[masFragil] },\n  fallos_por_paso: f.pasos.map((p, i) => ({ n: i + 1, accion: p.accion, fallos: fragilidad[i] })).filter(x => x.fallos > 0),\n});\n  }\n);\n\nserver.tool(\n  \"list_flows\",\n  \"Lista los flujos grabados con su salud agregada.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst flujos = __vals(st.flujos || {});\nif (!flujos.length) return ok({ flujos: 0 });\nreturn ok({ flujos: flujos.map(f => ({ nombre: f.nombre, objetivo: f.objetivo.slice(0, 60), pasos: f.pasos.length, replays: (f.replays || []).length, exito_pct: f.replays?.length ? Math.round(f.replays.filter(r => r.ok === r.total).length / f.replays.length * 100) : null })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor action-recorder está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"action-recorder\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[action-recorder] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "action-recorder"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

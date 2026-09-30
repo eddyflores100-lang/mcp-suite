@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-7c7776",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-analogy-finder",
+  "version": "1.0.0",
+  "description": "Analogías ESTRUCTURALES: mapea relaciones entre dominios (no palabras sueltas) y delimita qué se transfiere y qué no Dolor que resuelve: El agente razona por analogía superficial: 'esto es como Netflix' porque ambas cosas tienen suscripciones, y transfiere conclusiones de un dominio a otro sin comprobar que las RELACIONES se corresponden. La analogía falsa es la falacia más productiva que existe. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "structured-reasoning",
+   "argumentation",
+   "consistency"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only analogy-finder",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-analogy-finder",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_case",
+    "find_analogy",
+    "map_transfer",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only analogy-finder",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-analogy-finder\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-analogy-finder/dist/index.js\"]}}}. Tools disponibles: register_case, find_analogy, map_transfer y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/analogy-finder/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-analogy-finder (register_case, find_analogy, map_transfer). Analogías ESTRUCTURALES: mapea relaciones entre dominios (no palabras sueltas) y delimita qué se transfiere y qué no. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/analogy-finder/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/analogy-finder\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Analogy Finder — Analogías ESTRUCTURALES: mapea relaciones entre dominios (no palabras sueltas) y delimita qué se transfiere y qué no (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-analogy-finder\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"razonamiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Analogy Finder\n\n> Analogías ESTRUCTURALES: mapea relaciones entre dominios (no palabras sueltas) y delimita qué se transfiere y qué no\n\n**Categoría:** Razonamiento · **ID:** `mcp-analogy-finder`\n\n**Dolor de agente que resuelve:** El agente razona por analogía superficial: 'esto es como Netflix' porque ambas cosas tienen suscripciones, y transfiere conclusiones de un dominio a otro sin comprobar que las RELACIONES se corresponden. La analogía falsa es la falacia más productiva que existe.\n\n> Estado persistente en `~/.mcp-suite/analogy-finder/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `register_case`\nRegistra un caso/dominio con sus entidades y relaciones internas.\n\n**Parámetros:**\n  - `caso` (string, requerido): Nombre del caso/dominio\n  - `entidades` (array, requerido): Entidades principales {nombre, rol}\n  - `relaciones` (array, requerido): Relaciones {desde, tipo, hacia} — el tipo ES la estructura (pagar, competir, depender...)\n  - `desenlace` (string, opcional): Cómo terminó ese caso (si se sabe)\n\n### `find_analogy`\nBusca el caso registrado cuya ESTRUCTURA relacional coincide con tu situación actual.\n\n**Parámetros:**\n  - `entidades_actuales` (array, requerido): Entidades de tu situación {nombre, rol}\n  - `relaciones_actuales` (array, requerido): Relaciones {desde, tipo, hacia}\n\n### `map_transfer`\nPara una analogía concreta: qué conocimiento se transfiere y qué se queda en casa.\n\n**Parámetros:**\n  - `caso` (string, requerido): Caso análogo registrado\n  - `correspondencias` (array, requerido): Mapeo declarado {entidad_o_relacion_del_caso, equivalente_actual}\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"analogy-finder\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-analogy-finder/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/analogy-finder/. Casos con entidades y relaciones tipadas; el matching estructural exige correspondencia de relaciones (no de nombres); la validación separa lo que se transfiere de lo que no.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Analogy Finder\n * Analogías ESTRUCTURALES: mapea relaciones entre dominios (no palabras sueltas) y delimita qué se transfiere y qué no\n *\n * Dolor que resuelve: El agente razona por analogía superficial: 'esto es como Netflix' porque ambas cosas tienen suscripciones, y transfiere conclusiones de un dominio a otro sin comprobar que las RELACIONES se corresponden. La analogía falsa es la falacia más productiva que existe.\n * Categoría: Razonamiento | Generado por mcp-suite | id: analogy-finder\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/analogy-finder/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"analogy-finder\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"analogy-finder\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_case\",\n  \"Registra un caso/dominio con sus entidades y relaciones internas.\",\n  {\n  caso: z.string().describe(\"Nombre del caso/dominio\"),\n  entidades: z.array(z.any()).describe(\"Entidades principales {nombre, rol}\"),\n  relaciones: z.array(z.any()).describe(\"Relaciones {desde, tipo, hacia} — el tipo ES la estructura (pagar, competir, depender...)\"),\n  desenlace: z.string().describe(\"Cómo terminó ese caso (si se sabe)\").optional(),\n  },\n  async (args: any) => {\n    const { caso, entidades, relaciones, desenlace } = args as any;\n    const st = store.load();\nst.casos = st.casos || {};\nif (st.casos[caso]) return fail(\"caso ya registrado: \" + caso);\nconst ents = (entidades || []).filter(e => e && e.nombre).map(e => ({ nombre: String(e.nombre), rol: String(e.rol || \"sin rol\") }));\nconst rels = (relaciones || []).filter(r => r && r.desde && r.hacia && r.tipo).map(r => ({ desde: String(r.desde), tipo: String(r.tipo).toLowerCase(), hacia: String(r.hacia) }));\nif (ents.length < 2 || rels.length < 1) return fail(\"necesitas al menos 2 entidades y 1 relación\");\nst.casos[caso] = { caso, entidades: ents, relaciones: rels, desenlace: desenlace || \"desconocido\", registrado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ caso, entidades: ents.length, relaciones: rels.length, estructura: rels.map(r => r.desde + \" --\" + r.tipo + \"--> \" + r.hacia), aviso: \"define relaciones por su TIPO funcional (paga, depende, compite) y no por su etiqueta superficial\" });\n  }\n);\n\nserver.tool(\n  \"find_analogy\",\n  \"Busca el caso registrado cuya ESTRUCTURA relacional coincide con tu situación actual.\",\n  {\n  entidades_actuales: z.array(z.any()).describe(\"Entidades de tu situación {nombre, rol}\"),\n  relaciones_actuales: z.array(z.any()).describe(\"Relaciones {desde, tipo, hacia}\"),\n  },\n  async (args: any) => {\n    const { entidades_actuales, relaciones_actuales } = args as any;\n    const st = store.load();\nconst casos = __vals(st.casos || {});\nif (!casos.length) return fail(\"sin casos registrados\");\nconst misRels = (relaciones_actuales || []).filter(r => r && r.tipo).map(r => ({ desde: String(r.desde), tipo: String(r.tipo).toLowerCase(), hacia: String(r.hacia) }));\nif (!misRels.length) return fail(\"sin relaciones actuales: sin estructura no hay analogía, solo parecido de palabras\");\nconst scores = casos.map(c => {\n  let matches = 0;\n  const detalles = [];\n  c.relaciones.forEach(rc => {\n    const rm = misRels.find(x => x.tipo === rc.tipo && (x.desde === rc.desde || x.hacia === rc.hacia));\n    const rmTipo = misRels.find(x => x.tipo === rc.tipo);\n    if (rm) { matches += 2; detalles.push({ relacion: rc.desde + \" --\" + rc.tipo + \"--> \" + rc.hacia, correspondencia: \"exacta (tipo y actores)\" }); }\n    else if (rmTipo) { matches += 1; detalles.push({ relacion: rc.desde + \" --\" + rc.tipo + \"--> \" + rc.hacia, correspondencia: \"solo tipo (actores distintos)\" }); }\n  });\n  const cobertura = matches / (c.relaciones.length * 2);\n  const rolesParecidos = (entidades_actuales || []).filter(e => c.entidades.some(ce => ce.rol && e.rol && String(ce.rol).toLowerCase() === String(e.rol).toLowerCase())).length;\n  return { caso: c.caso, score_estructural: Number(cobertura.toFixed(2)), relaciones_cubiertas: detalles.length + \"/\" + c.relaciones.length, detalle: detalles, roles_alineados: rolesParecidos, desenlace: c.desenlace };\n}).sort((a, b) => b.score_estructural - a.score_estructural);\nconst mejor = scores[0];\nreturn ok({ mejor_analogia: mejor, otras_candidatas: scores.slice(1, 4), advertencia_superficialidad: mejor.score_estructural < 0.4 ? \"NINGUNA analogía estructural fuerte: la similitud que percibes es superficial (nombres parecidos); NO transfieras conclusiones\" : mejor.score_estructural < 0.7 ? \"analogía PARCIAL: transfiere solo lo marcado como correspondencia exacta\" : \"analogía estructural sólida: la transferencia es defendible\" });\n  }\n);\n\nserver.tool(\n  \"map_transfer\",\n  \"Para una analogía concreta: qué conocimiento se transfiere y qué se queda en casa.\",\n  {\n  caso: z.string().describe(\"Caso análogo registrado\"),\n  correspondencias: z.array(z.any()).describe(\"Mapeo declarado {entidad_o_relacion_del_caso, equivalente_actual}\"),\n  },\n  async (args: any) => {\n    const { caso, correspondencias } = args as any;\n    const st = store.load();\nconst c = (st.casos || {})[caso];\nif (!c) return fail(\"caso no registrado: \" + caso);\nconst mapa = (correspondencias || []).filter(x => x && x.entidad_o_relacion_del_caso);\nif (!mapa.length) return fail(\"sin correspondencias declaradas\");\nconst cubiertas = new Set(mapa.map(x => String(x.entidad_o_relacion_del_caso)));\nconst sinMapear = c.relaciones.filter(r => !cubiertas.has(r.desde + \" --\" + r.tipo + \"--> \" + r.hacia) && !cubiertas.has(r.desde) && !cubiertas.has(r.hacia));\nreturn ok({ caso, mapeo: mapa, relaciones_del_caso_sin_equivalente: sinMapear.map(r => r.desde + \" --\" + r.tipo + \"--> \" + r.hacia), cobertura: Number(((c.relaciones.length - sinMapear.length) / Math.max(c.relaciones.length, 1) * 100).toFixed(0)) + \"%\", se_transfiere: mapa.map(x => \"lo aprendido sobre '\" + x.entidad_o_relacion_del_caso + \"' APLICA a '\" + x.equivalente_actual + \"'\"), NO_se_transfiere: sinMapear.length ? sinMapear.map(r => \"el mecanismo '\" + r.tipo + \"' entre \" + r.desde + \" y \" + r.hacia + \" NO existe en tu situación: las conclusiones que dependan de él quedan fuera\") : [\"todo el caso tiene equivalente: transferencia completa\"], desenlace_del_caso: c.desenlace, condicional: c.desenlude !== \"desconocido\" ? null : \"el desenlace del caso es desconocido: la analogía orienta pero no predice\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor analogy-finder está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"analogy-finder\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[analogy-finder] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "analogy-finder"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,63 @@
+{
+ "name": "mcp-webhook-inspector",
+ "version": "1.0.0",
+ "description": "Inspecciona webhooks entrantes: parse, verificación HMAC y log de eventos Dolor que resuelve: Los webhooks llegan y nadie sabe si son legítimos ni qué trajeron: falta inspección y verificación de firma. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "DevOps",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "resilience",
+  "circuit-breaker",
+  "retry"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only webhook-inspector",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-webhook-inspector",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "inspect",
+   "verify_hmac",
+   "recent_events",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only webhook-inspector",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-webhook-inspector\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-webhook-inspector/dist/index.js\"]}}}. Tools disponibles: inspect, verify_hmac, recent_events y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/webhook-inspector/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-webhook-inspector (inspect, verify_hmac, recent_events). Inspecciona webhooks entrantes: parse, verificación HMAC y log de eventos. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/webhook-inspector/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/webhook-inspector\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Webhook Inspector — Inspecciona webhooks entrantes: parse, verificación HMAC y log de eventos (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-webhook-inspector\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Webhook Inspector\n\n> Inspecciona webhooks entrantes: parse, verificación HMAC y log de eventos\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-webhook-inspector`\n\n**Dolor de agente que resuelve:** Los webhooks llegan y nadie sabe si son legítimos ni qué trajeron: falta inspección y verificación de firma.\n\n> Estado persistente en `~/.mcp-suite/webhook-inspector/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `inspect`\nInspecciona un webhook: headers normalizados, parsea el body (JSON) y detecta el proveedor por firma típica.\n\n**Parámetros:**\n  - `headers` (any, requerido): Headers HTTP recibidos\n  - `body` (string, requerido): Body crudo\n\n### `verify_hmac`\nVerifica la firma HMAC-SHA256 de un webhook dado el secreto compartido y la firma recibida.\n\n**Parámetros:**\n  - `body` (string, requerido): Body crudo\n  - `secreto` (string, requerido): Secreto compartido\n  - `firma_recibida` (string, requerido): Firma (hex o base64)\n\n### `recent_events`\nÚltimos webhooks inspeccionados (proveedor, tipo, timestamp).\n\n**Parámetros:**\n  - `limite` (number, opcional): Máx eventos\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"webhook-inspector\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-webhook-inspector/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Webhook Inspector\n * Inspecciona webhooks entrantes: parse, verificación HMAC y log de eventos\n *\n * Dolor que resuelve: Los webhooks llegan y nadie sabe si son legítimos ni qué trajeron: falta inspección y verificación de firma.\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: webhook-inspector\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/webhook-inspector/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"webhook-inspector\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"webhook-inspector\", version: \"1.0.0\" });\n\nserver.tool(\n  \"inspect\",\n  \"Inspecciona un webhook: headers normalizados, parsea el body (JSON) y detecta el proveedor por firma típica.\",\n  {\n  headers: z.any().describe(\"Headers HTTP recibidos\"),\n  body: z.string().describe(\"Body crudo\"),\n  },\n  async (args: any) => {\n    const { headers, body } = args as any;\n    let parsed: any = null;\ntry { parsed = JSON.parse(body); } catch { parsed = null; }\nconst h = headers || {};\nconst proveedores: Array<[string, string]> = [[\"stripe\", \"stripe-signature\"], [\"github\", \"x-hub-signature-256\"], [\"slack\", \"x-slack-signature\"], [\"shopify\", \"x-shopify-hmac-sha256\"], [\"generic\", \"x-signature\"]];\nconst detectado = proveedores.find(([, header]) => Object.keys(h).some((k) => k.toLowerCase() === header))?.[0] || \"desconocido\";\nconst st = store.load();\nst.eventos = st.eventos || [];\nst.eventos.push({ ts: new Date().toISOString(), proveedor: detectado, tipo: parsed?.type || parsed?.event || null, keys: parsed ? Object.keys(parsed) : [] });\nif (st.eventos.length > 300) st.eventos = st.eventos.slice(-300);\nstore.save(st);\nreturn ok({ proveedor_detectado: detectado, body_parseado: parsed, headers_clave: Object.keys(h).filter((k) => k.toLowerCase().includes(\"sign\") || k.toLowerCase().includes(\"hmac\")) });\n  }\n);\n\nserver.tool(\n  \"verify_hmac\",\n  \"Verifica la firma HMAC-SHA256 de un webhook dado el secreto compartido y la firma recibida.\",\n  {\n  body: z.string().describe(\"Body crudo\"),\n  secreto: z.string().describe(\"Secreto compartido\"),\n  firma_recibida: z.string().describe(\"Firma (hex o base64)\"),\n  },\n  async (args: any) => {\n    const { body, secreto, firma_recibida } = args as any;\n    const esperada = createHmac(\"sha256\", secreto).update(body).digest(\"hex\");\nconst recibida = String(firma_recibida).replace(/^sha256=/, \"\").trim();\nconst b64 = createHmac(\"sha256\", secreto).update(body).digest(\"base64\");\nconst valida = esperada === recibida || b64 === recibida;\nreturn ok({ valida, esperada_prefix: esperada.slice(0, 12) + \"...\", recibida_prefix: recibida.slice(0, 12) + \"...\" });\n  }\n);\n\nserver.tool(\n  \"recent_events\",\n  \"Últimos webhooks inspeccionados (proveedor, tipo, timestamp).\",\n  {\n  limite: z.number().describe(\"Máx eventos\").default(20),\n  },\n  async (args: any) => {\n    const { limite } = args as any;\n    const st = store.load();\nreturn ok({ eventos: (st.eventos || []).slice(-(limite ?? 20)).reverse() });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor webhook-inspector está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"webhook-inspector\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[webhook-inspector] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

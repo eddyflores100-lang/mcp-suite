@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-151493",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-scope-guard",
+  "version": "1.0.0",
+  "description": "Detecta scope creep del agente: trabajo fuera del alcance acordado antes de gastar tokens en él Dolor que resuelve: El agente 'ayuda de más': pide validar un formulario y termina refactorizando la app entera. El scope creep quema presupuesto y introduce riesgo sin que nadie lo autorizara. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "goals",
+   "long-horizon",
+   "alignment"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only scope-guard",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-scope-guard",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 2.99,
+   "currency": "USD",
+   "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+  },
+  "price": 2.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "define_scope",
+    "check_task",
+    "log_out_of_scope",
+    "scope_report",
+    "amend_scope",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only scope-guard",
+    "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-scope-guard\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-scope-guard/dist/index.js\"]}}}. Tools disponibles: define_scope, check_task, log_out_of_scope, scope_report, amend_scope y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/scope-guard/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-scope-guard (define_scope, check_task, log_out_of_scope, scope_report, amend_scope). Detecta scope creep del agente: trabajo fuera del alcance acordado antes de gastar tokens en él. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/scope-guard/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/scope-guard\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Scope Guard — Detecta scope creep del agente: trabajo fuera del alcance acordado antes de gastar tokens en él (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-scope-guard\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"objetivos-y-largo-plazo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Scope Guard\n\n> Detecta scope creep del agente: trabajo fuera del alcance acordado antes de gastar tokens en él\n\n**Categoría:** Objetivos y Largo Plazo · **ID:** `mcp-scope-guard`\n\n**Dolor de agente que resuelve:** El agente 'ayuda de más': pide validar un formulario y termina refactorizando la app entera. El scope creep quema presupuesto y introduce riesgo sin que nadie lo autorizara.\n\n> Estado persistente en `~/.mcp-suite/scope-guard/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `define_scope`\nDefine el alcance del encargo: qué incluye y qué queda EXPLÍCITAMENTE fuera (lo segundo es lo que importa).\n\n**Parámetros:**\n  - `incluye` (array, requerido): Ámbitos incluidos\n  - `excluye` (array, requerido): Ámbitos explícitamente fuera de alcance\n  - `presupuesto_tokens` (number, opcional): Presupuesto total del encargo\n\n### `check_task`\nClasifica una tarea contra el alcance: dentro / borde / fuera, con el ámbito excluido que pisa (si aplica).\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea o sub-tarea a clasificar\n\n### `log_out_of_scope`\nRegistra trabajo fuera de alcance ya realizado (confesión) con tokens gastados: deuda de scope.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Qué se hizo fuera de alcance\n  - `tokens_gastados` (number, opcional): Tokens quemados\n  - `resultado_util` (boolean, opcional): ¿Produjo algo aprovechable?\n\n### `scope_report`\nReporte de disciplina de alcance: tareas clasificadas, deuda acumulada y % de presupuesto desperdiciado.\n\n### `amend_scope`\nEnmienda el alcance formalmente (nuevo incluye/excluye) con motivo: crecer alcance con permiso, no de contrabando.\n\n**Parámetros:**\n  - `incluye_extra` (array, opcional): Nuevos ámbitos incluidos\n  - `excluye_extra` (array, opcional): Nuevos ámbitos excluidos\n  - `motivo` (string, requerido): Quién autoriza y por qué\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"scope-guard\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-scope-guard/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/scope-guard/. Define el alcance incluido/explícito-excluido; clasifica tareas (dentro, borde, fuera) y acumula deuda de scope con costo estimado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Scope Guard\n * Detecta scope creep del agente: trabajo fuera del alcance acordado antes de gastar tokens en él\n *\n * Dolor que resuelve: El agente 'ayuda de más': pide validar un formulario y termina refactorizando la app entera. El scope creep quema presupuesto y introduce riesgo sin que nadie lo autorizara.\n * Categoría: Objetivos y Largo Plazo | Generado por mcp-suite | id: scope-guard\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/scope-guard/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"scope-guard\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"scope-guard\", version: \"1.0.0\" });\n\nserver.tool(\n  \"define_scope\",\n  \"Define el alcance del encargo: qué incluye y qué queda EXPLÍCITAMENTE fuera (lo segundo es lo que importa).\",\n  {\n  incluye: z.array(z.any()).describe(\"Ámbitos incluidos\"),\n  excluye: z.array(z.any()).describe(\"Ámbitos explícitamente fuera de alcance\"),\n  presupuesto_tokens: z.number().describe(\"Presupuesto total del encargo\").optional(),\n  },\n  async (args: any) => {\n    const { incluye, excluye, presupuesto_tokens } = args as any;\n    const st = store.load();\nst.alcance = { incluye: (incluye || []).map(String), excluye: (excluye || []).map(String), presupuesto_tokens: presupuesto_tokens || null, definido: new Date().toISOString(), eventos: [], tokens_fuera_scope: 0 };\nstore.save(st);\nreturn ok({ alcance_definido: true, incluye: (incluye || []).length, excluye: (excluye || []).length, regla: \"tarea fuera de alcance = para, pregunta, no hagas\" });\n  }\n);\n\nserver.tool(\n  \"check_task\",\n  \"Clasifica una tarea contra el alcance: dentro / borde / fuera, con el ámbito excluido que pisa (si aplica).\",\n  {\n  tarea: z.string().describe(\"Tarea o sub-tarea a clasificar\"),\n  },\n  async (args: any) => {\n    const { tarea } = args as any;\n    const st = store.load();\nif (!st.alcance) return fail(\"define el alcance con define_scope\");\nconst a = st.alcance;\nconst tokens = (s) => new Set(String(s).toLowerCase().split(/\\W+/).filter(w => w.length > 3));\nconst t = [...tokens(tarea)];\nfunction mejorMatch(frase) { const ft = [...tokens(frase)]; const hit = ft.filter(w => t.includes(w)).length; return { hit, score: ft.length ? hit / ft.length : 0, frase }; }\nconst inc = a.incluye.map(mejorMatch).sort((x, y) => y.score - x.score)[0] || { score: 0 };\nconst exc = a.excluye.map(mejorMatch).sort((x, y) => y.score - x.score)[0] || { score: 0 };\nlet veredicto;\nif (exc.score >= 0.5 && exc.score >= inc.score) veredicto = \"FUERA: pisa el ámbito excluido '\" + exc.frase + \"'\";\nelse if (inc.score >= 0.5) veredicto = \"dentro del alcance\";\nelse if (exc.score >= 0.3) veredicto = \"BORDE: sospechoso de '\" + exc.frase + \"', confirma antes\";\nelse veredicto = \"BORDE: sin match claro ni con incluye ni excluye: pregunta\";\na.eventos.push({ tarea: tarea.slice(0, 100), veredicto, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ veredicto, match_incluye: Number(inc.score.toFixed(2)), match_excluye: Number(exc.score.toFixed(2)), accion: veredicto.startsWith(\"FUERA\") ? \"NO ejecutar sin autorización: propón una enmienda de alcance al humano\" : veredicto.startsWith(\"BORDE\") ? \"confirma con el humano (una línea) antes de gastar tokens\" : \"ejecuta\" });\n  }\n);\n\nserver.tool(\n  \"log_out_of_scope\",\n  \"Registra trabajo fuera de alcance ya realizado (confesión) con tokens gastados: deuda de scope.\",\n  {\n  tarea: z.string().describe(\"Qué se hizo fuera de alcance\"),\n  tokens_gastados: z.number().describe(\"Tokens quemados\").optional(),\n  resultado_util: z.boolean().describe(\"¿Produjo algo aprovechable?\").default(false),\n  },\n  async (args: any) => {\n    const { tarea, tokens_gastados, resultado_util } = args as any;\n    const st = store.load();\nif (!st.alcance) return fail(\"sin alcance definido\");\nst.alcance.deuda = st.alcance.deuda || [];\nst.alcance.deuda.push({ tarea, tokens: tokens_gastados || 0, util: resultado_util, ts: new Date().toISOString() });\nst.alcance.tokens_fuera_scope += tokens_gastados || 0;\nstore.save(st);\nconst pct = st.alcance.presupuesto_tokens ? Number((st.alcance.tokens_fuera_scope / st.alcance.presupuesto_tokens * 100).toFixed(1)) : null;\nreturn ok({ deuda_registrada: true, tokens_fuera_scope_total: st.alcance.tokens_fuera_scope, pct_presupuesto_desperdiciado: pct, incidentes: st.alcance.deuda.length });\n  }\n);\n\nserver.tool(\n  \"scope_report\",\n  \"Reporte de disciplina de alcance: tareas clasificadas, deuda acumulada y % de presupuesto desperdiciado.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nif (!st.alcance) return fail(\"sin alcance definido\");\nconst a = st.alcance;\nconst evs = a.eventos || [];\nconst fuera = evs.filter(e => e.veredicto.startsWith(\"FUERA\")).length;\nconst borde = evs.filter(e => e.veredicto.startsWith(\"BORDE\")).length;\nreturn ok({\n  tareas_evaluadas: evs.length,\n  dentro: evs.length - fuera - borde, borde, fuera,\n  disciplina_pct: evs.length ? Number((((evs.length - fuera) / evs.length) * 100).toFixed(1)) : null,\n  deuda_scope: { incidentes: (a.deuda || []).length, tokens_desperdiciados: a.tokens_fuera_scope, pct_presupuesto: a.presupuesto_tokens ? Number((a.tokens_fuera_scope / a.presupuesto_tokens * 100).toFixed(1)) : null },\n  ultimas_fueras: evs.filter(e => e.veredicto.startsWith(\"FUERA\")).slice(-5).map(e => e.tarea),\n  veredicto: fuera === 0 ? \"agente disciplinado\" : fuera > evs.length * 0.2 ? \"scope creep severo: endurece el excluye\" : \"creep moderado: vigila los BORDE\",\n});\n  }\n);\n\nserver.tool(\n  \"amend_scope\",\n  \"Enmienda el alcance formalmente (nuevo incluye/excluye) con motivo: crecer alcance con permiso, no de contrabando.\",\n  {\n  incluye_extra: z.array(z.any()).describe(\"Nuevos ámbitos incluidos\").optional(),\n  excluye_extra: z.array(z.any()).describe(\"Nuevos ámbitos excluidos\").optional(),\n  motivo: z.string().describe(\"Quién autoriza y por qué\"),\n  },\n  async (args: any) => {\n    const { incluye_extra, excluye_extra, motivo } = args as any;\n    const st = store.load();\nif (!st.alcance) return fail(\"sin alcance definido\");\nif (!motivo) return fail(\"la enmienda de alcance necesita motivo y autorizador\");\nconst a = st.alcance;\na.incluye.push(...(incluye_extra || []).map(String));\na.excluye.push(...(excluye_extra || []).map(String));\na.enmiendas = a.enmiendas || [];\na.enmiendas.push({ motivo, incluye: a.incluye.length, excluye: a.excluye.length, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ enmienda_n: a.enmiendas.length, incluye: a.incluye.length, excluye: a.excluye.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor scope-guard está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"scope-guard\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[scope-guard] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "scope-guard"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

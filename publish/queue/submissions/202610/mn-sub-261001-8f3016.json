@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-8f3016",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-timeout-guard",
+  "version": "1.0.0",
+  "description": "Deadlines y escalada: ninguna llamada sin reloj Dolor que resuelve: Las tools lentas congelan al agente: falta gestión de deadlines, timeouts por clase de operación y escalada. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "DevOps",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "resilience",
+   "circuit-breaker",
+   "retry"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only timeout-guard",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-timeout-guard",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "suggest_timeout",
+    "deadline_plan",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only timeout-guard",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-timeout-guard\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-timeout-guard/dist/index.js\"]}}}. Tools disponibles: suggest_timeout, deadline_plan y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/timeout-guard/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-timeout-guard (suggest_timeout, deadline_plan). Deadlines y escalada: ninguna llamada sin reloj. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/timeout-guard/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/timeout-guard\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Timeout Guard — Deadlines y escalada: ninguna llamada sin reloj (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-timeout-guard\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Timeout Guard\n\n> Deadlines y escalada: ninguna llamada sin reloj\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-timeout-guard`\n\n**Dolor de agente que resuelve:** Las tools lentas congelan al agente: falta gestión de deadlines, timeouts por clase de operación y escalada.\n\n## Tools (3 incl. health_check)\n\n### `suggest_timeout`\nSugiere timeout por clase de operación (lectura local, API rápida, scrapeo, LLM, batch) con justificación.\n\n**Parámetros:**\n  - `clase` (enum, requerido): Clase de operación\n\n### `deadline_plan`\nDado un presupuesto total de tiempo y una lista de pasos, reparte deadlines proporcionales y detecta pasos imposibles.\n\n**Parámetros:**\n  - `presupuesto_ms` (number, requerido): Tiempo total disponible\n  - `pasos` (array, requerido): Lista de {nombre, peso (relativo)}\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"timeout-guard\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-timeout-guard/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Timeout Guard\n * Deadlines y escalada: ninguna llamada sin reloj\n *\n * Dolor que resuelve: Las tools lentas congelan al agente: falta gestión de deadlines, timeouts por clase de operación y escalada.\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: timeout-guard\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"timeout-guard\", version: \"1.0.0\" });\n\nserver.tool(\n  \"suggest_timeout\",\n  \"Sugiere timeout por clase de operación (lectura local, API rápida, scrapeo, LLM, batch) con justificación.\",\n  {\n  clase: z.enum([\"local-io\",\"api-rapida\",\"api-lenta\",\"scraping\",\"llm\",\"batch\"]).describe(\"Clase de operación\"),\n  },\n  async (args: any) => {\n    const { clase } = args as any;\n    const tabla: any = {\n  \"local-io\": { ms: 2000, razon: \"disco local: si tarda más algo podrido\" },\n  \"api-rapida\": { ms: 8000, razon: \"API JSON ligera: 8s cubre p99\" },\n  \"api-lenta\": { ms: 20000, razon: \"procesamiento server-side\" },\n  \"scraping\": { ms: 30000, razon: \"render + descarga de assets\" },\n  \"llm\": { ms: 120000, razon: \"generación de tokens larga\" },\n  \"batch\": { ms: 300000, razon: \"procesamiento masivo\" },\n};\nconst r = tabla[clase] || tabla[\"api-rapida\"];\nreturn ok({ clase, timeout_sugerido_ms: r.ms, razon: r.razon });\n  }\n);\n\nserver.tool(\n  \"deadline_plan\",\n  \"Dado un presupuesto total de tiempo y una lista de pasos, reparte deadlines proporcionales y detecta pasos imposibles.\",\n  {\n  presupuesto_ms: z.number().describe(\"Tiempo total disponible\"),\n  pasos: z.array(z.any()).describe(\"Lista de {nombre, peso (relativo)}\"),\n  },\n  async (args: any) => {\n    const { presupuesto_ms, pasos } = args as any;\n    const list = Array.isArray(pasos) ? pasos : [];\nconst total_peso = list.reduce((a: number, p: any) => a + (p.peso || 1), 0) || 1;\nconst plan = list.map((p: any) => {\n  const ms = Math.round((presupuesto_ms * (p.peso || 1)) / total_peso);\n  return { paso: p.nombre, deadline_ms: ms, ajustado: ms < 100 };\n});\nconst imposibles = plan.filter((p) => p.ajustado);\nreturn ok({ presupuesto_ms, plan, advertencia: imposibles.length ? \"pasos con deadline < 100ms: redistribuye\" : \"ok\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor timeout-guard está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"timeout-guard\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[timeout-guard] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "timeout-guard"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-7c29cd",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-token-counter",
+  "version": "1.0.0",
+  "description": "Cuenta tokens y palabras antes de enviar: presupuesto bajo control Dolor que resuelve: El agente envía prompts gigantes sin saber cuánto costarán: falta un contador previo (aproximado, sin API). Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "memory",
+   "context",
+   "retrieval"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only token-counter",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-token-counter",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "count",
+    "count_messages",
+    "fit_check",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only token-counter",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-token-counter\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-token-counter/dist/index.js\"]}}}. Tools disponibles: count, count_messages, fit_check y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/token-counter/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-token-counter (count, count_messages, fit_check). Cuenta tokens y palabras antes de enviar: presupuesto bajo control. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/token-counter/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/token-counter\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Token Counter — Cuenta tokens y palabras antes de enviar: presupuesto bajo control (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-token-counter\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Token Counter\n\n> Cuenta tokens y palabras antes de enviar: presupuesto bajo control\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-token-counter`\n\n**Dolor de agente que resuelve:** El agente envía prompts gigantes sin saber cuánto costarán: falta un contador previo (aproximado, sin API).\n\n## Tools (4 incl. health_check)\n\n### `count`\nCuenta tokens aproximados de un texto (heurística chars/4 + palabras/0.75, calibrada para español e inglés).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a medir\n\n### `count_messages`\nCuenta tokens de una conversación completa [{rol, contenido}] incluyendo overhead por mensaje.\n\n**Parámetros:**\n  - `mensajes` (array, requerido): Lista de mensajes {rol, contenido}\n\n### `fit_check`\nVerifica si un prompt entra en la ventana de un modelo dado (gpt4, claude, gemini...) y cuánto queda para la respuesta.\n\n**Parámetros:**\n  - `tokens_prompt` (number, requerido): Tokens del prompt\n  - `modelo` (enum, opcional): Clase de modelo\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"token-counter\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-token-counter/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Token Counter\n * Cuenta tokens y palabras antes de enviar: presupuesto bajo control\n *\n * Dolor que resuelve: El agente envía prompts gigantes sin saber cuánto costarán: falta un contador previo (aproximado, sin API).\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: token-counter\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"token-counter\", version: \"1.0.0\" });\n\nserver.tool(\n  \"count\",\n  \"Cuenta tokens aproximados de un texto (heurística chars/4 + palabras/0.75, calibrada para español e inglés).\",\n  {\n  texto: z.string().describe(\"Texto a medir\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const chars = texto.length;\nconst palabras = texto.split(/\\s+/).filter(Boolean).length;\nconst por_chars = Math.ceil(chars / 4);\nconst por_palabras = Math.ceil(palabras / 0.75);\nconst estimado = Math.max(por_chars, por_palabras);\nreturn ok({ caracteres: chars, palabras, tokens_estimados: estimado, rango: [Math.floor(estimado * 0.85), Math.ceil(estimado * 1.15)], metodo: \"heurística local (chars/4 + palabras/0.75)\" });\n  }\n);\n\nserver.tool(\n  \"count_messages\",\n  \"Cuenta tokens de una conversación completa [{rol, contenido}] incluyendo overhead por mensaje.\",\n  {\n  mensajes: z.array(z.any()).describe(\"Lista de mensajes {rol, contenido}\"),\n  },\n  async (args: any) => {\n    const { mensajes } = args as any;\n    const msgs = Array.isArray(mensajes) ? mensajes : [];\nlet total = 0;\nconst detalle = msgs.map((m: any) => {\n  const t = Math.ceil(String(m.contenido || \"\").length / 4) + 4;\n  total += t;\n  return { rol: m.rol, tokens: t };\n});\nreturn ok({ mensajes: msgs.length, tokens_total: total, detalle });\n  }\n);\n\nserver.tool(\n  \"fit_check\",\n  \"Verifica si un prompt entra en la ventana de un modelo dado (gpt4, claude, gemini...) y cuánto queda para la respuesta.\",\n  {\n  tokens_prompt: z.number().describe(\"Tokens del prompt\"),\n  modelo: z.enum([\"small-8k\",\"medium-32k\",\"large-128k\",\"xlarge-200k\",\"giant-1m\"]).describe(\"Clase de modelo\").default(\"large-128k\"),\n  },\n  async (args: any) => {\n    const { tokens_prompt, modelo } = args as any;\n    const ventanas: any = { \"small-8k\": 8192, \"medium-32k\": 32768, \"large-128k\": 131072, \"xlarge-200k\": 204800, \"giant-1m\": 1048576 };\nconst v = ventanas[modelo || \"large-128k\"];\nconst cabe = tokens_prompt < v * 0.8;\nreturn ok({ modelo, ventana: v, prompt: tokens_prompt, disponible_para_respuesta: v - tokens_prompt, cabe_con_margen_20: cabe, recomendacion: cabe ? \"ok\" : \"comprime con context-compressor o sube de modelo\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor token-counter está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"token-counter\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[token-counter] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "token-counter"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-d6aede",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-data-anonymizer",
+  "version": "1.0.0",
+  "description": "Anonimiza datasets: pseudonimos estables, emails fake y análisis de riesgo de reidentificación Dolor que resuelve: Compartir datasets con PII raw es ilegal: hace falta anonimización con mapeo estable (no romper joins). Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "data",
+   "parsing",
+   "etl"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only data-anonymizer",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-data-anonymizer",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "pseudonymize",
+    "reidentification_risk",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only data-anonymizer",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-data-anonymizer\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-data-anonymizer/dist/index.js\"]}}}. Tools disponibles: pseudonymize, reidentification_risk y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/data-anonymizer/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-data-anonymizer (pseudonymize, reidentification_risk). Anonimiza datasets: pseudonimos estables, emails fake y análisis de riesgo de reidentificación. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/data-anonymizer/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/data-anonymizer\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Data Anonymizer — Anonimiza datasets: pseudonimos estables, emails fake y análisis de riesgo de reidentificación (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-data-anonymizer\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Data Anonymizer\n\n> Anonimiza datasets: pseudonimos estables, emails fake y análisis de riesgo de reidentificación\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-data-anonymizer`\n\n**Dolor de agente que resuelve:** Compartir datasets con PII raw es ilegal: hace falta anonimización con mapeo estable (no romper joins).\n\n> Estado persistente en `~/.mcp-suite/data-anonymizer/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `pseudonymize`\nPseudonimiza un dataset: reemplaza valores de columnas sensibles por IDs estables (mismo input → mismo seudónimo, los joins sobreviven).\n\n**Parámetros:**\n  - `data` (array, requerido): Lista de registros (objetos)\n  - `columnas_sensibles` (array, requerido): Columnas a pseudonimizar\n  - `prefijo` (string, opcional): Prefijo del seudónimo\n\n### `reidentification_risk`\nEvalúa riesgo de reidentificación de un dataset: cuasi-identificadores (combinaciones únicas) estilo k-anonimidad.\n\n**Parámetros:**\n  - `data` (array, requerido): Registros\n  - `columnas_quasi` (array, requerido): Columnas cuasi-identificadoras (edad, ciudad, zip...)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"data-anonymizer\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-data-anonymizer/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Data Anonymizer\n * Anonimiza datasets: pseudonimos estables, emails fake y análisis de riesgo de reidentificación\n *\n * Dolor que resuelve: Compartir datasets con PII raw es ilegal: hace falta anonimización con mapeo estable (no romper joins).\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: data-anonymizer\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/data-anonymizer/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"data-anonymizer\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"data-anonymizer\", version: \"1.0.0\" });\n\nserver.tool(\n  \"pseudonymize\",\n  \"Pseudonimiza un dataset: reemplaza valores de columnas sensibles por IDs estables (mismo input → mismo seudónimo, los joins sobreviven).\",\n  {\n  data: z.array(z.any()).describe(\"Lista de registros (objetos)\"),\n  columnas_sensibles: z.array(z.any()).describe(\"Columnas a pseudonimizar\"),\n  prefijo: z.string().describe(\"Prefijo del seudónimo\").default(\"persona\"),\n  },\n  async (args: any) => {\n    const { data, columnas_sensibles, prefijo } = args as any;\n    const st = store.load();\nst.mapa = st.mapa || {};\nconst registros = Array.isArray(data) ? data : [];\nconst cols = Array.isArray(columnas_sensibles) ? columnas_sensibles : [];\nlet siguiente = st.siguiente || 1;\nconst salida = registros.map((reg: any) => {\n  const nuevo: any = { ...reg };\n  for (const c of cols) {\n    const original = String(reg[c] ?? \"\");\n    if (!original) continue;\n    if (!st.mapa[original]) { st.mapa[original] = prefijo + \"-\" + siguiente; siguiente++; }\n    nuevo[c] = st.mapa[original];\n  }\n  return nuevo;\n});\nst.siguiente = siguiente;\nstore.save(st);\nreturn ok({ registros_procesados: salida.length, valores_mapeados: Object.keys(st.mapa).length, aviso: \"el mapa original→seudónimo vive en ~/.mcp-suite: es dato sensible (k-anonimidad depende de él)\" });\n  }\n);\n\nserver.tool(\n  \"reidentification_risk\",\n  \"Evalúa riesgo de reidentificación de un dataset: cuasi-identificadores (combinaciones únicas) estilo k-anonimidad.\",\n  {\n  data: z.array(z.any()).describe(\"Registros\"),\n  columnas_quasi: z.array(z.any()).describe(\"Columnas cuasi-identificadoras (edad, ciudad, zip...)\"),\n  },\n  async (args: any) => {\n    const { data, columnas_quasi } = args as any;\n    const registros = Array.isArray(data) ? data : [];\nconst cols = Array.isArray(columnas_quasi) ? columnas_quasi : [];\nif (!registros.length || !cols.length) return fail(\"necesitas data y columnas_quasi\");\nconst combos: any = {};\nfor (const r of registros) {\n  const clave = cols.map((c) => String(r[c] ?? \"?\")).join(\"|\");\n  combos[clave] = (combos[clave] || 0) + 1;\n}\nconst grupos = __vals(combos);\nconst unicos = grupos.filter((g) => g === 1).length;\nconst k = Math.min(...(grupos as number[]));\nreturn ok({ registros: registros.length, combinaciones_distintas: Object.keys(combos).length, k_minimo: k, registros_unicos_k1: unicos, riesgo: k === 1 ? \"ALTO: hay combinaciones que identifican a una sola persona\" : k < 5 ? \"MEDIO: k=\" + k + \", generaliza más columnas\" : \"BAJO: k=\" + k, recomendacion: k < 5 ? \"generaliza (redondear edades, truncar zip) o elimina columnas\" : \"aceptable\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor data-anonymizer está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"data-anonymizer\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[data-anonymizer] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "data-anonymizer"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-425c53",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-atc-agent-trust-card",
+  "version": "1.0.0",
+  "description": "Crea y verifica Agent Trust Cards firmadas (Ed25519 + JCS), el estándar de identidad del marketplace Dolor que resuelve: Un agente presenta identidad sin prueba criptográfica: hace falta una trust card firmada verificable (ATC de MarketNow). Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "ed25519",
+   "cryptography",
+   "trust"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only atc-agent-trust-card",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-atc-agent-trust-card",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "create_card",
+    "verify_card",
+    "list_cards",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only atc-agent-trust-card",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-atc-agent-trust-card\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-atc-agent-trust-card/dist/index.js\"]}}}. Tools disponibles: create_card, verify_card, list_cards y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/atc-agent-trust-card/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-atc-agent-trust-card (create_card, verify_card, list_cards). Crea y verifica Agent Trust Cards firmadas (Ed25519 + JCS), el estándar de identidad del marketplace. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/atc-agent-trust-card/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/atc-agent-trust-card\",\n  \"version\": \"1.0.0\",\n  \"description\": \"ATC · Agent Trust Card — Crea y verifica Agent Trust Cards firmadas (Ed25519 + JCS), el estándar de identidad del marketplace (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-atc-agent-trust-card\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# ATC · Agent Trust Card\n\n> Crea y verifica Agent Trust Cards firmadas (Ed25519 + JCS), el estándar de identidad del marketplace\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-atc-agent-trust-card`\n\n**Dolor de agente que resuelve:** Un agente presenta identidad sin prueba criptográfica: hace falta una trust card firmada verificable (ATC de MarketNow).\n\n> Estado persistente en `~/.mcp-suite/atc-agent-trust-card/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `create_card`\nCrea una Agent Trust Card: genera (o reusa) par Ed25519, firma el payload canonizado con JCS y devuelve la card completa verificable.\n\n**Parámetros:**\n  - `subject` (string, requerido): Identidad del agente (ej: agente-scraping-01)\n  - `issuer` (string, opcional): Emisor de la card\n  - `trust_score` (number, opcional): Score de confianza 0-10\n  - `capabilities` (array, opcional): Lista de capacidades declaradas\n  - `horas_validez` (number, opcional): Vigencia en horas\n\n### `verify_card`\nVerifica una ATC: re-canoniza el payload (sin proof), valida la firma Ed25519, expiración y score. Devuelve veredicto por etapa.\n\n**Parámetros:**\n  - `card` (any, requerido): La Agent Trust Card completa (JSON)\n\n### `list_cards`\nLista las cards creadas localmente (subject, fecha, score, expiración).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"atc-agent-trust-card\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-atc-agent-trust-card/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nATC = payload (subject, issuer, trust_score, capabilities, vigencia) + proof Ed25519 sobre la forma canónica JCS. Guarda claves y cards en ~/.mcp-suite/atc-agent-trust-card/.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: ATC · Agent Trust Card\n * Crea y verifica Agent Trust Cards firmadas (Ed25519 + JCS), el estándar de identidad del marketplace\n *\n * Dolor que resuelve: Un agente presenta identidad sin prueba criptográfica: hace falta una trust card firmada verificable (ATC de MarketNow).\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: atc-agent-trust-card\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/atc-agent-trust-card/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"atc-agent-trust-card\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"atc-agent-trust-card\", version: \"1.0.0\" });\n\nserver.tool(\n  \"create_card\",\n  \"Crea una Agent Trust Card: genera (o reusa) par Ed25519, firma el payload canonizado con JCS y devuelve la card completa verificable.\",\n  {\n  subject: z.string().describe(\"Identidad del agente (ej: agente-scraping-01)\"),\n  issuer: z.string().describe(\"Emisor de la card\").default(\"mcp-suite-local\"),\n  trust_score: z.number().describe(\"Score de confianza 0-10\").default(5),\n  capabilities: z.array(z.any()).describe(\"Lista de capacidades declaradas\").optional(),\n  horas_validez: z.number().describe(\"Vigencia en horas\").default(24),\n  },\n  async (args: any) => {\n    const { subject, issuer, trust_score, capabilities, horas_validez } = args as any;\n    function canon(v) {\n  if (v === null || v === undefined) return \"null\";\n  if (typeof v === \"boolean\") return v ? \"true\" : \"false\";\n  if (typeof v === \"number\") { if (!isFinite(v)) throw new Error(\"NaN/Infinity\"); if (v === 0) return \"0\"; return String(v); }\n  if (typeof v === \"string\") return JSON.stringify(v);\n  if (Array.isArray(v)) return \"[\" + v.map((x) => canon(x === undefined ? null : x)).join(\",\") + \"]\";\n  const keys = Object.keys(v).filter((k) => v[k] !== undefined).sort();\n  return \"{\" + keys.map((k) => JSON.stringify(k) + \":\" + canon(v[k])).join(\",\") + \"}\";\n}\nconst st = store.load();\nst.keys = st.keys || {};\nif (!st.keys.issuer) {\n  const kp = generateKeyPairSync(\"ed25519\");\n  st.keys.issuer = { public: kp.publicKey.export({ type: \"spki\", format: \"pem\" }), private: kp.privateKey.export({ type: \"pkcs8\", format: \"pem\" }) };\n  store.save(st);\n} else store.save(st);\nconst now = new Date();\nconst payload: any = {\n  type: \"AgentTrustCard\", spec: \"ATC/1.0\",\n  issuer: issuer || \"mcp-suite-local\", subject,\n  trust_score: Math.max(0, Math.min(10, trust_score ?? 5)),\n  capabilities: Array.isArray(capabilities) ? capabilities : [],\n  issued_at: now.toISOString(),\n  expires_at: new Date(now.getTime() + (horas_validez ?? 24) * 3600000).toISOString(),\n};\nconst canonical = canon(payload);\nconst firma = sign(null, Buffer.from(canonical, \"utf8\"), createPrivateKey(st.keys.issuer.private));\nconst card = { ...payload, proof: { type: \"Ed25519Signature2025\", algorithm: \"RFC8032\", canonicalization: \"RFC8785-JCS\", verification_method: st.keys.issuer.public, signature_b64: firma.toString(\"base64\") } };\nst.cards = st.cards || [];\nst.cards.push({ subject, created: now.toISOString(), card });\nif (st.cards.length > 100) st.cards = st.cards.slice(-100);\nstore.save(st);\nreturn ok({ card, fingerprint: createHash(\"sha256\").update(canonical).digest(\"hex\") });\n  }\n);\n\nserver.tool(\n  \"verify_card\",\n  \"Verifica una ATC: re-canoniza el payload (sin proof), valida la firma Ed25519, expiración y score. Devuelve veredicto por etapa.\",\n  {\n  card: z.any().describe(\"La Agent Trust Card completa (JSON)\"),\n  },\n  async (args: any) => {\n    const { card } = args as any;\n    function canon(v) {\n  if (v === null || v === undefined) return \"null\";\n  if (typeof v === \"boolean\") return v ? \"true\" : \"false\";\n  if (typeof v === \"number\") { if (!isFinite(v)) throw new Error(\"NaN/Infinity\"); if (v === 0) return \"0\"; return String(v); }\n  if (typeof v === \"string\") return JSON.stringify(v);\n  if (Array.isArray(v)) return \"[\" + v.map((x) => canon(x === undefined ? null : x)).join(\",\") + \"]\";\n  const keys = Object.keys(v).filter((k) => v[k] !== undefined).sort();\n  return \"{\" + keys.map((k) => JSON.stringify(k) + \":\" + canon(v[k])).join(\",\") + \"}\";\n}\nconst c = card || {};\nconst proof = c.proof || {};\nconst { proof: _omit, ...payload } = c;\nconst etapas: any = {};\netapas.estructura = c.type === \"AgentTrustCard\" ? \"pass\" : \"fail\";\netapas.expiracion = c.expires_at && new Date(c.expires_at) > new Date() ? \"pass\" : \"fail\";\ntry {\n  const canonical = canon(payload);\n  etapas.canonizacion = \"pass\";\n  const okSig = verify(null, Buffer.from(canonical, \"utf8\"), createPublicKey(proof.verification_method), Buffer.from(proof.signature_b64, \"base64\"));\n  etapas.firma_ed25519 = okSig ? \"pass\" : \"fail\";\n} catch (e) {\n  etapas.canonizacion = \"error:\" + e.message;\n  etapas.firma_ed25519 = \"no-evaluable\";\n}\netapas.trust_score = (c.trust_score ?? 0) >= 8 ? \"pass\" : \"warn\";\nconst passed = __vals(etapas).filter((v) => v === \"pass\").length;\nreturn ok({ veredicto: passed >= 4 ? \"CONFIABLE\" : \"RECHAZAR\", etapas, subject: c.subject, score: c.trust_score });\n  }\n);\n\nserver.tool(\n  \"list_cards\",\n  \"Lista las cards creadas localmente (subject, fecha, score, expiración).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst cards = (st.cards || []).map((c) => ({ subject: c.subject, created: c.created, score: c.card?.trust_score, expires: c.card?.expires_at }));\nreturn ok({ total: cards.length, cards });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor atc-agent-trust-card está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"atc-agent-trust-card\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[atc-agent-trust-card] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "atc-agent-trust-card"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

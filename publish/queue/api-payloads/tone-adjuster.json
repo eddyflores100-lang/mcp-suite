@@ -1,0 +1,62 @@
+{
+ "name": "mcp-tone-adjuster",
+ "version": "1.0.0",
+ "description": "Analiza y ajusta el tono del texto del agente: formalidad, cortesía y claridad Dolor que resuelve: El agente responde con tono inadecuado (demasiado seco para clientes, demasiado efusivo para técnicos): nadie mide el tono. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Communication",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "human-in-the-loop",
+  "communication",
+  "approvals"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only tone-adjuster",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-tone-adjuster",
+ "license": "MIT",
+ "pricing": {
+  "model": "free",
+  "price": 0,
+  "currency": null,
+  "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+ },
+ "price": 0,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "analyze_tone",
+   "adjust_hints",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only tone-adjuster",
+   "estimated_cost": "free"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-tone-adjuster\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-tone-adjuster/dist/index.js\"]}}}. Tools disponibles: analyze_tone, adjust_hints y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/tone-adjuster/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-tone-adjuster (analyze_tone, adjust_hints). Analiza y ajusta el tono del texto del agente: formalidad, cortesía y claridad. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/tone-adjuster/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/tone-adjuster\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Tone Adjuster — Analiza y ajusta el tono del texto del agente: formalidad, cortesía y claridad (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-tone-adjuster\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comunicaci-n-y-humano\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Tone Adjuster\n\n> Analiza y ajusta el tono del texto del agente: formalidad, cortesía y claridad\n\n**Categoría:** Comunicación y Humano · **ID:** `mcp-tone-adjuster`\n\n**Dolor de agente que resuelve:** El agente responde con tono inadecuado (demasiado seco para clientes, demasiado efusivo para técnicos): nadie mide el tono.\n\n## Tools (3 incl. health_check)\n\n### `analyze_tone`\nAnaliza el tono de un texto: formalidad (léxico), cortesía, asertividad, longitud de oraciones y jerga técnica.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a analizar\n\n### `adjust_hints`\nDevuelve instrucciones concretas para ajustar el tono al objetivo deseado (profesional, cálido, técnico, directo).\n\n**Parámetros:**\n  - `tono_objetivo` (enum, requerido): Tono deseado\n  - `texto` (string, opcional): Texto actual\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"tone-adjuster\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-tone-adjuster/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Tone Adjuster\n * Analiza y ajusta el tono del texto del agente: formalidad, cortesía y claridad\n *\n * Dolor que resuelve: El agente responde con tono inadecuado (demasiado seco para clientes, demasiado efusivo para técnicos): nadie mide el tono.\n * Categoría: Comunicación y Humano | Generado por mcp-suite | id: tone-adjuster\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"tone-adjuster\", version: \"1.0.0\" });\n\nserver.tool(\n  \"analyze_tone\",\n  \"Analiza el tono de un texto: formalidad (léxico), cortesía, asertividad, longitud de oraciones y jerga técnica.\",\n  {\n  texto: z.string().describe(\"Texto a analizar\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const t = String(texto);\nconst palabras = t.split(/\\s+/).filter(Boolean);\nconst oraciones = t.split(/[.!?]+/).filter((s) => s.trim());\nconst formal = [\"por lo tanto\", \"asimismo\", \"en consecuencia\", \"sírvase\", \"agradezco\", \"cordialmente\", \"estimado\", \"adjunto\", \"conforme\", \"de acuerdo con\"];\nconst informal = [\"ok\", \"dale\", \"ya quoi\", \"bueno\", \"o sea\", \"en plan\", \"tío\", \"chevere\", \"bacán\", \"ni modo\"];\nconst cortes = [\"por favor\", \"gracias\", \"podrías\", \"te agradecería\", \"cuando puedas\", \"disculpa\", \"permiso\"];\nconst jerga = [\"deploy\", \"endpoint\", \"payload\", \"rollback\", \"k8s\", \"latencia\", \"throughput\", \"idempotente\", \"schema\", \"parse\"];\nconst contar = (lista: string[]) => lista.filter((f) => t.toLowerCase().includes(f)).length;\nconst f = contar(formal), inf = contar(informal), c = contar(cortes), j = contar(jerga);\nconst prom_oracion = oraciones.length ? Math.round(palabras.length / oraciones.length) : 0;\nconst formalidad = f > inf ? \"formal\" : inf > f ? \"informal\" : \"neutral\";\nreturn ok({ formalidad, cortesia: c > 0 ? \"presente\" : \"ausente\", jerga_tecnica: j, palabras, prom_palabras_por_oracion: prom_oracion, exhortacion: prom_oracion > 25 ? \"oraciones largas: partir para claridad\" : \"ok\", lecturabilidad: prom_oracion < 15 ? \"alta\" : prom_oracion < 25 ? \"media\" : \"baja\" });\n  }\n);\n\nserver.tool(\n  \"adjust_hints\",\n  \"Devuelve instrucciones concretas para ajustar el tono al objetivo deseado (profesional, cálido, técnico, directo).\",\n  {\n  tono_objetivo: z.enum([\"profesional\",\"calido\",\"tecnico\",\"directo\",\"empatico\"]).describe(\"Tono deseado\"),\n  texto: z.string().describe(\"Texto actual\").optional(),\n  },\n  async (args: any) => {\n    const { tono_objetivo, texto } = args as any;\n    const guias: any = {\n  profesional: [\"elimina muletillas e informalidades\", \"usa tratamientos formales (usted/estimado)\", \"cifras y datos concretos\", \"cierre con acción clara\"],\n  calido: [\"saluda por nombre si lo conoces\", \"agradecer antes de pedir\", \"suaviza imperativos: 'podrías revisar' vs 'revisa'\", \"emojis solo si el canal los usa\"],\n  tecnico: [\"precisión sobre prosa\", \"nombra versiones/ids exactos\", \"incluye comandos/logs textuales\", \"evita adjetivos calificativos\"],\n  directo: [\"una idea por oración\", \"la petición en la primera línea\", \"elimina preámbulos\", \"bullets para listas\"],\n  empatico: [\"reconoce el problema antes de proponer\", \"evita 'simplemente' y 'solo tienes que'\", \"ofrece 2 caminos con trade-offs\", \"cierra con disposición de ayuda\"],\n};\nconst hints = guias[tono_objetivo] || guias.profesional;\nreturn ok({ tono_objetivo, hints: hints.map((h: string) => \"- \" + h) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor tone-adjuster está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"tone-adjuster\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[tone-adjuster] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

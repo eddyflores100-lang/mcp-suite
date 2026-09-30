@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-4c054e",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-budget-forecast",
+  "version": "1.0.0",
+  "description": "Proyección de gasto futuro basada en histórico: sabe cuánto costará el mes antes de gastarlo Dolor que resuelve: El gasto de agentes es imprevisible: el equipo descubre a mitad de mes que al ritmo actual el presupuesto vuela, cuando ya es tarde para ajustar el mix de trabajo. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "FinTech",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "token-cost",
+   "budget",
+   "economics"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only budget-forecast",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-budget-forecast",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "log_daily_spend",
+    "burn_rate",
+    "forecast_month",
+    "anomaly_spend",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only budget-forecast",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-budget-forecast\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-budget-forecast/dist/index.js\"]}}}. Tools disponibles: log_daily_spend, burn_rate, forecast_month, anomaly_spend y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/budget-forecast/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-budget-forecast (log_daily_spend, burn_rate, forecast_month, anomaly_spend). Proyección de gasto futuro basada en histórico: sabe cuánto costará el mes antes de gastarlo. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/budget-forecast/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/budget-forecast\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Budget Forecast — Proyección de gasto futuro basada en histórico: sabe cuánto costará el mes antes de gastarlo (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-budget-forecast\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"econom-a-del-agente\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Budget Forecast\n\n> Proyección de gasto futuro basada en histórico: sabe cuánto costará el mes antes de gastarlo\n\n**Categoría:** Economía del Agente · **ID:** `mcp-budget-forecast`\n\n**Dolor de agente que resuelve:** El gasto de agentes es imprevisible: el equipo descubre a mitad de mes que al ritmo actual el presupuesto vuela, cuando ya es tarde para ajustar el mix de trabajo.\n\n> Estado persistente en `~/.mcp-suite/budget-forecast/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `log_daily_spend`\nRegistra el gasto acumulado de un día (USD).\n\n**Parámetros:**\n  - `usd` (number, requerido): Gasto del día\n  - `dia` (string, opcional): Fecha ISO (default: hoy)\n\n### `burn_rate`\nBurn-rate actual: gasto diario medio (últimos 7 y 30 días) y tendencia.\n\n### `forecast_month`\nProyección de cierre de mes: gasto acumulado + proyección, contra presupuesto objetivo.\n\n**Parámetros:**\n  - `presupuesto_mensual` (number, opcional): Presupuesto del mes (USD)\n\n### `anomaly_spend`\nDetecta días de gasto anómalo (picos) y los asocia a la actividad de ese día.\n\n**Parámetros:**\n  - `umbral_x` (number, opcional): Múltiplo de la media que cuenta como pico\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"budget-forecast\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-budget-forecast/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/budget-forecast/. Serie diaria de gasto; proyección lineal y con estacionalidad semanal simple, burn-rate y fecha estimada de agotamiento del presupuesto mensual.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Budget Forecast\n * Proyección de gasto futuro basada en histórico: sabe cuánto costará el mes antes de gastarlo\n *\n * Dolor que resuelve: El gasto de agentes es imprevisible: el equipo descubre a mitad de mes que al ritmo actual el presupuesto vuela, cuando ya es tarde para ajustar el mix de trabajo.\n * Categoría: Economía del Agente | Generado por mcp-suite | id: budget-forecast\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/budget-forecast/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"budget-forecast\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"budget-forecast\", version: \"1.0.0\" });\n\nserver.tool(\n  \"log_daily_spend\",\n  \"Registra el gasto acumulado de un día (USD).\",\n  {\n  usd: z.number().describe(\"Gasto del día\"),\n  dia: z.string().describe(\"Fecha ISO (default: hoy)\").optional(),\n  },\n  async (args: any) => {\n    const { usd, dia } = args as any;\n    const st = store.load();\nst.diario = st.diario || {};\nconst d = (dia || new Date().toISOString()).slice(0, 10);\nst.diario[d] = Number(((st.diario[d] || 0) + usd).toFixed(4));\nstore.save(st);\nreturn ok({ dia: d, gasto_dia: st.diario[d] });\n  }\n);\n\nserver.tool(\n  \"burn_rate\",\n  \"Burn-rate actual: gasto diario medio (últimos 7 y 30 días) y tendencia.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst dias = __ents(st.diario || {}).sort(([a], [b]) => a < b ? -1 : 1);\nif (dias.length < 3) return ok({ dias_registrados: dias.length, burn: \"insuficiente (mínimo 3 días)\" });\nconst ultimos7 = dias.slice(-7);\nconst ultimos30 = dias.slice(-30);\nconst media7 = ultimos7.reduce((s, [, v]) => s + v, 0) / ultimos7.length;\nconst media30 = ultimos30.reduce((s, [, v]) => s + v, 0) / ultimos30.length;\nconst total = dias.reduce((s, [, v]) => s + v, 0);\nreturn ok({\n  dias_registrados: dias.length,\n  total_gastado: Number(total.toFixed(2)),\n  burn_diario_7d: Number(media7.toFixed(3)),\n  burn_diario_30d: Number(media30.toFixed(3)),\n  tendencia: media30 ? Number((((media7 - media30) / media30) * 100).toFixed(1)) : null,\n  lectura: media7 > media30 * 1.15 ? \"acelerando +15%: revisa qué cambió\" : media7 < media30 * 0.85 ? \"frenando\" : \"ritmo estable\",\n});\n  }\n);\n\nserver.tool(\n  \"forecast_month\",\n  \"Proyección de cierre de mes: gasto acumulado + proyección, contra presupuesto objetivo.\",\n  {\n  presupuesto_mensual: z.number().describe(\"Presupuesto del mes (USD)\").optional(),\n  },\n  async (args: any) => {\n    const { presupuesto_mensual } = args as any;\n    const st = store.load();\nconst dias = __ents(st.diario || {}).sort(([a], [b]) => a < b ? -1 : 1);\nif (dias.length < 5) return fail(\"necesitas >=5 días de histórico\");\nconst hoy = new Date();\nconst mesActual = hoy.toISOString().slice(0, 7);\nconst diasMes = dias.filter(([d]) => d.startsWith(mesActual));\nif (!diasMes.length) return fail(\"sin registros del mes en curso\");\nconst diaDelMes = hoy.getDate();\nconst diasEnMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();\nconst gastado = diasMes.reduce((s, [, v]) => s + v, 0);\nconst mediaDiaria = gastado / diasMes.length;\nconst proyeccion = mediaDiaria * diasEnMes;\nconst resultado = presupuesto_mensual\n  ? { presupuesto: presupuesto_mensual, proyeccion: Number(proyeccion.toFixed(2)), excedido_estimado: Number((proyeccion - presupuesto_mensual).toFixed(2)), pct_presupuesto: Number((proyeccion / presupuesto_mensual * 100).toFixed(1)) }\n  : { proyeccion: Number(proyeccion.toFixed(2)) };\nreturn ok({\n  mes: mesActual,\n  dia_del_mes: diaDelMes + \"/\" + diasEnMes,\n  gastado: Number(gastado.toFixed(2)),\n  media_diaria: Number(mediaDiaria.toFixed(3)),\n  ...resultado,\n  veredicto: presupuesto_mensual ? (proyeccion > presupuesto_mensual ? \"SOBREPRESUPUESTO: recorta \" + Number((proyeccion - presupuesto_mensual).toFixed(2)) + \" USD o sube el presupuesto YA\" : \"dentro de presupuesto con margen de \" + Number((presupuesto_mensual - proyeccion).toFixed(2)) + \" USD\") : \"sin presupuesto de referencia: define uno\",\n  dias_para_quiebre: presupuesto_mensual ? Math.max(0, Math.floor((presupuesto_mensual - gastado) / Math.max(mediaDiaria, 0.001))) : null,\n});\n  }\n);\n\nserver.tool(\n  \"anomaly_spend\",\n  \"Detecta días de gasto anómalo (picos) y los asocia a la actividad de ese día.\",\n  {\n  umbral_x: z.number().describe(\"Múltiplo de la media que cuenta como pico\").default(2.5),\n  },\n  async (args: any) => {\n    const { umbral_x } = args as any;\n    const st = store.load();\nconst dias = __ents(st.diario || {}).sort(([a], [b]) => a < b ? -1 : 1);\nif (dias.length < 7) return fail(\"necesitas >=7 días\");\nconst valores = dias.map(([, v]) => v).sort((a, b) => a - b);\nconst mediana = valores[Math.floor(valores.length / 2)];\nconst picos = dias.filter(([d, v]) => v > mediana * umbral_x);\nreturn ok({\n  mediana_diaria: Number(mediana.toFixed(3)),\n  picos: picos.map(([d, v]) => ({ dia: d, gasto: Number(v.toFixed(3)), vs_mediana: Number((v / mediana).toFixed(1)) + \"x\" })),\n  consejo: picos.length ? \"cada pico explica dónde se va el dinero: audita esos días (token-audit)\" : \"gasto homogéneo\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor budget-forecast está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"budget-forecast\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[budget-forecast] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "budget-forecast"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

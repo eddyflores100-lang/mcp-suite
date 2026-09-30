@@ -1,0 +1,63 @@
+{
+ "name": "mcp-data-residency-check",
+ "version": "1.0.0",
+ "description": "Verifica a dónde van los datos: restricciones de residencia geográfica y transferencias válidas Dolor que resuelve: El agente envía datos a APIs sin saber en qué país procesan: viola requisitos de residencia de datos (GDPR, soberanía) sin enterarse hasta la auditoría. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "compliance",
+  "gdpr",
+  "policy"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only data-residency-check",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-data-residency-check",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "register_destination",
+   "check_transfer",
+   "flow_map",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only data-residency-check",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-data-residency-check\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-data-residency-check/dist/index.js\"]}}}. Tools disponibles: register_destination, check_transfer, flow_map y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/data-residency-check/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-data-residency-check (register_destination, check_transfer, flow_map). Verifica a dónde van los datos: restricciones de residencia geográfica y transferencias válidas. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/data-residency-check/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/data-residency-check\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Data Residency Check — Verifica a dónde van los datos: restricciones de residencia geográfica y transferencias válidas (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-data-residency-check\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cumplimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Data Residency Check\n\n> Verifica a dónde van los datos: restricciones de residencia geográfica y transferencias válidas\n\n**Categoría:** Cumplimiento · **ID:** `mcp-data-residency-check`\n\n**Dolor de agente que resuelve:** El agente envía datos a APIs sin saber en qué país procesan: viola requisitos de residencia de datos (GDPR, soberanía) sin enterarse hasta la auditoría.\n\n> Estado persistente en `~/.mcp-suite/data-residency-check/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `register_destination`\nRegistra un destino de datos (API/servicio) con su jurisdicción y regiones de procesamiento.\n\n**Parámetros:**\n  - `destino` (string, requerido): Nombre del servicio/API\n  - `jurisdiccion` (string, requerido): País/jurisdicción principal (US, EU, CN, LOCAL...)\n  - `regiones` (array, opcional): Regiones donde procesa datos\n  - `nota` (string, opcional): Detalles del procesamiento\n\n### `check_transfer`\nValida enviar un dato a un destino según su restricción de residencia.\n\n**Parámetros:**\n  - `dato` (string, requerido): Tipo de dato (pii_ec, salud, financiero, anonimizado...)\n  - `restriccion` (enum, requerido): Restricción del dato\n  - `destino` (string, requerido): Destino registrado\n\n### `flow_map`\nMapa de flujos de datos: qué tipo de datos va a qué destinos y con qué estado de cumplimiento.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"data-residency-check\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-data-residency-check/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/data-residency-check/. Catálogo de destinos con jurisdicción/region; valida transferencias contra restricciones del dato (solo-UE, solo-local, no-China...) y genera mapa de flujos.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Data Residency Check\n * Verifica a dónde van los datos: restricciones de residencia geográfica y transferencias válidas\n *\n * Dolor que resuelve: El agente envía datos a APIs sin saber en qué país procesan: viola requisitos de residencia de datos (GDPR, soberanía) sin enterarse hasta la auditoría.\n * Categoría: Cumplimiento | Generado por mcp-suite | id: data-residency-check\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/data-residency-check/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"data-residency-check\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"data-residency-check\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_destination\",\n  \"Registra un destino de datos (API/servicio) con su jurisdicción y regiones de procesamiento.\",\n  {\n  destino: z.string().describe(\"Nombre del servicio/API\"),\n  jurisdiccion: z.string().describe(\"País/jurisdicción principal (US, EU, CN, LOCAL...)\"),\n  regiones: z.array(z.any()).describe(\"Regiones donde procesa datos\").default([]),\n  nota: z.string().describe(\"Detalles del procesamiento\").optional(),\n  },\n  async (args: any) => {\n    const { destino, jurisdiccion, regiones, nota } = args as any;\n    const st = store.load();\nst.destinos = st.destinos || {};\nst.destinos[destino] = { destino, jurisdiccion, regiones: regiones || [], nota: nota || null, registrado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ destino, jurisdiccion, regiones: (regiones || []).length });\n  }\n);\n\nserver.tool(\n  \"check_transfer\",\n  \"Valida enviar un dato a un destino según su restricción de residencia.\",\n  {\n  dato: z.string().describe(\"Tipo de dato (pii_ec, salud, financiero, anonimizado...)\"),\n  restriccion: z.enum([\"sin_restriccion\",\"solo_local\",\"solo_ue\",\"no_cn\",\"no_us\"]).describe(\"Restricción del dato\"),\n  destino: z.string().describe(\"Destino registrado\"),\n  },\n  async (args: any) => {\n    const { dato, restriccion, destino } = args as any;\n    const st = store.load();\nconst d = (st.destinos || {})[destino];\nif (!d) return fail(\"destino no registrado: usa register_destination\");\nconst j = d.jurisdiccion.toUpperCase();\nconst REGIONES = (d.regiones || []).join(\",\").toUpperCase();\nlet permitido = true, razon;\nswitch (restriccion) {\n  case \"solo_local\": permitido = j === \"LOCAL\" || j === \"ONPREM\"; razon = permitido ? \"procesamiento local\" : \"el dato exige procesamiento local y el destino es \" + j; break;\n  case \"solo_ue\": permitido = [\"EU\", \"UE\", \"DE\", \"FR\", \"ES\", \"IE\", \"NL\"].includes(j) || REGIONES.includes(\"EU\"); razon = permitido ? \"dentro del espacio UE\" : \"dato con residencia UE enviado a \" + j; break;\n  case \"no_cn\": permitido = ![\"CN\", \"CHINA\"].includes(j) && !REGIONES.includes(\"CN\"); razon = permitido ? \"sin procesamiento en China\" : \"transferencia a China prohibida para este dato\"; break;\n  case \"no_us\": permitido = ![\"US\", \"USA\", \"ESTADOS UNIDOS\"].includes(j) && !REGIONES.includes(\"US\"); razon = permitido ? \"sin procesamiento en US\" : \"transferencia a US prohibida (Schrems) para este dato\"; break;\n  default: razon = \"sin restricción de residencia\";\n}\nst.transferencias = st.transferencias || [];\nst.transferencias.push({ dato, restriccion, destino, permitido, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ dato, destino: { jurisdiccion: d.jurisdiccion, regiones: d.regiones }, permitido, razon, accion: permitido ? \"puedes enviar\" : \"NO envíes: busca destino alternativo o anonimiza antes (data-anonymizer)\" });\n  }\n);\n\nserver.tool(\n  \"flow_map\",\n  \"Mapa de flujos de datos: qué tipo de datos va a qué destinos y con qué estado de cumplimiento.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst trans = st.transferencias || [];\nif (!trans.length) return ok({ transferencias: 0, sugerencia: \"valida transferencias con check_transfer\" });\nconst porDato = {};\nfor (const t of trans) {\n  porDato[t.dato] = porDato[t.dato] || { total: 0, permitidas: 0 };\n  porDato[t.dato].total++;\n  if (t.permitido) porDato[t.dato].permitidas++;\n}\nreturn ok({\n  destinos_registrados: Object.keys(st.destinos || {}).length,\n  transferencias_evaluadas: trans.length,\n  violaciones: trans.filter(t => !t.permitido).length,\n  por_tipo_de_dato: __ents(porDato).map(([k, v]) => ({ dato: k, transferencias: v.total, permitidas: v.permitidas })),\n  violaciones_detalle: trans.filter(t => !t.permitido).slice(-5).map(t => ({ dato: t.dato, destino: t.destino, restriccion: t.restriccion })),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor data-residency-check está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"data-residency-check\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[data-residency-check] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-7df009",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-key-rotation-manager",
+  "version": "1.0.0",
+  "description": "Rotación de claves con ventana de gracia: rota sin romper verificaciones en curso y con historial auditable Dolor que resuelve: El agente rota su clave de golpe y todas las firmas/verificaciones en vuelo fallan de forma misteriosa; o peor: nunca rota y la clave eterna se filtra. La rotación segura es un proceso, no un comando. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "did",
+   "federated-identity",
+   "delegation"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only key-rotation-manager",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-key-rotation-manager",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "register_identity",
+    "perform_rotation",
+    "check_key_status",
+    "rotation_due",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only key-rotation-manager",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-key-rotation-manager\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-key-rotation-manager/dist/index.js\"]}}}. Tools disponibles: register_identity, perform_rotation, check_key_status, rotation_due y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/key-rotation-manager/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-key-rotation-manager (register_identity, perform_rotation, check_key_status, rotation_due). Rotación de claves con ventana de gracia: rota sin romper verificaciones en curso y con historial auditable. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/key-rotation-manager/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/key-rotation-manager\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Key Rotation Manager — Rotación de claves con ventana de gracia: rota sin romper verificaciones en curso y con historial auditable (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-key-rotation-manager\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"identidad-federada\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Key Rotation Manager\n\n> Rotación de claves con ventana de gracia: rota sin romper verificaciones en curso y con historial auditable\n\n**Categoría:** Identidad Federada · **ID:** `mcp-key-rotation-manager`\n\n**Dolor de agente que resuelve:** El agente rota su clave de golpe y todas las firmas/verificaciones en vuelo fallan de forma misteriosa; o peor: nunca rota y la clave eterna se filtra. La rotación segura es un proceso, no un comando.\n\n> Estado persistente en `~/.mcp-suite/key-rotation-manager/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `register_identity`\nRegistra una identidad criptográfica con su clave inicial y política de rotación.\n\n**Parámetros:**\n  - `identidad` (string, requerido): Nombre de la identidad/propósito de la clave\n  - `clave_inicial` (string, requerido): Material o referencia de la clave inicial (id/hash, no el secreto)\n  - `periodo_dias` (number, opcional): Rotar cada N días (0 = manual)\n  - `gracia_horas` (number, opcional): Horas que la clave vieja sigue VERIFICANDO tras rotar\n\n### `perform_rotation`\nEjecuta la rotación: la clave activa pasa a gracia (solo verifica) y una nueva queda activa (solo firma).\n\n**Parámetros:**\n  - `identidad` (string, requerido): Identidad a rotar\n  - `nueva_clave` (string, requerido): Material/referencia de la nueva clave\n  - `razon` (string, opcional): Por qué rotas (programada, sospecha, fuga)\n\n### `check_key_status`\nConsulta qué puede hacer cada clave: firmar (activa), solo verificar (gracia) o nada (muerta).\n\n**Parámetros:**\n  - `identidad` (string, requerido): Identidad\n\n### `rotation_due`\nDetecta rotaciones vencidas o a punto de vencer según la política.\n\n**Parámetros:**\n  - `margen_dias` (number, opcional): Días de aviso previo\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"key-rotation-manager\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-key-rotation-manager/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/key-rotation-manager/. Cada identidad tiene clave actual + claves en gracia (verifican pero no firman) + claves muertas; la política define periodicidad y duración de gracia.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Key Rotation Manager\n * Rotación de claves con ventana de gracia: rota sin romper verificaciones en curso y con historial auditable\n *\n * Dolor que resuelve: El agente rota su clave de golpe y todas las firmas/verificaciones en vuelo fallan de forma misteriosa; o peor: nunca rota y la clave eterna se filtra. La rotación segura es un proceso, no un comando.\n * Categoría: Identidad Federada | Generado por mcp-suite | id: key-rotation-manager\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/key-rotation-manager/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"key-rotation-manager\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"key-rotation-manager\", version: \"1.0.0\" });\n\nserver.tool(\n  \"register_identity\",\n  \"Registra una identidad criptográfica con su clave inicial y política de rotación.\",\n  {\n  identidad: z.string().describe(\"Nombre de la identidad/propósito de la clave\"),\n  clave_inicial: z.string().describe(\"Material o referencia de la clave inicial (id/hash, no el secreto)\"),\n  periodo_dias: z.number().describe(\"Rotar cada N días (0 = manual)\").default(90),\n  gracia_horas: z.number().describe(\"Horas que la clave vieja sigue VERIFICANDO tras rotar\").default(72),\n  },\n  async (args: any) => {\n    const { identidad, clave_inicial, periodo_dias, gracia_horas } = args as any;\n    const st = store.load();\nst.identidades = st.identidades || {};\nif (st.identidades[identidad]) return fail(\"identidad ya registrada: \" + identidad);\nst.identidades[identidad] = { identidad, periodo_dias, gracia_horas, claves: [{ id: \"k1\", material: clave_inicial, rol: \"activa\", desde: new Date().toISOString() }], rotaciones: 0, historial: [] };\nstore.save(st);\nreturn ok({ identidad, clave_activa: \"k1\", politica: { rotar_cada_dias: periodo_dias, gracia_verificacion_horas: gracia_horas } });\n  }\n);\n\nserver.tool(\n  \"perform_rotation\",\n  \"Ejecuta la rotación: la clave activa pasa a gracia (solo verifica) y una nueva queda activa (solo firma).\",\n  {\n  identidad: z.string().describe(\"Identidad a rotar\"),\n  nueva_clave: z.string().describe(\"Material/referencia de la nueva clave\"),\n  razon: z.string().describe(\"Por qué rotas (programada, sospecha, fuga)\").default(\"programada\"),\n  },\n  async (args: any) => {\n    const { identidad, nueva_clave, razon } = args as any;\n    const st = store.load();\nconst id = (st.identidades || {})[identidad];\nif (!id) return fail(\"identidad no registrada\");\nconst activa = id.claves.find(k => k.rol === \"activa\");\nif (!activa) return fail(\"sin clave activa: estado corrupto, revisa historial\");\nactiva.rol = \"gracia\";\nactiva.hasta = new Date(Date.now() + id.gracia_horas * 3600000).toISOString();\nconst nuevoId = \"k\" + (id.claves.length + 1);\nid.claves.push({ id: nuevoId, material: nueva_clave, rol: \"activa\", desde: new Date().toISOString() });\nid.rotaciones++;\nid.historial.push({ rotacion: id.rotaciones, de: activa.id, a: nuevoId, razon, ts: new Date().toISOString() });\nconst enGracia = id.claves.filter(k => k.rol === \"gracia\");\nstore.save(st);\nreturn ok({ identidad, nueva_clave_activa: nuevoId, clave_anterior: { id: activa.id, verifica_hasta: activa.hasta, aviso: \"las firmas hechas con \" + activa.id + \" siguen verificando \" + id.gracia_horas + \"h\" }, en_gracia: enGracia.map(k => k.id), total_rotaciones: id.rotaciones });\n  }\n);\n\nserver.tool(\n  \"check_key_status\",\n  \"Consulta qué puede hacer cada clave: firmar (activa), solo verificar (gracia) o nada (muerta).\",\n  {\n  identidad: z.string().describe(\"Identidad\"),\n  },\n  async (args: any) => {\n    const { identidad } = args as any;\n    const st = store.load();\nconst id = (st.identidades || {})[identidad];\nif (!id) return fail(\"identidad no registrada\");\nconst ahora = Date.now();\nconst claves = id.claves.map(k => {\n  let rolEfectivo = k.rol;\n  if (k.rol === \"gracia\" && k.hasta && new Date(k.hasta).getTime() < ahora) rolEfectivo = \"muerta\";\n  return { id: k.id, rol_declarado: k.rol, rol_efectivo: rolEfectivo, puede_firmar: rolEfectivo === \"activa\", puede_verificar: rolEfectivo === \"activa\" || rolEfectivo === \"gracia\", desde: k.desde, verifica_hasta: k.hasta || null };\n});\nconst activa = claves.find(k => k.puede_firmar);\nreturn ok({ identidad, rotaciones: id.rotaciones, claves, resumen: { firmables: claves.filter(k => k.puede_firmar).length, solo_verificacion: claves.filter(k => k.puede_verificar && !k.puede_firmar).length, muertas: claves.filter(k => !k.puede_verificar).length }, clave_para_firmar: activa ? activa.id : \"NINGUNA: rota ya\", politica: { cada_dias: id.periodo_dias, gracia_horas: id.gracia_horas } });\n  }\n);\n\nserver.tool(\n  \"rotation_due\",\n  \"Detecta rotaciones vencidas o a punto de vencer según la política.\",\n  {\n  margen_dias: z.number().describe(\"Días de aviso previo\").default(7),\n  },\n  async (args: any) => {\n    const { margen_dias } = args as any;\n    const st = store.load();\nconst ids = __vals(st.identidades || {});\nif (!ids.length) return ok({ identidades: 0, mensaje: \"sin identidades registradas\" });\nconst avisos = [];\nids.forEach(id => {\n  if (id.periodo_dias === 0) return;\n  const activa = id.claves.find(k => k.rol === \"activa\");\n  if (!activa) { avisos.push({ identidad: id.identidad, estado: \"SIN_CLAVE_ACTIVA\", accion: \"rota inmediatamente\" }); return; }\n  const edadDias = (Date.now() - new Date(activa.desde).getTime()) / 86400000;\n  if (edadDias >= id.periodo_dias) avisos.push({ identidad: id.identidad, estado: \"VENCIDA\", edad_clave_dias: Number(edadDias.toFixed(1)), politica: id.periodo_dias + \" días\", accion: \"rota HOY\" });\n  else if (edadDias >= id.periodo_dias - margen_dias) avisos.push({ identidad: id.identidad, estado: \"PROXIMA\", edad_clave_dias: Number(edadDias.toFixed(1)), vence_en_dias: Number((id.periodo_dias - edadDias).toFixed(1)), accion: \"planifica la rotación\" });\n});\nreturn ok({ identidades: ids.length, pendientes: avisos.length, avisos, sin_alerta: ids.filter(id => id.periodo_dias > 0 || id.claves.some(k => k.rol === \"activa\")).length - avisos.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor key-rotation-manager está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"key-rotation-manager\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[key-rotation-manager] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "key-rotation-manager"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

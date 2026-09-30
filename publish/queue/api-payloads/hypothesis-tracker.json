@@ -1,0 +1,63 @@
+{
+ "name": "mcp-hypothesis-tracker",
+ "version": "1.0.0",
+ "description": "Hipótesis científicas del agente: enuncia, prueba y concluye Dolor que resuelve: El agente asume en vez de hipotetizar: sin registro de hipótesis testeables, los supuestos se vuelven 'verdades'. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "planning",
+  "reasoning",
+  "cognition"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only hypothesis-tracker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-hypothesis-tracker",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add",
+   "record_result",
+   "report",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only hypothesis-tracker",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-hypothesis-tracker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-hypothesis-tracker/dist/index.js\"]}}}. Tools disponibles: add, record_result, report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/hypothesis-tracker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-hypothesis-tracker (add, record_result, report). Hipótesis científicas del agente: enuncia, prueba y concluye. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/hypothesis-tracker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/hypothesis-tracker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Hypothesis Tracker — Hipótesis científicas del agente: enuncia, prueba y concluye (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-hypothesis-tracker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Hypothesis Tracker\n\n> Hipótesis científicas del agente: enuncia, prueba y concluye\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-hypothesis-tracker`\n\n**Dolor de agente que resuelve:** El agente asume en vez de hipotetizar: sin registro de hipótesis testeables, los supuestos se vuelven 'verdades'.\n\n> Estado persistente en `~/.mcp-suite/hypothesis-tracker/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `add`\nRegistra una hipótesis: enunciado, predicción falsable y cómo testearla.\n\n**Parámetros:**\n  - `enunciado` (string, requerido): Hipótesis (ej: X mejorará Y)\n  - `prediccion` (string, requerido): Predicción falsable\n  - `test` (string, opcional): Cómo testear\n\n### `record_result`\nRegistra el resultado de un test de hipótesis: confirmada, refutada o inconclusa (con datos).\n\n**Parámetros:**\n  - `id` (string, requerido): ID de hipótesis\n  - `resultado` (enum, requerido): Resultado\n  - `evidencia` (string, opcional): Evidencia observada\n\n### `report`\nReporte de hipótesis: cuántas confirmadas/refutadas/sin testear y ratio de acierto (calibración del agente).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"hypothesis-tracker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-hypothesis-tracker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Hypothesis Tracker\n * Hipótesis científicas del agente: enuncia, prueba y concluye\n *\n * Dolor que resuelve: El agente asume en vez de hipotetizar: sin registro de hipótesis testeables, los supuestos se vuelven 'verdades'.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: hypothesis-tracker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/hypothesis-tracker/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"hypothesis-tracker\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"hypothesis-tracker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add\",\n  \"Registra una hipótesis: enunciado, predicción falsable y cómo testearla.\",\n  {\n  enunciado: z.string().describe(\"Hipótesis (ej: X mejorará Y)\"),\n  prediccion: z.string().describe(\"Predicción falsable\"),\n  test: z.string().describe(\"Cómo testear\").optional(),\n  },\n  async (args: any) => {\n    const { enunciado, prediccion, test } = args as any;\n    const st = store.load();\nst.hipotesis = st.hipotesis || [];\nconst h = { id: \"H\" + (st.hipotesis.length + 1), enunciado, prediccion, test: test || \"\", estado: \"sin_testear\", creada: new Date().toISOString() };\nst.hipotesis.push(h);\nstore.save(st);\nreturn ok({ hipotesis: h });\n  }\n);\n\nserver.tool(\n  \"record_result\",\n  \"Registra el resultado de un test de hipótesis: confirmada, refutada o inconclusa (con datos).\",\n  {\n  id: z.string().describe(\"ID de hipótesis\"),\n  resultado: z.enum([\"confirmada\",\"refutada\",\"inconclusa\"]).describe(\"Resultado\"),\n  evidencia: z.string().describe(\"Evidencia observada\").optional(),\n  },\n  async (args: any) => {\n    const { id, resultado, evidencia } = args as any;\n    const st = store.load();\nconst h = (st.hipotesis || []).find((x) => x.id === id);\nif (!h) return fail(\"hipótesis no existe\");\nh.estado = resultado;\nh.evidencia = evidencia || \"\";\nh.testeada = new Date().toISOString();\nstore.save(st);\nreturn ok({ id, estado: resultado });\n  }\n);\n\nserver.tool(\n  \"report\",\n  \"Reporte de hipótesis: cuántas confirmadas/refutadas/sin testear y ratio de acierto (calibración del agente).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst hs = st.hipotesis || [];\nconst conteo: any = {};\nfor (const h of hs) conteo[h.estado] = (conteo[h.estado] || 0) + 1;\nconst testeadas = (conteo.confirmada || 0) + (conteo.refutada || 0);\nreturn ok({ total: hs.length, ...conteo, ratio_confirmacion: testeadas ? Math.round((conteo.confirmada / testeadas) * 100) + \"%\" : \"sin datos\", interpretacion: testeadas ? ((conteo.confirmada || 0) / testeadas > 0.8 ? \"sobre-confiado: hipótesis demasiado fáciles\" : \"calibración razonable\") : \"sin datos\", pendientes: hs.filter((h) => h.estado === \"sin_testear\").map((h) => h.id + \": \" + h.enunciado.slice(0, 80)) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor hypothesis-tracker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"hypothesis-tracker\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[hypothesis-tracker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

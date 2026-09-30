@@ -1,0 +1,92 @@
+{
+ "id": "mn-sub-261001-6b2245",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-goal-contract",
+  "version": "1.0.0",
+  "description": "Objetivos con criterios de éxito inmutables: el north star que no se reescribe en mitad de la misión Dolor que resuelve: En misiones largas el agente reescribe mentalmente el objetivo cada día ('goal drift'): termina resolviendo un problema distinto y nadie lo nota porque el objetivo original ya nadie lo recuerda. Incluye 8 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "goals",
+   "long-horizon",
+   "alignment"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only goal-contract",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-goal-contract",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura crítica de coordinación/cumplimiento/evaluación multi-agente — dolor de nivel enterprise, no cubierta por el ecosistema"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "declare_goal",
+    "get_goal",
+    "measure",
+    "amend_goal",
+    "check_alignment",
+    "close_goal",
+    "goal_history",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only goal-contract",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-goal-contract\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-goal-contract/dist/index.js\"]}}}. Tools disponibles: declare_goal, get_goal, measure, amend_goal, check_alignment, close_goal, goal_history y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/goal-contract/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-goal-contract (declare_goal, get_goal, measure, amend_goal, check_alignment, close_goal, goal_history). Objetivos con criterios de éxito inmutables: el north star que no se reescribe en mitad de la misión. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/goal-contract/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/goal-contract\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Goal Contract — Objetivos con criterios de éxito inmutables: el north star que no se reescribe en mitad de la misión (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-goal-contract\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"objetivos-y-largo-plazo\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 8\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Goal Contract\n\n> Objetivos con criterios de éxito inmutables: el north star que no se reescribe en mitad de la misión\n\n**Categoría:** Objetivos y Largo Plazo · **ID:** `mcp-goal-contract`\n\n**Dolor de agente que resuelve:** En misiones largas el agente reescribe mentalmente el objetivo cada día ('goal drift'): termina resolviendo un problema distinto y nadie lo nota porque el objetivo original ya nadie lo recuerda.\n\n> Estado persistente en `~/.mcp-suite/goal-contract/state.json` (local, privado, tuya la data).\n\n## Tools (8 incl. health_check)\n\n### `declare_goal`\nDeclara el contrato de objetivo: enunciado, criterios de éxito verificables y restricciones. Inmutable tras la creación.\n\n**Parámetros:**\n  - `enunciado` (string, requerido): El objetivo en una frase verificable\n  - `criterios_exito` (array, requerido): Condiciones objetivas de éxito\n  - `restricciones` (array, opcional): Lo que NO se debe hacer\n  - `horizonte_dias` (number, opcional): Plazo esperado en días\n\n### `get_goal`\nRecupera el objetivo activo completo: criterios, cumplimiento y enmiendas acumuladas.\n\n### `measure`\nRegistra una medición de un criterio (cumplido o no, con evidencia) sin alterar el contrato.\n\n**Parámetros:**\n  - `n` (number, requerido): Número del criterio a medir\n  - `cumplido` (boolean, requerido): ¿Se cumple?\n  - `evidencia` (string, opcional): Evidencia o cómo se verificó\n\n### `amend_goal`\nEnmienda VISIBLE del objetivo (nuevos criterios o restricciones) con motivo y fecha: nunca reescritura silenciosa.\n\n**Parámetros:**\n  - `criterios_extra` (array, opcional): Criterios nuevos\n  - `restricciones_extra` (array, opcional): Restricciones nuevas\n  - `motivo` (string, requerido): Por qué se enmienda el objetivo\n\n### `check_alignment`\nVerifica que una acción o sub-objetivo propuesto sigue alineado con el contrato activo (anti-drift).\n\n**Parámetros:**\n  - `propuesta` (string, requerido): Acción o sub-objetivo a evaluar\n\n### `close_goal`\nCierra el objetivo con veredicto (logrado, parcial, abandonado) y balance de enmiendas/mediciones.\n\n**Parámetros:**\n  - `veredicto` (enum, requerido): Resultado final\n  - `notas` (string, opcional): Cierre narrativo\n\n### `goal_history`\nHistorial de objetivos cerrados: duración, tasa de logro y patrón de abandono.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"goal-contract\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-goal-contract/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/goal-contract/. El objetivo se declara UNA vez con criterios inmutables; después solo se puede consultar, medir o cerrar. Toda 'modificación' queda como enmienda visible, nunca como reescritura silenciosa.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Goal Contract\n * Objetivos con criterios de éxito inmutables: el north star que no se reescribe en mitad de la misión\n *\n * Dolor que resuelve: En misiones largas el agente reescribe mentalmente el objetivo cada día ('goal drift'): termina resolviendo un problema distinto y nadie lo nota porque el objetivo original ya nadie lo recuerda.\n * Categoría: Objetivos y Largo Plazo | Generado por mcp-suite | id: goal-contract\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/goal-contract/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"goal-contract\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"goal-contract\", version: \"1.0.0\" });\n\nserver.tool(\n  \"declare_goal\",\n  \"Declara el contrato de objetivo: enunciado, criterios de éxito verificables y restricciones. Inmutable tras la creación.\",\n  {\n  enunciado: z.string().describe(\"El objetivo en una frase verificable\"),\n  criterios_exito: z.array(z.any()).describe(\"Condiciones objetivas de éxito\"),\n  restricciones: z.array(z.any()).describe(\"Lo que NO se debe hacer\").default([]),\n  horizonte_dias: z.number().describe(\"Plazo esperado en días\").optional(),\n  },\n  async (args: any) => {\n    const { enunciado, criterios_exito, restricciones, horizonte_dias } = args as any;\n    if (!Array.isArray(criterios_exito) || criterios_exito.length < 1) return fail(\"un objetivo sin criterios verificables deriva garantizado\");\nconst st = store.load();\nif (st.activo) return fail(\"ya hay un objetivo activo (\" + st.activo.id + \"). Ciérralo con close_goal o améndalo con amend_goal (visible), no lo reescribas\");\nconst id = \"goal_\" + Date.now().toString(36);\nst.activo = {\n  id, enunciado, criterios_exito: criterios_exito.map((c, i) => ({ n: i + 1, criterio: String(c), cumplido: false, evidencia: null })),\n  restricciones: (restricciones || []).map(String),\n  horizonte: horizonte_dias ? new Date(Date.now() + horizonte_dias * 86400000).toISOString() : null,\n  creado: new Date().toISOString(),\n  enmiendas: [], mediciones: [],\n};\nstore.save(st);\nreturn ok({ objetivo_id: id, enunciado, criterios: st.activo.criterios_exito.length, restriccion: (restricciones || []).length, aviso: \"esto es un contrato: los criterios NO se reescriben, solo se miden\" });\n  }\n);\n\nserver.tool(\n  \"get_goal\",\n  \"Recupera el objetivo activo completo: criterios, cumplimiento y enmiendas acumuladas.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nif (!st.activo) return fail(\"no hay objetivo activo: decláralo con declare_goal\");\nconst a = st.activo;\nreturn ok({\n  ...a,\n  dias_transcurridos: Number(((Date.now() - new Date(a.creado).getTime()) / 86400000).toFixed(1)),\n  horizonte_restante_dias: a.horizonte ? Number(((new Date(a.horizonte).getTime() - Date.now()) / 86400000).toFixed(1)) : null,\n  progreso_criterios: a.criterios_exito.filter(c => c.cumplido).length + \"/\" + a.criterios_exito.length,\n});\n  }\n);\n\nserver.tool(\n  \"measure\",\n  \"Registra una medición de un criterio (cumplido o no, con evidencia) sin alterar el contrato.\",\n  {\n  n: z.number().describe(\"Número del criterio a medir\"),\n  cumplido: z.boolean().describe(\"¿Se cumple?\"),\n  evidencia: z.string().describe(\"Evidencia o cómo se verificó\").optional(),\n  },\n  async (args: any) => {\n    const { n, cumplido, evidencia } = args as any;\n    const st = store.load();\nif (!st.activo) return fail(\"no hay objetivo activo\");\nconst c = st.activo.criterios_exito.find(x => x.n === n);\nif (!c) return fail(\"criterio \" + n + \" inexistente (hay \" + st.activo.criterios_exito.length + \")\");\nc.cumplido = cumplido;\nc.evidencia = evidencia || null;\nc.medido = new Date().toISOString();\nst.activo.mediciones.push({ criterio: n, cumplido, ts: c.medido });\nstore.save(st);\nconst cumplidos = st.activo.criterios_exito.filter(x => x.cumplido).length;\nreturn ok({ criterio: n, cumplido, progreso: cumplidos + \"/\" + st.activo.criterios_exito.length, completado: cumplidos === st.activo.criterios_exito.length });\n  }\n);\n\nserver.tool(\n  \"amend_goal\",\n  \"Enmienda VISIBLE del objetivo (nuevos criterios o restricciones) con motivo y fecha: nunca reescritura silenciosa.\",\n  {\n  criterios_extra: z.array(z.any()).describe(\"Criterios nuevos\").optional(),\n  restricciones_extra: z.array(z.any()).describe(\"Restricciones nuevas\").optional(),\n  motivo: z.string().describe(\"Por qué se enmienda el objetivo\"),\n  },\n  async (args: any) => {\n    const { criterios_extra, restricciones_extra, motivo } = args as any;\n    const st = store.load();\nif (!st.activo) return fail(\"no hay objetivo activo\");\nif (!motivo) return fail(\"toda enmienda necesita motivo auditable\");\nconst a = st.activo;\nconst antes = { criterios: a.criterios_exito.length, restricciones: a.restricciones.length };\nlet n = a.criterios_exito.length;\nfor (const c of (criterios_extra || [])) { n++; a.criterios_exito.push({ n, criterio: String(c), cumplido: false, evidencia: null }); }\na.restricciones.push(...(restricciones_extra || []).map(String));\na.enmiendas.push({ motivo, antes, despues: { criterios: a.criterios_exito.length, restricciones: a.restricciones.length }, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ enmienda_n: a.enmiendas.length, criterios_totales: a.criterios_exito.length, advertencia: a.enmiendas.length > 3 ? \"demasiadas enmiendas: ¿el objetivo original era el correcto o hay drift declarado?\" : \"enmienda registrada\" });\n  }\n);\n\nserver.tool(\n  \"check_alignment\",\n  \"Verifica que una acción o sub-objetivo propuesto sigue alineado con el contrato activo (anti-drift).\",\n  {\n  propuesta: z.string().describe(\"Acción o sub-objetivo a evaluar\"),\n  },\n  async (args: any) => {\n    const { propuesta } = args as any;\n    const st = store.load();\nif (!st.activo) return fail(\"no hay objetivo activo\");\nconst a = st.activo;\nconst stop = (s) => new Set(String(s).toLowerCase().split(/\\W+/).filter(w => w.length > 3));\nconst objTokens = stop(a.enunciado + \" \" + a.criterios_exito.map(c => c.criterio).join(\" \"));\nconst propTokens = [...stop(propuesta)];\nconst eco = propTokens.filter(w => objTokens.has(w)).length / Math.max(propTokens.length, 1);\nconst chocaRestriccion = a.restricciones.filter(r => {\n  const rt = [...stop(r)];\n  return rt.length > 0 && rt.every(w => propTokens.includes(w));\n});\nconst veredicto = eco >= 0.4 && !chocaRestriccion.length ? \"alineado\" : eco < 0.2 ? \"desalineado: esta acción NO sirve al objetivo declarado\" : chocaRestriccion.length ? \"VIOLA restricción: \" + chocaRestriccion[0] : \"parcialmente alineado: justifica la conexión o descártala\";\nreturn ok({ alineamiento: Number(eco.toFixed(2)), veredicto, restriccion_violada: chocaRestriccion[0] || null, criterios_pendientes: a.criterios_exito.filter(c => !c.cumplido).length });\n  }\n);\n\nserver.tool(\n  \"close_goal\",\n  \"Cierra el objetivo con veredicto (logrado, parcial, abandonado) y balance de enmiendas/mediciones.\",\n  {\n  veredicto: z.enum([\"logrado\",\"parcial\",\"abandonado\",\"reemplazado\"]).describe(\"Resultado final\"),\n  notas: z.string().describe(\"Cierre narrativo\").optional(),\n  },\n  async (args: any) => {\n    const { veredicto, notas } = args as any;\n    const st = store.load();\nif (!st.activo) return fail(\"no hay objetivo activo\");\nconst a = st.activo;\na.cierre = { veredicto, notas: notas || null, criterios_cumplidos: a.criterios_exito.filter(c => c.cumplido).length, total: a.criterios_exito.length, enmiendas: a.enmiendas.length, cerrado: new Date().toISOString() };\nst.historial = st.historial || [];\nst.historial.push(a);\nst.activo = null;\nstore.save(st);\nreturn ok({ cerrado: true, veredicto, criterios: a.cierre.criterios_cumplidos + \"/\" + a.cierre.total, duracion_dias: Number(((new Date(a.cierre.cerrado).getTime() - new Date(a.creado).getTime()) / 86400000).toFixed(1)), enmiendas: a.enmiendas.length });\n  }\n);\n\nserver.tool(\n  \"goal_history\",\n  \"Historial de objetivos cerrados: duración, tasa de logro y patrón de abandono.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst h = st.historial || [];\nif (!h.length) return ok({ objetivos_cerrados: 0 });\nconst logrados = h.filter(g => g.cierre.veredicto === \"logrado\").length;\nreturn ok({\n  objetivos_cerrados: h.length,\n  tasa_logro: Number((logrados / h.length).toFixed(2)),\n  abandonados: h.filter(g => g.cierre.veredicto === \"abandonado\").length,\n  enmiendas_medias: Number((h.reduce((s, g) => s + g.enmiendas.length, 0) / h.length).toFixed(1)),\n  resumen: h.map(g => ({ id: g.id, enunciado: g.enunciado.slice(0, 70), veredicto: g.cierre.veredicto, criterios: g.cierre.criterios_cumplidos + \"/\" + g.cierre.total, dias: Number(((new Date(g.cierre.cerrado).getTime() - new Date(g.creado).getTime()) / 86400000).toFixed(1)) })),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor goal-contract está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"goal-contract\", tools: 8, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[goal-contract] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "goal-contract"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

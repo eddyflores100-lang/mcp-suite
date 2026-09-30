@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-cc2a01",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-session-recall",
+  "version": "1.0.0",
+  "description": "Contexto de sesión: guarda al cerrar, restaura al abrir Dolor que resuelve: Cada sesión nueva pierde el hilo: el agente necesita guardar un resumen de contexto al cerrar y restaurarlo al abrir. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "memory",
+   "context",
+   "retrieval"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only session-recall",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-session-recall",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "save_context",
+    "restore_last",
+    "list_sessions",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only session-recall",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-session-recall\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-session-recall/dist/index.js\"]}}}. Tools disponibles: save_context, restore_last, list_sessions y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/session-recall/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-session-recall (save_context, restore_last, list_sessions). Contexto de sesión: guarda al cerrar, restaura al abrir. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/session-recall/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/session-recall\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Session Recall — Contexto de sesión: guarda al cerrar, restaura al abrir (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-session-recall\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Session Recall\n\n> Contexto de sesión: guarda al cerrar, restaura al abrir\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-session-recall`\n\n**Dolor de agente que resuelve:** Cada sesión nueva pierde el hilo: el agente necesita guardar un resumen de contexto al cerrar y restaurarlo al abrir.\n\n> Estado persistente en `~/.mcp-suite/session-recall/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `save_context`\nGuarda el contexto de cierre de sesión: objetivo actual, estado, próximos pasos y claves de memoria a restaurar.\n\n**Parámetros:**\n  - `objetivo` (string, requerido): Objetivo de la sesión\n  - `estado_actual` (string, requerido): Dónde quedaste\n  - `proximos_pasos` (array, requerido): Próximos pasos\n  - `claves` (array, opcional): Claves de memoria relevantes\n\n### `restore_last`\nRestaura el contexto de la última sesión guardada: objetivo, estado y próximos pasos listos para continuar.\n\n### `list_sessions`\nLista las sesiones guardadas (objetivo y fecha) para elegir cuál restaurar.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"session-recall\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-session-recall/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Session Recall\n * Contexto de sesión: guarda al cerrar, restaura al abrir\n *\n * Dolor que resuelve: Cada sesión nueva pierde el hilo: el agente necesita guardar un resumen de contexto al cerrar y restaurarlo al abrir.\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: session-recall\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/session-recall/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"session-recall\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"session-recall\", version: \"1.0.0\" });\n\nserver.tool(\n  \"save_context\",\n  \"Guarda el contexto de cierre de sesión: objetivo actual, estado, próximos pasos y claves de memoria a restaurar.\",\n  {\n  objetivo: z.string().describe(\"Objetivo de la sesión\"),\n  estado_actual: z.string().describe(\"Dónde quedaste\"),\n  proximos_pasos: z.array(z.any()).describe(\"Próximos pasos\"),\n  claves: z.array(z.any()).describe(\"Claves de memoria relevantes\").optional(),\n  },\n  async (args: any) => {\n    const { objetivo, estado_actual, proximos_pasos, claves } = args as any;\n    const st = store.load();\nst.sesiones = st.sesiones || [];\nst.sesiones.push({ cerrada: new Date().toISOString(), objetivo, estado_actual, proximos_pasos: Array.isArray(proximos_pasos) ? proximos_pasos : [], claves: Array.isArray(claves) ? claves : [] });\nstore.save(st);\nreturn ok({ sesiones_guardadas: st.sesiones.length });\n  }\n);\n\nserver.tool(\n  \"restore_last\",\n  \"Restaura el contexto de la última sesión guardada: objetivo, estado y próximos pasos listos para continuar.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nif (!st.sesiones?.length) return fail(\"sin sesiones guardadas\");\nconst s = st.sesiones[st.sesiones.length - 1];\nreturn ok({ ...s, hace: Math.round((Date.now() - new Date(s.cerrada).getTime()) / 60000) + \" minutos\", claves_a_recover: s.claves });\n  }\n);\n\nserver.tool(\n  \"list_sessions\",\n  \"Lista las sesiones guardadas (objetivo y fecha) para elegir cuál restaurar.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nreturn ok({ sesiones: (st.sesiones || []).map((s: any, i: number) => ({ i, cerrada: s.cerrada, objetivo: s.objetivo })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor session-recall está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"session-recall\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[session-recall] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "session-recall"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

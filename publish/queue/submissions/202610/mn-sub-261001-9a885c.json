@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-9a885c",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-assumption-auditor",
+  "version": "1.0.0",
+  "description": "Audita supuestos del agente: explícitos, críticos y cómo validarlos Dolor que resuelve: Los supuestos ocultos rompen planes enteros: nadie los enumera ni valida antes de construir encima. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "planning",
+   "reasoning",
+   "cognition"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only assumption-auditor",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-assumption-auditor",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "audit_plan",
+    "validate_assumption",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only assumption-auditor",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-assumption-auditor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-assumption-auditor/dist/index.js\"]}}}. Tools disponibles: audit_plan, validate_assumption y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/assumption-auditor/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-assumption-auditor (audit_plan, validate_assumption). Audita supuestos del agente: explícitos, críticos y cómo validarlos. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/assumption-auditor/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/assumption-auditor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Assumption Auditor — Audita supuestos del agente: explícitos, críticos y cómo validarlos (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-assumption-auditor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Assumption Auditor\n\n> Audita supuestos del agente: explícitos, críticos y cómo validarlos\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-assumption-auditor`\n\n**Dolor de agente que resuelve:** Los supuestos ocultos rompen planes enteros: nadie los enumera ni valida antes de construir encima.\n\n## Tools (3 incl. health_check)\n\n### `audit_plan`\nExtrae supuestos implícitos de un plan/objetivo (señales lingüísticas: presuposiciones, dependencias, certezas) y los clasifica por criticidad.\n\n**Parámetros:**\n  - `plan` (string, requerido): El plan u objetivo en texto\n\n### `validate_assumption`\nGuía la validación de un supuesto específico: qué evidencia lo confirmaría/refutaría y qué hacer en cada caso.\n\n**Parámetros:**\n  - `supuesto` (string, requerido): El supuesto a validar\n  - `criticidad` (enum, opcional): Qué pasa si es falso\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"assumption-auditor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-assumption-auditor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Assumption Auditor\n * Audita supuestos del agente: explícitos, críticos y cómo validarlos\n *\n * Dolor que resuelve: Los supuestos ocultos rompen planes enteros: nadie los enumera ni valida antes de construir encima.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: assumption-auditor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"assumption-auditor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"audit_plan\",\n  \"Extrae supuestos implícitos de un plan/objetivo (señales lingüísticas: presuposiciones, dependencias, certezas) y los clasifica por criticidad.\",\n  {\n  plan: z.string().describe(\"El plan u objetivo en texto\"),\n  },\n  async (args: any) => {\n    const { plan } = args as any;\n    const t = plan;\nconst patrones: Array<[string, string, number]> = [\n  [\"\\b(si|cuando|una vez que|después de)\\b[^.]{5,80}\", \"condicional-dependiente\", 4],\n  [\"\\b(asumiendo|suponiendo|dando por hecho|se asume)\\b\", \"supuesto-explicito\", 3],\n  [\"\\b(todo el mundo|el usuario|el equipo|la api|el sistema)\\b[^.]{0,60}\\b(está|están|tiene|tienen|quiere|quieren)\\b\", \"generalizacion-sobre-otros\", 3],\n  [\"\\b(ya|siempre|nunca|obviamente|de sobra)\\b\", \"certeza-no-verificada\", 2],\n  [\"\\b(sin|no hay|nadie)\\b[^.]{0,50}\\b(problema|cambio|conflicto|fallo)\\b\", \"ausencia- asumida\", 4],\n  [\"\\b(api|endpoint|base de datos|librería|versión)\\b[^.]{0,60}\\b(funciona|soporta|permite)\\b\", \"dependencia-técnica\", 5],\n];\nconst supuestos: any[] = [];\nfor (const [pat, tipo, criticidad] of patrones) {\n  const matches = t.match(new RegExp(pat, \"gi\")) || [];\n  for (const m of matches.slice(0, 5)) supuestos.push({ supuesto: m.trim().slice(0, 120), tipo, criticidad, validacion_sugerida: tipo === \"dependencia-técnica\" ? \"probar el endpoint/librería AHORA con un smoke test\" : \"preguntar al stakeholder o buscar evidencia\" });\n}\nreturn ok({ total: supuestos.length, criticos: supuestos.filter((s) => s.criticidad >= 4).length, supuestos: supuestos.sort((a: any, b: any) => b.criticidad - a.criticidad), advertencia: supuestos.length === 0 ? \"sin supuestos detectados por heurística: revisa manualmente\" : \"valida los críticos ANTES de ejecutar el plan\" });\n  }\n);\n\nserver.tool(\n  \"validate_assumption\",\n  \"Guía la validación de un supuesto específico: qué evidencia lo confirmaría/refutaría y qué hacer en cada caso.\",\n  {\n  supuesto: z.string().describe(\"El supuesto a validar\"),\n  criticidad: z.enum([\"baja\",\"media\",\"alta\"]).describe(\"Qué pasa si es falso\").default(\"media\"),\n  },\n  async (args: any) => {\n    const { supuesto, criticidad } = args as any;\n    return ok({ supuesto, plan_de_validacion: [\n  \"1. Define qué evidencia lo confirmaría (dato, doc, test, testimonio)\",\n  \"2. Define qué evidencia lo refutaría\",\n  \"3. Busca la más barata de obtener primero\",\n  \"4. Asigna un deadline de validación\",\n], si_es_falso: criticidad === \"alta\" ? \"detén el plan y rediseña: la base se cae\" : \"ajusta el plan: contención o alternativa\", costo_de_no_validar: criticidad === \"alta\" ? \"cascada de retrabajo\" : \"ajuste local\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor assumption-auditor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"assumption-auditor\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[assumption-auditor] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "assumption-auditor"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

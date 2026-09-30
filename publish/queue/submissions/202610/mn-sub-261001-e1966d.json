@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-e1966d",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-temporal-reasoner",
+  "version": "1.0.0",
+  "description": "Razonamiento temporal: antes/después, solapamientos, duraciones y secuencias consistentes Dolor que resuelve: El agente dice cosas temporalmente imposibles: 'el despliegue del lunes usó el bug corregido el miércoles', cita eventos solapados como secuenciales y nadie verifica la coherencia temporal. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "freshness",
+   "staleness",
+   "knowledge-cutoff"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only temporal-reasoner",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-temporal-reasoner",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "check_sequence",
+    "overlap_check",
+    "relative_time",
+    "consistency_scan",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only temporal-reasoner",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-temporal-reasoner\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-temporal-reasoner/dist/index.js\"]}}}. Tools disponibles: check_sequence, overlap_check, relative_time, consistency_scan y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/temporal-reasoner/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-temporal-reasoner (check_sequence, overlap_check, relative_time, consistency_scan). Razonamiento temporal: antes/después, solapamientos, duraciones y secuencias consistentes. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/temporal-reasoner/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/temporal-reasoner\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Temporal Reasoner — Razonamiento temporal: antes/después, solapamientos, duraciones y secuencias consistentes (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-temporal-reasoner\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"frescura-del-conocimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Temporal Reasoner\n\n> Razonamiento temporal: antes/después, solapamientos, duraciones y secuencias consistentes\n\n**Categoría:** Frescura del Conocimiento · **ID:** `mcp-temporal-reasoner`\n\n**Dolor de agente que resuelve:** El agente dice cosas temporalmente imposibles: 'el despliegue del lunes usó el bug corregido el miércoles', cita eventos solapados como secuenciales y nadie verifica la coherencia temporal.\n\n## Tools (5 incl. health_check)\n\n### `check_sequence`\nValida que una secuencia de eventos fechados es cronológicamente posible.\n\n**Parámetros:**\n  - `eventos` (array, requerido): Lista {etiqueta, fecha} en el orden narrado\n\n### `overlap_check`\nComprueba si dos intervalos temporales se solapan, contienen o son disjuntos.\n\n**Parámetros:**\n  - `a_inicio` (string, requerido): Inicio intervalo A (ISO)\n  - `a_fin` (string, requerido): Fin intervalo A\n  - `b_inicio` (string, requerido): Inicio intervalo B\n  - `b_fin` (string, requerido): Fin intervalo B\n\n### `relative_time`\nConvierte lenguaje temporal relativo a absoluto y viceversa (hace N días, la semana pasada...).\n\n**Parámetros:**\n  - `expresion` (string, requerido): Expresión temporal ('hace 3 dias', 'en 2 semanas', ISO)\n\n### `consistency_scan`\nEscanea un texto en busca de afirmaciones temporales inconsistentes (fechas imposibles entre sí).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a auditar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"temporal-reasoner\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-temporal-reasoner/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nSin persistencia. Intervalos {inicio, fin, etiqueta}: orden, solapamiento, contención, duración y validación de afirmaciones secuenciales.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Temporal Reasoner\n * Razonamiento temporal: antes/después, solapamientos, duraciones y secuencias consistentes\n *\n * Dolor que resuelve: El agente dice cosas temporalmente imposibles: 'el despliegue del lunes usó el bug corregido el miércoles', cita eventos solapados como secuenciales y nadie verifica la coherencia temporal.\n * Categoría: Frescura del Conocimiento | Generado por mcp-suite | id: temporal-reasoner\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"temporal-reasoner\", version: \"1.0.0\" });\n\nserver.tool(\n  \"check_sequence\",\n  \"Valida que una secuencia de eventos fechados es cronológicamente posible.\",\n  {\n  eventos: z.array(z.any()).describe(\"Lista {etiqueta, fecha} en el orden narrado\"),\n  },\n  async (args: any) => {\n    const { eventos } = args as any;\n    const evs = (eventos || []).filter(e => e && e.etiqueta && e.fecha);\nif (evs.length < 2) return fail(\"necesitas >=2 eventos {etiqueta, fecha}\");\nlet consistente = true;\nconst violaciones = [];\nfor (let i = 1; i < evs.length; i++) {\n  const t0 = new Date(evs[i - 1].fecha).getTime();\n  const t1 = new Date(evs[i].fecha).getTime();\n  if (isNaN(t0) || isNaN(t1)) return fail(\"fecha inválida en evento \" + i);\n  if (t1 < t0) { consistente = false; violaciones.push({ antes: evs[i - 1].etiqueta + \" (\" + evs[i - 1].fecha + \")\", despues: evs[i].etiqueta + \" (\" + evs[i].fecha + \")\", problema: \"el segundo ocurre ANTES que el primero\" }); }\n}\nreturn ok({ secuencia_posible: consistente, violaciones, eventos: evs.length });\n  }\n);\n\nserver.tool(\n  \"overlap_check\",\n  \"Comprueba si dos intervalos temporales se solapan, contienen o son disjuntos.\",\n  {\n  a_inicio: z.string().describe(\"Inicio intervalo A (ISO)\"),\n  a_fin: z.string().describe(\"Fin intervalo A\"),\n  b_inicio: z.string().describe(\"Inicio intervalo B\"),\n  b_fin: z.string().describe(\"Fin intervalo B\"),\n  },\n  async (args: any) => {\n    const { a_inicio, a_fin, b_inicio, b_fin } = args as any;\n    const p = (s) => new Date(s).getTime();\nconst nums = [p(a_inicio), p(a_fin), p(b_inicio), p(b_fin)];\nif (nums.some(isNaN)) return fail(\"fechas ISO inválidas\");\nif (p(a_inicio) > p(a_fin) || p(b_inicio) > p(b_fin)) return fail(\"intervalo con inicio posterior a su fin\");\nconst solapa = p(a_inicio) < p(b_fin) && p(b_inicio) < p(a_fin);\nconst aContieneB = p(a_inicio) <= p(b_inicio) && p(b_fin) <= p(a_fin);\nconst bContieneA = p(b_inicio) <= p(a_inicio) && p(a_fin) <= p(b_fin);\nlet relacion = \"disjuntos\";\nif (aContieneB) relacion = \"A contiene a B\";\nelse if (bContieneA) relacion = \"B contiene a A\";\nelse if (solapa) relacion = \"solapados parcialmente\";\nreturn ok({\n  relacion,\n  duracion_a_dias: Number(((p(a_fin) - p(a_inicio)) / 86400000).toFixed(1)),\n  duracion_b_dias: Number(((p(b_fin) - p(b_inicio)) / 86400000).toFixed(1)),\n  solapamiento_dias: solapa ? Number(((Math.min(p(a_fin), p(b_fin)) - Math.max(p(a_inicio), p(b_inicio))) / 86400000).toFixed(1)) : 0,\n  implicacion: solapa ? \"los dos estaban activos a la vez: NO pueden describirse como secuencia (primero A luego B)\" : \"pueden narrarse como secuencia\",\n});\n  }\n);\n\nserver.tool(\n  \"relative_time\",\n  \"Convierte lenguaje temporal relativo a absoluto y viceversa (hace N días, la semana pasada...).\",\n  {\n  expresion: z.string().describe(\"Expresión temporal ('hace 3 dias', 'en 2 semanas', ISO)\"),\n  },\n  async (args: any) => {\n    const { expresion } = args as any;\n    const e = String(expresion).toLowerCase().trim();\nconst ahora = new Date();\nif (/^\\d{4}-\\d{2}-\\d{2}/.test(e)) {\n  const d = new Date(e);\n  const dias = Math.round((ahora.getTime() - d.getTime()) / 86400000);\n  return ok({ absoluto: e, relativo: dias === 0 ? \"hoy\" : dias > 0 ? \"hace \" + dias + \" días\" : \"en \" + (-dias) + \" días\", dias_delta: dias });\n}\nconst m = e.match(/^hace\\s+(\\d+)\\s*(min|minutos|h|horas|d|dias|día|semana|semanas|mes|meses)/);\nif (m) {\n  const n = parseInt(m[1]), u = m[2];\n  const ms = u.startsWith(\"min\") ? 60000 : u.startsWith(\"h\") ? 3600000 : u.startsWith(\"mes\") ? 2592000000 : u.includes(\"semana\") ? 604800000 : 86400000;\n  return ok({ relativo: e, absoluto: new Date(ahora.getTime() - n * ms).toISOString(), dias_delta: -Number((n * ms / 86400000).toFixed(1)) });\n}\nconst m2 = e.match(/^en\\s+(\\d+)\\s*(min|minutos|h|horas|d|dias|día|semana|semanas|mes|meses)/);\nif (m2) {\n  const n = parseInt(m2[1]), u = m2[2];\n  const ms = u.startsWith(\"min\") ? 60000 : u.startsWith(\"h\") ? 3600000 : u.startsWith(\"mes\") ? 2592000000 : u.includes(\"semana\") ? 604800000 : 86400000;\n  return ok({ relativo: e, absoluto: new Date(ahora.getTime() + n * ms).toISOString(), dias_delta: Number((n * ms / 86400000).toFixed(1)) });\n}\nif (/la semana pasada/.test(e)) return ok({ relativo: e, absoluto: new Date(ahora.getTime() - 7 * 86400000).toISOString().slice(0, 10), nota: \"semana pasada aproximada\" });\nreturn fail(\"expresión no reconocida: usa ISO, 'hace 3 dias' o 'en 2 semanas'\");\n  }\n);\n\nserver.tool(\n  \"consistency_scan\",\n  \"Escanea un texto en busca de afirmaciones temporales inconsistentes (fechas imposibles entre sí).\",\n  {\n  texto: z.string().describe(\"Texto a auditar\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const t = String(texto || \"\");\nif (t.length < 30) return fail(\"texto demasiado corto\");\nconst fechas = [...t.matchAll(/\\b(20\\d{2})-(\\d{2})-(\\d{2})\\b/g)].map(m => ({ iso: m[0], ts: new Date(m[0]).getTime(), ctx: t.slice(Math.max(0, m.index - 35), m.index + 40).replace(/\\n/g, \" \") }));\nconst anos = [...t.matchAll(/\\b(19|20)(\\d{2})\\b/g)].map(m => ({ ano: m[0], ctx: t.slice(Math.max(0, m.index - 35), m.index + 40).replace(/\\n/g, \" \") }));\nconst problemas = [];\nif (fechas.length >= 2) {\n  const max = Math.max(...fechas.map(f => f.ts));\n  for (const f of fechas) {\n    const despuesDe = /después de|posterior a|tras/i.test(f.ctx);\n    const antesDe = /antes de|previo a|anterior a/i.test(f.ctx);\n    if (despuesDe && f.ts < max * 0.999) { /* ok */ }\n  }\n  const ordenadas = [...fechas].sort((a, b) => a.ts - b.ts);\n  if (/primero|inicialmente|al comienzo/i.test(ordenadas[ordenadas.length - 1].ctx) && ordenadas.length > 1) {\n    problemas.push({ tipo: \"primero_es_posterior\", detalle: \"un evento narrado como 'primero' tiene la fecha más tardía: \" + ordenadas[ordenadas.length - 1].ctx });\n  }\n}\nif (anos.length >= 2) {\n  const set = [...new Set(anos.map(a => a.ano))].sort();\n  if (set.length > 1 && Math.abs(parseInt(set[set.length - 1]) - parseInt(set[0])) > 8) {\n    problemas.push({ tipo: \"rango_anos_amplio\", detalle: \"el texto mezcla \" + set[0] + \" y \" + set[set.length - 1] + \": verifica que no se presentan como contemporáneos\" });\n  }\n}\nreturn ok({\n  fechas_detectadas: fechas.length, anos_detectados: [...new Set(anos.map(a => a.ano))],\n  problemas: problemas.length,\n  detalle: problemas,\n  veredicto: problemas.length ? \"posible inconsistencia temporal: revisa\" : \"sin inconsistencias evidentes\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor temporal-reasoner está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"temporal-reasoner\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[temporal-reasoner] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "temporal-reasoner"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,63 @@
+{
+ "name": "mcp-working-state-store",
+ "version": "1.0.0",
+ "description": "Estado de trabajo versionado con historial: checkpoints del agente Dolor que resuelve: El estado intermedio de una tarea se pierde en un crash: sin checkpoints, el agente vuelve a empezar. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Data",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "memory",
+  "context",
+  "retrieval"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only working-state-store",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-working-state-store",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "save_state",
+   "load_state",
+   "diff_versions",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only working-state-store",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-working-state-store\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-working-state-store/dist/index.js\"]}}}. Tools disponibles: save_state, load_state, diff_versions y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/working-state-store/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-working-state-store (save_state, load_state, diff_versions). Estado de trabajo versionado con historial: checkpoints del agente. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/working-state-store/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/working-state-store\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Working State Store — Estado de trabajo versionado con historial: checkpoints del agente (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-working-state-store\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Working State Store\n\n> Estado de trabajo versionado con historial: checkpoints del agente\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-working-state-store`\n\n**Dolor de agente que resuelve:** El estado intermedio de una tarea se pierde en un crash: sin checkpoints, el agente vuelve a empezar.\n\n> Estado persistente en `~/.mcp-suite/working-state-store/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `save_state`\nGuarda el estado actual de una tarea como nueva versión (checkpoint numerado).\n\n**Parámetros:**\n  - `tarea` (string, requerido): Nombre de la tarea\n  - `estado` (any, requerido): Estado (JSON)\n  - `nota` (string, opcional): Nota del checkpoint\n\n### `load_state`\nCarga la última versión del estado de una tarea (o una versión específica).\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea\n  - `version` (number, opcional): Versión específica\n\n### `diff_versions`\nCompara dos versiones del estado de una tarea: claves añadidas, eliminadas y cambiadas.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea\n  - `v1` (number, requerido): Versión base\n  - `v2` (number, requerido): Versión a comparar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"working-state-store\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-working-state-store/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Working State Store\n * Estado de trabajo versionado con historial: checkpoints del agente\n *\n * Dolor que resuelve: El estado intermedio de una tarea se pierde en un crash: sin checkpoints, el agente vuelve a empezar.\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: working-state-store\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/working-state-store/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"working-state-store\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"working-state-store\", version: \"1.0.0\" });\n\nserver.tool(\n  \"save_state\",\n  \"Guarda el estado actual de una tarea como nueva versión (checkpoint numerado).\",\n  {\n  tarea: z.string().describe(\"Nombre de la tarea\"),\n  estado: z.any().describe(\"Estado (JSON)\"),\n  nota: z.string().describe(\"Nota del checkpoint\").optional(),\n  },\n  async (args: any) => {\n    const { tarea, estado, nota } = args as any;\n    const st = store.load();\nst[tarea] = st[tarea] || { versiones: [] };\nst[tarea].versiones.push({ n: st[tarea].versiones.length + 1, estado, nota: nota || \"\", ts: new Date().toISOString() });\nif (st[tarea].versiones.length > 50) st[tarea].versiones = st[tarea].versiones.slice(-50);\nstore.save(st);\nreturn ok({ tarea, version: st[tarea].versiones.length, total: st[tarea].versiones.length });\n  }\n);\n\nserver.tool(\n  \"load_state\",\n  \"Carga la última versión del estado de una tarea (o una versión específica).\",\n  {\n  tarea: z.string().describe(\"Tarea\"),\n  version: z.number().describe(\"Versión específica\").optional(),\n  },\n  async (args: any) => {\n    const { tarea, version } = args as any;\n    const st = store.load();\nconst t = st[tarea];\nif (!t?.versiones?.length) return fail(\"sin estado guardado para esa tarea\");\nconst v = version ? t.versiones.find((x: any) => x.n === version) : t.versiones[t.versiones.length - 1];\nif (!v) return fail(\"versión no existe\");\nreturn ok({ tarea, version: v.n, nota: v.nota, guardada: v.ts, estado: v.estado });\n  }\n);\n\nserver.tool(\n  \"diff_versions\",\n  \"Compara dos versiones del estado de una tarea: claves añadidas, eliminadas y cambiadas.\",\n  {\n  tarea: z.string().describe(\"Tarea\"),\n  v1: z.number().describe(\"Versión base\"),\n  v2: z.number().describe(\"Versión a comparar\"),\n  },\n  async (args: any) => {\n    const { tarea, v1, v2 } = args as any;\n    const st = store.load();\nconst t = st[tarea];\nif (!t?.versiones?.length) return fail(\"sin versiones\");\nconst a = t.versiones.find((x: any) => x.n === v1)?.estado || {};\nconst b = t.versiones.find((x: any) => x.n === v2)?.estado || {};\nconst ka = new Set(Object.keys(a)); const kb = new Set(Object.keys(b));\nconst añadidas = [...kb].filter((k) => !ka.has(k));\nconst eliminadas = [...ka].filter((k) => !kb.has(k));\nconst cambiadas = [...ka].filter((k) => kb.has(k) && JSON.stringify(a[k]) !== JSON.stringify(b[k]));\nreturn ok({ tarea, v1, v2, añadidas, eliminadas, cambiadas });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor working-state-store está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"working-state-store\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[working-state-store] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

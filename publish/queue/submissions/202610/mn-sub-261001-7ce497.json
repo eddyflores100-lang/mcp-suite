@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-7ce497",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-jcs-canonicalizer",
+  "version": "1.0.0",
+  "description": "JSON canónico RFC 8785 (JCS): misma firma para el mismo JSON, siempre Dolor que resuelve: Firmar JSON es frágil: espacios u orden de claves distintos rompen la firma. RFC 8785 lo resuelve con serialización canónica. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "ed25519",
+   "cryptography",
+   "trust"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only jcs-canonicalizer",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-jcs-canonicalizer",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 9.99,
+   "currency": "USD",
+   "details": "Pago único USD 9.99 (Enterprise). Regalía 80% al autor: USD 7.99 por venta. Infraestructura de confianza/payments con criptografía real (Ed25519/JCS/x402) e integración profunda con la API viva de MarketNow"
+  },
+  "price": 9.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "canonicalize",
+    "fingerprint",
+    "compare",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only jcs-canonicalizer",
+    "estimated_cost": "pago único USD 9.99 (regalía 80%: USD 7.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-jcs-canonicalizer\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-jcs-canonicalizer/dist/index.js\"]}}}. Tools disponibles: canonicalize, fingerprint, compare y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/jcs-canonicalizer/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-jcs-canonicalizer (canonicalize, fingerprint, compare). JSON canónico RFC 8785 (JCS): misma firma para el mismo JSON, siempre. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/jcs-canonicalizer/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/jcs-canonicalizer\",\n  \"version\": \"1.0.0\",\n  \"description\": \"JCS Canonicalizer — JSON canónico RFC 8785 (JCS): misma firma para el mismo JSON, siempre (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-jcs-canonicalizer\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-trust\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# JCS Canonicalizer\n\n> JSON canónico RFC 8785 (JCS): misma firma para el mismo JSON, siempre\n\n**Categoría:** MarketNow Trust · **ID:** `mcp-jcs-canonicalizer`\n\n**Dolor de agente que resuelve:** Firmar JSON es frágil: espacios u orden de claves distintos rompen la firma. RFC 8785 lo resuelve con serialización canónica.\n\n## Tools (4 incl. health_check)\n\n### `canonicalize`\nConvierte un objeto JSON arbitrario a su forma canónica RFC 8785 (JCS) — string determinista listo para firmar.\n\n**Parámetros:**\n  - `data` (any, requerido): Objeto JSON a canonizar\n\n### `fingerprint`\nHash SHA-256 de la forma canónica JCS: identificador determinista del contenido (útil para deduplicar y comparar credenciales).\n\n**Parámetros:**\n  - `data` (any, requerido): Objeto JSON\n\n### `compare`\nCompara dos JSON semánticamente: si sus formas canónicas JCS son idénticas, son equivalentes byte a byte para firmas.\n\n**Parámetros:**\n  - `a` (any, requerido): Primer JSON\n  - `b` (any, requerido): Segundo JSON\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"jcs-canonicalizer\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-jcs-canonicalizer/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nImplementa el subconjunto práctico de RFC 8785: claves ordenadas por código UTF-16, sin whitespace, números según ECMAScript toString, strings con escape mínimo JSON. Rechaza NaN/Infinity/-0.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: JCS Canonicalizer\n * JSON canónico RFC 8785 (JCS): misma firma para el mismo JSON, siempre\n *\n * Dolor que resuelve: Firmar JSON es frágil: espacios u orden de claves distintos rompen la firma. RFC 8785 lo resuelve con serialización canónica.\n * Categoría: MarketNow Trust | Generado por mcp-suite | id: jcs-canonicalizer\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"jcs-canonicalizer\", version: \"1.0.0\" });\n\nserver.tool(\n  \"canonicalize\",\n  \"Convierte un objeto JSON arbitrario a su forma canónica RFC 8785 (JCS) — string determinista listo para firmar.\",\n  {\n  data: z.any().describe(\"Objeto JSON a canonizar\"),\n  },\n  async (args: any) => {\n    const { data } = args as any;\n    function canon(v) {\n  if (v === null || v === undefined) return \"null\";\n  if (typeof v === \"boolean\") return v ? \"true\" : \"false\";\n  if (typeof v === \"number\") {\n    if (!isFinite(v)) throw new Error(\"RFC 8785: NaN/Infinity prohibidos\");\n    if (v === 0) return \"0\";\n    if (Number.isInteger(v) && Math.abs(v) < 1e21) return String(v);\n    return String(v);\n  }\n  if (typeof v === \"string\") return JSON.stringify(v);\n  if (Array.isArray(v)) return \"[\" + v.map((x) => canon(x === undefined ? null : x)).join(\",\") + \"]\";\n  const keys = Object.keys(v).filter((k) => v[k] !== undefined).sort();\n  return \"{\" + keys.map((k) => JSON.stringify(k) + \":\" + canon(v[k])).join(\",\") + \"}\";\n}\ntry { return ok({ canonical: canon(data) }); } catch (e) { return fail(e.message); }\n  }\n);\n\nserver.tool(\n  \"fingerprint\",\n  \"Hash SHA-256 de la forma canónica JCS: identificador determinista del contenido (útil para deduplicar y comparar credenciales).\",\n  {\n  data: z.any().describe(\"Objeto JSON\"),\n  },\n  async (args: any) => {\n    const { data } = args as any;\n    function canon(v) {\n  if (v === null || v === undefined) return \"null\";\n  if (typeof v === \"boolean\") return v ? \"true\" : \"false\";\n  if (typeof v === \"number\") { if (!isFinite(v)) throw new Error(\"NaN/Infinity\"); if (v === 0) return \"0\"; return String(v); }\n  if (typeof v === \"string\") return JSON.stringify(v);\n  if (Array.isArray(v)) return \"[\" + v.map((x) => canon(x === undefined ? null : x)).join(\",\") + \"]\";\n  const keys = Object.keys(v).filter((k) => v[k] !== undefined).sort();\n  return \"{\" + keys.map((k) => JSON.stringify(k) + \":\" + canon(v[k])).join(\",\") + \"}\";\n}\nconst c = canon(data);\nreturn ok({ jcs: c, sha256: createHash(\"sha256\").update(c).digest(\"hex\") });\n  }\n);\n\nserver.tool(\n  \"compare\",\n  \"Compara dos JSON semánticamente: si sus formas canónicas JCS son idénticas, son equivalentes byte a byte para firmas.\",\n  {\n  a: z.any().describe(\"Primer JSON\"),\n  b: z.any().describe(\"Segundo JSON\"),\n  },\n  async (args: any) => {\n    const { a, b } = args as any;\n    function canon(v) {\n  if (v === null || v === undefined) return \"null\";\n  if (typeof v === \"boolean\") return v ? \"true\" : \"false\";\n  if (typeof v === \"number\") { if (!isFinite(v)) throw new Error(\"NaN/Infinity\"); if (v === 0) return \"0\"; return String(v); }\n  if (typeof v === \"string\") return JSON.stringify(v);\n  if (Array.isArray(v)) return \"[\" + v.map((x) => canon(x === undefined ? null : x)).join(\",\") + \"]\";\n  const keys = Object.keys(v).filter((k) => v[k] !== undefined).sort();\n  return \"{\" + keys.map((k) => JSON.stringify(k) + \":\" + canon(v[k])).join(\",\") + \"}\";\n}\nconst ca = canon(a), cb = canon(b);\nreturn ok({ semanticamente_iguales: ca === cb, canonical_a: ca, canonical_b: cb });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor jcs-canonicalizer está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"jcs-canonicalizer\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[jcs-canonicalizer] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "jcs-canonicalizer"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

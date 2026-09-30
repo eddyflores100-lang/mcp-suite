@@ -1,0 +1,62 @@
+{
+ "name": "mcp-owasp-mcp-matrix",
+ "version": "1.0.0",
+ "description": "Matriz de cumplimiento del OWASP MCP Cheat Sheet: 12 controles, auto-evaluación y reporte Dolor que resuelve: Construir MCP servers sin checklist de seguridad OWASP: faltan controles estandarizados (authz, secrets, sandbox, logging). Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "sentinel",
+  "audit",
+  "devsecops"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only owasp-mcp-matrix",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-owasp-mcp-matrix",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "get_controls",
+   "self_assess",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only owasp-mcp-matrix",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-owasp-mcp-matrix\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-owasp-mcp-matrix/dist/index.js\"]}}}. Tools disponibles: get_controls, self_assess y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/owasp-mcp-matrix/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-owasp-mcp-matrix (get_controls, self_assess). Matriz de cumplimiento del OWASP MCP Cheat Sheet: 12 controles, auto-evaluación y reporte. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/owasp-mcp-matrix/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/owasp-mcp-matrix\",\n  \"version\": \"1.0.0\",\n  \"description\": \"OWASP MCP Matrix — Matriz de cumplimiento del OWASP MCP Cheat Sheet: 12 controles, auto-evaluación y reporte (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-owasp-mcp-matrix\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-ops\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# OWASP MCP Matrix\n\n> Matriz de cumplimiento del OWASP MCP Cheat Sheet: 12 controles, auto-evaluación y reporte\n\n**Categoría:** MarketNow Ops · **ID:** `mcp-owasp-mcp-matrix`\n\n**Dolor de agente que resuelve:** Construir MCP servers sin checklist de seguridad OWASP: faltan controles estandarizados (authz, secrets, sandbox, logging).\n\n## Tools (3 incl. health_check)\n\n### `get_controls`\nLos 12 controles del OWASP MCP Cheat Sheet con estado recomendado y cómo implementarlos.\n\n### `self_assess`\nAuto-evaluación: marca qué controles cumples (lista de IDs) y obtiene score de cumplimiento + brechas críticas.\n\n**Parámetros:**\n  - `cumplidos` (array, requerido): IDs cumplidos (ej: ['MC-1','MC-3'])\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"owasp-mcp-matrix\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-owasp-mcp-matrix/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: OWASP MCP Matrix\n * Matriz de cumplimiento del OWASP MCP Cheat Sheet: 12 controles, auto-evaluación y reporte\n *\n * Dolor que resuelve: Construir MCP servers sin checklist de seguridad OWASP: faltan controles estandarizados (authz, secrets, sandbox, logging).\n * Categoría: MarketNow Ops | Generado por mcp-suite | id: owasp-mcp-matrix\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"owasp-mcp-matrix\", version: \"1.0.0\" });\n\nserver.tool(\n  \"get_controls\",\n  \"Los 12 controles del OWASP MCP Cheat Sheet con estado recomendado y cómo implementarlos.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    return ok({ controles: [\n  { c: \"MC-1\", nombre: \"Autenticación del servidor\", como: \"tokens/API keys, nunca anon en producción\" },\n  { c: \"MC-2\", nombre: \"Autorización por tool\", como: \"scopes por herramienta, least privilege\" },\n  { c: \"MC-3\", nombre: \"Secrets fuera del código\", como: \"variables de entorno / vault\" },\n  { c: \"MC-4\", nombre: \"Sandboxing de ejecución\", como: \"gVisor/contenedores para código externo\" },\n  { c: \"MC-5\", nombre: \"Validación de inputs\", como: \"schemas estrictos en cada tool\" },\n  { c: \"MC-6\", nombre: \"Rate limiting\", como: \"límites por cliente/tool\" },\n  { c: \"MC-7\", nombre: \"Sanitización de prompts\", como: \"escanear inyecciones en entradas\" },\n  { c: \"MC-8\", nombre: \"Logging auditable\", como: \"bitácora inmutable de llamadas\" },\n  { c: \"MC-9\", nombre: \"Cifrado en tránsito\", como: \"TLS en transportes remotos\" },\n  { c: \"MC-10\", nombre: \"Monitoreo de anomalías\", como: \"métricas y alertas de abuso\" },\n  { c: \"MC-11\", nombre: \"Rotación de credenciales\", como: \"expiración y revocación\" },\n  { c: \"MC-12\", nombre: \"Respuesta a incidentes\", como: \"plan de contención y kill-switch\" },\n] });\n  }\n);\n\nserver.tool(\n  \"self_assess\",\n  \"Auto-evaluación: marca qué controles cumples (lista de IDs) y obtiene score de cumplimiento + brechas críticas.\",\n  {\n  cumplidos: z.array(z.any()).describe(\"IDs cumplidos (ej: ['MC-1','MC-3'])\"),\n  },\n  async (args: any) => {\n    const { cumplidos } = args as any;\n    const todos = [\"MC-1\",\"MC-2\",\"MC-3\",\"MC-4\",\"MC-5\",\"MC-6\",\"MC-7\",\"MC-8\",\"MC-9\",\"MC-10\",\"MC-11\",\"MC-12\"];\nconst hechos = new Set((Array.isArray(cumplidos) ? cumplidos : []).map((x) => String(x).toUpperCase()));\nconst faltan = todos.filter((c) => !hechos.has(c));\nconst criticos = faltan.filter((c) => [\"MC-1\", \"MC-2\", \"MC-3\", \"MC-5\", \"MC-8\"].includes(c));\nreturn ok({ cumplidos: hechos.size + \"/12\", score: Math.round((hechos.size / 12) * 100) + \"%\", faltan, criticos: criticos.length ? criticos : \"ninguno\", veredicto: criticos.length === 0 ? \"Aceptable\" : \"Brechas críticas: atender antes de producción\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor owasp-mcp-matrix está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"owasp-mcp-matrix\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[owasp-mcp-matrix] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

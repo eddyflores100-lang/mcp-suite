@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-02aa34",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-bayesian-updater",
+  "version": "1.0.0",
+  "description": "Cree con números: hipótesis con prior, evidencias con verosimilitud y posteriores que se actualizan con traza explicada Dolor que resuelve: El agente dice 'ahora estoy más seguro' sin números: sin prior ni verosimilitud, la 'actualización de creencia' es teatro. Cuando llega evidencia contradictoria no sabe si reforzar o abandonar la hipótesis. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "structured-reasoning",
+   "argumentation",
+   "consistency"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only bayesian-updater",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-bayesian-updater",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "define_hypothesis",
+    "apply_evidence",
+    "posterior_view",
+    "explain_update",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only bayesian-updater",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-bayesian-updater\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-bayesian-updater/dist/index.js\"]}}}. Tools disponibles: define_hypothesis, apply_evidence, posterior_view, explain_update y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/bayesian-updater/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-bayesian-updater (define_hypothesis, apply_evidence, posterior_view, explain_update). Cree con números: hipótesis con prior, evidencias con verosimilitud y posteriores que se actualizan con traza explicada. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/bayesian-updater/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/bayesian-updater\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Bayesian Updater — Cree con números: hipótesis con prior, evidencias con verosimilitud y posteriores que se actualizan con traza explicada (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-bayesian-updater\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"razonamiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Bayesian Updater\n\n> Cree con números: hipótesis con prior, evidencias con verosimilitud y posteriores que se actualizan con traza explicada\n\n**Categoría:** Razonamiento · **ID:** `mcp-bayesian-updater`\n\n**Dolor de agente que resuelve:** El agente dice 'ahora estoy más seguro' sin números: sin prior ni verosimilitud, la 'actualización de creencia' es teatro. Cuando llega evidencia contradictoria no sabe si reforzar o abandonar la hipótesis.\n\n> Estado persistente en `~/.mcp-suite/bayesian-updater/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `define_hypothesis`\nDefine una hipótesis con su probabilidad a priori y justificación.\n\n**Parámetros:**\n  - `hipotesis` (string, requerido): Enunciado de la hipótesis\n  - `prior` (number, requerido): Probabilidad inicial 0-1\n  - `justificacion_prior` (string, requerido): Por qué ese prior (base rate, historia, intuición experta)\n\n### `apply_evidence`\nAplica una evidencia con su verosimilitud P(E|H) vs P(E|no H) y actualiza el posterior.\n\n**Parámetros:**\n  - `hipotesis` (string, requerido): Hipótesis a actualizar\n  - `evidencia` (string, requerido): Descripción de la evidencia observada\n  - `p_e_dado_h` (number, requerido): P(E | hipótesis cierta) 0-1\n  - `p_e_dado_no_h` (number, requerido): P(E | hipótesis falsa) 0-1\n  - `fuente` (string, opcional): De dónde viene la evidencia\n\n### `posterior_view`\nRanking de todas las hipótesis por posterior actual, con su historial de evidencias.\n\n### `explain_update`\nExplica la evolución completa de una hipótesis: cada salto, su evidencia y su dirección.\n\n**Parámetros:**\n  - `hipotesis` (string, requerido): Hipótesis\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"bayesian-updater\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-bayesian-updater/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/bayesian-updater/. Hipótesis con probabilidad a priori; cada evidencia aplica su likelihood ratio en espacio log-odds; la traza explica cada salto y detecta evidencia doblemente contada.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Bayesian Updater\n * Cree con números: hipótesis con prior, evidencias con verosimilitud y posteriores que se actualizan con traza explicada\n *\n * Dolor que resuelve: El agente dice 'ahora estoy más seguro' sin números: sin prior ni verosimilitud, la 'actualización de creencia' es teatro. Cuando llega evidencia contradictoria no sabe si reforzar o abandonar la hipótesis.\n * Categoría: Razonamiento | Generado por mcp-suite | id: bayesian-updater\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/bayesian-updater/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"bayesian-updater\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"bayesian-updater\", version: \"1.0.0\" });\n\nserver.tool(\n  \"define_hypothesis\",\n  \"Define una hipótesis con su probabilidad a priori y justificación.\",\n  {\n  hipotesis: z.string().describe(\"Enunciado de la hipótesis\"),\n  prior: z.number().describe(\"Probabilidad inicial 0-1\"),\n  justificacion_prior: z.string().describe(\"Por qué ese prior (base rate, historia, intuición experta)\"),\n  },\n  async (args: any) => {\n    const { hipotesis, prior, justificacion_prior } = args as any;\n    const st = store.load();\nst.hipotesis = st.hipotesis || {};\nconst clave = hipotesis.toLowerCase().slice(0, 80);\nif (st.hipotesis[clave]) return fail(\"hipótesis ya registrada\");\nif (prior <= 0 || prior >= 1) return fail(\"prior debe estar entre 0 y 1 (exclusivo)\");\nst.hipotesis[clave] = { hipotesis, prior, posterior: prior, justificacion_prior, evidencias: [], traza: [{ evento: \"prior\", p: prior, ts: new Date().toISOString() }] };\nstore.save(st);\nreturn ok({ hipotesis: clave, prior, en_log_odds: Number(Math.log(prior / (1 - prior)).toFixed(3)), justificacion: justificacion_prior });\n  }\n);\n\nserver.tool(\n  \"apply_evidence\",\n  \"Aplica una evidencia con su verosimilitud P(E|H) vs P(E|no H) y actualiza el posterior.\",\n  {\n  hipotesis: z.string().describe(\"Hipótesis a actualizar\"),\n  evidencia: z.string().describe(\"Descripción de la evidencia observada\"),\n  p_e_dado_h: z.number().describe(\"P(E | hipótesis cierta) 0-1\"),\n  p_e_dado_no_h: z.number().describe(\"P(E | hipótesis falsa) 0-1\"),\n  fuente: z.string().describe(\"De dónde viene la evidencia\").optional(),\n  },\n  async (args: any) => {\n    const { hipotesis, evidencia, p_e_dado_h, p_e_dado_no_h, fuente } = args as any;\n    const st = store.load();\nconst clave = hipotesis.toLowerCase().slice(0, 80);\nconst h = (st.hipotesis || {})[clave];\nif (!h) return fail(\"hipótesis no registrada: usa define_hypothesis\");\nif (p_e_dado_h <= 0 || p_e_dado_h > 1 || p_e_dado_no_h <= 0 || p_e_dado_no_h > 1) return fail(\"verosimilitudes deben estar en (0, 1]\");\nconst duplicada = h.evidencias.some(e => e.evidencia.toLowerCase().slice(0, 40) === evidencia.toLowerCase().slice(0, 40));\nif (duplicada) return fail(\"evidencia sospechosamente duplicada (mismo texto): NO cuentes dos veces la misma observación, es el error bayesiano clásico\");\nconst lr = p_e_dado_h / p_e_dado_no_h;\nconst oddsAntes = h.posterior / (1 - h.posterior);\nconst oddsDespues = oddsAntes * lr;\nconst nuevo = oddsDespues / (1 + oddsDespues);\nh.evidencias.push({ evidencia, p_e_dado_h, p_e_dado_no_h, lr: Number(lr.toFixed(3)), fuente: fuente || \"\", ts: new Date().toISOString() });\nh.posterior = nuevo;\nh.traza.push({ evento: \"evidencia: \" + evidencia.slice(0, 50), lr: Number(lr.toFixed(3)), p: Number(nuevo.toFixed(4)), ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ hipotesis: clave, evidencia: evidencia.slice(0, 80), likelihood_ratio: Number(lr.toFixed(3)) + (lr > 1 ? \" (refuerza)\" : lr < 1 ? \" (debilita)\" : \" (neutra)\"), posterior_antes: Number((oddsAntes / (1 + oddsAntes)).toFixed(4)), posterior_ahora: Number(nuevo.toFixed(4)), salto: nuevo > h.posterior ? \"\" : \"\", en_palabras: lr >= 10 ? \"evidencia MUY FUERTE a favor\" : lr >= 2 ? \"evidencia moderada a favor\" : lr > 0.5 ? \"evidencia leve en contra\" : lr > 0.1 ? \"evidencia moderada en contra\" : \"evidencia MUY FUERTE en contra\" });\n  }\n);\n\nserver.tool(\n  \"posterior_view\",\n  \"Ranking de todas las hipótesis por posterior actual, con su historial de evidencias.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst hs = __vals(st.hipotesis || {});\nif (!hs.length) return ok({ hipotesis: 0, mensaje: \"sin hipótesis registradas\" });\nconst ranking = hs.map(h => ({ hipotesis: h.hipotesis, prior: h.prior, posterior: Number(h.posterior.toFixed(4)), confianza: h.posterior > 0.9 ? \"MUY ALTA\" : h.posterior > 0.7 ? \"alta\" : h.posterior > 0.3 ? \"incierta\" : h.posterior > 0.1 ? \"baja\" : \"MUY BAJA\", evidencias: h.evidencias.length, fuerza_neta: Number(h.evidencias.reduce((s, e) => s + Math.log(e.lr), 0).toFixed(2)) + \" log-LR acumulado\" })).sort((a, b) => b.posterior - a.posterior);\nreturn ok({ hipotesis: ranking.length, ranking, lider: ranking[0], cobertura_total: Number(ranking.reduce((s, h) => s + h.posterior, 0).toFixed(2)) + \" (si >> 1 hay hipótesis solapadas; si << 1 falta la hipótesis correcta)\" });\n  }\n);\n\nserver.tool(\n  \"explain_update\",\n  \"Explica la evolución completa de una hipótesis: cada salto, su evidencia y su dirección.\",\n  {\n  hipotesis: z.string().describe(\"Hipótesis\"),\n  },\n  async (args: any) => {\n    const { hipotesis } = args as any;\n    const st = store.load();\nconst clave = hipotesis.toLowerCase().slice(0, 80);\nconst h = (st.hipotesis || {})[clave];\nif (!h) return fail(\"hipótesis no registrada\");\nconst pasos = [];\nlet p = h.prior;\nh.evidencias.forEach(e => {\n  const odds = p / (1 - p);\n  const nuevo = (odds * e.lr) / (1 + odds * e.lr);\n  pasos.push({ desde: Number(p.toFixed(3)), hasta: Number(nuevo.toFixed(3)), direccion: e.lr > 1 ? \"SUBE\" : \"BAJA\", evidencia: e.evidencia.slice(0, 70), lr: e.lr, fuente: e.fuente });\n  p = nuevo;\n});\nreturn ok({ hipotesis: h.hipotesis, prior_inicial: h.prior, posterior_final: Number(h.posterior.toFixed(4)), total_evidencias: h.evidencias.length, camino: pasos, lectura: h.evidencias.filter(e => e.lr > 2).length > h.evidencias.filter(e => e.lr < 0.5).length ? \"la corriente de evidencia empuja a favor\" : h.evidencias.filter(e => e.lr < 0.5).length > h.evidencias.filter(e => e.lr > 2).length ? \"la corriente de evidencia empuja en contra: plantea la hipótesis alternativa YA\" : \"evidencia mixta: la hipótesis está mal formulada o falta discriminar\", aviso_conteo_doble: h.evidencias.length > 8 ? \"8+ evidencias: revisa que ninguna sea derivada de otra (correlación no es doble evidencia)\" : null });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor bayesian-updater está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"bayesian-updater\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[bayesian-updater] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "bayesian-updater"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

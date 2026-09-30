@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-92bdec",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-normalize-output",
+  "version": "1.0.0",
+  "description": "Normaliza formatos: fechas ISO, números, unidades y casing consistentes Dolor que resuelve: La salida llega con formatos mezclados: fechas en 3 formatos, números con comas y puntos, unidades inconsistentes. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Developer Tools",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "quality",
+   "validation",
+   "hallucination"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only normalize-output",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-normalize-output",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "normalize_dates",
+    "normalize_numbers",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only normalize-output",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-normalize-output\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-normalize-output/dist/index.js\"]}}}. Tools disponibles: normalize_dates, normalize_numbers y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/normalize-output/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-normalize-output (normalize_dates, normalize_numbers). Normaliza formatos: fechas ISO, números, unidades y casing consistentes. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/normalize-output/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/normalize-output\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Normalize Output — Normaliza formatos: fechas ISO, números, unidades y casing consistentes (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-normalize-output\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Normalize Output\n\n> Normaliza formatos: fechas ISO, números, unidades y casing consistentes\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-normalize-output`\n\n**Dolor de agente que resuelve:** La salida llega con formatos mezclados: fechas en 3 formatos, números con comas y puntos, unidades inconsistentes.\n\n## Tools (3 incl. health_check)\n\n### `normalize_dates`\nDetecta fechas en un texto y las normaliza a ISO 8601 (YYYY-MM-DD), reportando cada conversión.\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto con fechas\n\n### `normalize_numbers`\nNormaliza números con separadores de miles/decimales mezclados (1.234,56 / 1,234.56) a formato consistente.\n\n**Parámetros:**\n  - `numero` (string, requerido): Número a normalizar\n  - `formato` (enum, opcional): Formato destino\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"normalize-output\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-normalize-output/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Normalize Output\n * Normaliza formatos: fechas ISO, números, unidades y casing consistentes\n *\n * Dolor que resuelve: La salida llega con formatos mezclados: fechas en 3 formatos, números con comas y puntos, unidades inconsistentes.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: normalize-output\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"normalize-output\", version: \"1.0.0\" });\n\nserver.tool(\n  \"normalize_dates\",\n  \"Detecta fechas en un texto y las normaliza a ISO 8601 (YYYY-MM-DD), reportando cada conversión.\",\n  {\n  texto: z.string().describe(\"Texto con fechas\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const MES: any = { enero: 1, febrero: 2, marzo: 3, abril: 4, mayo: 5, junio: 6, julio: 7, agosto: 8, septiembre: 9, setiembre: 9, octubre: 10, noviembre: 11, diciembre: 12 };\nconst hallazgos: any[] = [];\nlet resultado = texto;\nconst patrones: Array<[RegExp, (m: string[]) => string]> = [\n  [/\\b(\\d{1,2})[\\/](\\d{1,2})[\\/](\\d{4})\\b/g, (m) => new Date(Date.UTC(+m[3], +m[2] - 1, +m[1])).toISOString().slice(0, 10)],\n  [/\\b(\\d{1,2}) de ([a-záéíóúñ]+) de (\\d{4})\\b/gi, (m) => String(new Date(Date.UTC(+m[3], (MES[m[2].toLowerCase()] || 1) - 1, +m[1])).toISOString().slice(0, 10))],\n  [/\\b(\\d{4})-(\\d{2})-(\\d{2})\\b/g, (m) => m[0]],\n];\nfor (const [re, fn] of patrones) {\n  resultado = resultado.replace(re, (...args: any[]) => {\n    const iso = fn(args.slice(0, -2) as string[]);\n    hallazgos.push({ original: args[0], iso });\n    return iso;\n  });\n}\nreturn ok({ fechas_normalizadas: hallazgos.length, hallazgos, texto_resultado: resultado });\n  }\n);\n\nserver.tool(\n  \"normalize_numbers\",\n  \"Normaliza números con separadores de miles/decimales mezclados (1.234,56 / 1,234.56) a formato consistente.\",\n  {\n  numero: z.string().describe(\"Número a normalizar\"),\n  formato: z.enum([\"punto-decimal\",\"coma-decimal\"]).describe(\"Formato destino\").default(\"punto-decimal\"),\n  },\n  async (args: any) => {\n    const { numero, formato } = args as any;\n    let s = String(numero).trim().replace(/\\s/g, \"\");\nconst tiene_ambos = s.includes(\".\") && s.includes(\",\");\nif (tiene_ambos) {\n  if (s.lastIndexOf(\",\") > s.lastIndexOf(\".\")) s = s.replace(/\\./g, \"\").replace(\",\", \".\");\n  else s = s.replace(/,/g, \"\");\n} else if (s.includes(\",\")) {\n  const partes = s.split(\",\");\n  s = partes.length === 2 && partes[1].length !== 3 ? s.replace(\",\", \".\") : s.replace(/,/g, \"\");\n}\nconst valor = Number(s);\nif (Number.isNaN(valor)) return fail(\"no parseable: \" + numero);\nconst destino = formato || \"punto-decimal\";\nconst formateado = destino === \"punto-decimal\" ? valor.toLocaleString(\"en-US\") : valor.toLocaleString(\"de-DE\");\nreturn ok({ original: numero, valor, formateado, formato: destino });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor normalize-output está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"normalize-output\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[normalize-output] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "normalize-output"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

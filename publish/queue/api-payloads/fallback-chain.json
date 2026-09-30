@@ -1,0 +1,63 @@
+{
+ "name": "mcp-fallback-chain",
+ "version": "1.0.0",
+ "description": "Cadenas de respaldo: si A falla prueba B, luego C — con registro Dolor que resuelve: Cuando la tool primaria falla no hay plan B estructurado: el agente improvisa en vez de seguir una cadena de fallbacks. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "DevOps",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "resilience",
+  "circuit-breaker",
+  "retry"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only fallback-chain",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-fallback-chain",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "build_chain",
+   "next_fallback",
+   "report",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only fallback-chain",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-fallback-chain\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-fallback-chain/dist/index.js\"]}}}. Tools disponibles: build_chain, next_fallback, report y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/fallback-chain/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-fallback-chain (build_chain, next_fallback, report). Cadenas de respaldo: si A falla prueba B, luego C — con registro. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/fallback-chain/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/fallback-chain\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Fallback Chain — Cadenas de respaldo: si A falla prueba B, luego C — con registro (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-fallback-chain\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"resiliencia-de-tools\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Fallback Chain\n\n> Cadenas de respaldo: si A falla prueba B, luego C — con registro\n\n**Categoría:** Resiliencia de Tools · **ID:** `mcp-fallback-chain`\n\n**Dolor de agente que resuelve:** Cuando la tool primaria falla no hay plan B estructurado: el agente improvisa en vez de seguir una cadena de fallbacks.\n\n> Estado persistente en `~/.mcp-suite/fallback-chain/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `build_chain`\nDefine una cadena de fallback para una capacidad: lista ordenada de herramientas/métodos alternativos.\n\n**Parámetros:**\n  - `capacidad` (string, requerido): Capacidad (ej: busqueda-web)\n  - `herramientas` (array, requerido): Tools alternativas en orden de preferencia\n\n### `next_fallback`\nDevuelve el siguiente paso a probar en la cadena dado el que falló (y registra el fallo para estadística).\n\n**Parámetros:**\n  - `capacidad` (string, requerido): Capacidad\n  - `fallo_en` (string, requerido): Herramienta que falló\n\n### `report`\nReporte de fallos por capacidad: qué eslabones fallan más (para reordenar cadenas).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"fallback-chain\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-fallback-chain/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Fallback Chain\n * Cadenas de respaldo: si A falla prueba B, luego C — con registro\n *\n * Dolor que resuelve: Cuando la tool primaria falla no hay plan B estructurado: el agente improvisa en vez de seguir una cadena de fallbacks.\n * Categoría: Resiliencia de Tools | Generado por mcp-suite | id: fallback-chain\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/fallback-chain/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"fallback-chain\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"fallback-chain\", version: \"1.0.0\" });\n\nserver.tool(\n  \"build_chain\",\n  \"Define una cadena de fallback para una capacidad: lista ordenada de herramientas/métodos alternativos.\",\n  {\n  capacidad: z.string().describe(\"Capacidad (ej: busqueda-web)\"),\n  herramientas: z.array(z.any()).describe(\"Tools alternativas en orden de preferencia\"),\n  },\n  async (args: any) => {\n    const { capacidad, herramientas } = args as any;\n    const st = store.load();\nst.cadenas = st.cadenas || {};\nst.cadenas[capacidad] = { pasos: Array.isArray(herramientas) ? herramientas : [], creado: new Date().toISOString() };\nstore.save(st);\nreturn ok({ capacidad, cadena: st.cadenas[capacidad].pasos });\n  }\n);\n\nserver.tool(\n  \"next_fallback\",\n  \"Devuelve el siguiente paso a probar en la cadena dado el que falló (y registra el fallo para estadística).\",\n  {\n  capacidad: z.string().describe(\"Capacidad\"),\n  fallo_en: z.string().describe(\"Herramienta que falló\"),\n  },\n  async (args: any) => {\n    const { capacidad, fallo_en } = args as any;\n    const st = store.load();\nconst cadena = st.cadenas?.[capacidad];\nif (!cadena) return fail(\"cadena no definida: build_chain primero\");\nconst idx = cadena.pasos.indexOf(fallo_en);\nconst siguiente = idx >= 0 && idx < cadena.pasos.length - 1 ? cadena.pasos[idx + 1] : null;\nst.fallos = st.fallos || [];\nst.fallos.push({ capacidad, herramienta: fallo_en, ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ siguiente, agotada: siguiente === null, cadena_completa: cadena.pasos });\n  }\n);\n\nserver.tool(\n  \"report\",\n  \"Reporte de fallos por capacidad: qué eslabones fallan más (para reordenar cadenas).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst conteo: any = {};\nfor (const f of st.fallos || []) { const k = f.capacidad + \"::\" + f.herramienta; conteo[k] = (conteo[k] || 0) + 1; }\nreturn ok({ fallos_por_eslabon: __ents(conteo).sort((a: any, b: any) => b[1] - a[1]).map(([k, n]) => ({ eslabon: k, fallos: n })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor fallback-chain está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"fallback-chain\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[fallback-chain] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

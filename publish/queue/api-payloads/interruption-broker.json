@@ -1,0 +1,64 @@
+{
+ "name": "mcp-interruption-broker",
+ "version": "1.0.0",
+ "description": "Gestiona interrupciones del humano: pausa limpia, preserva estado y replanifica al reanudar Dolor que resuelve: El humano interrumpe al agente a mitad de tarea y el agente o ignora la interrupción o pierde todo el estado: no hay protocolo de pausa que preserve qué estaba haciendo y por dónde iba. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Productivity",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "human-approval",
+  "escalation",
+  "consent"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only interruption-broker",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-interruption-broker",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "interrupt",
+   "resume",
+   "pending_interruptions",
+   "interruption_stats",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only interruption-broker",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-interruption-broker\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-interruption-broker/dist/index.js\"]}}}. Tools disponibles: interrupt, resume, pending_interruptions, interruption_stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/interruption-broker/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-interruption-broker (interrupt, resume, pending_interruptions, interruption_stats). Gestiona interrupciones del humano: pausa limpia, preserva estado y replanifica al reanudar. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/interruption-broker/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/interruption-broker\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Interruption Broker — Gestiona interrupciones del humano: pausa limpia, preserva estado y replanifica al reanudar (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-interruption-broker\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"humano-en-el-bucle\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Interruption Broker\n\n> Gestiona interrupciones del humano: pausa limpia, preserva estado y replanifica al reanudar\n\n**Categoría:** Humano en el Bucle · **ID:** `mcp-interruption-broker`\n\n**Dolor de agente que resuelve:** El humano interrumpe al agente a mitad de tarea y el agente o ignora la interrupción o pierde todo el estado: no hay protocolo de pausa que preserve qué estaba haciendo y por dónde iba.\n\n> Estado persistente en `~/.mcp-suite/interruption-broker/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `interrupt`\nEl humano interrumpe: graba snapshot del estado actual del agente y prioriza el nuevo pedido.\n\n**Parámetros:**\n  - `razon` (string, requerido): Por qué interrumpe el humano\n  - `tarea_en_curso` (string, requerido): Qué estaba haciendo el agente\n  - `paso_actual` (string, requerido): Por dónde iba exactamente\n  - `siguiente_accion_prevista` (string, requerido): Qué iba a hacer a continuación\n  - `nuevo_pedido` (string, opcional): Lo que el humano quiere ahora\n\n### `resume`\nReanuda tras la interrupción: devuelve el snapshot y sugiere replanificación si el contexto cambió.\n\n**Parámetros:**\n  - `interrupcion_n` (number, opcional): Número de la interrupción a reanudar\n  - `contexto_cambio` (string, opcional): Qué cambió durante la interrupción (si algo)\n\n### `pending_interruptions`\nLista interrupciones activas (sin reanudar) con su antigüedad.\n\n### `interruption_stats`\nEstadísticas: frecuencia de interrupciones por sesión y motivo dominante.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"interruption-broker\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-interruption-broker/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/interruption-broker/. Interrupciones con snapshot de estado (tarea, paso, siguiente acción); al reanudar devuelve el contexto + replanificación sugerida si la interrupción cambió algo.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Interruption Broker\n * Gestiona interrupciones del humano: pausa limpia, preserva estado y replanifica al reanudar\n *\n * Dolor que resuelve: El humano interrumpe al agente a mitad de tarea y el agente o ignora la interrupción o pierde todo el estado: no hay protocolo de pausa que preserve qué estaba haciendo y por dónde iba.\n * Categoría: Humano en el Bucle | Generado por mcp-suite | id: interruption-broker\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/interruption-broker/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"interruption-broker\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"interruption-broker\", version: \"1.0.0\" });\n\nserver.tool(\n  \"interrupt\",\n  \"El humano interrumpe: graba snapshot del estado actual del agente y prioriza el nuevo pedido.\",\n  {\n  razon: z.string().describe(\"Por qué interrumpe el humano\"),\n  tarea_en_curso: z.string().describe(\"Qué estaba haciendo el agente\"),\n  paso_actual: z.string().describe(\"Por dónde iba exactamente\"),\n  siguiente_accion_prevista: z.string().describe(\"Qué iba a hacer a continuación\"),\n  nuevo_pedido: z.string().describe(\"Lo que el humano quiere ahora\").optional(),\n  },\n  async (args: any) => {\n    const { razon, tarea_en_curso, paso_actual, siguiente_accion_prevista, nuevo_pedido } = args as any;\n    const st = store.load();\nst.interrupciones = st.interrupciones || [];\nconst int = { n: st.interrupciones.length + 1, razon, snapshot: { tarea_en_curso, paso_actual, siguiente_accion_prevista }, nuevo_pedido: nuevo_pedido || null, estado: \"activa\", ts: new Date().toISOString(), reanudada: null };\nst.interrupciones.push(int);\nstore.save(st);\nreturn ok({\n  interrupcion_n: int.n,\n  snapshot_preservado: true,\n  prioridad: nuevo_pedido ? \"atender el nuevo pedido PERO no descartes la tarea en curso sin decisión explícita\" : \"aclarar qué quiere el humano antes de continuar\",\n});\n  }\n);\n\nserver.tool(\n  \"resume\",\n  \"Reanuda tras la interrupción: devuelve el snapshot y sugiere replanificación si el contexto cambió.\",\n  {\n  interrupcion_n: z.number().describe(\"Número de la interrupción a reanudar\").optional(),\n  contexto_cambio: z.string().describe(\"Qué cambió durante la interrupción (si algo)\").optional(),\n  },\n  async (args: any) => {\n    const { interrupcion_n, contexto_cambio } = args as any;\n    const st = store.load();\nconst ints = st.interrupciones || [];\nconst int = interrupcion_n ? ints.find(i => i.n === interrupcion_n && i.estado === \"activa\") : [...ints].reverse().find(i => i.estado === \"activa\");\nif (!int) return fail(\"no hay interrupción activa\");\nint.estado = \"reanudada\";\nint.reanudada = new Date().toISOString();\nstore.save(st);\nconst replanificar = !!contexto_cambio || !!int.nuevo_pedido;\nreturn ok({\n  interrupcion: int.n,\n  snapshot_recuperado: int.snapshot,\n  pedido_pendiente_del_humano: int.nuevo_pedido,\n  minutos_pausado: Number(((new Date(int.reanudada).getTime() - new Date(int.ts).getTime()) / 60000).toFixed(1)),\n  plan: replanificar\n    ? [\"1. integra el cambio: \" + (contexto_cambio || int.nuevo_pedido), \"2. decide explícitamente si la tarea en curso sigue siendo válida (scope-guard)\", \"3. recalcula pasos restantes antes de ejecutar\"]\n    : [\"1. re-valida que el paso actual sigue siendo correcto\", \"2. continúa desde: \" + int.snapshot.siguiente_accion_prevista],\n});\n  }\n);\n\nserver.tool(\n  \"pending_interruptions\",\n  \"Lista interrupciones activas (sin reanudar) con su antigüedad.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst activas = (st.interrupciones || []).filter(i => i.estado === \"activa\");\nreturn ok({\n  activas: activas.length,\n  pendientes: activas.map(i => ({ n: i.n, razon: i.razon.slice(0, 70), tarea_congelada: i.snapshot.tarea_en_curso.slice(0, 60), minutos: Number(((Date.now() - new Date(i.ts).getTime()) / 60000).toFixed(0)) })),\n  aviso: activas.length > 2 ? \"3+ tareas congeladas: el humano está frenando trabajo: pregunta si priorizar o cancelar\" : null,\n});\n  }\n);\n\nserver.tool(\n  \"interruption_stats\",\n  \"Estadísticas: frecuencia de interrupciones por sesión y motivo dominante.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ints = st.interrupciones || [];\nif (!ints.length) return ok({ interrupciones: 0 });\nconst motivos = {};\nfor (const i of ints) {\n  const k = /error|mal|fallo/i.test(i.razon) ? \"corrección de rumbo\" : /prioridad|urgente|antes/i.test(i.razon) ? \"cambio de prioridad\" : /pregunta|duda|aclar/i.test(i.razon) ? \"consulta\" : /idea|mejor|cambio de plan/i.test(i.razon) ? \"idea nueva\" : \"otro\";\n  motivos[k] = (motivos[k] || 0) + 1;\n}\nreturn ok({\n  interrupciones: ints.length,\n  reanudadas: ints.filter(i => i.estado === \"reanudada\").length,\n  abandonadas: ints.filter(i => i.estado !== \"activa\" && i.estado !== \"reanudada\").length,\n  por_motivo: motivos,\n  lectura: __ents(motivos).sort((a, b) => b[1] - a[1])[0][0] + \" domina: si es corrección de rumbo, el agente no entendió el objetivo inicial (spec-clarifier)\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor interruption-broker está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"interruption-broker\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[interruption-broker] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

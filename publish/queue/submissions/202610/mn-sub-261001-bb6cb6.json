@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-bb6cb6",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-context-rot-detector",
+  "version": "1.0.0",
+  "description": "Detecta información podrida en el contexto: datos viejos, contradicciones y duplicados Dolor que resuelve: El contexto se pudre: datos desactualizados y contradictorios acumulados degradan la calidad de las respuestas (context rot). Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "memory",
+   "context",
+   "retrieval"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only context-rot-detector",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-context-rot-detector",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "detect_stale",
+    "detect_contradictions",
+    "dedupe_context",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only context-rot-detector",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-context-rot-detector\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-context-rot-detector/dist/index.js\"]}}}. Tools disponibles: detect_stale, detect_contradictions, dedupe_context y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/context-rot-detector/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-context-rot-detector (detect_stale, detect_contradictions, dedupe_context). Detecta información podrida en el contexto: datos viejos, contradicciones y duplicados. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/context-rot-detector/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/context-rot-detector\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Context Rot Detector — Detecta información podrida en el contexto: datos viejos, contradicciones y duplicados (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-context-rot-detector\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"memoria-y-contexto\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Context Rot Detector\n\n> Detecta información podrida en el contexto: datos viejos, contradicciones y duplicados\n\n**Categoría:** Memoria y Contexto · **ID:** `mcp-context-rot-detector`\n\n**Dolor de agente que resuelve:** El contexto se pudre: datos desactualizados y contradictorios acumulados degradan la calidad de las respuestas (context rot).\n\n## Tools (4 incl. health_check)\n\n### `detect_stale`\nDetecta entradas viejas en una lista de items {texto, ts}: flaggea las que superan la frescura máxima por tipo de dato.\n\n**Parámetros:**\n  - `items` (array, requerido): Items [{texto, ts ISO}]\n  - `max_horas` (number, opcional): Frescura máxima en horas\n\n### `detect_contradictions`\nDetecta contradicciones simples entre afirmaciones: números distintos sobre el mismo sujeto o negaciones opuestas.\n\n**Parámetros:**\n  - `afirmaciones` (array, requerido): Lista de afirmaciones (strings)\n\n### `dedupe_context`\nElimina entradas duplicadas/casi-duplicadas de una lista de textos (similitud Jaccard sobre palabras).\n\n**Parámetros:**\n  - `textos` (array, requerido): Lista de textos\n  - `umbral` (number, opcional): Similitud umbral (0-1)\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"context-rot-detector\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-context-rot-detector/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Context Rot Detector\n * Detecta información podrida en el contexto: datos viejos, contradicciones y duplicados\n *\n * Dolor que resuelve: El contexto se pudre: datos desactualizados y contradictorios acumulados degradan la calidad de las respuestas (context rot).\n * Categoría: Memoria y Contexto | Generado por mcp-suite | id: context-rot-detector\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"context-rot-detector\", version: \"1.0.0\" });\n\nserver.tool(\n  \"detect_stale\",\n  \"Detecta entradas viejas en una lista de items {texto, ts}: flaggea las que superan la frescura máxima por tipo de dato.\",\n  {\n  items: z.array(z.any()).describe(\"Items [{texto, ts ISO}]\"),\n  max_horas: z.number().describe(\"Frescura máxima en horas\").default(72),\n  },\n  async (args: any) => {\n    const { items, max_horas } = args as any;\n    const list = Array.isArray(items) ? items : [];\nconst limite = Date.now() - (max_horas ?? 72) * 3600000;\nconst analisis = list.map((it: any) => {\n  const ts = new Date(it.ts || 0).getTime();\n  const edad_h = Math.round((Date.now() - ts) / 3600000);\n  return { texto: String(it.texto || \"\").slice(0, 80), ts: it.ts, edad_horas: Number.isFinite(edad_h) && edad_h >= 0 ? edad_h : null, podrido: ts < limite };\n});\nconst podridos = analisis.filter((a) => a.podrido).length;\nreturn ok({ total: list.length, podridos, frescura_max_horas: max_horas ?? 72, analisis, recomendacion: podridos > list.length / 3 ? \"contexto gravemente podrido: reconstruir\" : podridos > 0 ? \"purgar \" + podridos + \" entradas viejas\" : \"fresco\" });\n  }\n);\n\nserver.tool(\n  \"detect_contradictions\",\n  \"Detecta contradicciones simples entre afirmaciones: números distintos sobre el mismo sujeto o negaciones opuestas.\",\n  {\n  afirmaciones: z.array(z.any()).describe(\"Lista de afirmaciones (strings)\"),\n  },\n  async (args: any) => {\n    const { afirmaciones } = args as any;\n    const af = (Array.isArray(afirmaciones) ? afirmaciones : []).map(String);\nconst pares: any[] = [];\nfor (let i = 0; i < af.length; i++) {\n  for (let j = i + 1; j < af.length; j++) {\n    const a = af[i].toLowerCase(), b = af[j].toLowerCase();\n    const numA = a.match(/\\d+(\\.\\d+)?/g) || [], numB = b.match(/\\d+(\\.\\d+)?/g) || [];\n    const mismo_sujeto = a.split(/\\s+/).some((w) => w.length > 5 && b.includes(w));\n    const num_conflict = mismo_sujeto && numA.length && numB.length && numA.join() !== numB.join();\n    const negacion = (a.includes(\" no \") && !b.includes(\" no \") || b.includes(\" no \") && !a.includes(\" no \")) && mismo_sujeto;\n    if (num_conflict || negacion) pares.push({ a: af[i].slice(0, 120), b: af[j].slice(0, 120), tipo: num_conflict ? \"cifras-discrepantes\" : \"negacion-opuesta\" });\n  }\n}\nreturn ok({ total_afirmaciones: af.length, contradicciones: pares, limpio: pares.length === 0 });\n  }\n);\n\nserver.tool(\n  \"dedupe_context\",\n  \"Elimina entradas duplicadas/casi-duplicadas de una lista de textos (similitud Jaccard sobre palabras).\",\n  {\n  textos: z.array(z.any()).describe(\"Lista de textos\"),\n  umbral: z.number().describe(\"Similitud umbral (0-1)\").default(0.8),\n  },\n  async (args: any) => {\n    const { textos, umbral } = args as any;\n    const list = (Array.isArray(textos) ? textos : []).map(String);\nconst kept: string[] = [];\nconst dupes: string[] = [];\nconst jaccard = (a: string, b: string) => {\n  const sa = new Set(a.toLowerCase().split(/\\s+/).filter((w) => w.length > 3));\n  const sb = new Set(b.toLowerCase().split(/\\s+/).filter((w) => w.length > 3));\n  const inter = [...sa].filter((w) => sb.has(w)).length;\n  return inter / (sa.size + sb.size - inter || 1);\n};\nfor (const t of list) {\n  const dup = kept.some((k) => jaccard(k, t) >= (umbral ?? 0.8));\n  if (dup) dupes.push(t); else kept.push(t);\n}\nreturn ok({ originales: list.length, conservados: kept.length, duplicados: dupes.length, reduccion: Math.round((1 - kept.length / (list.length || 1)) * 100) + \"%\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor context-rot-detector está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"context-rot-detector\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[context-rot-detector] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "context-rot-detector"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

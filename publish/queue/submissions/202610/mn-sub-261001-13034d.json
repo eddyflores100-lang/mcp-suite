@@ -1,0 +1,88 @@
+{
+ "id": "mn-sub-261001-13034d",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-pareto-tradeoff",
+  "version": "1.0.0",
+  "description": "Frontera de Pareto para decisiones multi-objetivo: qué opciones son dominadas y cuál es el punto de equilibrio Dolor que resuelve: El agente elige 'la mejor opción' cuando había 3 incomparables: sin calcular la frontera de Pareto no distingue las opciones dominadas de las trade-off reales, y recomienda la que más le gusta narrativamente. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "structured-reasoning",
+   "argumentation",
+   "consistency"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only pareto-tradeoff",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-pareto-tradeoff",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "add_option",
+    "compute_frontier",
+    "knee_point",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only pareto-tradeoff",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-pareto-tradeoff\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-pareto-tradeoff/dist/index.js\"]}}}. Tools disponibles: add_option, compute_frontier, knee_point y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/pareto-tradeoff/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-pareto-tradeoff (add_option, compute_frontier, knee_point). Frontera de Pareto para decisiones multi-objetivo: qué opciones son dominadas y cuál es el punto de equilibrio. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/pareto-tradeoff/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/pareto-tradeoff\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Pareto Tradeoff — Frontera de Pareto para decisiones multi-objetivo: qué opciones son dominadas y cuál es el punto de equilibrio (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-pareto-tradeoff\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"razonamiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Pareto Tradeoff\n\n> Frontera de Pareto para decisiones multi-objetivo: qué opciones son dominadas y cuál es el punto de equilibrio\n\n**Categoría:** Razonamiento · **ID:** `mcp-pareto-tradeoff`\n\n**Dolor de agente que resuelve:** El agente elige 'la mejor opción' cuando había 3 incomparables: sin calcular la frontera de Pareto no distingue las opciones dominadas de las trade-off reales, y recomienda la que más le gusta narrativamente.\n\n> Estado persistente en `~/.mcp-suite/pareto-tradeoff/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `add_option`\nAñade una opción al problema de decisión con sus valores en cada objetivo.\n\n**Parámetros:**\n  - `decision` (string, requerido): Nombre de la decisión\n  - `opcion` (string, requerido): Nombre de la opción\n  - `objetivos` (any, requerido): Valores {objetivo: valor numérico}\n  - `direccion` (any, opcional): Por objetivo: 'max' o 'min' {objetivo: 'max'} (default max)\n\n### `compute_frontier`\nCalcula la frontera de Pareto: opciones dominadas fuera, incomparables dentro, con ranking por cobertura.\n\n**Parámetros:**\n  - `decision` (string, requerido): Decisión\n\n### `knee_point`\nEncuentra el punto rodilla de la frontera: la opción con mejor equilibrio sin normalizar al respecto.\n\n**Parámetros:**\n  - `decision` (string, requerido): Decisión\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"pareto-tradeoff\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-pareto-tradeoff/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/pareto-tradeoff/. Opciones con vectores de objetivos (todos maximizar o minimizar normalizados); cálculo de dominancia, frontera de Pareto y punto rodilla (knee) por distancia normalizada.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Pareto Tradeoff\n * Frontera de Pareto para decisiones multi-objetivo: qué opciones son dominadas y cuál es el punto de equilibrio\n *\n * Dolor que resuelve: El agente elige 'la mejor opción' cuando había 3 incomparables: sin calcular la frontera de Pareto no distingue las opciones dominadas de las trade-off reales, y recomienda la que más le gusta narrativamente.\n * Categoría: Razonamiento | Generado por mcp-suite | id: pareto-tradeoff\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/pareto-tradeoff/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"pareto-tradeoff\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"pareto-tradeoff\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_option\",\n  \"Añade una opción al problema de decisión con sus valores en cada objetivo.\",\n  {\n  decision: z.string().describe(\"Nombre de la decisión\"),\n  opcion: z.string().describe(\"Nombre de la opción\"),\n  objetivos: z.any().describe(\"Valores {objetivo: valor numérico}\"),\n  direccion: z.any().describe(\"Por objetivo: 'max' o 'min' {objetivo: 'max'} (default max)\").optional(),\n  },\n  async (args: any) => {\n    const { decision, opcion, objetivos, direccion } = args as any;\n    const st = store.load();\nst.decisiones = st.decisiones || {};\nst.decisiones[decision] = st.decisiones[decision] || { decision, opciones: {}, direccion: {} };\nconst d = st.decisiones[decision];\nif (d.opciones[opcion]) return fail(\"opción ya registrada: \" + opcion);\nconst obj = objetivos || {};\nconst claves = Object.keys(obj).filter(k => typeof obj[k] === \"number\" && isFinite(obj[k]));\nif (!claves.length) return fail(\"sin objetivos numéricos\");\nclaves.forEach(k => { if (!d.direccion[k]) d.direccion[k] = (direccion && direccion[k]) || \"max\"; });\nd.opciones[opcion] = { opcion, objetivos: obj };\nstore.save(st);\nreturn ok({ decision, opcion, objetivos: claves.map(k => k + \" (\" + d.direccion[k] + \")\"), opciones_totales: Object.keys(d.opciones).length, siguiente: \"con 2+ opciones, ejecuta compute_frontier\" });\n  }\n);\n\nserver.tool(\n  \"compute_frontier\",\n  \"Calcula la frontera de Pareto: opciones dominadas fuera, incomparables dentro, con ranking por cobertura.\",\n  {\n  decision: z.string().describe(\"Decisión\"),\n  },\n  async (args: any) => {\n    const { decision } = args as any;\n    const st = store.load();\nconst d = (st.decisiones || {})[decision];\nif (!d) return fail(\"decisión no encontrada\");\nconst nombres = Object.keys(d.opciones);\nif (nombres.length < 2) return fail(\"necesitas al menos 2 opciones\");\nconst objetivos = [...new Set(nombres.flatMap(n => Object.keys(d.opciones[n].objetivos)))];\nif (!objetivos.length) return fail(\"sin objetivos\");\nconst valor = (n, o) => {\n  const v = d.opciones[n].objetivos[o];\n  if (v === undefined) return null;\n  return d.direccion[o] === \"min\" ? -v : v;\n};\nconst domina = (a, b) => objetivos.every(o => { const va = valor(a, o), vb = valor(b, o); return va === null || vb === null ? true : va >= vb; }) && objetivos.some(o => { const va = valor(a, o), vb = valor(b, o); return va !== null && vb !== null && va > vb; });\nconst frontera = nombres.filter(n => !nombres.some(m => m !== n && domina(m, n)));\nconst dominadas = nombres.filter(n => !frontera.includes(n)).map(n => {\n  const dominantes = nombres.filter(m => m !== n && domina(m, n));\n  return { opcion: n, dominada_por: dominantes, objetivo_perdido: dominantes.length ? \"sin ganar en nada a \" + dominantes[0] : null };\n});\nconst cobertura = frontera.map(n => ({ opcion: n, objetivos_alcanzados: objetivos.filter(o => valor(n, o) !== null && valor(n, o) >= Math.max(...nombres.map(m => valor(m, o)).filter(v => v !== null))).length, deficit_maximo: Number(Math.max(...objetivos.map(o => { const mejor = Math.max(...nombres.map(m => valor(m, o)).filter(v => v !== null)); const propio = valor(n, o); return propio === null || mejor === null ? 0 : Math.abs(mejor - propio); }))) }));\nreturn ok({ decision, objetivos, direccion: d.direccion, opciones: nombres.length, frontera_de_pareto: frontera, opciones_dominadas: dominadas, trade_off_real: frontera.length > 1 ? \"hay \" + frontera.length + \" opciones INCOMPARABLES: no existe 'la mejor' sin ponderar prioridades: usa knee_point o decide tus pesos\" : \"una sola opción domina: es la ganadora clara\", detalle_frontera: cobertura });\n  }\n);\n\nserver.tool(\n  \"knee_point\",\n  \"Encuentra el punto rodilla de la frontera: la opción con mejor equilibrio sin normalizar al respecto.\",\n  {\n  decision: z.string().describe(\"Decisión\"),\n  },\n  async (args: any) => {\n    const { decision } = args as any;\n    const st = store.load();\nconst d = (st.decisiones || {})[decision];\nif (!d) return fail(\"decisión no encontrada\");\nconst nombres = Object.keys(d.opciones);\nif (nombres.length < 2) return fail(\"necesitas 2+ opciones\");\nconst objetivos = [...new Set(nombres.flatMap(n => Object.keys(d.opciones[n].objetivos)))];\nif (objetivos.length < 2) return fail(\"el punto rodilla exige al menos 2 objetivos\");\nconst raw = (n, o) => d.opciones[n].objetivos[o];\nconst vals = objetivos.map(o => nombres.map(n => raw(n, o)).filter(v => typeof v === \"number\" && isFinite(v)));\nconst min = objetivos.map((o, i) => Math.min(...vals[i]));\nconst span = objetivos.map((o, i) => Math.max(...vals[i]) - min[i] || 1);\nconst norm = (n, o) => {\n  const i = objetivos.indexOf(o);\n  const v = raw(n, o);\n  if (typeof v !== \"number\" || !isFinite(v)) return null;\n  const x = (v - min[i]) / span[i];\n  return d.direccion[o] === \"min\" ? 1 - x : x;\n};\nconst puntajes = nombres.map(n => {\n  const v = objetivos.map(o => norm(n, o));\n  const completos = v.every(x => x !== null);\n  const media = v.filter(x => x !== null).reduce((a, b) => a + b, 0) / v.filter(x => x !== null).length;\n  const minimo = Math.min(...v.filter(x => x !== null));\n  return { opcion: n, media_normalizada: Number(media.toFixed(3)), peor_objetivo: Number(minimo.toFixed(3)), datos_completos: completos };\n});\nconst ideal = { media: 1, peor: 1 };\nconst distancias = puntajes.map(p => ({ ...p, distancia_al_ideal: Number(Math.sqrt(Math.pow(ideal.media - p.media_normalizada, 2) + Math.pow(ideal.peor - p.peor_objetivo, 2)).toFixed(3)) })).sort((a, b) => a.distancia_al_ideal - b.distancia_al_ideal);\nreturn ok({ decision, objetivos, ideal: \"media 1.0 y peor-objetivo 1.0 (imposible si hay trade-off)\", candidatos: distancias, knee: distancias[0].opcion, razon: \"el punto rodilla pierde lo MENOS posible en su peor objetivo manteniendo la media más alta: el equilibrio natural\", alternativa_si_ponderas: \"si un objetivo te importa el doble, dime los pesos y recalculo\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor pareto-tradeoff está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"pareto-tradeoff\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[pareto-tradeoff] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "pareto-tradeoff"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,63 @@
+{
+ "name": "mcp-marketnow-install-planner",
+ "version": "1.0.0",
+ "description": "Planifica instalaciones de skills MCP: comandos, orden, riesgos y validación previa Dolor que resuelve: Instalar skills MCP a ciegas rompe entornos: el agente necesita un plan con comandos exactos, riesgo por skill y orden de instalación. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "marketnow",
+  "skill-marketplace",
+  "trust-layer"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-install-planner",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-install-planner",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "plan_install",
+   "validate_install_command",
+   "prerequisitos",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-install-planner",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-marketnow-install-planner\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-marketnow-install-planner/dist/index.js\"]}}}. Tools disponibles: plan_install, validate_install_command, prerequisitos y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/marketnow-install-planner/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-marketnow-install-planner (plan_install, validate_install_command, prerequisitos). Planifica instalaciones de skills MCP: comandos, orden, riesgos y validación previa. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/marketnow-install-planner/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/marketnow-install-planner\",\n  \"version\": \"1.0.0\",\n  \"description\": \"MarketNow · Install Planner — Planifica instalaciones de skills MCP: comandos, orden, riesgos y validación previa (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-marketnow-install-planner\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# MarketNow · Install Planner\n\n> Planifica instalaciones de skills MCP: comandos, orden, riesgos y validación previa\n\n**Categoría:** MarketNow · **ID:** `mcp-marketnow-install-planner`\n\n**Dolor de agente que resuelve:** Instalar skills MCP a ciegas rompe entornos: el agente necesita un plan con comandos exactos, riesgo por skill y orden de instalación.\n\n> Este servidor incluye datos embebidos en `data/` (no requiere conexión para operar).\n\n## Tools (4 incl. health_check)\n\n### `plan_install`\nDada una lista de skills (ids o nombres del snapshot), genera un plan: comando de instalación exacto, tier de riesgo, dependencias de orden y checklist previo.\n\n**Parámetros:**\n  - `skills` (array, requerido): Lista de ids o nombres de skills a instalar\n\n### `validate_install_command`\nValida un comando de instalación (npx/npm install/pip): detecta flags peligrosos, versiones no fijadas, curl|sh y uso de sudo.\n\n**Parámetros:**\n  - `comando` (string, requerido): Comando a validar\n\n### `prerequisitos`\nChecklist de prerrequisitos antes de instalar skills MCP: runtime, config del cliente, variables de entorno y espacio.\n\n**Parámetros:**\n  - `cliente` (enum, opcional): Cliente MCP objetivo\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"marketnow-install-planner\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-marketnow-install-planner/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: MarketNow · Install Planner\n * Planifica instalaciones de skills MCP: comandos, orden, riesgos y validación previa\n *\n * Dolor que resuelve: Instalar skills MCP a ciegas rompe entornos: el agente necesita un plan con comandos exactos, riesgo por skill y orden de instalación.\n * Categoría: MarketNow | Generado por mcp-suite | id: marketnow-install-planner\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, existsSync } from \"node:fs\";\nimport { fileURLToPath } from \"node:url\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— datos embebidos (carpeta data/) ———\nfunction loadData(name: string): any {\n  const p = fileURLToPath(new URL(\"../data/\" + name, import.meta.url));\n  return JSON.parse(readFileSync(p, \"utf8\"));\n}\n\nconst server = new McpServer({ name: \"marketnow-install-planner\", version: \"1.0.0\" });\n\nserver.tool(\n  \"plan_install\",\n  \"Dada una lista de skills (ids o nombres del snapshot), genera un plan: comando de instalación exacto, tier de riesgo, dependencias de orden y checklist previo.\",\n  {\n  skills: z.array(z.any()).describe(\"Lista de ids o nombres de skills a instalar\"),\n  },\n  async (args: any) => {\n    const { skills } = args as any;\n    const snap = loadData(\"skills-snapshot.json\");\nconst plan = [];\nfor (const raw of skills) {\n  const key = String(raw).toLowerCase();\n  const s = snap.skills.find(x => (x.id || \"\").toLowerCase() === key || (x.name || \"\").toLowerCase() === key || (x.slug || \"\").toLowerCase() === key);\n  if (!s) { plan.push({ skill: raw, encontrado: false }); continue; }\n  const sc = s.sentinel_score ?? 0;\n  plan.push({ skill: s.name, encontrado: true, install: s.install, score: sc, tier: sc >= 8 ? \"safe\" : sc >= 5 ? \"caution\" : sc >= 3 ? \"risky\" : \"dangerous\", accion: sc >= 8 ? \"instalar directo\" : \"revisar README y permisos antes\" });\n}\nconst peligros = plan.filter(p => p.tier === \"risky\" || p.tier === \"dangerous\");\nreturn ok({ plan, orden: plan.map(p => p.install).filter(Boolean), alertas: peligros.length ? peligros.length + \" skills requieren revisión manual\" : \"ninguna\" });\n  }\n);\n\nserver.tool(\n  \"validate_install_command\",\n  \"Valida un comando de instalación (npx/npm install/pip): detecta flags peligrosos, versiones no fijadas, curl|sh y uso de sudo.\",\n  {\n  comando: z.string().describe(\"Comando a validar\"),\n  },\n  async (args: any) => {\n    const { comando } = args as any;\n    const c = comando.toLowerCase();\nconst hallazgos = [];\nif (c.includes(\"curl\") && c.includes(\"|\") && (c.includes(\"sh\") || c.includes(\"bash\"))) hallazgos.push(\"CRÍTICO: curl | sh ejecuta código remoto sin inspección\");\nif (c.includes(\"sudo\")) hallazgos.push(\"ALTO: sudo eleva privilegios\");\nif (c.includes(\"--force\") || c.includes(\"-f \")) hallazgos.push(\"MEDIO: force ignora validaciones\");\nif (c.includes(\"npm i \") || c.includes(\"npm install \")) {\n  if (!/@\\d|@latest/.test(c)) hallazgos.push(\"BAJO: versión no fijada — reproducibilidad sufre\");\n}\nif (c.startsWith(\"npx -y\") || c.includes(\"npx --yes\")) hallazgos.push(\"INFO: npx -y descarga sin confirmar; verifica sentinel_score primero\");\nconst nivel = hallazgos.some(h => h.startsWith(\"CRÍTICO\")) ? \"rechazar\" : hallazgos.some(h => h.startsWith(\"ALTO\")) ? \"revisar\" : \"ok\";\nreturn ok({ comando, nivel, hallazgos });\n  }\n);\n\nserver.tool(\n  \"prerequisitos\",\n  \"Checklist de prerrequisitos antes de instalar skills MCP: runtime, config del cliente, variables de entorno y espacio.\",\n  {\n  cliente: z.enum([\"claude-desktop\",\"cursor\",\"cline\",\"continue\",\"aider\"]).describe(\"Cliente MCP objetivo\").default(\"claude-desktop\"),\n  },\n  async (args: any) => {\n    const { cliente } = args as any;\n    return ok({ cliente, pasos: [\n  \"1. Verifica node >= 18 (node -v) y npm (npm -v)\",\n  \"2. Backup del archivo de config del cliente (\" + cliente + \")\",\n  \"3. Consulta sentinel_score de cada skill (marketnow-trust)\",\n  \"4. Prepara variables de entorno requeridas (nunca hardcodear secrets)\",\n  \"5. Instala de a una skill y prueba health_check antes de la siguiente\",\n  \"6. Documenta qué skills quedaron registradas y por qué\",\n], tip: \"MarketNow expone marketnow-mcp como instalador: npx -y marketnow-mcp\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor marketnow-install-planner está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"marketnow-install-planner\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[marketnow-install-planner] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

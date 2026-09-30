@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-d5fada",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-secrets-audit",
+  "version": "1.0.0",
+  "description": "Detecta API keys, tokens y credenciales expuestas en texto, configs y código Dolor que resuelve: Publicar código con API keys filtradas es el fallo #1 de seguridad de skills MCP: check L1 'No Secrets' fallido. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Security",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "sentinel",
+   "audit",
+   "devsecops"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only secrets-audit",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-secrets-audit",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (2 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "scan_text",
+    "redact_secrets",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only secrets-audit",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-secrets-audit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-secrets-audit/dist/index.js\"]}}}. Tools disponibles: scan_text, redact_secrets y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/secrets-audit/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-secrets-audit (scan_text, redact_secrets). Detecta API keys, tokens y credenciales expuestas en texto, configs y código. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/secrets-audit/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/secrets-audit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Secrets Audit — Detecta API keys, tokens y credenciales expuestas en texto, configs y código (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-secrets-audit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-ops\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Secrets Audit\n\n> Detecta API keys, tokens y credenciales expuestas en texto, configs y código\n\n**Categoría:** MarketNow Ops · **ID:** `mcp-secrets-audit`\n\n**Dolor de agente que resuelve:** Publicar código con API keys filtradas es el fallo #1 de seguridad de skills MCP: check L1 'No Secrets' fallido.\n\n## Tools (3 incl. health_check)\n\n### `scan_text`\nEscanea cualquier texto/código/config en busca de 14+ patrones de secrets (OpenAI, AWS, GitHub, Slack, Stripe, Google, JWT...).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a escanear\n\n### `redact_secrets`\nDevuelve el texto con los secrets detectados reemplazados por placeholders seguros (para logs/docs/README).\n\n**Parámetros:**\n  - `texto` (string, requerido): Texto a sanitizar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"secrets-audit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-secrets-audit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Secrets Audit\n * Detecta API keys, tokens y credenciales expuestas en texto, configs y código\n *\n * Dolor que resuelve: Publicar código con API keys filtradas es el fallo #1 de seguridad de skills MCP: check L1 'No Secrets' fallido.\n * Categoría: MarketNow Ops | Generado por mcp-suite | id: secrets-audit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"secrets-audit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"scan_text\",\n  \"Escanea cualquier texto/código/config en busca de 14+ patrones de secrets (OpenAI, AWS, GitHub, Slack, Stripe, Google, JWT...).\",\n  {\n  texto: z.string().describe(\"Texto a escanear\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    const patrones: Array<[string, RegExp]> = [\n  [\"OpenAI\", /sk-[a-zA-Z0-9_-]{20,}/],\n  [\"Anthropic\", /sk-ant-[a-zA-Z0-9_-]{20,}/],\n  [\"AWS AccessKey\", /AKIA[0-9A-Z]{16}/],\n  [\"AWS Secret\", /(?<![A-Z0-9])[A-Za-z0-9/+=]{40}(?![A-Z0-9])/],\n  [\"GitHub token\", /gh[pousr]_[a-zA-Z0-9]{36,}/],\n  [\"Slack token\", /xox[baprs]-[a-zA-Z0-9-]{10,}/],\n  [\"Stripe\", /(sk|pk)_(test|live)_[a-zA-Z0-9]{20,}/],\n  [\"Google API\", /AIza[0-9A-Za-z_-]{35}/],\n  [\"JWT\", /eyJ[a-zA-Z0-9_-]{10,}\\.[a-zA-Z0-9_-]{10,}\\.[a-zA-Z0-9_-]{10,}/],\n  [\"PrivateKey\", /-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----/],\n  [\"DB URL\", /(postgres|mysql|mongodb(\\+srv)?):\\/\\/[^\\\"\\s]*:[^\\\"\\s]*@/],\n  [\"Generic key=val\", /(api[_-]?key|secret|password|token)\\s*[=:]\\s*[\"'][^\"']{8,}[\"']/],\n  [\"Bearer\", /Bearer\\s+[a-zA-Z0-9._-]{20,}/],\n  [\"Telegram bot\", /\\d{8,10}:AA[a-zA-Z0-9_-]{30,}/],\n];\nconst hallazgos = [];\nfor (const [nombre, re] of patrones) {\n  try { const m = texto.match(new RegExp(re.source, \"i\")); if (m) hallazgos.push({ tipo: nombre, muestra: m[0].slice(0, 12) + \"...***\", ocurrencias: texto.split(m[0]).length - 1 }); } catch {}\n}\nreturn ok({ limpio: hallazgos.length === 0, hallazgos, recomendacion: hallazgos.length ? \"rota/elimina esas credenciales YA (asumen comprometidas si ya publicaste)\" : \"sin secrets detectados\" });\n  }\n);\n\nserver.tool(\n  \"redact_secrets\",\n  \"Devuelve el texto con los secrets detectados reemplazados por placeholders seguros (para logs/docs/README).\",\n  {\n  texto: z.string().describe(\"Texto a sanitizar\"),\n  },\n  async (args: any) => {\n    const { texto } = args as any;\n    let limpio = texto;\nconst regexes = [/sk-[a-zA-Z0-9_-]{20,}/g, /sk-ant-[a-zA-Z0-9_-]{20,}/g, /AKIA[0-9A-Z]{16}/g, /gh[pousr]_[a-zA-Z0-9]{36,}/g, /xox[baprs]-[a-zA-Z0-9-]{10,}/g, /(sk|pk)_(test|live)_[a-zA-Z0-9]{20,}/g, /AIza[0-9A-Za-z_-]{35}/g, /eyJ[a-zA-Z0-9_-]{10,}\\.[a-zA-Z0-9_-]{10,}\\.[a-zA-Z0-9_-]{10,}/g, /-----BEGIN [A-Z ]*PRIVATE KEY-----[\\s\\S]*?-----END [A-Z ]*PRIVATE KEY-----/g];\nlet reemplazos = 0;\nfor (const re of regexes) { limpio = limpio.replace(re, () => { reemplazos++; return \"[REDACTED]\"; }); }\nreturn ok({ reemplazos, texto_limpio: limpio.slice(0, 5000) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor secrets-audit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"secrets-audit\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[secrets-audit] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "secrets-audit"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

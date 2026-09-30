@@ -1,0 +1,63 @@
+{
+ "name": "mcp-marketnow-recommend",
+ "version": "1.0.0",
+ "description": "Recomienda skills MCP por caso de uso con evidencia de score y categoría Dolor que resuelve: Con 66.496 skills el agente se ahoga: elegir la skill correcta para un caso de uso es el cuello de botella. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "marketnow",
+  "skill-marketplace",
+  "trust-layer"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-recommend",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-marketnow-recommend",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "recommend_for_use_case",
+   "top_by_category",
+   "best_free",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only marketnow-recommend",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-marketnow-recommend\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-marketnow-recommend/dist/index.js\"]}}}. Tools disponibles: recommend_for_use_case, top_by_category, best_free y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/marketnow-recommend/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-marketnow-recommend (recommend_for_use_case, top_by_category, best_free). Recomienda skills MCP por caso de uso con evidencia de score y categoría. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/marketnow-recommend/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/marketnow-recommend\",\n  \"version\": \"1.0.0\",\n  \"description\": \"MarketNow · Recommender — Recomienda skills MCP por caso de uso con evidencia de score y categoría (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-marketnow-recommend\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# MarketNow · Recommender\n\n> Recomienda skills MCP por caso de uso con evidencia de score y categoría\n\n**Categoría:** MarketNow · **ID:** `mcp-marketnow-recommend`\n\n**Dolor de agente que resuelve:** Con 66.496 skills el agente se ahoga: elegir la skill correcta para un caso de uso es el cuello de botella.\n\n> Este servidor incluye datos embebidos en `data/` (no requiere conexión para operar).\n\n## Tools (4 incl. health_check)\n\n### `recommend_for_use_case`\nDado un caso de uso en lenguaje natural (ej: 'manejar postgres', 'scrapear web'), recomienda las skills top del snapshot por afinidad de palabras + score.\n\n**Parámetros:**\n  - `caso_uso` (string, requerido): Qué quieres resolver\n  - `max` (number, opcional): Máximo recomendaciones\n\n### `top_by_category`\nTop skills por categoría del snapshot, ordenadas por sentinel score.\n\n**Parámetros:**\n  - `categoria` (string, requerido): Categoría (ej: Developer Tools, Security, AI/ML, Data)\n  - `n` (number, opcional): Cuántas\n\n### `best_free`\nLas mejores skills gratuitas del snapshot (score máximo, price=0): oro gratis para presupuestos ajustados.\n\n**Parámetros:**\n  - `n` (number, opcional): Cuántas\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"marketnow-recommend\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-marketnow-recommend/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: MarketNow · Recommender\n * Recomienda skills MCP por caso de uso con evidencia de score y categoría\n *\n * Dolor que resuelve: Con 66.496 skills el agente se ahoga: elegir la skill correcta para un caso de uso es el cuello de botella.\n * Categoría: MarketNow | Generado por mcp-suite | id: marketnow-recommend\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, existsSync } from \"node:fs\";\nimport { fileURLToPath } from \"node:url\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— datos embebidos (carpeta data/) ———\nfunction loadData(name: string): any {\n  const p = fileURLToPath(new URL(\"../data/\" + name, import.meta.url));\n  return JSON.parse(readFileSync(p, \"utf8\"));\n}\n\nconst server = new McpServer({ name: \"marketnow-recommend\", version: \"1.0.0\" });\n\nserver.tool(\n  \"recommend_for_use_case\",\n  \"Dado un caso de uso en lenguaje natural (ej: 'manejar postgres', 'scrapear web'), recomienda las skills top del snapshot por afinidad de palabras + score.\",\n  {\n  caso_uso: z.string().describe(\"Qué quieres resolver\"),\n  max: z.number().describe(\"Máximo recomendaciones\").default(5),\n  },\n  async (args: any) => {\n    const { caso_uso, max } = args as any;\n    const snap = loadData(\"skills-snapshot.json\");\nconst words = caso_uso.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2);\nconst sinonimos = { db: \"postgres\", database: \"postgres\", web: \"scrape\", scraping: \"scrape\", browser: \"playwright\", chat: \"discord\", mail: \"email\", search: \"search\", money: \"finance\", secure: \"security\" };\nconst expanded = [...new Set([...words, ...words.map(w => sinonimos[w] || \"\").filter(Boolean)])];\nconst scored = snap.skills.map(s => {\n  const texto = (s.name + \" \" + s.description + \" \" + (s.tags || []).join(\" \")).toLowerCase();\n  let af = 0;\n  for (const w of expanded) if (texto.includes(w)) af++;\n  return { skill: s, afinidad: af, valor: af * 10 + (s.sentinel_score ?? 0) };\n}).filter(x => x.afinidad > 0).sort((a, b) => b.valor - a.valor).slice(0, max ?? 5);\nreturn ok({ caso_uso, recomendaciones: scored.map(x => ({ name: x.skill.name, score: x.skill.sentinel_score, install: x.skill.install, desc: x.skill.description.slice(0, 120), afinidad: x.afinidad })) });\n  }\n);\n\nserver.tool(\n  \"top_by_category\",\n  \"Top skills por categoría del snapshot, ordenadas por sentinel score.\",\n  {\n  categoria: z.string().describe(\"Categoría (ej: Developer Tools, Security, AI/ML, Data)\"),\n  n: z.number().describe(\"Cuántas\").default(5),\n  },\n  async (args: any) => {\n    const { categoria, n } = args as any;\n    const snap = loadData(\"skills-snapshot.json\");\nconst items = snap.skills.filter(s => (s.category || \"\").toLowerCase() === categoria.toLowerCase())\n  .sort((a, b) => (b.sentinel_score ?? 0) - (a.sentinel_score ?? 0)).slice(0, n ?? 5);\nif (!items.length) return fail(\"categoría no encontrada. Usa list_categories del MCP marketnow-search\");\nreturn ok({ categoria, top: items.map(s => ({ name: s.name, score: s.sentinel_score, install: s.install, price: s.price })) });\n  }\n);\n\nserver.tool(\n  \"best_free\",\n  \"Las mejores skills gratuitas del snapshot (score máximo, price=0): oro gratis para presupuestos ajustados.\",\n  {\n  n: z.number().describe(\"Cuántas\").default(10),\n  },\n  async (args: any) => {\n    const { n } = args as any;\n    const snap = loadData(\"skills-snapshot.json\");\nconst items = snap.skills.filter(s => (s.price ?? 0) === 0 && (s.sentinel_score ?? 0) >= 8)\n  .sort((a, b) => (b.sentinel_score ?? 0) - (a.sentinel_score ?? 0)).slice(0, n ?? 10);\nreturn ok({ gratis_y_seguras: items.map(s => ({ name: s.name, score: s.sentinel_score, install: s.install, categoria: s.category })) });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor marketnow-recommend está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"marketnow-recommend\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[marketnow-recommend] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

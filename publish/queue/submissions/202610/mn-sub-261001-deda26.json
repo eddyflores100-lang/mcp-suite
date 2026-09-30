@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-deda26",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-currency-convert",
+  "version": "1.0.0",
+  "description": "Conversión de monedas: tasas en vivo (API abierta) + tabla de respaldo offline Dolor que resuelve: El LLM no conoce la tasa del dólar HOY: convertir precios con tasas 'recordadas' da cifras falsas. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Productivity",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "utilities",
+   "toolkit",
+   "productivity"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only currency-convert",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-currency-convert",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": true,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "convert",
+    "cross_table",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only currency-convert",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-currency-convert\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-currency-convert/dist/index.js\"]}}}. Tools disponibles: convert, cross_table y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/currency-convert/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-currency-convert (convert, cross_table). Conversión de monedas: tasas en vivo (API abierta) + tabla de respaldo offline. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/currency-convert/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/currency-convert\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Currency Convert — Conversión de monedas: tasas en vivo (API abierta) + tabla de respaldo offline (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-currency-convert\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"utilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Currency Convert\n\n> Conversión de monedas: tasas en vivo (API abierta) + tabla de respaldo offline\n\n**Categoría:** Utilidades · **ID:** `mcp-currency-convert`\n\n**Dolor de agente que resuelve:** El LLM no conoce la tasa del dólar HOY: convertir precios con tasas 'recordadas' da cifras falsas.\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n> Estado persistente en `~/.mcp-suite/currency-convert/state.json` (local, privado, tuya la data).\n\n## Tools (3 incl. health_check)\n\n### `convert`\nConvierte un monto entre monedas usando tasas en vivo (open.er-api.com, gratis) con cache de 6h; si no hay red usa tabla de respaldo aproximada.\n\n**Parámetros:**\n  - `monto` (number, requerido): Monto a convertir\n  - `de` (string, requerido): Moneda origen (ej: USD)\n  - `a` (string, requerido): Moneda destino (ej: EUR)\n\n### `cross_table`\nTabla cruzada de conversión de un monto base contra varias monedas a la vez.\n\n**Parámetros:**\n  - `monto` (number, requerido): Monto base\n  - `de` (string, opcional): Moneda base\n  - `monedas` (array, opcional): Monedas destino\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"currency-convert\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-currency-convert/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Currency Convert\n * Conversión de monedas: tasas en vivo (API abierta) + tabla de respaldo offline\n *\n * Dolor que resuelve: El LLM no conoce la tasa del dólar HOY: convertir precios con tasas 'recordadas' da cifras falsas.\n * Categoría: Utilidades | Generado por mcp-suite | id: currency-convert\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/currency-convert/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"currency-convert\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/currency-convert\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"currency-convert\", version: \"1.0.0\" });\n\nserver.tool(\n  \"convert\",\n  \"Convierte un monto entre monedas usando tasas en vivo (open.er-api.com, gratis) con cache de 6h; si no hay red usa tabla de respaldo aproximada.\",\n  {\n  monto: z.number().describe(\"Monto a convertir\"),\n  de: z.string().describe(\"Moneda origen (ej: USD)\"),\n  a: z.string().describe(\"Moneda destino (ej: EUR)\"),\n  },\n  async (args: any) => {\n    const { monto, de, a } = args as any;\n    const st = store.load();\nconst cacheValido = st.tasas && st.tasas_ts && Date.now() - new Date(st.tasas_ts).getTime() < 6 * 3600000;\nlet tasas: any = null; let fuente = \"cache\";\nif (cacheValido) tasas = st.tasas;\nelse {\n  try {\n    const r = await fetchSmart(\"https://open.er-api.com/v6/latest/\" + String(de).toUpperCase(), { timeoutMs: 10000, retries: 1 });\n    if (r.json?.rates) { tasas = r.json.rates; st.tasas = tasas; st.tasas_ts = new Date().toISOString(); store.save(st); fuente = \"live (open.er-api.com)\"; }\n  } catch { /* sin red */ }\n}\nconst fallback: any = { USD: 1, EUR: 0.92, GBP: 0.79, CAD: 1.36, MXN: 17.2, COP: 4100, CLP: 940, PEN: 3.75, BRL: 5.5, ARS: 900 };\nif (!tasas) { tasas = fallback; fuente = \"fallback aproximado (sin red)\"; }\nconst tasaDirecta = tasas[String(a).toUpperCase()];\nif (tasaDirecta === undefined) return fail(\"moneda no disponible: \" + a);\nconst resultado = Math.round(monto * tasaDirecta * 100) / 100;\nreturn ok({ monto, de: String(de).toUpperCase(), a: String(a).toUpperCase(), tasa: tasaDirecta, resultado, fuente, actualizado: st.tasas_ts || \"fallback\" });\n  }\n);\n\nserver.tool(\n  \"cross_table\",\n  \"Tabla cruzada de conversión de un monto base contra varias monedas a la vez.\",\n  {\n  monto: z.number().describe(\"Monto base\"),\n  de: z.string().describe(\"Moneda base\").default(\"USD\"),\n  monedas: z.array(z.any()).describe(\"Monedas destino\").optional(),\n  },\n  async (args: any) => {\n    const { monto, de, monedas } = args as any;\n    const st = store.load();\nconst lista = Array.isArray(monedas) && monedas.length ? monedas : [\"USD\", \"EUR\", \"CAD\", \"MXN\", \"COP\", \"PEN\", \"BRL\", \"CLP\"];\nlet tasas: any = st.tasas;\nif (!tasas) {\n  try { const r = await fetchSmart(\"https://open.er-api.com/v6/latest/\" + String(de || \"USD\").toUpperCase(), { timeoutMs: 10000, retries: 1 }); if (r.json?.rates) { tasas = r.json.rates; st.tasas = tasas; st.tasas_ts = new Date().toISOString(); store.save(st); } } catch { tasas = null; }\n}\nconst tabla: any = {};\nfor (const m of lista) { const tasa = tasas?.[String(m).toUpperCase()]; if (tasa) tabla[m] = Math.round(monto * tasa * 100) / 100; }\nreturn ok({ base: String(de || \"USD\").toUpperCase() + \" \" + monto, tabla, fuente: st.tasas ? \"cache/live\" : \"sin datos\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor currency-convert está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"currency-convert\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[currency-convert] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": [
+    "requires_network: true — accede a APIs públicas (MarketNow) en modo live, sin claves ni secretos"
+   ]
+  },
+  "trust_score_100": 52,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "currency-convert"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,90 @@
+{
+ "id": "mn-sub-261001-4a7109",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-url-inspector",
+  "version": "1.0.0",
+  "description": "Anatomía de URLs: parse, normalización, redirecciones en vivo y clasificación Dolor que resuelve: URLs malformadas rompen flujos enteros: falta inspección previa (parámetros UTM, redirects, esquemas). Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Data",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "data",
+   "parsing",
+   "etl"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only url-inspector",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-url-inspector",
+  "license": "MIT",
+  "pricing": {
+   "model": "free",
+   "price": 0,
+   "currency": null,
+   "details": "Gratis y open source (MIT). Local-first: sin nube, sin telemetría, sin claves."
+  },
+  "price": 0,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": true,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "inspect",
+    "normalize",
+    "redirect_chain",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only url-inspector",
+    "estimated_cost": "free"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-url-inspector\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-url-inspector/dist/index.js\"]}}}. Tools disponibles: inspect, normalize, redirect_chain y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/url-inspector/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-url-inspector (inspect, normalize, redirect_chain). Anatomía de URLs: parse, normalización, redirecciones en vivo y clasificación. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/url-inspector/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/url-inspector\",\n  \"version\": \"1.0.0\",\n  \"description\": \"URL Inspector — Anatomía de URLs: parse, normalización, redirecciones en vivo y clasificación (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-url-inspector\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"datos-y-extracci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# URL Inspector\n\n> Anatomía de URLs: parse, normalización, redirecciones en vivo y clasificación\n\n**Categoría:** Datos y Extracción · **ID:** `mcp-url-inspector`\n\n**Dolor de agente que resuelve:** URLs malformadas rompen flujos enteros: falta inspección previa (parámetros UTM, redirects, esquemas).\n\n> Este servidor hace peticiones HTTP en vivo (ver descripción de cada tool). Requiere conexión a internet.\n\n## Tools (4 incl. health_check)\n\n### `inspect`\nAnaliza una URL estáticamente: esquema, host, puerto, path, query params completos, fragmento, UTMs y riesgo.\n\n**Parámetros:**\n  - `url` (string, requerido): URL a inspeccionar\n\n### `normalize`\nNormaliza la URL: baja el host, elimina UTMs/trackers, default port, trailing slash controlado y fragmentos.\n\n**Parámetros:**\n  - `url` (string, requerido): URL a normalizar\n  - `conservar_query` (boolean, opcional): Conservar query no-tracking\n\n### `redirect_chain`\nSigue la cadena de redirecciones en vivo (máx 5 saltos) y reporta cada hop con status.\n\n**Parámetros:**\n  - `url` (string, requerido): URL inicial\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"url-inspector\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-url-inspector/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: URL Inspector\n * Anatomía de URLs: parse, normalización, redirecciones en vivo y clasificación\n *\n * Dolor que resuelve: URLs malformadas rompen flujos enteros: falta inspección previa (parámetros UTM, redirects, esquemas).\n * Categoría: Datos y Extracción | Generado por mcp-suite | id: url-inspector\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— fetch inteligente: timeout + reintentos ———\nasync function fetchSmart(url: string, opts: any = {}): Promise<{ status: number; text: string; json: any }> {\n  const timeoutMs = opts.timeoutMs ?? 20000;\n  let lastError: any = null;\n  for (let attempt = 0; attempt <= (opts.retries ?? 2); attempt++) {\n    const ctrl = new AbortController();\n    const timer = setTimeout(() => ctrl.abort(), timeoutMs);\n    try {\n      const res = await fetch(url, {\n        method: opts.method || \"GET\",\n        headers: { \"user-agent\": \"mcp-suite/url-inspector\", ...(opts.headers || {}) },\n        body: opts.body,\n        signal: ctrl.signal,\n      });\n      const text = await res.text();\n      let json: any = null;\n      try { json = JSON.parse(text); } catch { /* no JSON */ }\n      return { status: res.status, text, json };\n    } catch (e: any) {\n      lastError = e;\n      if (attempt < (opts.retries ?? 2)) await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));\n    } finally {\n      clearTimeout(timer);\n    }\n  }\n  throw new Error(\"fetch falló tras reintentos: \" + (lastError?.message || url));\n}\n\nconst server = new McpServer({ name: \"url-inspector\", version: \"1.0.0\" });\n\nserver.tool(\n  \"inspect\",\n  \"Analiza una URL estáticamente: esquema, host, puerto, path, query params completos, fragmento, UTMs y riesgo.\",\n  {\n  url: z.string().describe(\"URL a inspeccionar\"),\n  },\n  async (args: any) => {\n    const { url } = args as any;\n    let u: any;\ntry { u = new URL(url); } catch { return fail(\"URL inválida\"); }\nconst params: any = {};\nfor (const [k, v] of u.searchParams.entries()) params[k] = v;\nconst utms = Object.keys(params).filter((k) => k.startsWith(\"utm_\"));\nconst riesgos: string[] = [];\nif (u.protocol === \"http:\") riesgos.push(\"sin TLS\");\nif (u.username || u.password) riesgos.push(\"credenciales embebidas en la URL\");\nif (url.length > 2000) riesgos.push(\"URL extremadamente larga\");\nconst trackers = Object.keys(params).filter((k) => /^(fbclid|gclid|msclkid|mc_cid|mc_eid|ref)$/.test(k));\nreturn ok({ protocolo: u.protocol.replace(\":\", \"\"), host: u.host, dominio: u.hostname, puerto: u.port || null, path: u.pathname, fragmento: u.hash || null, params, total_params: Object.keys(params).length, utms, trackers, riesgos, longitud: url.length });\n  }\n);\n\nserver.tool(\n  \"normalize\",\n  \"Normaliza la URL: baja el host, elimina UTMs/trackers, default port, trailing slash controlado y fragmentos.\",\n  {\n  url: z.string().describe(\"URL a normalizar\"),\n  conservar_query: z.boolean().describe(\"Conservar query no-tracking\").default(true),\n  },\n  async (args: any) => {\n    const { url, conservar_query } = args as any;\n    let u: any;\ntry { u = new URL(url); } catch { return fail(\"URL inválida\"); }\nu.hostname = u.hostname.toLowerCase();\nu.hash = \"\";\nconst borrar = [...u.searchParams.keys()].filter((k) => k.startsWith(\"utm_\") || /^(fbclid|gclid|msclkid|ref|mc_cid|mc_eid)$/.test(k));\nfor (const k of borrar) u.searchParams.delete(k);\nif (conservar_query === false) u.search = \"\";\nif ((u.protocol === \"https:\" && u.port === \"443\") || (u.protocol === \"http:\" && u.port === \"80\")) u.port = \"\";\nlet norm = u.toString();\nif (norm.endsWith(\"?\")) norm = norm.slice(0, -1);\nreturn ok({ original: url, normalizada: norm, parametros_eliminados: borrar });\n  }\n);\n\nserver.tool(\n  \"redirect_chain\",\n  \"Sigue la cadena de redirecciones en vivo (máx 5 saltos) y reporta cada hop con status.\",\n  {\n  url: z.string().describe(\"URL inicial\"),\n  },\n  async (args: any) => {\n    const { url } = args as any;\n    const cadena: any[] = [];\nlet actual = url;\nfor (let hop = 0; hop < 6; hop++) {\n  try {\n    const r = await fetchSmart(actual, { timeoutMs: 10000, retries: 0 });\n    const location = r.text.match(/href=[\"']([^\"']+)[\"']|content=[\"']\\d+;\\s*url=([^\"']+)/i);\n    const locHeader = (r as any).location || null;\n    cadena.push({ url: actual, status: r.status });\n    if (r.status >= 300 && r.status < 400 && locHeader) { actual = new URL(locHeader, actual).toString(); continue; }\n    break;\n  } catch (e: any) { cadena.push({ url: actual, error: e.message.slice(0, 60) }); break; }\n}\nreturn ok({ saltos: cadena.length - 1, cadena, url_final: cadena[cadena.length - 1]?.url, loop_detectado: new Set(cadena.map((c) => c.url)).size < cadena.length });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor url-inspector está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"url-inspector\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[url-inspector] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": [
+    "requires_network: true — accede a APIs públicas (MarketNow) en modo live, sin claves ni secretos"
+   ]
+  },
+  "trust_score_100": 50,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "url-inspector"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

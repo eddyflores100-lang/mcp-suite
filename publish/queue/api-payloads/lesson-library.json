@@ -1,0 +1,65 @@
+{
+ "name": "mcp-lesson-library",
+ "version": "1.0.0",
+ "description": "Biblioteca de lecciones recuperables por situación: el agente recuerda lo que ya aprendió Dolor que resuelve: El conocimiento aprendido ('con ese proveedor, valida el JSON antes de parsear') no sobrevive la sesión: cada instancia del agente vuelve a cometer el error porque no hay biblioteca consultable. Incluye 6 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "skill-learning",
+  "lessons",
+  "self-improvement"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only lesson-library",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-lesson-library",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 2.99,
+  "currency": "USD",
+  "details": "Pago único USD 2.99 (Multi-feature). Regalía 80% al autor: USD 2.39 por venta. 5 tools complementarias en un solo servidor — valor multi-feature por consolidación"
+ },
+ "price": 2.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add_lesson",
+   "recall_lessons",
+   "most_used",
+   "retire_lesson",
+   "library_stats",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only lesson-library",
+   "estimated_cost": "pago único USD 2.99 (regalía 80%: USD 2.39)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-lesson-library\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-lesson-library/dist/index.js\"]}}}. Tools disponibles: add_lesson, recall_lessons, most_used, retire_lesson, library_stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/lesson-library/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-lesson-library (add_lesson, recall_lessons, most_used, retire_lesson, library_stats). Biblioteca de lecciones recuperables por situación: el agente recuerda lo que ya aprendió. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/lesson-library/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/lesson-library\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Lesson Library — Biblioteca de lecciones recuperables por situación: el agente recuerda lo que ya aprendió (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-lesson-library\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"aprendizaje-de-habilidades\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 6\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Lesson Library\n\n> Biblioteca de lecciones recuperables por situación: el agente recuerda lo que ya aprendió\n\n**Categoría:** Aprendizaje de Habilidades · **ID:** `mcp-lesson-library`\n\n**Dolor de agente que resuelve:** El conocimiento aprendido ('con ese proveedor, valida el JSON antes de parsear') no sobrevive la sesión: cada instancia del agente vuelve a cometer el error porque no hay biblioteca consultable.\n\n> Estado persistente en `~/.mcp-suite/lesson-library/state.json` (local, privado, tuya la data).\n\n## Tools (6 incl. health_check)\n\n### `add_lesson`\nAñade una lección: situación en que aplica, la regla y etiquetas para recuperación.\n\n**Parámetros:**\n  - `situacion` (string, requerido): Cuándo aplica (situación observable)\n  - `regla` (string, requerido): Qué hacer (accionable)\n  - `etiquetas` (array, opcional): Etiquetas temáticas\n  - `origen` (string, opcional): De dónde viene (postmortem, humano, manual)\n\n### `recall_lessons`\nRecupera lecciones relevantes para la situación actual (match lexical + etiquetas) con score.\n\n**Parámetros:**\n  - `situacion_actual` (string, requerido): Qué está a punto de hacer el agente\n  - `max` (number, opcional): Máximo a devolver\n\n### `most_used`\nLecciones más reutilizadas: cuáles están demostrando valor real.\n\n### `retire_lesson`\nRetira una lección obsoleta (ya no aplica porque cambió el entorno), con motivo.\n\n**Parámetros:**\n  - `leccion_id` (string, requerido): ID de la lección\n  - `motivo` (string, requerido): Por qué ya no aplica\n\n### `library_stats`\nSalud de la biblioteca: tamaño, tasa de uso, cobertura por etiqueta y antigüedad.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"lesson-library\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-lesson-library/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/lesson-library/. Lecciones situación→regla con etiquetas y contador de reutilización; búsqueda lexical por situación y recordatorio proactivo.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Lesson Library\n * Biblioteca de lecciones recuperables por situación: el agente recuerda lo que ya aprendió\n *\n * Dolor que resuelve: El conocimiento aprendido ('con ese proveedor, valida el JSON antes de parsear') no sobrevive la sesión: cada instancia del agente vuelve a cometer el error porque no hay biblioteca consultable.\n * Categoría: Aprendizaje de Habilidades | Generado por mcp-suite | id: lesson-library\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/lesson-library/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"lesson-library\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"lesson-library\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add_lesson\",\n  \"Añade una lección: situación en que aplica, la regla y etiquetas para recuperación.\",\n  {\n  situacion: z.string().describe(\"Cuándo aplica (situación observable)\"),\n  regla: z.string().describe(\"Qué hacer (accionable)\"),\n  etiquetas: z.array(z.any()).describe(\"Etiquetas temáticas\").default([]),\n  origen: z.string().describe(\"De dónde viene (postmortem, humano, manual)\").default(\"manual\"),\n  },\n  async (args: any) => {\n    const { situacion, regla, etiquetas, origen } = args as any;\n    const st = store.load();\nst.lecciones = st.lecciones || [];\nif (st.lecciones.some(l => l.regla === regla)) return fail(\"regla ya registrada\");\nst.lecciones.push({ id: \"ls_\" + Date.now().toString(36), situacion, regla, etiquetas: etiquetas || [], origen, usada: 0, creada: new Date().toISOString() });\nstore.save(st);\nreturn ok({ leccion_id: st.lecciones.at(-1).id, total: st.lecciones.length });\n  }\n);\n\nserver.tool(\n  \"recall_lessons\",\n  \"Recupera lecciones relevantes para la situación actual (match lexical + etiquetas) con score.\",\n  {\n  situacion_actual: z.string().describe(\"Qué está a punto de hacer el agente\"),\n  max: z.number().describe(\"Máximo a devolver\").default(5),\n  },\n  async (args: any) => {\n    const { situacion_actual, max } = args as any;\n    const st = store.load();\nconst lecciones = st.lecciones || [];\nif (!lecciones.length) return ok({ lecciones: 0, sugerencia: \"añade lecciones con add_lesson\" });\nconst tokens = (s) => new Set(String(s).toLowerCase().split(/\\W+/).filter(w => w.length > 3));\nconst act = tokens(situacion_actual);\nconst scored = lecciones.map(l => {\n  const sit = tokens(l.situacion);\n  const inter = [...sit].filter(w => act.has(w)).length;\n  const tagHit = (l.etiquetas || []).filter(t => situacion_actual.toLowerCase().includes(String(t).toLowerCase())).length;\n  const score = inter / Math.max(sit.size, 1) + tagHit * 0.3;\n  return { id: l.id, situacion: l.situacion, regla: l.regla, score: Number(score.toFixed(2)) };\n}).filter(x => x.score > 0.15).sort((a, b) => b.score - a.score);\nconst top = scored.slice(0, Math.max(1, Math.min(max, 10)));\nif (top.length) {\n  for (const t of top) { const l = st.lecciones.find(x => x.id === t.id); l.usada++; }\n  store.save(st);\n}\nreturn ok({\n  relevantes: top.length,\n  lecciones: top,\n  aviso: top.length ? \"aplica estas reglas ANTES de actuar en esta situación\" : \"sin lecciones previas para esta situación\",\n});\n  }\n);\n\nserver.tool(\n  \"most_used\",\n  \"Lecciones más reutilizadas: cuáles están demostrando valor real.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ls = st.lecciones || [];\nif (!ls.length) return ok({ lecciones: 0 });\nconst top = [...ls].sort((a, b) => b.usada - a.usada).slice(0, 10).map(l => ({ regla: l.regla.slice(0, 90), usada: l.usada, etiquetas: l.etiquetas }));\nreturn ok({ total: ls.length, nunca_usadas: ls.filter(l => l.usada === 0).length, top: top.filter(t => t.usada > 0) });\n  }\n);\n\nserver.tool(\n  \"retire_lesson\",\n  \"Retira una lección obsoleta (ya no aplica porque cambió el entorno), con motivo.\",\n  {\n  leccion_id: z.string().describe(\"ID de la lección\"),\n  motivo: z.string().describe(\"Por qué ya no aplica\"),\n  },\n  async (args: any) => {\n    const { leccion_id, motivo } = args as any;\n    const st = store.load();\nconst l = (st.lecciones || []).find(x => x.id === leccion_id);\nif (!l) return fail(\"lección no encontrada\");\nl.retirada = { motivo, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({ retirada: true, regla: l.regla.slice(0, 80) });\n  }\n);\n\nserver.tool(\n  \"library_stats\",\n  \"Salud de la biblioteca: tamaño, tasa de uso, cobertura por etiqueta y antigüedad.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst ls = (st.lecciones || []).filter(l => !l.retirada);\nif (!ls.length) return ok({ activas: 0 });\nconst porEtiqueta = {};\nfor (const l of ls) for (const t of l.etiquetas || []) porEtiqueta[t] = (porEtiqueta[t] || 0) + 1;\nreturn ok({\n  activas: ls.length,\n  retiradas: (st.lecciones || []).length - ls.length,\n  tasa_uso_media: Number((ls.reduce((s, l) => s + l.usada, 0) / ls.length).toFixed(1)),\n  por_etiqueta: porEtiqueta,\n  mas_antigua_dias: Number(((Date.now() - new Date(ls.reduce((a, b) => a.creada < b.creada ? a : b).creada).getTime()) / 86400000).toFixed(0)),\n  consejo: ls.filter(l => l.usada === 0).length > ls.length / 2 ? \"media biblioteca nunca se usa: revisa la situación/redacción (recall falla)\" : \"biblioteca viva\",\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor lesson-library está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"lesson-library\", tools: 6, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[lesson-library] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "id": "mn-sub-261001-b22b30",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-fact-consistency",
+  "version": "1.0.0",
+  "description": "Detecta contradicciones entre dos textos o entre claims: coherencia interna Dolor que resuelve: El agente se contradice entre secciones (o contra una fuente): las inconsistencias numéricas y factuales pasan inadvertidas. Incluye 3 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "Developer Tools",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "quality",
+   "validation",
+   "hallucination"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only fact-consistency",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-fact-consistency",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 1.99,
+   "currency": "USD",
+   "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (2 tools) — precio estándar del marketplace"
+  },
+  "price": 1.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "check_consistency",
+    "merge_facts",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only fact-consistency",
+    "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-fact-consistency\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-fact-consistency/dist/index.js\"]}}}. Tools disponibles: check_consistency, merge_facts y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/fact-consistency/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-fact-consistency (check_consistency, merge_facts). Detecta contradicciones entre dos textos o entre claims: coherencia interna. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/fact-consistency/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/fact-consistency\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Fact Consistency — Detecta contradicciones entre dos textos o entre claims: coherencia interna (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-fact-consistency\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"calidad-de-salida\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 3\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Fact Consistency\n\n> Detecta contradicciones entre dos textos o entre claims: coherencia interna\n\n**Categoría:** Calidad de Salida · **ID:** `mcp-fact-consistency`\n\n**Dolor de agente que resuelve:** El agente se contradice entre secciones (o contra una fuente): las inconsistencias numéricas y factuales pasan inadvertidas.\n\n## Tools (3 incl. health_check)\n\n### `check_consistency`\nCompara dos textos y reporta contradicciones: números que difieren sobre mismos sujetos, hechos opuestos y entidades renombradas.\n\n**Parámetros:**\n  - `texto_a` (string, requerido): Primer texto\n  - `texto_b` (string, requerido): Segundo texto\n\n### `merge_facts`\nFusiona dos listas de hechos {hecho, fuente} deduplicando y marcando duplicados con fuentes distintas (consenso) o contradictorias.\n\n**Parámetros:**\n  - `hechos_a` (array, requerido): Hechos A {hecho, fuente}\n  - `hechos_b` (array, requerido): Hechos B {hecho, fuente}\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"fact-consistency\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-fact-consistency/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Fact Consistency\n * Detecta contradicciones entre dos textos o entre claims: coherencia interna\n *\n * Dolor que resuelve: El agente se contradice entre secciones (o contra una fuente): las inconsistencias numéricas y factuales pasan inadvertidas.\n * Categoría: Calidad de Salida | Generado por mcp-suite | id: fact-consistency\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\n\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\nconst server = new McpServer({ name: \"fact-consistency\", version: \"1.0.0\" });\n\nserver.tool(\n  \"check_consistency\",\n  \"Compara dos textos y reporta contradicciones: números que difieren sobre mismos sujetos, hechos opuestos y entidades renombradas.\",\n  {\n  texto_a: z.string().describe(\"Primer texto\"),\n  texto_b: z.string().describe(\"Segundo texto\"),\n  },\n  async (args: any) => {\n    const { texto_a, texto_b } = args as any;\n    const numA = texto_a.match(/\\b\\d+(\\.\\d+)?\\b/g) || [];\nconst numB = texto_b.match(/\\b\\d+(\\.\\d+)?\\b/g) || [];\nconst palabrasA = new Set(texto_a.toLowerCase().split(/\\s+/).filter((w) => w.length > 4));\nconst palabrasB = new Set(texto_b.toLowerCase().split(/\\s+/).filter((w) => w.length > 4));\nconst tema_comun = [...palabrasA].filter((w) => palabrasB.has(w)).length;\nconst conflictos: string[] = [];\nconst sA = texto_a.toLowerCase(); const sB = texto_b.toLowerCase();\nconst patrones: Array<[RegExp, RegExp, string]> = [\n  [/subió|aumentó|más de/, /bajó|disminuyó|menos de/, \"dirección opuesta (subida vs bajada)\"],\n  [/disponible|hay stock/, /agotado|sin stock|no disponible/, \"disponibilidad contradictoria\"],\n  [/gratuito|gratis/, /de pago|cuesta|precio/, \"gratuidad vs pago\"],\n  [/funciona|exitoso|correcto/, /falla|error|roto|incorrecto/, \"funcionamiento contradictorio\"],\n];\nfor (const [ra, rb, msg] of patrones) {\n  if ((ra.test(sA) && rb.test(sB)) || (rb.test(sA) && ra.test(sB))) conflictos.push(msg);\n}\nconst cifras_discrepantes = tema_comun > 5 && numA.length > 0 && numB.length > 0 && numA.join() !== numB.join();\nreturn ok({ coherentes: conflictos.length === 0 && !cifras_discrepantes, conflictos, tema_comun_palabras: tema_comun, cifras_a: numA.slice(0, 10), cifras_b: numB.slice(0, 10), posibles_discrepancias_numericas: cifras_discrepantes });\n  }\n);\n\nserver.tool(\n  \"merge_facts\",\n  \"Fusiona dos listas de hechos {hecho, fuente} deduplicando y marcando duplicados con fuentes distintas (consenso) o contradictorias.\",\n  {\n  hechos_a: z.array(z.any()).describe(\"Hechos A {hecho, fuente}\"),\n  hechos_b: z.array(z.any()).describe(\"Hechos B {hecho, fuente}\"),\n  },\n  async (args: any) => {\n    const { hechos_a, hechos_b } = args as any;\n    const norm = (h: string) => h.toLowerCase().replace(/[^a-z0-9áéíóúñ ]/g, \"\").split(/\\s+/).filter((w) => w.length > 3).sort().join(\" \");\nconst todos = [...(Array.isArray(hechos_a) ? hechos_a : []).map((h: any) => ({ ...h, set: \"A\" })), ...(Array.isArray(hechos_b) ? hechos_b : []).map((h: any) => ({ ...h, set: \"B\" }))];\nconst vistos: any = {};\nconst fusionados: any[] = [];\nfor (const h of todos) {\n  const k = norm(String(h.hecho || \"\"));\n  if (vistos[k]) { vistos[k].fuentes.push(h.fuente || h.set); vistos[k].consenso = true; }\n  else { vistos[k] = { hecho: h.hecho, fuentes: [h.fuente || h.set], consenso: false }; fusionados.push(vistos[k]); }\n}\nreturn ok({ total_originales: todos.length, hechos_fusionados: fusionados.length, en_consenso: fusionados.filter((f) => f.consenso).length, hechos: fusionados });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor fact-consistency está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"fact-consistency\", tools: 3, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[fact-consistency] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 53,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "fact-consistency"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

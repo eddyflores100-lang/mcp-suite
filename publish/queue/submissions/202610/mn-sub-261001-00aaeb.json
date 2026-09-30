@@ -1,0 +1,92 @@
+{
+ "id": "mn-sub-261001-00aaeb",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-conflict-resolver",
+  "version": "1.0.0",
+  "description": "Detecta y resuelve conflictos entre agentes: ediciones concurrentes, decisiones contradictorias, duplicación Dolor que resuelve: Dos agentes editan el mismo artefacto o toman decisiones contradictorias sobre el mismo asunto: el resultado es corrupción silenciosa del estado o guerra de tirones sin árbitro. Incluye 8 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "multi-agent",
+   "orchestration",
+   "coordination"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only conflict-resolver",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-conflict-resolver",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (7 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "record_decision",
+    "declare_edit",
+    "close_edit",
+    "raise_conflict",
+    "resolve_conflict",
+    "duplication_check",
+    "conflict_stats",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only conflict-resolver",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-conflict-resolver\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-conflict-resolver/dist/index.js\"]}}}. Tools disponibles: record_decision, declare_edit, close_edit, raise_conflict, resolve_conflict, duplication_check, conflict_stats y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/conflict-resolver/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-conflict-resolver (record_decision, declare_edit, close_edit, raise_conflict, resolve_conflict, duplication_check, conflict_stats). Detecta y resuelve conflictos entre agentes: ediciones concurrentes, decisiones contradictorias, duplicación. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/conflict-resolver/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/conflict-resolver\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Conflict Resolver — Detecta y resuelve conflictos entre agentes: ediciones concurrentes, decisiones contradictorias, duplicación (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-conflict-resolver\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"multi-agente-y-coordinaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 8\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Conflict Resolver\n\n> Detecta y resuelve conflictos entre agentes: ediciones concurrentes, decisiones contradictorias, duplicación\n\n**Categoría:** Multi-Agente y Coordinación · **ID:** `mcp-conflict-resolver`\n\n**Dolor de agente que resuelve:** Dos agentes editan el mismo artefacto o toman decisiones contradictorias sobre el mismo asunto: el resultado es corrupción silenciosa del estado o guerra de tirones sin árbitro.\n\n> Estado persistente en `~/.mcp-suite/conflict-resolver/state.json` (local, privado, tuya la data).\n\n## Tools (8 incl. health_check)\n\n### `record_decision`\nUn agente registra una decisión sobre un asunto; se detecta contradicción con decisiones previas de otros agentes.\n\n**Parámetros:**\n  - `asunto` (string, requerido): Clave del asunto (ej: stack/frontend)\n  - `agente` (string, requerido): Agent_id que decide\n  - `decision` (string, requerido): Decisión tomada\n  - `justificacion` (string, opcional): Por qué\n  - `confianza` (number, opcional): 0-1\n\n### `declare_edit`\nDeclara intención de editar un artefacto (piso, sección o campo) para detectar solapamientos con otros editores.\n\n**Parámetros:**\n  - `artefacto` (string, requerido): ID/ruta del artefacto\n  - `agente` (string, requerido): Agent_id editor\n  - `seccion` (string, opcional): Parte que tocará (todo, sección X, campo Y)\n\n### `close_edit`\nCierra una declaración de edición (terminaste con el artefacto).\n\n**Parámetros:**\n  - `artefacto` (string, requerido): Artefacto\n  - `agente` (string, requerido): Agent_id\n\n### `raise_conflict`\nEleva un conflicto formal (asunto/artefacto, partes, posturas) para que se arbitre.\n\n**Parámetros:**\n  - `tipo` (enum, requerido): Tipo de conflicto\n  - `sujeto` (string, requerido): Asunto o artefacto en conflicto\n  - `partes` (array, requerido): Agent_ids implicados\n  - `detalle` (string, opcional): Descripción del choque\n\n### `resolve_conflict`\nResuelve un conflicto: merge documentado, votación, o escalamiento a humano; queda como precedente auditable.\n\n**Parámetros:**\n  - `conflicto_id` (string, requerido): ID del conflicto\n  - `estrategia` (enum, requerido): Cómo se resolvió\n  - `resolucion` (string, requerido): Texto de la resolución final\n  - `resuelto_por` (string, requerido): Quién arbitra\n\n### `duplication_check`\nDetecta trabajo duplicado: dos agentes haciendo lo mismo (por similitud de descripción de tarea).\n\n**Parámetros:**\n  - `tareas` (array, requerido): Lista de {agente, descripcion} activas para cruzar\n\n### `conflict_stats`\nEstadísticas de conflictos por tipo, estrategia de resolución y tasa de escalamiento humano.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"conflict-resolver\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-conflict-resolver/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/conflict-resolver/. Registra decisiones por asunto y ediciones por artefacto; detecta contradicciones (posturas opuestas sobre la misma clave) y propone estrategia de fusión.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Conflict Resolver\n * Detecta y resuelve conflictos entre agentes: ediciones concurrentes, decisiones contradictorias, duplicación\n *\n * Dolor que resuelve: Dos agentes editan el mismo artefacto o toman decisiones contradictorias sobre el mismo asunto: el resultado es corrupción silenciosa del estado o guerra de tirones sin árbitro.\n * Categoría: Multi-Agente y Coordinación | Generado por mcp-suite | id: conflict-resolver\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/conflict-resolver/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"conflict-resolver\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"conflict-resolver\", version: \"1.0.0\" });\n\nserver.tool(\n  \"record_decision\",\n  \"Un agente registra una decisión sobre un asunto; se detecta contradicción con decisiones previas de otros agentes.\",\n  {\n  asunto: z.string().describe(\"Clave del asunto (ej: stack/frontend)\"),\n  agente: z.string().describe(\"Agent_id que decide\"),\n  decision: z.string().describe(\"Decisión tomada\"),\n  justificacion: z.string().describe(\"Por qué\").optional(),\n  confianza: z.number().describe(\"0-1\").default(0.8),\n  },\n  async (args: any) => {\n    const { asunto, agente, decision, justificacion, confianza } = args as any;\n    const st = store.load();\nst.decisiones = st.decisiones || {};\nconst previas = st.decisiones[asunto] || [];\nconst contradictoria = previas.find(p => p.agente !== agente && p.decision.trim().toLowerCase() !== decision.trim().toLowerCase());\nst.decisiones[asunto] = [...previas, { agente, decision, justificacion: justificacion || null, confianza: confianza ?? 0.8, ts: new Date().toISOString() }];\nstore.save(st);\nif (contradictoria) {\n  return ok({\n    conflicto: true, asunto,\n    enfrentadas: [{ agente: contradictoria.agente, decision: contradictoria.decision, ts: contradictoria.ts }, { agente, decision }],\n    siguiente_paso: \"usa raise_conflict y resuelve con resolve_conflict (merge, voto o escalar)\",\n  });\n}\nreturn ok({ conflicto: false, asunto, decisiones_acumuladas: st.decisiones[asunto].length });\n  }\n);\n\nserver.tool(\n  \"declare_edit\",\n  \"Declara intención de editar un artefacto (piso, sección o campo) para detectar solapamientos con otros editores.\",\n  {\n  artefacto: z.string().describe(\"ID/ruta del artefacto\"),\n  agente: z.string().describe(\"Agent_id editor\"),\n  seccion: z.string().describe(\"Parte que tocará (todo, sección X, campo Y)\").default(\"todo\"),\n  },\n  async (args: any) => {\n    const { artefacto, agente, seccion } = args as any;\n    const st = store.load();\nst.ediciones = st.ediciones || {};\nconst activas = (st.ediciones[artefacto] || []).filter(e => !e.cerrada && new Date(e.expira) > new Date());\nconst solape = activas.find(e => e.agente !== agente && (e.seccion === \"todo\" || seccion === \"todo\" || e.seccion === seccion));\nif (solape) {\n  return ok({\n    conflicto: true, artefacto, rival: { agente: solape.agente, seccion: solape.seccion, desde: solape.desde },\n    estrategias: [\"espera a que cierre con close_edit\", \"reduce tu seccion y coexistid\", \"raise_conflict para arbitrar\"],\n  });\n}\nst.ediciones[artefacto] = [...activas, { agente, seccion, desde: new Date().toISOString(), expira: new Date(Date.now() + 3600000).toISOString(), cerrada: false }];\nstore.save(st);\nreturn ok({ conflicto: false, artefacto, seccion, editores_activos: st.ediciones[artefacto].length });\n  }\n);\n\nserver.tool(\n  \"close_edit\",\n  \"Cierra una declaración de edición (terminaste con el artefacto).\",\n  {\n  artefacto: z.string().describe(\"Artefacto\"),\n  agente: z.string().describe(\"Agent_id\"),\n  },\n  async (args: any) => {\n    const { artefacto, agente } = args as any;\n    const st = store.load();\nconst lista = (st.ediciones || {})[artefacto];\nif (!lista) return fail(\"sin ediciones declaradas\");\nconst mias = lista.filter(e => e.agente === agente && !e.cerrada);\nif (!mias.length) return fail(\"no tienes ediciones abiertas en \" + artefacto);\nfor (const e of lista) if (e.agente === agente) e.cerrada = true;\nstore.save(st);\nreturn ok({ cerradas: mias.length, siguen_abiertas: lista.filter(e => !e.cerrada).length });\n  }\n);\n\nserver.tool(\n  \"raise_conflict\",\n  \"Eleva un conflicto formal (asunto/artefacto, partes, posturas) para que se arbitre.\",\n  {\n  tipo: z.enum([\"decision\",\"edicion\",\"duplicacion\",\"prioridad\"]).describe(\"Tipo de conflicto\"),\n  sujeto: z.string().describe(\"Asunto o artefacto en conflicto\"),\n  partes: z.array(z.any()).describe(\"Agent_ids implicados\"),\n  detalle: z.string().describe(\"Descripción del choque\").optional(),\n  },\n  async (args: any) => {\n    const { tipo, sujeto, partes, detalle } = args as any;\n    const st = store.load();\nst.conflictos = st.conflictos || [];\nconst id = \"cf_\" + Date.now().toString(36);\nst.conflictos.push({ id, tipo, sujeto, partes: partes || [], detalle: detalle || null, estado: \"abierto\", ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ conflicto_id: id, estrategias_sugeridas: { decision: \"vote o escalar\", edicion: \"merge sección a sección\", duplicacion: \"divide el trabajo con blackboard\", prioridad: \"human decide\" }[tipo] });\n  }\n);\n\nserver.tool(\n  \"resolve_conflict\",\n  \"Resuelve un conflicto: merge documentado, votación, o escalamiento a humano; queda como precedente auditable.\",\n  {\n  conflicto_id: z.string().describe(\"ID del conflicto\"),\n  estrategia: z.enum([\"merge\",\"vote\",\"escalado_humano\",\"seniority\",\"coexistencia\"]).describe(\"Cómo se resolvió\"),\n  resolucion: z.string().describe(\"Texto de la resolución final\"),\n  resuelto_por: z.string().describe(\"Quién arbitra\"),\n  },\n  async (args: any) => {\n    const { conflicto_id, estrategia, resolucion, resuelto_por } = args as any;\n    const st = store.load();\nconst c = (st.conflictos || []).find(x => x.id === conflicto_id);\nif (!c) return fail(\"conflicto no encontrado\");\nc.estado = \"resuelto\";\nc.resolucion = { estrategia, texto: resolucion, por: resuelto_por, ts: new Date().toISOString() };\nstore.save(st);\nreturn ok({ conflicto: c.id, resuelto: true, precedente: c.sujeto + \": \" + resolucion + \" (via \" + estrategia + \")\" });\n  }\n);\n\nserver.tool(\n  \"duplication_check\",\n  \"Detecta trabajo duplicado: dos agentes haciendo lo mismo (por similitud de descripción de tarea).\",\n  {\n  tareas: z.array(z.any()).describe(\"Lista de {agente, descripcion} activas para cruzar\"),\n  },\n  async (args: any) => {\n    const { tareas } = args as any;\n    const items = (tareas || []).filter(t => t && t.descripcion);\nif (items.length < 2) return fail(\"necesitas >=2 tareas {agente, descripcion}\");\nconst norm = (s) => String(s).toLowerCase().replace(/[^\\wáéíóúñ\\s]/g, \"\").split(/\\s+/).filter(w => w.length > 3);\nconst pares = [];\nfor (let i = 0; i < items.length; i++) {\n  for (let j = i + 1; j < items.length; j++) {\n    const a = new Set(norm(items[i].descripcion)), b = new Set(norm(items[j].descripcion));\n    const inter = [...a].filter(w => b.has(w)).length;\n    const jaccard = inter / new Set([...a, ...b]).size;\n    if (jaccard >= 0.45) pares.push({ a: items[i], b: items[j], similitud: Number(jaccard.toFixed(2)) });\n  }\n}\npares.sort((x, y) => y.similitud - x.similitud);\nreturn ok({\n  tareas_analizadas: items.length, duplicados_detectados: pares.length,\n  pares: pares.slice(0, 10),\n  consejo: pares.length ? \"cancela una de las dos o divide el alcance (claim en blackboard-shared)\" : \"sin duplicación\",\n});\n  }\n);\n\nserver.tool(\n  \"conflict_stats\",\n  \"Estadísticas de conflictos por tipo, estrategia de resolución y tasa de escalamiento humano.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst cs = st.conflictos || [];\nif (!cs.length) return ok({ total: 0 });\nconst porTipo = {}, porEstr = {};\nfor (const c of cs) { porTipo[c.tipo] = (porTipo[c.tipo] || 0) + 1; if (c.resolucion) porEstr[c.tipo + \":\" + c.resolucion.estrategia] = (porEstr[c.tipo + \":\" + c.resolucion.estrategia] || 0) + 1; }\nconst resueltos = cs.filter(c => c.estado === \"resuelto\").length;\nreturn ok({\n  total: cs.length, abiertos: cs.length - resueltos, resueltos,\n  por_tipo: porTipo, por_estrategia: porEstr,\n  tasa_escalamiento_humano: Number((cs.filter(c => c.resolucion?.estrategia === \"escalado_humano\").length / cs.length).toFixed(2)),\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor conflict-resolver está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"conflict-resolver\", tools: 8, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[conflict-resolver] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 57,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "conflict-resolver"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

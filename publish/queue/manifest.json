@@ -1,0 +1,1611 @@
+{
+ "generated_at": "2026-09-30T17:14:16.119Z",
+ "repo": "https://github.com/eddyflores100-lang/mcp-suite",
+ "total": 229,
+ "files": [
+  {
+   "id": "marketnow-agent-card",
+   "queue_id": "mn-sub-261001-226007",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "marketnow-search",
+   "queue_id": "mn-sub-261001-3d97e6",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "marketnow-trust",
+   "queue_id": "mn-sub-261001-d782ae",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "marketnow-install-planner",
+   "queue_id": "mn-sub-261001-5f1270",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "marketnow-bundles",
+   "queue_id": "mn-sub-261001-e25fa0",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "marketnow-policies",
+   "queue_id": "mn-sub-261001-476c7a",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "marketnow-certification",
+   "queue_id": "mn-sub-261001-842633",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "marketnow-diff-monitor",
+   "queue_id": "mn-sub-261001-4a32a0",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "marketnow-recommend",
+   "queue_id": "mn-sub-261001-afe890",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "marketnow-quickstart",
+   "queue_id": "mn-sub-261001-b6de93",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "ed25519-toolbox",
+   "queue_id": "mn-sub-261001-be94f9",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "jcs-canonicalizer",
+   "queue_id": "mn-sub-261001-7ce497",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "atc-agent-trust-card",
+   "queue_id": "mn-sub-261001-425c53",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "uts-trust-adapter",
+   "queue_id": "mn-sub-261001-d53e3b",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "verification-pipeline",
+   "queue_id": "mn-sub-261001-5f0861",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 3
+  },
+  {
+   "id": "x402-payments",
+   "queue_id": "mn-sub-261001-be7d1d",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "ap2-mandates",
+   "queue_id": "mn-sub-261001-f4afad",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "a2a-agent-card",
+   "queue_id": "mn-sub-261001-00605d",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "w3c-vc-kit",
+   "queue_id": "mn-sub-261001-a743ac",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 3
+  },
+  {
+   "id": "trust-gateway",
+   "queue_id": "mn-sub-261001-5e4312",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "sentinel-lite",
+   "queue_id": "mn-sub-261001-d7c48b",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "install-risk",
+   "queue_id": "mn-sub-261001-a8614a",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "runtime-interceptor",
+   "queue_id": "mn-sub-261001-ea5217",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "owasp-mcp-matrix",
+   "queue_id": "mn-sub-261001-446148",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 3
+  },
+  {
+   "id": "skill-publisher",
+   "queue_id": "mn-sub-261001-927753",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "secrets-audit",
+   "queue_id": "mn-sub-261001-d5fada",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 3
+  },
+  {
+   "id": "mcp-card-registry",
+   "queue_id": "mn-sub-261001-9a1885",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "reputation-oracle",
+   "queue_id": "mn-sub-261001-e4085a",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 3
+  },
+  {
+   "id": "agent-memory",
+   "queue_id": "mn-sub-261001-2a2473",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "agent-memory-graph",
+   "queue_id": "mn-sub-261001-28adcf",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "agent-episodic-log",
+   "queue_id": "mn-sub-261001-6b06f3",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "context-compressor",
+   "queue_id": "mn-sub-261001-99007d",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "context-budget",
+   "queue_id": "mn-sub-261001-1cc847",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "conversation-summarizer",
+   "queue_id": "mn-sub-261001-5f4c93",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "scratchpad",
+   "queue_id": "mn-sub-261001-3d2a13",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "working-state-store",
+   "queue_id": "mn-sub-261001-394a20",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "session-recall",
+   "queue_id": "mn-sub-261001-cc2a01",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "token-counter",
+   "queue_id": "mn-sub-261001-7c29cd",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "context-rot-detector",
+   "queue_id": "mn-sub-261001-bb6cb6",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "attention-focus",
+   "queue_id": "mn-sub-261001-7b8490",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "tool-registry",
+   "queue_id": "mn-sub-261001-3d93ef",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "tool-router",
+   "queue_id": "mn-sub-261001-086620",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "retry-orchestrator",
+   "queue_id": "mn-sub-261001-51d5a5",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "circuit-breaker",
+   "queue_id": "mn-sub-261001-dc071e",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "rate-limiter",
+   "queue_id": "mn-sub-261001-9341c8",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "timeout-guard",
+   "queue_id": "mn-sub-261001-8f3016",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "fallback-chain",
+   "queue_id": "mn-sub-261001-56568f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "queue-mcp",
+   "queue_id": "mn-sub-261001-8ebe9a",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "batch-runner",
+   "queue_id": "mn-sub-261001-41265f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "health-check-hub",
+   "queue_id": "mn-sub-261001-34d220",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "idempotency-guard",
+   "queue_id": "mn-sub-261001-fffd24",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "webhook-inspector",
+   "queue_id": "mn-sub-261001-b5160f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "poll-watcher",
+   "queue_id": "mn-sub-261001-f6632f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "json-repair",
+   "queue_id": "mn-sub-261001-aad31c",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 3
+  },
+  {
+   "id": "schema-validator",
+   "queue_id": "mn-sub-261001-d39cee",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "output-grader",
+   "queue_id": "mn-sub-261001-64a5a3",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "citation-checker",
+   "queue_id": "mn-sub-261001-1f5481",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "claim-extractor",
+   "queue_id": "mn-sub-261001-410cc3",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "fact-consistency",
+   "queue_id": "mn-sub-261001-b22b30",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "self-critic",
+   "queue_id": "mn-sub-261001-87d2d3",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "consensus-voter",
+   "queue_id": "mn-sub-261001-e59f51",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "output-diff",
+   "queue_id": "mn-sub-261001-3ab121",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "normalize-output",
+   "queue_id": "mn-sub-261001-92bdec",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "text-qa",
+   "queue_id": "mn-sub-261001-d11935",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "response-size-guard",
+   "queue_id": "mn-sub-261001-6480e7",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "prompt-injection-scanner",
+   "queue_id": "mn-sub-261001-dc3bf6",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 3
+  },
+  {
+   "id": "pii-redactor",
+   "queue_id": "mn-sub-261001-fd66cb",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "input-sanitizer",
+   "queue_id": "mn-sub-261001-0ac454",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "permission-gate",
+   "queue_id": "mn-sub-261001-c6bf82",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "audit-log",
+   "queue_id": "mn-sub-261001-533127",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "sandbox-eval",
+   "queue_id": "mn-sub-261001-740bd2",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "file-guard",
+   "queue_id": "mn-sub-261001-3cbe5f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "tos-checker",
+   "queue_id": "mn-sub-261001-daba43",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "allowlist-proxy",
+   "queue_id": "mn-sub-261001-e7a6e0",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "consent-manager",
+   "queue_id": "mn-sub-261001-155216",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "threat-modeler",
+   "queue_id": "mn-sub-261001-46c2bf",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "trace-logger",
+   "queue_id": "mn-sub-261001-92b81d",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "metrics-collector",
+   "queue_id": "mn-sub-261001-e4b329",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "cost-tracker",
+   "queue_id": "mn-sub-261001-852e5d",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "latency-tracker",
+   "queue_id": "mn-sub-261001-ad0690",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "run-reporter",
+   "queue_id": "mn-sub-261001-45d63f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "error-triage",
+   "queue_id": "mn-sub-261001-1930b0",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "heartbeat-monitor",
+   "queue_id": "mn-sub-261001-a3f372",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "experiment-log",
+   "queue_id": "mn-sub-261001-60accb",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "usage-analytics",
+   "queue_id": "mn-sub-261001-7af74c",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "debug-console",
+   "queue_id": "mn-sub-261001-2ffbf4",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "robust-fetcher",
+   "queue_id": "mn-sub-261001-e4786f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "html-to-markdown",
+   "queue_id": "mn-sub-261001-fc7ebe",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "readability-extract",
+   "queue_id": "mn-sub-261001-e1fe81",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "table-extractor",
+   "queue_id": "mn-sub-261001-e0ee68",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "csv-toolkit",
+   "queue_id": "mn-sub-261001-7f84c4",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "json-toolkit",
+   "queue_id": "mn-sub-261001-177dd5",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "xml-toolkit",
+   "queue_id": "mn-sub-261001-6a1776",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "yaml-toolkit",
+   "queue_id": "mn-sub-261001-b46cd3",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "markdown-toolkit",
+   "queue_id": "mn-sub-261001-eeb955",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "pdf-text-extractor",
+   "queue_id": "mn-sub-261001-750ad7",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 3
+  },
+  {
+   "id": "url-inspector",
+   "queue_id": "mn-sub-261001-4a7109",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "diff-detector",
+   "queue_id": "mn-sub-261001-a7e05f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "chunker",
+   "queue_id": "mn-sub-261001-afd6dd",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "data-anonymizer",
+   "queue_id": "mn-sub-261001-d6aede",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 3
+  },
+  {
+   "id": "plan-decompose",
+   "queue_id": "mn-sub-261001-83df31",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "task-tracker",
+   "queue_id": "mn-sub-261001-2cef66",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "milestone-checker",
+   "queue_id": "mn-sub-261001-e33a63",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "decision-matrix",
+   "queue_id": "mn-sub-261001-c99f09",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "hypothesis-tracker",
+   "queue_id": "mn-sub-261001-3a6fdb",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "priority-queue",
+   "queue_id": "mn-sub-261001-4c616e",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "risk-register",
+   "queue_id": "mn-sub-261001-a759f2",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "assumption-auditor",
+   "queue_id": "mn-sub-261001-9a885c",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "retro-analyzer",
+   "queue_id": "mn-sub-261001-0cd013",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "uncertainty-quantifier",
+   "queue_id": "mn-sub-261001-204a1b",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "human-approval",
+   "queue_id": "mn-sub-261001-6db756",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "feedback-loop",
+   "queue_id": "mn-sub-261001-524a13",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "report-builder",
+   "queue_id": "mn-sub-261001-51775c",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "digest-writer",
+   "queue_id": "mn-sub-261001-804038",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "locale-helper",
+   "queue_id": "mn-sub-261001-b8da89",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "tone-adjuster",
+   "queue_id": "mn-sub-261001-f2718f",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "handoff-notes",
+   "queue_id": "mn-sub-261001-486b0f",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "meeting-notes",
+   "queue_id": "mn-sub-261001-49f104",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 3
+  },
+  {
+   "id": "safe-math",
+   "queue_id": "mn-sub-261001-670635",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "stats-toolkit",
+   "queue_id": "mn-sub-261001-da315a",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "datetime-toolkit",
+   "queue_id": "mn-sub-261001-2f6c95",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "currency-convert",
+   "queue_id": "mn-sub-261001-deda26",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "unit-convert",
+   "queue_id": "mn-sub-261001-ab7819",
+   "price": 0,
+   "tier": "Free",
+   "tools": 3
+  },
+  {
+   "id": "regex-forge",
+   "queue_id": "mn-sub-261001-917cf5",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "id-forge",
+   "queue_id": "mn-sub-261001-7a7432",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "hash-toolkit",
+   "queue_id": "mn-sub-261001-f5a0b2",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "agent-org-chart",
+   "queue_id": "mn-sub-261001-e00942",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 8
+  },
+  {
+   "id": "delegation-contracts",
+   "queue_id": "mn-sub-261001-49d869",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 9
+  },
+  {
+   "id": "handoff-protocol",
+   "queue_id": "mn-sub-261001-098f83",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 8
+  },
+  {
+   "id": "blackboard-shared",
+   "queue_id": "mn-sub-261001-040053",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 9
+  },
+  {
+   "id": "deadlock-detector",
+   "queue_id": "mn-sub-261001-ae7289",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 7
+  },
+  {
+   "id": "conflict-resolver",
+   "queue_id": "mn-sub-261001-00aaeb",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 8
+  },
+  {
+   "id": "quorum-coordinator",
+   "queue_id": "mn-sub-261001-06b271",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 7
+  },
+  {
+   "id": "agent-supervisor",
+   "queue_id": "mn-sub-261001-c4ff56",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 7
+  },
+  {
+   "id": "goal-contract",
+   "queue_id": "mn-sub-261001-6b2245",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 8
+  },
+  {
+   "id": "drift-detector",
+   "queue_id": "mn-sub-261001-b0e470",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "commitment-ledger",
+   "queue_id": "mn-sub-261001-f02c2f",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 7
+  },
+  {
+   "id": "scope-guard",
+   "queue_id": "mn-sub-261001-151493",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 6
+  },
+  {
+   "id": "time-horizon-planner",
+   "queue_id": "mn-sub-261001-4a2131",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 7
+  },
+  {
+   "id": "progress-journal",
+   "queue_id": "mn-sub-261001-7bbac6",
+   "price": 0,
+   "tier": "Free",
+   "tools": 6
+  },
+  {
+   "id": "mission-checkpoint",
+   "queue_id": "mn-sub-261001-7b5c9e",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 7
+  },
+  {
+   "id": "spec-clarifier",
+   "queue_id": "mn-sub-261001-060da3",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "acceptance-criteria",
+   "queue_id": "mn-sub-261001-e8e089",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 6
+  },
+  {
+   "id": "definition-of-done",
+   "queue_id": "mn-sub-261001-33567c",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "spec-diff-impact",
+   "queue_id": "mn-sub-261001-52778a",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "requirements-matrix",
+   "queue_id": "mn-sub-261001-ca4a49",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 7
+  },
+  {
+   "id": "golden-set",
+   "queue_id": "mn-sub-261001-c01b02",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 7
+  },
+  {
+   "id": "regression-harness",
+   "queue_id": "mn-sub-261001-537688",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 6
+  },
+  {
+   "id": "prompt-ab-test",
+   "queue_id": "mn-sub-261001-6d265b",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 6
+  },
+  {
+   "id": "quality-drift-monitor",
+   "queue_id": "mn-sub-261001-d20ad1",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 6
+  },
+  {
+   "id": "scenario-simulator",
+   "queue_id": "mn-sub-261001-b2fbf0",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "failure-tagger",
+   "queue_id": "mn-sub-261001-2dad34",
+   "price": 0,
+   "tier": "Free",
+   "tools": 6
+  },
+  {
+   "id": "spend-envelope",
+   "queue_id": "mn-sub-261001-8c23b0",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "task-roi",
+   "queue_id": "mn-sub-261001-92cd3f",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "token-audit",
+   "queue_id": "mn-sub-261001-955599",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "model-router-econ",
+   "queue_id": "mn-sub-261001-240a89",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "budget-forecast",
+   "queue_id": "mn-sub-261001-4c054e",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "cost-attribution",
+   "queue_id": "mn-sub-261001-e91e19",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "dom-baseline",
+   "queue_id": "mn-sub-261001-8eb94f",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "selector-healer",
+   "queue_id": "mn-sub-261001-e1941f",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "action-recorder",
+   "queue_id": "mn-sub-261001-509f13",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "checkpoint-undo",
+   "queue_id": "mn-sub-261001-299706",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "viewport-verifier",
+   "queue_id": "mn-sub-261001-428880",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "postmortem-engine",
+   "queue_id": "mn-sub-261001-0920ae",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "lesson-library",
+   "queue_id": "mn-sub-261001-66bdc5",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 6
+  },
+  {
+   "id": "mistake-patterns",
+   "queue_id": "mn-sub-261001-3568b2",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "skill-forge",
+   "queue_id": "mn-sub-261001-73421c",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "competency-tracker",
+   "queue_id": "mn-sub-261001-9495f5",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "interruption-broker",
+   "queue_id": "mn-sub-261001-a9e92d",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "takeover-request",
+   "queue_id": "mn-sub-261001-8d3f8e",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "trust-calibrator",
+   "queue_id": "mn-sub-261001-4dd797",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "escalation-policy",
+   "queue_id": "mn-sub-261001-e6dbec",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "explain-decision",
+   "queue_id": "mn-sub-261001-c67a88",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "fact-staleness",
+   "queue_id": "mn-sub-261001-474ce9",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "source-timeline",
+   "queue_id": "mn-sub-261001-c4bffe",
+   "price": 2.99,
+   "tier": "Multi-feature",
+   "tools": 5
+  },
+  {
+   "id": "deadline-engine",
+   "queue_id": "mn-sub-261001-9f4091",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "temporal-reasoner",
+   "queue_id": "mn-sub-261001-e1966d",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "policy-as-code",
+   "queue_id": "mn-sub-261001-806567",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "data-residency-check",
+   "queue_id": "mn-sub-261001-1f1848",
+   "price": 1.99,
+   "tier": "Standard",
+   "tools": 4
+  },
+  {
+   "id": "consent-ledger",
+   "queue_id": "mn-sub-261001-6f3da9",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "compliance-report",
+   "queue_id": "mn-sub-261001-4f428f",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "blast-radius-estimator",
+   "queue_id": "mn-sub-261001-f156a6",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "dry-run-executor",
+   "queue_id": "mn-sub-261001-1a1640",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "side-effect-ledger",
+   "queue_id": "mn-sub-261001-3771ba",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "reversibility-planner",
+   "queue_id": "mn-sub-261001-b6c192",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "precondition-checker",
+   "queue_id": "mn-sub-261001-f2e331",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "action-limiter",
+   "queue_id": "mn-sub-261001-4d9b68",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "escrow-agent",
+   "queue_id": "mn-sub-261001-49c7be",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 9
+  },
+  {
+   "id": "sla-contract-manager",
+   "queue_id": "mn-sub-261001-2c87e6",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "metering-station",
+   "queue_id": "mn-sub-261001-96097d",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "quote-negotiator",
+   "queue_id": "mn-sub-261001-c1320f",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "dispute-resolver",
+   "queue_id": "mn-sub-261001-cf54ca",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "settlement-ledger",
+   "queue_id": "mn-sub-261001-2dc238",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "did-resolver",
+   "queue_id": "mn-sub-261001-de13aa",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 7
+  },
+  {
+   "id": "delegation-chain",
+   "queue_id": "mn-sub-261001-bd8d6e",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "key-rotation-manager",
+   "queue_id": "mn-sub-261001-7df009",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "agent-passport",
+   "queue_id": "mn-sub-261001-705c57",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 6
+  },
+  {
+   "id": "scope-minting",
+   "queue_id": "mn-sub-261001-7f23e4",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 6
+  },
+  {
+   "id": "prompt-versioner",
+   "queue_id": "mn-sub-261001-c67d32",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "canary-deployer",
+   "queue_id": "mn-sub-261001-6c42d0",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "rollback-manager",
+   "queue_id": "mn-sub-261001-9d25f0",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "prompt-dependency-graph",
+   "queue_id": "mn-sub-261001-ea3f4d",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "change-changelog",
+   "queue_id": "mn-sub-261001-1cc747",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "env-diff-checker",
+   "queue_id": "mn-sub-261001-0628dd",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "transcript-condenser",
+   "queue_id": "mn-sub-261001-4dc046",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 6
+  },
+  {
+   "id": "av-budget-packer",
+   "queue_id": "mn-sub-261001-1a6aa5",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "turn-state-machine",
+   "queue_id": "mn-sub-261001-351b19",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "speech-pacing",
+   "queue_id": "mn-sub-261001-3637a0",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "image-batch-tagger",
+   "queue_id": "mn-sub-261001-1d137f",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  },
+  {
+   "id": "caption-aligner",
+   "queue_id": "mn-sub-261001-b4f740",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "tenant-isolator",
+   "queue_id": "mn-sub-261001-092332",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 5
+  },
+  {
+   "id": "tenant-quota-manager",
+   "queue_id": "mn-sub-261001-1cf40a",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "noisy-neighbor-detector",
+   "queue_id": "mn-sub-261001-6aa80d",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "tenant-data-tagger",
+   "queue_id": "mn-sub-261001-c55ea9",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "cross-tenant-guard",
+   "queue_id": "mn-sub-261001-6a5d7c",
+   "price": 9.99,
+   "tier": "Enterprise",
+   "tools": 4
+  },
+  {
+   "id": "argument-cartographer",
+   "queue_id": "mn-sub-261001-a2b211",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "bayesian-updater",
+   "queue_id": "mn-sub-261001-02aa34",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "counterfactual-lab",
+   "queue_id": "mn-sub-261001-ccd107",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "causal-ladder",
+   "queue_id": "mn-sub-261001-9d646a",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "analogy-finder",
+   "queue_id": "mn-sub-261001-7c7776",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "pareto-tradeoff",
+   "queue_id": "mn-sub-261001-13034d",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "occam-razor",
+   "queue_id": "mn-sub-261001-0ca71d",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "error-taxonomy",
+   "queue_id": "mn-sub-261001-b13168",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "root-cause-tree",
+   "queue_id": "mn-sub-261001-ed3551",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "reflection-journal",
+   "queue_id": "mn-sub-261001-6b1fe1",
+   "price": 0,
+   "tier": "Free",
+   "tools": 4
+  },
+  {
+   "id": "prompt-self-rewriter",
+   "queue_id": "mn-sub-261001-3926d2",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 5
+  },
+  {
+   "id": "behavior-diff",
+   "queue_id": "mn-sub-261001-5e95e9",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "capability-gap-scanner",
+   "queue_id": "mn-sub-261001-dccb82",
+   "price": 4.99,
+   "tier": "Sophisticated",
+   "tools": 4
+  },
+  {
+   "id": "growth-plan",
+   "queue_id": "mn-sub-261001-91badc",
+   "price": 0,
+   "tier": "Free",
+   "tools": 5
+  }
+ ],
+ "warnings": []
+}

@@ -1,0 +1,63 @@
+{
+ "name": "mcp-handoff-notes",
+ "version": "1.0.0",
+ "description": "Notas de traspaso entre agentes/turnos: contexto, estado y pendientes en plantilla estandarizada Dolor que resuelve: El traspaso entre agentes (o turnos) pierde contexto crítico: cada receptor re-descubre todo. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Communication",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "human-in-the-loop",
+  "communication",
+  "approvals"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only handoff-notes",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-handoff-notes",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "create_handoff",
+   "render_handoff",
+   "completeness_check",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only handoff-notes",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-handoff-notes\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-handoff-notes/dist/index.js\"]}}}. Tools disponibles: create_handoff, render_handoff, completeness_check y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/handoff-notes/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-handoff-notes (create_handoff, render_handoff, completeness_check). Notas de traspaso entre agentes/turnos: contexto, estado y pendientes en plantilla estandarizada. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/handoff-notes/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/handoff-notes\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Handoff Notes — Notas de traspaso entre agentes/turnos: contexto, estado y pendientes en plantilla estandarizada (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-handoff-notes\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"comunicaci-n-y-humano\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Handoff Notes\n\n> Notas de traspaso entre agentes/turnos: contexto, estado y pendientes en plantilla estandarizada\n\n**Categoría:** Comunicación y Humano · **ID:** `mcp-handoff-notes`\n\n**Dolor de agente que resuelve:** El traspaso entre agentes (o turnos) pierde contexto crítico: cada receptor re-descubre todo.\n\n> Estado persistente en `~/.mcp-suite/handoff-notes/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `create_handoff`\nCrea una nota de traspaso estandarizada: objetivo, estado actual, pendientes, riesgos, contexto esencial y contactos.\n\n**Parámetros:**\n  - `tarea` (string, requerido): Tarea que se traspasa\n  - `objetivo` (string, requerido): Objetivo\n  - `estado_actual` (string, requerido): Dónde quedó todo\n  - `pendientes` (array, requerido): Pendientes concretos\n  - `riesgos` (array, opcional): Riesgos conocidos\n  - `contexto` (string, opcional): Contexto esencial (links, decisions)\n\n### `render_handoff`\nRenderiza la nota de traspaso en markdown listo para pegar al receptor.\n\n**Parámetros:**\n  - `id` (string, requerido): ID del handoff\n\n### `completeness_check`\nVerifica completitud del traspaso: ¿el receptor puede continuar sin preguntar nada?\n\n**Parámetros:**\n  - `id` (string, requerido): ID del handoff\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"handoff-notes\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-handoff-notes/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Handoff Notes\n * Notas de traspaso entre agentes/turnos: contexto, estado y pendientes en plantilla estandarizada\n *\n * Dolor que resuelve: El traspaso entre agentes (o turnos) pierde contexto crítico: cada receptor re-descubre todo.\n * Categoría: Comunicación y Humano | Generado por mcp-suite | id: handoff-notes\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/handoff-notes/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"handoff-notes\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"handoff-notes\", version: \"1.0.0\" });\n\nserver.tool(\n  \"create_handoff\",\n  \"Crea una nota de traspaso estandarizada: objetivo, estado actual, pendientes, riesgos, contexto esencial y contactos.\",\n  {\n  tarea: z.string().describe(\"Tarea que se traspasa\"),\n  objetivo: z.string().describe(\"Objetivo\"),\n  estado_actual: z.string().describe(\"Dónde quedó todo\"),\n  pendientes: z.array(z.any()).describe(\"Pendientes concretos\"),\n  riesgos: z.array(z.any()).describe(\"Riesgos conocidos\").optional(),\n  contexto: z.string().describe(\"Contexto esencial (links, decisions)\").optional(),\n  },\n  async (args: any) => {\n    const { tarea, objetivo, estado_actual, pendientes, riesgos, contexto } = args as any;\n    const st = store.load();\nst.handoffs = st.handoffs || [];\nconst h = { id: \"HO\" + (st.handoffs.length + 1), tarea, objetivo, estado_actual, pendientes: Array.isArray(pendientes) ? pendientes : [], riesgos: Array.isArray(riesgos) ? riesgos : [], contexto: contexto || \"\", creado: new Date().toISOString() };\nst.handoffs.push(h);\nstore.save(st);\nreturn ok({ handoff_id: h.id });\n  }\n);\n\nserver.tool(\n  \"render_handoff\",\n  \"Renderiza la nota de traspaso en markdown listo para pegar al receptor.\",\n  {\n  id: z.string().describe(\"ID del handoff\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst h = (st.handoffs || []).find((x) => x.id === id);\nif (!h) return fail(\"handoff no existe\");\nconst md = [\n  \"# Traspaso: \" + h.tarea, \"\",\n  \"**Objetivo:** \" + h.objetivo, \"\",\n  \"## Estado actual\", h.estado_actual, \"\",\n  \"## Pendientes\", ...(h.pendientes.length ? h.pendientes.map((p: string) => \"- [ ] \" + p) : [\"- nada pendiente\"]), \"\",\n  h.riesgos.length ? \"## Riesgos\" : \"\", ...(h.riesgos || []).map((r: string) => \"- ⚠ \" + r),\n  h.contexto ? \"## Contexto esencial\" : \"\", h.contexto || \"\",\n  \"\", \"---\", \"*Creado: \" + h.creado + \"*\",\n].filter((l) => l !== \"\").join(\"\\n\");\nreturn ok({ markdown: md, pendientes: h.pendientes.length });\n  }\n);\n\nserver.tool(\n  \"completeness_check\",\n  \"Verifica completitud del traspaso: ¿el receptor puede continuar sin preguntar nada?\",\n  {\n  id: z.string().describe(\"ID del handoff\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst h = (st.handoffs || []).find((x) => x.id === id);\nif (!h) return fail(\"handoff no existe\");\nconst faltas: string[] = [];\nif (!h.objetivo || h.objetivo.length < 20) faltas.push(\"objetivo débil: el receptor no sabrá para qué\");\nif (!h.estado_actual || h.estado_actual.length < 40) faltas.push(\"estado actual insuficiente\");\nif (!h.pendientes.length) faltas.push(\"sin pendientes: ¿de verdad no queda nada?\");\nif (!h.contexto) faltas.push(\"sin contexto esencial: agrega links/decisiones\");\nreturn ok({ completo: faltas.length === 0, faltas, veredicto: faltas.length === 0 ? \"listo para traspasar\" : \"completa antes de traspasar\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor handoff-notes está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"handoff-notes\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[handoff-notes] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

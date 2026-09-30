@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-ed3551",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-root-cause-tree",
+  "version": "1.0.0",
+  "description": "Cinco porqués disciplinados: cada porqué debe responder al anterior o el árbol se corta antes de la raíz Dolor que resuelve: El agente hace 'análisis de causa raíz' en un párrafo: los porqués no se encadenan, saltan de tema y la 'raíz' es en realidad el tercer síntoma. Sin disciplina estructural, el RCA es literatura. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "AI/ML",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "self-improvement",
+   "reflection",
+   "growth"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only root-cause-tree",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-root-cause-tree",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "start_tree",
+    "add_why",
+    "validate_chain",
+    "declare_root",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only root-cause-tree",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-root-cause-tree\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-root-cause-tree/dist/index.js\"]}}}. Tools disponibles: start_tree, add_why, validate_chain, declare_root y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/root-cause-tree/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-root-cause-tree (start_tree, add_why, validate_chain, declare_root). Cinco porqués disciplinados: cada porqué debe responder al anterior o el árbol se corta antes de la raíz. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/root-cause-tree/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/root-cause-tree\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Root Cause Tree — Cinco porqués disciplinados: cada porqué debe responder al anterior o el árbol se corta antes de la raíz (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-root-cause-tree\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"auto-mejora\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Root Cause Tree\n\n> Cinco porqués disciplinados: cada porqué debe responder al anterior o el árbol se corta antes de la raíz\n\n**Categoría:** Auto-Mejora · **ID:** `mcp-root-cause-tree`\n\n**Dolor de agente que resuelve:** El agente hace 'análisis de causa raíz' en un párrafo: los porqués no se encadenan, saltan de tema y la 'raíz' es en realidad el tercer síntoma. Sin disciplina estructural, el RCA es literatura.\n\n> Estado persistente en `~/.mcp-suite/root-cause-tree/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `start_tree`\nAbre un árbol de análisis con el problema observable.\n\n**Parámetros:**\n  - `problema` (string, requerido): El problema visible (síntoma, no causa)\n\n### `add_why`\nAñade un nivel de porqué respondiendo al nivel anterior.\n\n**Parámetros:**\n  - `id` (string, requerido): Id del árbol\n  - `respuesta` (string, requerido): Respuesta al porqué actual\n  - `evidencia` (string, opcional): Qué te hace creer esa respuesta\n\n### `validate_chain`\nValida que la cadena de porqués es coherente: cada respuesta trata sobre la anterior.\n\n**Parámetros:**\n  - `id` (string, requerido): Árbol\n\n### `declare_root`\nDeclara la causa raíz (con validación de profundidad y factores contribuyentes).\n\n**Parámetros:**\n  - `id` (string, requerido): Árbol\n  - `causa_raiz` (string, requerido): La causa raíz identificada\n  - `tipo_causa` (enum, requerido): Naturaleza de la raíz\n  - `factores_contribuyentes` (array, opcional): Factores que empeoraron sin causar\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"root-cause-tree\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-root-cause-tree/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/root-cause-tree/. Árboles de porqués encadenados; valida que cada respuesta responda a la pregunta anterior (coherencia textual), detecta paradas prematuras y separa causa raíz de factores contribuyentes.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Root Cause Tree\n * Cinco porqués disciplinados: cada porqué debe responder al anterior o el árbol se corta antes de la raíz\n *\n * Dolor que resuelve: El agente hace 'análisis de causa raíz' en un párrafo: los porqués no se encadenan, saltan de tema y la 'raíz' es en realidad el tercer síntoma. Sin disciplina estructural, el RCA es literatura.\n * Categoría: Auto-Mejora | Generado por mcp-suite | id: root-cause-tree\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/root-cause-tree/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"root-cause-tree\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"root-cause-tree\", version: \"1.0.0\" });\n\nserver.tool(\n  \"start_tree\",\n  \"Abre un árbol de análisis con el problema observable.\",\n  {\n  problema: z.string().describe(\"El problema visible (síntoma, no causa)\"),\n  },\n  async (args: any) => {\n    const { problema } = args as any;\n    const st = store.load();\nst.arboles = st.arboles || [];\nconst id = \"rct_\" + String(st.arboles.length + 1).padStart(4, \"0\");\nst.arboles.push({ id, problema, niveles: [], raiz_declarada: null, factores: [], creado: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id, problema: problema.slice(0, 100), regla: \"cada porqué debe responder EXACTAMENTE al nivel anterior: si cambia de tema, es un árbol nuevo\" });\n  }\n);\n\nserver.tool(\n  \"add_why\",\n  \"Añade un nivel de porqué respondiendo al nivel anterior.\",\n  {\n  id: z.string().describe(\"Id del árbol\"),\n  respuesta: z.string().describe(\"Respuesta al porqué actual\"),\n  evidencia: z.string().describe(\"Qué te hace creer esa respuesta\").optional(),\n  },\n  async (args: any) => {\n    const { id, respuesta, evidencia } = args as any;\n    const st = store.load();\nconst a = (st.arboles || []).find(x => x.id === id);\nif (!a) return fail(\"árbol no encontrado\");\nif (a.raiz_declarada) return fail(\"árbol ya cerrado con raíz: abre otro para explorar más\");\nconst nivel = a.niveles.length + 1;\nif (nivel > 7) return fail(\"más de 7 porqués: el problema está mal delimitado o estás dando vueltas\");\na.niveles.push({ nivel, respuesta: respuesta.slice(0, 200), evidencia: evidencia || \"\", ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ id, nivel, respuesta: respuesta.slice(0, 80), profundidad_recomendada: nivel < 5 ? \"sigue preguntando: aún en zona de síntomas\" : \"zona de raíz: valida antes de profundizar más\", siguiente: nivel >= 3 ? \"valida la coherencia con validate_chain\" : \"añade el siguiente porqué\" });\n  }\n);\n\nserver.tool(\n  \"validate_chain\",\n  \"Valida que la cadena de porqués es coherente: cada respuesta trata sobre la anterior.\",\n  {\n  id: z.string().describe(\"Árbol\"),\n  },\n  async (args: any) => {\n    const { id } = args as any;\n    const st = store.load();\nconst a = (st.arboles || []).find(x => x.id === id);\nif (!a) return fail(\"árbol no encontrado\");\nconst n = a.niveles.length;\nif (n < 2) return fail(\"necesitas al menos 2 niveles\");\nconst tokens = (x) => new Set(String(x).toLowerCase().split(/[^a-z0-9áéíóúñ]+/).filter(w => w.length > 3));\nconst problemas = [];\nfor (let i = 1; i < n; i++) {\n  const ant = tokens(a.niveles[i - 1].respuesta);\n  const act = tokens(a.niveles[i].respuesta);\n  const solape = [...ant].filter(w => act.has(w)).length;\n  const ratio = solape / Math.max(ant.size, 1);\n  if (ratio < 0.08) problemas.push({ entre_niveles: [i, i + 1], tipo: \"SALTO_DE_TEMA\", detalle: \"la respuesta \" + (i + 1) + \" no menciona nada del nivel \" + i + \": probablemente cambiaste de problema a mitad de cadena\" });\n  if (ratio > 0.85) problemas.push({ entre_niveles: [i, i + 1], tipo: \"TAUTOLOGÍA\", detalle: \"la respuesta \" + (i + 1) + \" repite el nivel \" + i + \" casi igual: estás girando en el sitio\" });\n}\nconst sinEvidencia = a.niveles.filter(x => !x.evidencia).length;\nreturn ok({ id, niveles: n, problemas_de_cadena: problemas, niveles_sin_evidencia: sinEvidencia, veredicto: problemas.length ? \"cadena ROTA: corrige los saltos antes de declarar raíz (una raíz alcanzada por una cadena rota es una raíz imaginaria)\" : \"cadena coherente\" + (n >= 5 ? \" y profunda\" : \" pero CORTA: con \" + n + \" niveles sueles parar en síntomas intermedios\"), aviso_evidencia: sinEvidencia > n / 2 ? \"más de la mitad de los niveles son conjetura sin evidencia: la raíz será una hipótesis, no un hallazgo\" : null });\n  }\n);\n\nserver.tool(\n  \"declare_root\",\n  \"Declara la causa raíz (con validación de profundidad y factores contribuyentes).\",\n  {\n  id: z.string().describe(\"Árbol\"),\n  causa_raiz: z.string().describe(\"La causa raíz identificada\"),\n  tipo_causa: z.enum([\"proceso\",\"conocimiento\",\"herramienta\",\"datos\",\"incentivo\",\"humana\"]).describe(\"Naturaleza de la raíz\"),\n  factores_contribuyentes: z.array(z.any()).describe(\"Factores que empeoraron sin causar\").optional(),\n  },\n  async (args: any) => {\n    const { id, causa_raiz, tipo_causa, factores_contribuyentes } = args as any;\n    const st = store.load();\nconst a = (st.arboles || []).find(x => x.id === id);\nif (!a) return fail(\"árbol no encontrado\");\nif (a.raiz_declarada) return fail(\"raíz ya declarada\");\nconst n = a.niveles.length;\nif (n < 3) return fail(\"con \" + n + \" niveles has parado demasiado arriba: esa no es raíz, es el síntoma disfrazado\");\na.raiz_declarada = { causa_raiz, tipo_causa, niveles_excavados: n, declarada: new Date().toISOString() };\na.factores = (factores_contribuyentes || []).map(String);\nstore.save(st);\nreturn ok({ id, causa_raiz: causa_raiz.slice(0, 120), tipo_causa, niveles_excavados: n, factores_contribuyentes: a.factores, correccion_esperada: tipo_causa === \"proceso\" ? \"cambia el PROCESO (checklist, gate): el 'ten más cuidado' no arregla procesos\" : tipo_causa === \"herramienta\" ? \"cambia la HERRAMIENTA o su configuración\" : tipo_causa === \"conocimiento\" ? \"añade el conocimiento al sistema (doc recuperable, lección en lesson-library)\" : tipo_causa === \"datos\" ? \"arregla los DATOS en origen y añade validación de entrada\" : tipo_causa === \"incentivo\" ? \"los incentivos hacen que el error sea racional: sin cambiarlos, el error volverá\" : \"causa humana: simplifica la tarea, no blames al humano\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor root-cause-tree está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"root-cause-tree\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[root-cause-tree] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "root-cause-tree"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}

@@ -1,0 +1,63 @@
+{
+ "name": "mcp-runtime-interceptor",
+ "version": "1.0.0",
+ "description": "Reglas de interceptación en runtime: bloquea .env, rm -rf, spawns y escrituras de sistema Dolor que resuelve: Las skills instaladas ejecutan comandos en tu máquina: hace falta un interceptor que evalúe cada comando contra políticas de bloqueo. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "sentinel",
+  "audit",
+  "devsecops"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only runtime-interceptor",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-runtime-interceptor",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (3 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "check_command",
+   "add_rule",
+   "list_rules",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only runtime-interceptor",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-runtime-interceptor\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-runtime-interceptor/dist/index.js\"]}}}. Tools disponibles: check_command, add_rule, list_rules y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/runtime-interceptor/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-runtime-interceptor (check_command, add_rule, list_rules). Reglas de interceptación en runtime: bloquea .env, rm -rf, spawns y escrituras de sistema. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/runtime-interceptor/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/runtime-interceptor\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Runtime Interceptor — Reglas de interceptación en runtime: bloquea .env, rm -rf, spawns y escrituras de sistema (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-runtime-interceptor\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"marketnow-ops\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Runtime Interceptor\n\n> Reglas de interceptación en runtime: bloquea .env, rm -rf, spawns y escrituras de sistema\n\n**Categoría:** MarketNow Ops · **ID:** `mcp-runtime-interceptor`\n\n**Dolor de agente que resuelve:** Las skills instaladas ejecutan comandos en tu máquina: hace falta un interceptor que evalúe cada comando contra políticas de bloqueo.\n\n> Estado persistente en `~/.mcp-suite/runtime-interceptor/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `check_command`\nEvalúa un comando contra las reglas de interceptación activas. Devuelve ALLOW/BLOCK con la regla que aplica.\n\n**Parámetros:**\n  - `comando` (string, requerido): Comando a evaluar\n\n### `add_rule`\nAñade una regla personalizada de interceptación (patrón regex + acción block/warn/allow).\n\n**Parámetros:**\n  - `nombre` (string, requerido): Nombre de la regla\n  - `patron` (string, requerido): Patrón regex\n  - `accion` (enum, requerido): Acción al matchear\n\n### `list_rules`\nLista todas las reglas de interceptación activas (las 5 por defecto de MarketNow + personalizadas).\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"runtime-interceptor\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-runtime-interceptor/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nLas 5 reglas por defecto replican el Runtime Interceptor de MarketNow: bloquear acceso a .env, rm -rf, spawns de procesos, escrituras de sistema y network exfil a webhooks.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Runtime Interceptor\n * Reglas de interceptación en runtime: bloquea .env, rm -rf, spawns y escrituras de sistema\n *\n * Dolor que resuelve: Las skills instaladas ejecutan comandos en tu máquina: hace falta un interceptor que evalúe cada comando contra políticas de bloqueo.\n * Categoría: MarketNow Ops | Generado por mcp-suite | id: runtime-interceptor\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/runtime-interceptor/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"runtime-interceptor\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"runtime-interceptor\", version: \"1.0.0\" });\n\nserver.tool(\n  \"check_command\",\n  \"Evalúa un comando contra las reglas de interceptación activas. Devuelve ALLOW/BLOCK con la regla que aplica.\",\n  {\n  comando: z.string().describe(\"Comando a evaluar\"),\n  },\n  async (args: any) => {\n    const { comando } = args as any;\n    const st = store.load();\nst.rules = st.rules || [\n  { id: \"r1\", nombre: \"no-env-access\", patron: \"\\.env\", accion: \"block\" },\n  { id: \"r2\", nombre: \"no-destructive-delete\", patron: \"rm\\s+(-[a-zA-Z]*r[a-zA-Z]*f|-rf)\", accion: \"block\" },\n  { id: \"r3\", nombre: \"no-process-spawn\", patron: \"child_process|\\bspawn\\(|\\bexec\\(\", accion: \"warn\" },\n  { id: \"r4\", nombre: \"no-system-writes\", patron: \"/etc/|/usr/bin|C:\\\\Windows\", accion: \"block\" },\n  { id: \"r5\", nombre: \"no-webhook-exfil\", patron: \"telegram|discord\\.com/api|webhook\\.site\", accion: \"block\" },\n];\nstore.save(st);\nconst c = comando;\nlet decision = \"ALLOW\"; const aplicadas = [];\nfor (const r of st.rules) {\n  try { if (new RegExp(r.patron, \"i\").test(c)) { aplicadas.push(r); if (r.accion === \"block\") decision = \"BLOCK\"; } } catch {}\n}\nreturn ok({ decision, reglas_aplicadas: aplicadas.map((r) => r.nombre + \" (\" + r.accion + \")\"), comando: c });\n  }\n);\n\nserver.tool(\n  \"add_rule\",\n  \"Añade una regla personalizada de interceptación (patrón regex + acción block/warn/allow).\",\n  {\n  nombre: z.string().describe(\"Nombre de la regla\"),\n  patron: z.string().describe(\"Patrón regex\"),\n  accion: z.enum([\"block\",\"warn\",\"allow\"]).describe(\"Acción al matchear\"),\n  },\n  async (args: any) => {\n    const { nombre, patron, accion } = args as any;\n    try { new RegExp(patron, \"i\"); } catch (e) { return fail(\"regex inválida: \" + e.message); }\nconst st = store.load();\nst.rules = st.rules || [];\nst.rules.push({ id: \"r\" + (st.rules.length + 1), nombre, patron, accion });\nstore.save(st);\nreturn ok({ regla_agregada: { nombre, patron, accion }, total_reglas: st.rules.length });\n  }\n);\n\nserver.tool(\n  \"list_rules\",\n  \"Lista todas las reglas de interceptación activas (las 5 por defecto de MarketNow + personalizadas).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nreturn ok({ reglas: st.rules || [], nota: \"5 reglas por defecto = Runtime Interceptor de marketnow.site\" });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor runtime-interceptor está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"runtime-interceptor\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[runtime-interceptor] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

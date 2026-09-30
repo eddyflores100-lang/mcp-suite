@@ -1,0 +1,63 @@
+{
+ "name": "mcp-audit-log",
+ "version": "1.0.0",
+ "description": "Bitácora inmutable con cadena de hash: cada acción del agente es auditable Dolor que resuelve: Sin bitácora inmutable no hay forma de reconstruir qué hizo el agente (ni defenderse en disputas): estilo public audit log de MarketNow. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "security",
+  "prompt-injection",
+  "hardening"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only audit-log",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-audit-log",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "append",
+   "verify_chain",
+   "query",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only audit-log",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-audit-log\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-audit-log/dist/index.js\"]}}}. Tools disponibles: append, verify_chain, query y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/audit-log/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-audit-log (append, verify_chain, query). Bitácora inmutable con cadena de hash: cada acción del agente es auditable. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/audit-log/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/audit-log\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Audit Log — Bitácora inmutable con cadena de hash: cada acción del agente es auditable (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-audit-log\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"seguridad\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Audit Log\n\n> Bitácora inmutable con cadena de hash: cada acción del agente es auditable\n\n**Categoría:** Seguridad · **ID:** `mcp-audit-log`\n\n**Dolor de agente que resuelve:** Sin bitácora inmutable no hay forma de reconstruir qué hizo el agente (ni defenderse en disputas): estilo public audit log de MarketNow.\n\n> Estado persistente en `~/.mcp-suite/audit-log/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `append`\nAñade una entrada a la bitácora encadenada: cada registro lleva el hash del anterior (tamper-evident).\n\n**Parámetros:**\n  - `actor` (string, requerido): Quién ejecuta (agente/humano/tool)\n  - `accion` (string, requerido): Qué se hizo\n  - `detalle` (string, opcional): Detalles/resultado\n\n### `verify_chain`\nVerifica la integridad de toda la cadena de hash: detecta si alguien alteró entradas históricas.\n\n### `query`\nConsulta la bitácora: filtra por actor, acción (texto) y ventana de horas.\n\n**Parámetros:**\n  - `actor` (string, opcional): Filtrar por actor\n  - `contiene` (string, opcional): Filtrar acción que contenga texto\n  - `horas` (number, opcional): Últimas N horas\n  - `limite` (number, opcional): Máx entradas\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"audit-log\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-audit-log/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Audit Log\n * Bitácora inmutable con cadena de hash: cada acción del agente es auditable\n *\n * Dolor que resuelve: Sin bitácora inmutable no hay forma de reconstruir qué hizo el agente (ni defenderse en disputas): estilo public audit log de MarketNow.\n * Categoría: Seguridad | Generado por mcp-suite | id: audit-log\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\nimport { createHash, createHmac, randomUUID, randomBytes, generateKeyPairSync, sign, verify, createPublicKey, createPrivateKey, createSecretKey } from \"node:crypto\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/audit-log/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"audit-log\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"audit-log\", version: \"1.0.0\" });\n\nserver.tool(\n  \"append\",\n  \"Añade una entrada a la bitácora encadenada: cada registro lleva el hash del anterior (tamper-evident).\",\n  {\n  actor: z.string().describe(\"Quién ejecuta (agente/humano/tool)\"),\n  accion: z.string().describe(\"Qué se hizo\"),\n  detalle: z.string().describe(\"Detalles/resultado\").optional(),\n  },\n  async (args: any) => {\n    const { actor, accion, detalle } = args as any;\n    const st = store.load();\nst.log = st.log || [];\nconst prevHash = st.log.length ? st.log[st.log.length - 1].hash : \"GENESIS\";\nconst entrada: any = { n: st.log.length + 1, ts: new Date().toISOString(), actor, accion, detalle: detalle || \"\", prev: prevHash };\nentrada.hash = createHash(\"sha256\").update(JSON.stringify(entrada)).digest(\"hex\");\nst.log.push(entrada);\nif (st.log.length > 3000) st.log = st.log.slice(-3000);\nstore.save(st);\nreturn ok({ entrada_n: entrada.n, hash: entrada.hash.slice(0, 16) + \"...\" });\n  }\n);\n\nserver.tool(\n  \"verify_chain\",\n  \"Verifica la integridad de toda la cadena de hash: detecta si alguien alteró entradas históricas.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst log: any[] = st.log || [];\nif (!log.length) return ok({ entradas: 0, integridad: \"vacía pero válida\" });\nlet rotas = 0;\nlet prevHash = \"GENESIS\";\nfor (const e of log) {\n  const { hash, ...resto } = e;\n  const esperado = createHash(\"sha256\").update(JSON.stringify(resto)).digest(\"hex\");\n  if (e.prev !== prevHash || hash !== esperado) rotas++;\n  prevHash = hash;\n}\nreturn ok({ entradas: log.length, cadena_integra: rotas === 0, entradas_alteradas: rotas, primera: log[0].ts, ultima: log[log.length - 1].ts });\n  }\n);\n\nserver.tool(\n  \"query\",\n  \"Consulta la bitácora: filtra por actor, acción (texto) y ventana de horas.\",\n  {\n  actor: z.string().describe(\"Filtrar por actor\").optional(),\n  contiene: z.string().describe(\"Filtrar acción que contenga texto\").optional(),\n  horas: z.number().describe(\"Últimas N horas\").optional(),\n  limite: z.number().describe(\"Máx entradas\").default(50),\n  },\n  async (args: any) => {\n    const { actor, contiene, horas, limite } = args as any;\n    const st = store.load();\nlet log: any[] = st.log || [];\nif (actor) log = log.filter((e) => e.actor === actor);\nif (contiene) log = log.filter((e) => (e.accion + \" \" + e.detalle).toLowerCase().includes(contiene.toLowerCase()));\nif (horas) { const desde = Date.now() - horas * 3600000; log = log.filter((e) => new Date(e.ts).getTime() >= desde); }\nreturn ok({ total: log.length, entradas: log.slice(-(limite ?? 50)).reverse() });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor audit-log está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"audit-log\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[audit-log] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

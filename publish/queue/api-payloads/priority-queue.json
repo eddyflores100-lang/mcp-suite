@@ -1,0 +1,63 @@
+{
+ "name": "mcp-priority-queue",
+ "version": "1.0.0",
+ "description": "Cola de prioridades con matriz Eisenhower: urgente vs importante Dolor que resuelve: El agente ataca lo último que llegó (recency bias): sin matriz de prioridades, lo urgente devora lo importante. Incluye 4 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "AI/ML",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "planning",
+  "reasoning",
+  "cognition"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only priority-queue",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-priority-queue",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 1.99,
+  "currency": "USD",
+  "details": "Pago único USD 1.99 (Standard). Regalía 80% al autor: USD 1.59 por venta. Integración de dominio único (3 tools) — precio estándar del marketplace"
+ },
+ "price": 1.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "add",
+   "pop",
+   "matrix",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only priority-queue",
+   "estimated_cost": "pago único USD 1.99 (regalía 80%: USD 1.59)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-priority-queue\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-priority-queue/dist/index.js\"]}}}. Tools disponibles: add, pop, matrix y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/priority-queue/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-priority-queue (add, pop, matrix). Cola de prioridades con matriz Eisenhower: urgente vs importante. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/priority-queue/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/priority-queue\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Priority Queue — Cola de prioridades con matriz Eisenhower: urgente vs importante (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-priority-queue\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cognici-n-y-planificaci-n\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 4\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Priority Queue\n\n> Cola de prioridades con matriz Eisenhower: urgente vs importante\n\n**Categoría:** Cognición y Planificación · **ID:** `mcp-priority-queue`\n\n**Dolor de agente que resuelve:** El agente ataca lo último que llegó (recency bias): sin matriz de prioridades, lo urgente devora lo importante.\n\n> Estado persistente en `~/.mcp-suite/priority-queue/state.json` (local, privado, tuya la data).\n\n## Tools (4 incl. health_check)\n\n### `add`\nAñade un item con urgencia e importancia (0-10): se clasifica en la matriz Eisenhower automáticamente.\n\n**Parámetros:**\n  - `descripcion` (string, requerido): Qué hay que hacer\n  - `urgencia` (number, requerido): Urgencia 0-10\n  - `importancia` (number, requerido): Importancia 0-10\n  - `vence_horas` (number, opcional): Vence en N horas\n\n### `pop`\nSaca el item de mayor prioridad (ponderado urgencia 60% / importancia 40%, con penalización por vencido).\n\n### `matrix`\nSnapshot de la matriz Eisenhower: items por cuadrante.\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"priority-queue\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-priority-queue/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nServidor stdio autocontenido. Compila con `npm run build` dentro de la carpeta; el monorepo raíz ya entrega `dist/` precompilado.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Priority Queue\n * Cola de prioridades con matriz Eisenhower: urgente vs importante\n *\n * Dolor que resuelve: El agente ataca lo último que llegó (recency bias): sin matriz de prioridades, lo urgente devora lo importante.\n * Categoría: Cognición y Planificación | Generado por mcp-suite | id: priority-queue\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/priority-queue/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"priority-queue\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"priority-queue\", version: \"1.0.0\" });\n\nserver.tool(\n  \"add\",\n  \"Añade un item con urgencia e importancia (0-10): se clasifica en la matriz Eisenhower automáticamente.\",\n  {\n  descripcion: z.string().describe(\"Qué hay que hacer\"),\n  urgencia: z.number().describe(\"Urgencia 0-10\"),\n  importancia: z.number().describe(\"Importancia 0-10\"),\n  vence_horas: z.number().describe(\"Vence en N horas\").optional(),\n  },\n  async (args: any) => {\n    const { descripcion, urgencia, importancia, vence_horas } = args as any;\n    const st = store.load();\nst.items = st.items || [];\nst.seq = (st.seq || 0) + 1;\nconst u = Math.max(0, Math.min(10, urgencia)); const i = Math.max(0, Math.min(10, importancia));\nconst cuadrante = u >= 5 && i >= 5 ? \"hacer-ya\" : i >= 5 ? \"planificar\" : u >= 5 ? \"delegar\" : \"eliminar\";\nconst item = { id: \"P\" + st.seq, descripcion, urgencia: u, importancia: i, cuadrante, vence: vence_horas ? new Date(Date.now() + vence_horas * 3600000).toISOString() : null, creado: new Date().toISOString() };\nst.items.push(item);\nstore.save(st);\nreturn ok({ item, score: u * 0.6 + i * 0.4 });\n  }\n);\n\nserver.tool(\n  \"pop\",\n  \"Saca el item de mayor prioridad (ponderado urgencia 60% / importancia 40%, con penalización por vencido).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst items: any[] = st.items || [];\nif (!items.length) return ok({ item: null });\nconst score = (it: any) => it.urgencia * 0.6 + it.importancia * 0.4 + (it.vence && new Date(it.vence) < new Date() ? 5 : 0);\nitems.sort((a, b) => score(b) - score(a));\nconst top = items.shift();\nstore.save(st);\nreturn ok({ item: top, restantes: items.length });\n  }\n);\n\nserver.tool(\n  \"matrix\",\n  \"Snapshot de la matriz Eisenhower: items por cuadrante.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst items: any[] = st.items || [];\nconst cuadrantes: any = { \"hacer-ya\": [], \"planificar\": [], \"delegar\": [], \"eliminar\": [] };\nfor (const it of items) (cuadrantes[it.cuadrante] || cuadrantes.eliminar).push(it.id + \" \" + it.descripcion.slice(0, 60));\nreturn ok({ total: items.length, cuadrantes });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor priority-queue está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"priority-queue\", tools: 4, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[priority-queue] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

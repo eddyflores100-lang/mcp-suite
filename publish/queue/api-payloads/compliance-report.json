@@ -1,0 +1,64 @@
+{
+ "name": "mcp-compliance-report",
+ "version": "1.0.0",
+ "description": "Reportes de cumplimiento por marco (HIPAA/GDPR/SOX-like): evidencia estructurada para el auditor Dolor que resuelve: Cuando llega la auditoría no hay nada que entregar: los controles existieron 'en teoría' pero no hay evidencia estructurada de qué control aplicó cuándo y con qué resultado. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+ "author": "AliceLabs",
+ "category": "Security",
+ "runtime": "node",
+ "tags": [
+  "mcp",
+  "model-context-protocol",
+  "ai-agent",
+  "typescript",
+  "local-first",
+  "compliance",
+  "gdpr",
+  "policy"
+ ],
+ "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only compliance-report",
+ "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+ "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-compliance-report",
+ "license": "MIT",
+ "pricing": {
+  "model": "one-time",
+  "price": 4.99,
+  "currency": "USD",
+  "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+ },
+ "price": 4.99,
+ "capabilities": {
+  "requires_auth": false,
+  "requires_network": false,
+  "input_types": [
+   "json"
+  ],
+  "output_types": [
+   "text",
+   "json"
+  ],
+  "execution_context": "local",
+  "mcp_transport": "stdio",
+  "tools": [
+   "define_control",
+   "attach_evidence",
+   "generate_report",
+   "gap_plan",
+   "health_check"
+  ]
+ },
+ "doc": {
+  "setup": {
+   "required_env": [],
+   "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only compliance-report",
+   "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+  },
+  "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-compliance-report\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-compliance-report/dist/index.js\"]}}}. Tools disponibles: define_control, attach_evidence, generate_report, gap_plan y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/compliance-report/.",
+  "system_prompt": "Tienes acceso al servidor MCP mcp-compliance-report (define_control, attach_evidence, generate_report, gap_plan). Reportes de cumplimiento por marco (HIPAA/GDPR/SOX-like): evidencia estructurada para el auditor. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/compliance-report/."
+ },
+ "test": null,
+ "files": {
+  "package.json": "{\n  \"name\": \"@mcp-suite/compliance-report\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Compliance Report — Reportes de cumplimiento por marco (HIPAA/GDPR/SOX-like): evidencia estructurada para el auditor (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-compliance-report\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"cumplimiento\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+  "README.md": "# Compliance Report\n\n> Reportes de cumplimiento por marco (HIPAA/GDPR/SOX-like): evidencia estructurada para el auditor\n\n**Categoría:** Cumplimiento · **ID:** `mcp-compliance-report`\n\n**Dolor de agente que resuelve:** Cuando llega la auditoría no hay nada que entregar: los controles existieron 'en teoría' pero no hay evidencia estructurada de qué control aplicó cuándo y con qué resultado.\n\n> Estado persistente en `~/.mcp-suite/compliance-report/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `define_control`\nDefine un control de cumplimiento para un marco: qué exige y cómo se satisface.\n\n**Parámetros:**\n  - `marco` (enum, requerido): Marco de referencia\n  - `control_id` (string, requerido): Identificador del control (ej: Art.32)\n  - `exige` (string, requerido): Qué exige el control\n  - `como_se_cumple` (string, requerido): Cómo lo cubre el agente/sistema\n\n### `attach_evidence`\nAdjunta evidencia a un control (prueba de que se aplicó) y actualiza su estado.\n\n**Parámetros:**\n  - `marco` (string, requerido): Marco\n  - `control_id` (string, requerido): Control\n  - `evidencia` (string, requerido): Evidencia (log, artefacto, test)\n  - `estado` (enum, opcional): Estado resultante\n\n### `generate_report`\nGenera el reporte de cumplimiento de un marco: cobertura, controles sin evidencia y brechas.\n\n**Parámetros:**\n  - `marco` (string, requerido): Marco a reportar (o 'todos')\n\n### `gap_plan`\nPlan de cierre de brechas: qué controlar primero según criticidad del control.\n\n**Parámetros:**\n  - `marco` (string, opcional): Marco\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"compliance-report\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-compliance-report/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/compliance-report/. Controles por marco con estado (implementado/parcial/faltante) y evidencia ligada; genera reporte ejecutable por marco.\n",
+  "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Compliance Report\n * Reportes de cumplimiento por marco (HIPAA/GDPR/SOX-like): evidencia estructurada para el auditor\n *\n * Dolor que resuelve: Cuando llega la auditoría no hay nada que entregar: los controles existieron 'en teoría' pero no hay evidencia estructurada de qué control aplicó cuándo y con qué resultado.\n * Categoría: Cumplimiento | Generado por mcp-suite | id: compliance-report\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/compliance-report/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"compliance-report\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"compliance-report\", version: \"1.0.0\" });\n\nserver.tool(\n  \"define_control\",\n  \"Define un control de cumplimiento para un marco: qué exige y cómo se satisface.\",\n  {\n  marco: z.enum([\"gdpr\",\"hipaa\",\"sox\",\"iso27001\",\"interno\"]).describe(\"Marco de referencia\"),\n  control_id: z.string().describe(\"Identificador del control (ej: Art.32)\"),\n  exige: z.string().describe(\"Qué exige el control\"),\n  como_se_cumple: z.string().describe(\"Cómo lo cubre el agente/sistema\"),\n  },\n  async (args: any) => {\n    const { marco, control_id, exige, como_se_cumple } = args as any;\n    const st = store.load();\nst.controles = st.controles || [];\nif (st.controles.some(c => c.marco === marco && c.control_id === control_id)) return fail(\"control ya definido en \" + marco);\nst.controles.push({ marco, control_id, exige, como_se_cumple, estado: \"declarado\", evidencias: [], ts: new Date().toISOString() });\nstore.save(st);\nreturn ok({ marco, control: control_id, estado: \"declarado\" });\n  }\n);\n\nserver.tool(\n  \"attach_evidence\",\n  \"Adjunta evidencia a un control (prueba de que se aplicó) y actualiza su estado.\",\n  {\n  marco: z.string().describe(\"Marco\"),\n  control_id: z.string().describe(\"Control\"),\n  evidencia: z.string().describe(\"Evidencia (log, artefacto, test)\"),\n  estado: z.enum([\"implementado\",\"parcial\",\"faltante\"]).describe(\"Estado resultante\").default(\"implementado\"),\n  },\n  async (args: any) => {\n    const { marco, control_id, evidencia, estado } = args as any;\n    const st = store.load();\nconst c = (st.controles || []).find(x => x.marco === marco && x.control_id === control_id);\nif (!c) return fail(\"control no definido: usa define_control primero\");\nc.evidencias.push({ evidencia, ts: new Date().toISOString() });\nc.estado = estado;\nstore.save(st);\nreturn ok({ marco, control: control_id, evidencias: c.evidencias.length, estado: c.estado });\n  }\n);\n\nserver.tool(\n  \"generate_report\",\n  \"Genera el reporte de cumplimiento de un marco: cobertura, controles sin evidencia y brechas.\",\n  {\n  marco: z.string().describe(\"Marco a reportar (o 'todos')\"),\n  },\n  async (args: any) => {\n    const { marco } = args as any;\n    const st = store.load();\nlet cs = st.controles || [];\nif (marco !== \"todos\") cs = cs.filter(c => c.marco === marco);\nif (!cs.length) return fail(\"sin controles definidos para \" + marco);\nconst implementados = cs.filter(c => c.estado === \"implementado\" && c.evidencias.length > 0);\nconst sinEvidencia = cs.filter(c => c.estado !== \"implementado\" || c.evidencias.length === 0);\nreturn ok({\n  marco: marco === \"todos\" ? \"todos\" : marco,\n  controles: cs.length,\n  cobertura_pct: Math.round(implementados.length / cs.length * 100),\n  implementados_con_evidencia: implementados.length,\n  brechas: sinEvidencia.map(c => ({ control: c.control_id, exige: c.exige.slice(0, 80), estado: c.estado, evidencias: c.evidencias.length })),\n  veredicto: sinEvidencia.length === 0 ? \"listo para auditoría: todos los controles con evidencia\" : \"NO entregues esto a un auditor: \" + sinEvidencia.length + \" controles sin evidencia real\",\n  nota: \"la evidencia debe generarse DURANTE la operación (logs, decisiones de policy-as-code), no fabricarse después\",\n});\n  }\n);\n\nserver.tool(\n  \"gap_plan\",\n  \"Plan de cierre de brechas: qué controlar primero según criticidad del control.\",\n  {\n  marco: z.string().describe(\"Marco\").default(\"todos\"),\n  },\n  async (args: any) => {\n    const { marco } = args as any;\n    const st = store.load();\nlet cs = st.controles || [];\nif (marco !== \"todos\") cs = cs.filter(c => c.marco === marco);\nconst brechas = cs.filter(c => c.estado !== \"implementado\" || c.evidencias.length === 0);\nif (!brechas.length) return ok({ brechas: 0, mensaje: \"sin brechas: cobertura completa\" });\nconst CRITICO = /(32|seguridad|seguridad|encript|cifrad|acceso|consentimiento|brecha|notificación|notificacion)/i;\nconst priorizadas = brechas.map(b => ({\n  marco: b.marco, control: b.control_id, exige: b.exige.slice(0, 70),\n  criticidad: CRITICO.test(b.control_id + \" \" + b.exige) ? \"alta\" : \"media\",\n  accion: \"implementa el control Y su generación de evidencia simultáneamente\",\n})).sort((a, b) => (a.criticidad === \"alta\" ? 0 : 1) - (b.criticidad === \"alta\" ? 0 : 1));\nreturn ok({ brechas: brechas.length, plan: priorizadas, primero: priorizadas[0]?.control });\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor compliance-report está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"compliance-report\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[compliance-report] fatal:\", e);\n  process.exit(1);\n});\n"
+ }
+}

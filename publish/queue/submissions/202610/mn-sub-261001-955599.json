@@ -1,0 +1,89 @@
+{
+ "id": "mn-sub-261001-955599",
+ "verdict": "accepted",
+ "status": "certified-L1 (self-scan del agente del owner: suite 229/229 compilado+smoke, 349 pruebas funcionales, auditoría de secretos limpia, MIT) — pending L2 review",
+ "skill": {
+  "name": "mcp-token-audit",
+  "version": "1.0.0",
+  "description": "Auditoría de a dónde van los tokens: qué consumió el contexto, la retrieval y las tools Dolor que resuelve: El 60-70% de los tokens se gastan en cosas que no aportan: historial rancio, retrieval excesiva, salidas de tools gigantes. Sin auditoría por partida, no hay forma de recortar con criterio. Incluye 5 tools (+health_check) 100% locales (Node/TS, stdio) con persistencia en ~/.mcp-suite/.",
+  "author": "AliceLabs",
+  "category": "FinTech",
+  "runtime": "node",
+  "tags": [
+   "mcp",
+   "model-context-protocol",
+   "ai-agent",
+   "typescript",
+   "local-first",
+   "token-cost",
+   "budget",
+   "economics"
+  ],
+  "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only token-audit",
+  "homepage": "https://github.com/eddyflores100-lang/mcp-suite",
+  "repo_url": "https://github.com/eddyflores100-lang/mcp-suite/tree/main/servers/mcp-token-audit",
+  "license": "MIT",
+  "pricing": {
+   "model": "one-time",
+   "price": 4.99,
+   "currency": "USD",
+   "details": "Pago único USD 4.99 (Sophisticated). Regalía 80% al autor: USD 3.99 por venta. Lógica multi-etapa o parsing complejo (4 tools) que va más allá de un wrapper simple"
+  },
+  "price": 4.99,
+  "capabilities": {
+   "requires_auth": false,
+   "requires_network": false,
+   "input_types": [
+    "json"
+   ],
+   "output_types": [
+    "text",
+    "json"
+   ],
+   "execution_context": "local",
+   "mcp_transport": "stdio",
+   "tools": [
+    "log_usage",
+    "audit_report",
+    "outlier_interactions",
+    "simulate_cut",
+    "health_check"
+   ]
+  },
+  "doc": {
+   "setup": {
+    "required_env": [],
+    "install": "git clone https://github.com/eddyflores100-lang/mcp-suite.git && cd mcp-suite && node install.mjs --client claude --only token-audit",
+    "estimated_cost": "pago único USD 4.99 (regalía 80%: USD 3.99)"
+   },
+   "usage": "Registrar en cualquier cliente MCP (Claude, Cursor, Windsurf, Claude Code): {\"mcpServers\":{\"mcp-token-audit\":{\"command\":\"node\",\"args\":[\"<ruta>/mcp-suite/servers/mcp-token-audit/dist/index.js\"]}}}. Tools disponibles: log_usage, audit_report, outlier_interactions, simulate_cut y health_check. Ejecuta health_check tras conectar; el estado persiste en ~/.mcp-suite/token-audit/.",
+   "system_prompt": "Tienes acceso al servidor MCP mcp-token-audit (log_usage, audit_report, outlier_interactions, simulate_cut). Auditoría de a dónde van los tokens: qué consumió el contexto, la retrieval y las tools. Llama a health_check al iniciar la sesión para verificar el estado. Servidor local stdio en Node: los datos persistentes viven en ~/.mcp-suite/token-audit/."
+  },
+  "test": null,
+  "files": {
+   "package.json": "{\n  \"name\": \"@mcp-suite/token-audit\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Token Audit — Auditoría de a dónde van los tokens: qué consumió el contexto, la retrieval y las tools (MCP server stdio)\",\n  \"type\": \"module\",\n  \"main\": \"dist/index.js\",\n  \"bin\": {\n    \"mcp-token-audit\": \"dist/index.js\"\n  },\n  \"scripts\": {\n    \"build\": \"tsc -p .\"\n  },\n  \"keywords\": [\n    \"mcp\",\n    \"model-context-protocol\",\n    \"ai-agent\",\n    \"econom-a-del-agente\"\n  ],\n  \"license\": \"MIT\",\n  \"mcp\": {\n    \"transport\": \"stdio\",\n    \"tools\": 5\n  },\n  \"dependencies\": {\n    \"@modelcontextprotocol/sdk\": \"^1.30.0\",\n    \"zod\": \"^4.0.0\"\n  }\n}\n",
+   "README.md": "# Token Audit\n\n> Auditoría de a dónde van los tokens: qué consumió el contexto, la retrieval y las tools\n\n**Categoría:** Economía del Agente · **ID:** `mcp-token-audit`\n\n**Dolor de agente que resuelve:** El 60-70% de los tokens se gastan en cosas que no aportan: historial rancio, retrieval excesiva, salidas de tools gigantes. Sin auditoría por partida, no hay forma de recortar con criterio.\n\n> Estado persistente en `~/.mcp-suite/token-audit/state.json` (local, privado, tuya la data).\n\n## Tools (5 incl. health_check)\n\n### `log_usage`\nRegistra el consumo de tokens de una interacción, desglosado por partida.\n\n**Parámetros:**\n  - `interaccion` (string, requerido): ID o descripción de la interacción\n  - `system` (number, opcional): Tokens de system prompt\n  - `historial` (number, opcional): Tokens de historial/conversación\n  - `retrieval` (number, opcional): Tokens de contexto recuperado\n  - `tools_entrada` (number, opcional): Tokens de resultados de tools hacia el modelo\n  - `output` (number, opcional): Tokens generados\n  - `overhead` (number, opcional): Otros (formato, fences...)\n\n### `audit_report`\nReporte de reparto agregado: % medio por partida y tendencias (¿el historial crece sin control?).\n\n### `outlier_interactions`\nDetecta interacciones anómalamente caras (muchos más tokens que la media) para autopsiarlas.\n\n### `simulate_cut`\nSimula el ahorro de recortar una partida a un % objetivo antes de aplicarlo.\n\n**Parámetros:**\n  - `partida` (enum, requerido): Partida a recortar\n  - `objetivo_pct` (number, requerido): % del total al que quieres llevarla\n\n## Instalación — Claude Desktop\n\n```json\n{\n  \"mcpServers\": {\n    \"token-audit\": {\n      \"command\": \"node\",\n      \"args\": [\"<RUTA_AL_REPO>/servers/mcp-token-audit/dist/index.js\"]\n    }\n  }\n}\n```\n\nCursor / Cline / Continue: misma configuración stdio (`command: node`).\n\n## Notas técnicas\n\nPersiste en ~/.mcp-suite/token-audit/. Partidas configurables (system, historial, retrieval, tools, output, overhead) con registro por interacción y reparto porcentual del gasto.\n",
+   "src/index.ts": "#!/usr/bin/env node\n/**\n * MCP Server: Token Audit\n * Auditoría de a dónde van los tokens: qué consumió el contexto, la retrieval y las tools\n *\n * Dolor que resuelve: El 60-70% de los tokens se gastan en cosas que no aportan: historial rancio, retrieval excesiva, salidas de tools gigantes. Sin auditoría por partida, no hay forma de recortar con criterio.\n * Categoría: Economía del Agente | Generado por mcp-suite | id: token-audit\n */\nimport { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { z } from \"zod\";\nimport { readFileSync, writeFileSync, existsSync, mkdirSync } from \"node:fs\";\nimport { homedir } from \"node:os\";\nimport { join } from \"node:path\";\n\n// ——— helpers de respuesta ———\nfunction ok(data: any) {\n  return { content: [{ type: \"text\" as const, text: typeof data === \"string\" ? data : JSON.stringify(data, null, 2) }] };\n}\nfunction fail(msg: any) {\n  return { content: [{ type: \"text\" as const, text: typeof msg === \"string\" ? msg : JSON.stringify(msg) }], isError: true as const };\n}\n// ——— helpers de iteración tipados (evitan unknown[] de Object.values/entries) ———\nfunction __vals(o: any): any[] { return Object.values(o); }\nfunction __ents(o: any): [string, any][] { return Object.entries(o); }\n\n// ——— persistencia local: ~/.mcp-suite/token-audit/state.json ———\nconst STORE_DIR = join(homedir(), \".mcp-suite\", \"token-audit\");\nconst STORE_FILE = join(STORE_DIR, \"state.json\");\nconst store = {\n  load(): any {\n    try { return existsSync(STORE_FILE) ? JSON.parse(readFileSync(STORE_FILE, \"utf8\")) : {}; }\n    catch { return {}; }\n  },\n  save(data: any) {\n    mkdirSync(STORE_DIR, { recursive: true });\n    writeFileSync(STORE_FILE, JSON.stringify(data, null, 2));\n    return data;\n  },\n};\n\nconst server = new McpServer({ name: \"token-audit\", version: \"1.0.0\" });\n\nserver.tool(\n  \"log_usage\",\n  \"Registra el consumo de tokens de una interacción, desglosado por partida.\",\n  {\n  interaccion: z.string().describe(\"ID o descripción de la interacción\"),\n  system: z.number().describe(\"Tokens de system prompt\").default(0),\n  historial: z.number().describe(\"Tokens de historial/conversación\").default(0),\n  retrieval: z.number().describe(\"Tokens de contexto recuperado\").default(0),\n  tools_entrada: z.number().describe(\"Tokens de resultados de tools hacia el modelo\").default(0),\n  output: z.number().describe(\"Tokens generados\").default(0),\n  overhead: z.number().describe(\"Otros (formato, fences...)\").default(0),\n  },\n  async (args: any) => {\n    const { interaccion, system, historial, retrieval, tools_entrada, output, overhead } = args as any;\n    const st = store.load();\nst.log = st.log || [];\nconst partidas = { system: system || 0, historial: historial || 0, retrieval: retrieval || 0, tools_entrada: tools_entrada || 0, output: output || 0, overhead: overhead || 0 };\nconst total = __vals(partidas).reduce((a, b) => a + b, 0);\nif (total === 0) return fail(\"todas las partidas en cero: nada que auditar\");\nst.log.push({ interaccion, partidas, total, ts: new Date().toISOString() });\nif (st.log.length > 2000) st.log = st.log.slice(-1500);\nstore.save(st);\nreturn ok({ interaccion, total, reparto_pct: Object.fromEntries(__ents(partidas).map(([k, v]) => [k, Number((v / total * 100).toFixed(1))])) });\n  }\n);\n\nserver.tool(\n  \"audit_report\",\n  \"Reporte de reparto agregado: % medio por partida y tendencias (¿el historial crece sin control?).\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst log = st.log || [];\nif (!log.length) return ok({ interacciones: 0, sugerencia: \"registra usos con log_usage\" });\nconst sumas = { system: 0, historial: 0, retrieval: 0, tools_entrada: 0, output: 0, overhead: 0 };\nconst total = log.reduce((s, e) => s + e.total, 0);\nfor (const e of log) for (const [k, v] of __ents(e.partidas)) sumas[k] += v;\nconst mitad = Math.floor(log.length / 2);\nconst mediaPrimera = log.slice(0, mitad).reduce((s, e) => s + e.partidas.historial, 0) / Math.max(mitad, 1);\nconst mediaSegunda = log.slice(mitad).reduce((s, e) => s + e.partidas.historial, 0) / Math.max(log.length - mitad, 1);\nreturn ok({\n  interacciones: log.length,\n  tokens_totales: total,\n  reparto_pct: Object.fromEntries(__ents(sumas).map(([k, v]) => [k, Number((v / total * 100).toFixed(1))])),\n  tokens_medios_por_interaccion: Math.round(total / log.length),\n  crecimiento_historial: Number((((mediaSegunda - mediaPrimera) / Math.max(mediaPrimera, 1)) * 100).toFixed(1)) + \"%\",\n  recortables: [\n    ...(sumas.historial / total > 0.35 ? [\"historial > 35%: comprime/resume turnos viejos (context-compressor)\"] : []),\n    ...(sumas.retrieval / total > 0.30 ? [\"retrieval > 30%: sube el umbral de relevancia o chunk más fino\"] : []),\n    ...(sumas.tools_entrada / total > 0.30 ? [\"resultados de tools > 30%: recorta salidas de tools (response-size-guard)\"] : []),\n    ...(sumas.system / total > 0.25 ? [\"system prompt > 25%: es estático, revisa si todo es necesario\"] : []),\n  ],\n  ahorro_estimado: \"recortando las partidas marcadas a niveles sanos ahorras ~\" + Math.round(Math.max(0, sumas.historial - total * 0.25) + Math.max(0, sumas.retrieval - total * 0.2) + Math.max(0, sumas.tools_entrada - total * 0.2)) + \" tokens (\" + Math.round((Math.max(0, sumas.historial - total * 0.25) + Math.max(0, sumas.retrieval - total * 0.2) + Math.max(0, sumas.tools_entrada - total * 0.2)) / total * 100) + \"%)\",\n});\n  }\n);\n\nserver.tool(\n  \"outlier_interactions\",\n  \"Detecta interacciones anómalamente caras (muchos más tokens que la media) para autopsiarlas.\",\n  {\n  // sin parámetros\n  },\n  async (args: any) => {\n    const st = store.load();\nconst log = st.log || [];\nif (log.length < 5) return fail(\"necesitas >=5 interacciones\");\nconst totales = log.map(e => e.total).sort((a, b) => a - b);\nconst mediana = totales[Math.floor(totales.length / 2)];\nconst umbral = mediana * 2.5;\nconst anomalias = log.filter(e => e.total > umbral);\nreturn ok({\n  mediana_tokens: mediana,\n  umbral_anomalia: Math.round(umbral),\n  anomalias: anomalias.length,\n  detalle: anomalias.slice(-8).map(e => ({ interaccion: e.interaccion, total: e.total, peor_partida: __ents(e.partidas).sort((a, b) => b[1] - a[1])[0].join(\": \") })),\n  consejo: anomalias.length > log.length * 0.1 ? \"más del 10% de interacciones son outliers: hay un patrón, no mala suerte\" : \"outliers puntuales\",\n});\n  }\n);\n\nserver.tool(\n  \"simulate_cut\",\n  \"Simula el ahorro de recortar una partida a un % objetivo antes de aplicarlo.\",\n  {\n  partida: z.enum([\"system\",\"historial\",\"retrieval\",\"tools_entrada\",\"overhead\"]).describe(\"Partida a recortar\"),\n  objetivo_pct: z.number().describe(\"% del total al que quieres llevarla\"),\n  },\n  async (args: any) => {\n    const { partida, objetivo_pct } = args as any;\n    const st = store.load();\nconst log = st.log || [];\nif (!log.length) return fail(\"sin datos registrados\");\nif (objetivo_pct < 0 || objetivo_pct > 100) return fail(\"objetivo_pct 0-100\");\nconst total = log.reduce((s, e) => s + e.total, 0);\nconst actual = log.reduce((s, e) => s + (e.partidas[partida] || 0), 0);\nconst actualPct = actual / total * 100;\nif (actualPct <= objetivo_pct) return ok({ partida, pct_actual: Number(actualPct.toFixed(1)), mensaje: \"ya está en o bajo el objetivo: nada que recortar\" });\nconst objetivoAbs = total * objetivo_pct / 100;\nreturn ok({\n  partida, pct_actual: Number(actualPct.toFixed(1)), pct_objetivo: objetivo_pct,\n  tokens_a_ahorrar: Math.round(actual - objetivoAbs),\n  ahorro_pct_del_total: Number(((actual - objetivoAbs) / total * 100).toFixed(1)),\n  como: {\n    historial: \"resume turnos viejos y conserva solo decisiones y hechos\",\n    retrieval: \"sube umbral de similitud / limita top-k / chunks más pequeños\",\n    tools_entrada: \"pide salidas resumidas o estructuradas a las tools\",\n    system: \"elimina instrucciones redundantes o muévelas a tool descriptions\",\n    overhead: \"reduce fences, relleno y formatos repetitivos\",\n  }[partida],\n});\n  }\n);\n\nserver.tool(\n  \"health_check\",\n  \"Verifica que el servidor token-audit está vivo: devuelve estado, número de tools y timestamp. Úsalo para diagnósticos.\",\n  {},\n  async () => ok({ ok: true, server: \"token-audit\", tools: 5, ts: new Date().toISOString() })\n);\n\nasync function main() {\n  const transport = new StdioServerTransport();\n  await server.connect(transport);\n}\nmain().catch((e) => {\n  console.error(\"[token-audit] fatal:\", e);\n  process.exit(1);\n});\n"
+  }
+ },
+ "sentinel": {
+  "scan_version": "L1-self/1.0 (owner-agent)",
+  "scanned_at": "2026-09-30T17:14:16.119Z",
+  "duration_ms": 94,
+  "findings": {
+   "blockers": [],
+   "warnings": []
+  },
+  "trust_score_100": 55,
+  "risk_level": "yellow",
+  "note": "lote del owner vía git (agente autorizado); verificación L1.5/L2 independiente pendiente"
+ },
+ "submitted_from": "agent:agent_mcp_suite_2026",
+ "submitted_at": "2026-09-30T17:14:16.119Z",
+ "submitted_by": "owner-agent-git",
+ "merge": {
+  "eligible": true,
+  "catalog_slug": "token-audit"
+ },
+ "record_enriched": "full payload stored for L2 review (files/doc/capabilities)"
+}
