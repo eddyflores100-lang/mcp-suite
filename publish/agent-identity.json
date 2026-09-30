@@ -10,9 +10,9 @@
   "keypair_note": "Ed25519 generada localmente según ATC/1.0; la privada nunca sale del host",
   "identity": {
     "key_algorithm": "Ed25519",
-    "public_key_spki_base64": "MCowBQYDK2VwAyEA113vDtZ112IBo4Tc57RXaYbRoKDs/STDtCVdONoiwYA=",
-    "public_key_raw_hex": "d75def0ed675d76201a384dce7b4576986d1a0a0ecfd24c3b4255d38da22c180",
-    "fingerprint_sha256": "146c524dfee2a98bc8747f5ddc0b9686bb0a0c890a1c056f5c9ecdfb71a9a651",
-    "created_at": "2026-09-30T05:37:16.075Z"
+    "public_key_spki_base64": "MCowBQYDK2VwAyEA2pAsjLjqroGMpoBxyRBV07AzQvNJ8kgh3rMpOFExV10=",
+    "public_key_raw_hex": "da902c8cb8eaae818ca68071c91055d3b03342f349f24821deb329385131575d",
+    "fingerprint_sha256": "d26dac38e38409cc095ea81a30f0751750a5b28409f53ad853c7e87c2c5fa030",
+    "created_at": "2026-09-30T05:47:01.027Z"
   }
 }

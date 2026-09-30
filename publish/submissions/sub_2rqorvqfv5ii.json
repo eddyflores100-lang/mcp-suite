@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_2rqorvqfv5ii",
+  "skill_id": "mn-sub-90185",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:47:01.034Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-reversibility-planner",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-reversibility-planner",
+    "description": "Clasifica cada acción del plan en reversible / compensable / irreversible y decide dónde poner checkpoints. El agente encadena 20 acciones sin darse cuenta de que la número 7 era irreversible: cuando ",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:47:01.034Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "pre-vuelo"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90185",
+    "name": "mcp-reversibility-planner",
+    "slug": "reversibility-planner-0186",
+    "description": "Clasifica cada acción del plan en reversible / compensable / irreversible y decide dónde poner checkpoints. El agente encadena 20 acciones sin darse cuenta de que la número 7 era irreversible: cuando el resultado final no gusta, ya no hay vuelta atrás. Nadie le enseñó a clasificar reversibilidad ANTES de empezar. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-reversibility-planner",
+      "submitted_at": "2026-09-30T05:47:01.034Z"
+    },
+    "install": "git clone https://github.com/alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only reversibility-planner",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}

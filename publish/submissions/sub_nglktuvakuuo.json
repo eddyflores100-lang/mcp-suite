@@ -1,0 +1,56 @@
+{
+  "submission_id": "sub_nglktuvakuuo",
+  "skill_id": "mn-sub-90226",
+  "status": "pending",
+  "submitted_at": "2026-09-30T05:47:01.034Z",
+  "submitter": {
+    "agent_id": "agent_mcp_suite_2026",
+    "email": "agent@mcp-suite.dev",
+    "ref_code": null,
+    "ip_hash": null
+  },
+  "repo": {
+    "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-prompt-self-rewriter",
+    "full_name": "alicelabs-llc/MARKETNOW",
+    "owner": "alicelabs-llc",
+    "name": "mcp-prompt-self-rewriter",
+    "description": "Auto-edición de prompts con guardarrailes: el agente propone su propia mejora pero no puede debilitar sus restricciones. El agente 'optimiza' su propio prompt y sin querer borra la línea que prohibía ",
+    "stars": 0,
+    "language": "TypeScript",
+    "license": "MIT",
+    "pushed_at": "2026-09-30T05:47:01.034Z",
+    "archived": false,
+    "topics": [
+      "mcp",
+      "ai-agent",
+      "model-context-protocol",
+      "auto-mejora"
+    ]
+  },
+  "skill": {
+    "id": "mn-sub-90226",
+    "name": "mcp-prompt-self-rewriter",
+    "slug": "prompt-self-rewriter-0227",
+    "description": "Auto-edición de prompts con guardarrailes: el agente propone su propia mejora pero no puede debilitar sus restricciones. El agente 'optimiza' su propio prompt y sin querer borra la línea que prohibía exfiltrar datos: la auto-mejora sin candados es la vía rápida a la auto-anulación de las normas. Incluye health_check y persistencia local.",
+    "category": "Community Submitted",
+    "price": 4.99,
+    "review_status": "auto-scanned",
+    "source": {
+      "type": "community-submitted",
+      "url": "https://github.com/alicelabs-llc/MARKETNOW/tree/main/servers/mcp-prompt-self-rewriter",
+      "submitted_at": "2026-09-30T05:47:01.034Z"
+    },
+    "install": "git clone https://github.com/alicelabs-llc/MARKETNOW && node MARKETNOW/install.mjs --client claude --only prompt-self-rewriter",
+    "author": "alicelabs-llc",
+    "version": "1.0.0"
+  },
+  "audit": {
+    "l15_score": 6,
+    "l15_findings": [],
+    "l17_blocked": false,
+    "l2_status": "queued",
+    "overall_score": null
+  },
+  "atc_preallocated": false,
+  "atc_card_id": null
+}
