@@ -16,6 +16,10 @@ const SERVERS_DIR = join(ROOT, "servers");
 const CATALOG_FILE = join(ROOT, "catalog.json");
 
 const args = process.argv.slice(2);
+const selection = args.filter(arg => arg !== "--check");
+if (args.filter(arg => arg === "--check").length > 1 || (selection.length && !(selection.length === 2 && selection[0] === "--only" && /^[a-z0-9-]+$/.test(selection[1])))) {
+  console.error("Usage: generator.mjs [--only server-id] [--check]"); process.exit(1);
+}
 const onlyFlag = args.includes("--only") ? args[args.indexOf("--only") + 1] : null;
 const checkMode = args.includes("--check");
 
@@ -352,6 +356,7 @@ if (onlyFlag && !target.length) { console.error(`no existe spec: ${onlyFlag}`); 
 const catalog = { generated_at: new Date().toISOString(), total_servers: specs.length, categories: {}, servers: [] };
 
 for (const spec of specs) {
+  if (onlyFlag && spec.id !== onlyFlag) continue;
   const dir = join(SERVERS_DIR, `mcp-${spec.id}`);
   mkdirSync(join(dir, "src"), { recursive: true });
   mkdirSync(join(dir, "data"), { recursive: true });
@@ -377,8 +382,8 @@ for (const spec of specs) {
   });
 }
 
-writeFileSync(CATALOG_FILE, JSON.stringify(catalog, null, 2));
+if (!onlyFlag) writeFileSync(CATALOG_FILE, JSON.stringify(catalog, null, 2));
 console.log(`✔ generados ${target.length}/${specs.length} servidores en servers/`);
 const totalTools = specs.reduce((acc, s) => acc + s.tools.length + 1, 0);
 console.log(`✔ total tools (incl. health_check): ${totalTools}`);
-console.log(`✔ catálogo: catalog.json (${Object.keys(catalog.categories).length} categorías)`);
+console.log(onlyFlag ? "✔ catálogo global conservado" : `✔ catálogo: catalog.json (${Object.keys(catalog.categories).length} categorías)`);

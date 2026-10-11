@@ -8,9 +8,13 @@ import { spawn } from "node:child_process";
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const SERVERS = join(ROOT, "servers");
 const args = process.argv.slice(2);
-const only = args.includes("--only") ? args[args.indexOf("--only") + 1] : null;
+if (args.length && !(args.length === 2 && args[0] === "--only" && /^[a-z0-9-]+$/.test(args[1]))) {
+  console.error("Usage: build.mjs [--only server-id]"); process.exit(1);
+}
+const only = args[1];
 
 const dirs = readdirSync(SERVERS).filter((d) => d.startsWith("mcp-") && (!only || d === `mcp-${only}`));
+if (!dirs.length) { console.error("No matching servers"); process.exit(1); }
 console.log(`🔨 compilando ${dirs.length} servidores...`);
 
 const CONCURRENCY = 8;
@@ -20,10 +24,11 @@ const results = [];
 async function worker() {
   while (idx < dirs.length) {
     const dir = dirs[idx++];
-    const tsc = spawn("npx", ["tsc", "-p", "."], { cwd: join(SERVERS, dir), stdio: "pipe" });
+    const tsc = spawn(process.execPath, [join(ROOT, "node_modules/typescript/bin/tsc"), "-p", "."], { cwd: join(SERVERS, dir), stdio: "pipe" });
     let stderr = "";
     tsc.stderr.on("data", (d) => (stderr += d.toString()));
-    const code = await new Promise((res) => tsc.on("close", res));
+    tsc.stdout.on("data", (d) => (stderr += d.toString()));
+    const code = await new Promise((res) => { tsc.on("close", res); tsc.on("error", () => res(1)); });
     if (code !== 0) {
       failed++;
       results.push({ dir, ok: false, error: stderr.slice(0, 500) });
