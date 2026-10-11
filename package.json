@@ -2,7 +2,7 @@
   "name": "mcp-suite",
   "version": "1.0.0",
   "private": true,
-  "description": "Suite de 100+ servidores MCP modernos: integración MarketNow.site + dolores de agentes IA",
+  "description": "Suite de 100+ servidores MCP modernos: integraci\u00f3n MarketNow.site + dolores de agentes IA",
   "type": "module",
   "workspaces": [
     "servers/*"
@@ -12,7 +12,9 @@
     "check": "node tools/generator.mjs --check",
     "build": "node tools/build.mjs",
     "smoke": "node tools/smoke.mjs",
-    "verify": "npm run generate && npm run build && npm run smoke"
+    "verify": "npm run check && npm run build && npm run smoke",
+    "verify:pilot": "node tools/pilot.mjs",
+    "test": "node --test test/smoke.test.mjs test/generator.test.mjs"
   },
   "keywords": [
     "mcp",

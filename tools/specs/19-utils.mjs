@@ -14,36 +14,26 @@ export default [
         desc: "Evalúa una expresión aritmética de forma segura con parser propio (sin eval): + - * / % ** y paréntesis.",
         params: { expresion: { t: "string", d: "Expresión (ej: (1250 - 320) * 0.15)" } },
         code: `const expr = String(expresion).replace(/\\s+/g, "").replace(/,/g, ".").replace(/\\^/g, "**");
-if (!/^[\\d+\\-*/%().]+$/.test(expr.replace(/\\*\\*/g, "*"))) return fail("caracteres no permitidos");
-const tokens = expr.match(/\\d+\\.?\\d*|\\*\\*|[+\\-*/%()]/g);
-if (!tokens) return fail("no parseable");
-const salida: any[] = []; const ops: string[] = [];
-const prec: any = { "+": 1, "-": 1, "*": 2, "/": 2, "%": 2, "**": 3 };
-let prev = "";
-for (const tok of tokens) {
-  if (/^\\d/.test(tok)) { salida.push(parseFloat(tok)); }
-  else if (tok === "(") ops.push(tok);
-  else if (tok === ")") { while (ops.length && ops[ops.length - 1] !== "(") salida.push(ops.pop()); ops.pop(); }
-  else {
-    if ((tok === "-" || tok === "+") && (prev === "" || prev === "(" || prec[prev])) salida.push(0);
-    while (ops.length && ops[ops.length - 1] !== "(" && prec[ops[ops.length - 1]] >= prec[tok]) salida.push(ops.pop());
-    ops.push(tok);
-  }
-  prev = tok;
+if (!expr || expr.length > 1000) return fail("expresión vacía o demasiado larga");
+const tokens = expr.match(/(?:\\d+(?:\\.\\d*)?|\\.\\d+)|\\*\\*|[+\\-*/%()]/g) || [];
+if (tokens.join("") !== expr) return fail("caracteres no permitidos");
+let pos = 0;
+function atom(): number {
+  const t = tokens[pos++];
+  if (t === "(") { const value = sum(); if (tokens[pos++] !== ")") throw Error("paréntesis desbalanceados"); return value; }
+  if (!t || !/^(?:\\d|\\.)/.test(t)) throw Error("expresión malformada");
+  return Number(t);
 }
-while (ops.length) { const op = ops.pop(); if (op !== "(") salida.push(op); }
-const pila: number[] = [];
-for (const t of salida) {
-  if (typeof t === "number") { pila.push(t); continue; }
-  const b = pila.pop() as number; const a = pila.pop() as number;
-  if (a === undefined) return fail("expresión malformada");
-  if (t === "+") pila.push(a + b); else if (t === "-") pila.push(a - b);
-  else if (t === "*") pila.push(a * b); else if (t === "%") pila.push(a % b);
-  else if (t === "**") pila.push(Math.pow(a, b));
-  else if (t === "/") { if (b === 0) return fail("división por cero"); pila.push(a / b); }
+function power(): number { const value = atom(); if (tokens[pos] === "**") { pos++; return value ** unary(); } return value; }
+function unary(): number { if (tokens[pos] === "+") { pos++; return unary(); } if (tokens[pos] === "-") { pos++; return -unary(); } return power(); }
+function product(): number {
+  let value = unary();
+  while (["*", "/", "%"].includes(tokens[pos])) { const op = tokens[pos++]; const next = unary(); if (op !== "*" && next === 0) throw Error("división por cero"); value = op === "*" ? value * next : op === "/" ? value / next : value % next; }
+  return value;
 }
-if (pila.length !== 1 || !Number.isFinite(pila[0])) return fail("expresión malformada");
-return ok({ expresion, resultado: Math.round(pila[0] * 1e10) / 1e10 });`,
+function sum(): number { let value = product(); while (["+", "-"].includes(tokens[pos])) { const op = tokens[pos++]; const next = product(); value = op === "+" ? value + next : value - next; } return value; }
+try { const resultado = sum(); if (pos !== tokens.length || !Number.isFinite(resultado)) return fail("expresión malformada o resultado no finito"); return ok({ expresion, resultado }); }
+catch { return fail("expresión malformada, división por cero o límites excedidos"); }`,
       },
       {
         name: "percent_change",
@@ -253,7 +243,7 @@ return ok({ base: String(de || "USD").toUpperCase() + " " + monto, tabla, fuente
   volumen: { l: 1, ml: 0.001, m3: 1000, gal: 3.78541, qt: 0.946353, pt: 0.473176, cup: 0.236588, floz: 0.0295735 },
   area: { "m2": 1, "km2": 1e6, "cm2": 0.0001, ha: 10000, acre: 4046.86, "ft2": 0.092903, "mi2": 2589988 },
   velocidad: { "m/s": 1, "km/h": 0.277778, mph: 0.44704, kn: 0.514444, "ft/s": 0.3048 },
-  datos: { B: 1, KB: 1024, MB: 1048576, GB: 1073741824, TB: 1.0995116e12, KiB: 1024, MiB: 1048576, GiB: 1073741824 },
+  datos: { b: 1, kb: 1000, mb: 1000000, gb: 1000000000, tb: 1000000000000, kib: 1024, mib: 1048576, gib: 1073741824 },
   tiempo: { s: 1, min: 60, h: 3600, d: 86400, sem: 604800, ms: 0.001 },
 };
 const temp: any = { c: "celsius", f: "fahrenheit", k: "kelvin", celsius: "celsius", fahrenheit: "fahrenheit", kelvin: "kelvin" };
@@ -273,7 +263,7 @@ if (temp[deN] && temp[aN]) {
 for (const [familia, tabla] of Object.entries(factores)) {
   if (tabla[deN] !== undefined && tabla[aN] !== undefined) {
     const resultado = valor * tabla[deN] / tabla[aN];
-    return ok({ valor, de, a, resultado: Math.round(resultado * 1e8) / 1e8, familia });
+    return ok({ valor, de, a, resultado, familia });
   }
 }
 return fail("unidades no soportadas o de familias distintas. Familias: " + Object.keys(factores).join(", ") + " + temperatura (c/f/k)");`,

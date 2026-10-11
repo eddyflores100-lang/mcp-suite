@@ -33,36 +33,26 @@ server.tool(
   async (args: any) => {
     const { expresion } = args as any;
     const expr = String(expresion).replace(/\s+/g, "").replace(/,/g, ".").replace(/\^/g, "**");
-if (!/^[\d+\-*/%().]+$/.test(expr.replace(/\*\*/g, "*"))) return fail("caracteres no permitidos");
-const tokens = expr.match(/\d+\.?\d*|\*\*|[+\-*/%()]/g);
-if (!tokens) return fail("no parseable");
-const salida: any[] = []; const ops: string[] = [];
-const prec: any = { "+": 1, "-": 1, "*": 2, "/": 2, "%": 2, "**": 3 };
-let prev = "";
-for (const tok of tokens) {
-  if (/^\d/.test(tok)) { salida.push(parseFloat(tok)); }
-  else if (tok === "(") ops.push(tok);
-  else if (tok === ")") { while (ops.length && ops[ops.length - 1] !== "(") salida.push(ops.pop()); ops.pop(); }
-  else {
-    if ((tok === "-" || tok === "+") && (prev === "" || prev === "(" || prec[prev])) salida.push(0);
-    while (ops.length && ops[ops.length - 1] !== "(" && prec[ops[ops.length - 1]] >= prec[tok]) salida.push(ops.pop());
-    ops.push(tok);
-  }
-  prev = tok;
+if (!expr || expr.length > 1000) return fail("expresión vacía o demasiado larga");
+const tokens = expr.match(/(?:\d+(?:\.\d*)?|\.\d+)|\*\*|[+\-*/%()]/g) || [];
+if (tokens.join("") !== expr) return fail("caracteres no permitidos");
+let pos = 0;
+function atom(): number {
+  const t = tokens[pos++];
+  if (t === "(") { const value = sum(); if (tokens[pos++] !== ")") throw Error("paréntesis desbalanceados"); return value; }
+  if (!t || !/^(?:\d|\.)/.test(t)) throw Error("expresión malformada");
+  return Number(t);
 }
-while (ops.length) { const op = ops.pop(); if (op !== "(") salida.push(op); }
-const pila: number[] = [];
-for (const t of salida) {
-  if (typeof t === "number") { pila.push(t); continue; }
-  const b = pila.pop() as number; const a = pila.pop() as number;
-  if (a === undefined) return fail("expresión malformada");
-  if (t === "+") pila.push(a + b); else if (t === "-") pila.push(a - b);
-  else if (t === "*") pila.push(a * b); else if (t === "%") pila.push(a % b);
-  else if (t === "**") pila.push(Math.pow(a, b));
-  else if (t === "/") { if (b === 0) return fail("división por cero"); pila.push(a / b); }
+function power(): number { const value = atom(); if (tokens[pos] === "**") { pos++; return value ** unary(); } return value; }
+function unary(): number { if (tokens[pos] === "+") { pos++; return unary(); } if (tokens[pos] === "-") { pos++; return -unary(); } return power(); }
+function product(): number {
+  let value = unary();
+  while (["*", "/", "%"].includes(tokens[pos])) { const op = tokens[pos++]; const next = unary(); if (op !== "*" && next === 0) throw Error("división por cero"); value = op === "*" ? value * next : op === "/" ? value / next : value % next; }
+  return value;
 }
-if (pila.length !== 1 || !Number.isFinite(pila[0])) return fail("expresión malformada");
-return ok({ expresion, resultado: Math.round(pila[0] * 1e10) / 1e10 });
+function sum(): number { let value = product(); while (["+", "-"].includes(tokens[pos])) { const op = tokens[pos++]; const next = product(); value = op === "+" ? value + next : value - next; } return value; }
+try { const resultado = sum(); if (pos !== tokens.length || !Number.isFinite(resultado)) return fail("expresión malformada o resultado no finito"); return ok({ expresion, resultado }); }
+catch { return fail("expresión malformada, división por cero o límites excedidos"); }
   }
 );
 

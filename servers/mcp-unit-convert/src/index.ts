@@ -40,7 +40,7 @@ server.tool(
   volumen: { l: 1, ml: 0.001, m3: 1000, gal: 3.78541, qt: 0.946353, pt: 0.473176, cup: 0.236588, floz: 0.0295735 },
   area: { "m2": 1, "km2": 1e6, "cm2": 0.0001, ha: 10000, acre: 4046.86, "ft2": 0.092903, "mi2": 2589988 },
   velocidad: { "m/s": 1, "km/h": 0.277778, mph: 0.44704, kn: 0.514444, "ft/s": 0.3048 },
-  datos: { B: 1, KB: 1024, MB: 1048576, GB: 1073741824, TB: 1.0995116e12, KiB: 1024, MiB: 1048576, GiB: 1073741824 },
+  datos: { b: 1, kb: 1000, mb: 1000000, gb: 1000000000, tb: 1000000000000, kib: 1024, mib: 1048576, gib: 1073741824 },
   tiempo: { s: 1, min: 60, h: 3600, d: 86400, sem: 604800, ms: 0.001 },
 };
 const temp: any = { c: "celsius", f: "fahrenheit", k: "kelvin", celsius: "celsius", fahrenheit: "fahrenheit", kelvin: "kelvin" };
@@ -60,7 +60,7 @@ if (temp[deN] && temp[aN]) {
 for (const [familia, tabla] of __ents(factores)) {
   if (tabla[deN] !== undefined && tabla[aN] !== undefined) {
     const resultado = valor * tabla[deN] / tabla[aN];
-    return ok({ valor, de, a, resultado: Math.round(resultado * 1e8) / 1e8, familia });
+    return ok({ valor, de, a, resultado, familia });
   }
 }
 return fail("unidades no soportadas o de familias distintas. Familias: " + Object.keys(factores).join(", ") + " + temperatura (c/f/k)");

@@ -25,69 +25,60 @@ server.tool("evaluate", "Evalúa una expresión aritmética de forma segura con 
 }, async (args) => {
     const { expresion } = args;
     const expr = String(expresion).replace(/\s+/g, "").replace(/,/g, ".").replace(/\^/g, "**");
-    if (!/^[\d+\-*/%().]+$/.test(expr.replace(/\*\*/g, "*")))
+    if (!expr || expr.length > 1000)
+        return fail("expresión vacía o demasiado larga");
+    const tokens = expr.match(/(?:\d+(?:\.\d*)?|\.\d+)|\*\*|[+\-*/%()]/g) || [];
+    if (tokens.join("") !== expr)
         return fail("caracteres no permitidos");
-    const tokens = expr.match(/\d+\.?\d*|\*\*|[+\-*/%()]/g);
-    if (!tokens)
-        return fail("no parseable");
-    const salida = [];
-    const ops = [];
-    const prec = { "+": 1, "-": 1, "*": 2, "/": 2, "%": 2, "**": 3 };
-    let prev = "";
-    for (const tok of tokens) {
-        if (/^\d/.test(tok)) {
-            salida.push(parseFloat(tok));
+    let pos = 0;
+    function atom() {
+        const t = tokens[pos++];
+        if (t === "(") {
+            const value = sum();
+            if (tokens[pos++] !== ")")
+                throw Error("paréntesis desbalanceados");
+            return value;
         }
-        else if (tok === "(")
-            ops.push(tok);
-        else if (tok === ")") {
-            while (ops.length && ops[ops.length - 1] !== "(")
-                salida.push(ops.pop());
-            ops.pop();
-        }
-        else {
-            if ((tok === "-" || tok === "+") && (prev === "" || prev === "(" || prec[prev]))
-                salida.push(0);
-            while (ops.length && ops[ops.length - 1] !== "(" && prec[ops[ops.length - 1]] >= prec[tok])
-                salida.push(ops.pop());
-            ops.push(tok);
-        }
-        prev = tok;
+        if (!t || !/^(?:\d|\.)/.test(t))
+            throw Error("expresión malformada");
+        return Number(t);
     }
-    while (ops.length) {
-        const op = ops.pop();
-        if (op !== "(")
-            salida.push(op);
-    }
-    const pila = [];
-    for (const t of salida) {
-        if (typeof t === "number") {
-            pila.push(t);
-            continue;
+    function power() { const value = atom(); if (tokens[pos] === "**") {
+        pos++;
+        return value ** unary();
+    } return value; }
+    function unary() { if (tokens[pos] === "+") {
+        pos++;
+        return unary();
+    } if (tokens[pos] === "-") {
+        pos++;
+        return -unary();
+    } return power(); }
+    function product() {
+        let value = unary();
+        while (["*", "/", "%"].includes(tokens[pos])) {
+            const op = tokens[pos++];
+            const next = unary();
+            if (op !== "*" && next === 0)
+                throw Error("división por cero");
+            value = op === "*" ? value * next : op === "/" ? value / next : value % next;
         }
-        const b = pila.pop();
-        const a = pila.pop();
-        if (a === undefined)
-            return fail("expresión malformada");
-        if (t === "+")
-            pila.push(a + b);
-        else if (t === "-")
-            pila.push(a - b);
-        else if (t === "*")
-            pila.push(a * b);
-        else if (t === "%")
-            pila.push(a % b);
-        else if (t === "**")
-            pila.push(Math.pow(a, b));
-        else if (t === "/") {
-            if (b === 0)
-                return fail("división por cero");
-            pila.push(a / b);
-        }
+        return value;
     }
-    if (pila.length !== 1 || !Number.isFinite(pila[0]))
-        return fail("expresión malformada");
-    return ok({ expresion, resultado: Math.round(pila[0] * 1e10) / 1e10 });
+    function sum() { let value = product(); while (["+", "-"].includes(tokens[pos])) {
+        const op = tokens[pos++];
+        const next = product();
+        value = op === "+" ? value + next : value - next;
+    } return value; }
+    try {
+        const resultado = sum();
+        if (pos !== tokens.length || !Number.isFinite(resultado))
+            return fail("expresión malformada o resultado no finito");
+        return ok({ expresion, resultado });
+    }
+    catch {
+        return fail("expresión malformada, división por cero o límites excedidos");
+    }
 });
 server.tool("percent_change", "Calcula variación porcentual exacta entre dos valores (con dirección y magnitud).", {
     valor_inicial: z.number().describe("Valor inicial"),
